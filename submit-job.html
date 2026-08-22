@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post a Job — WintWorks</title>
+<meta name="description" content="Post your job on WintWorks. Free basic listings for US employers, with optional featured placement to reach thousands of job seekers.">
+<link rel="canonical" href="https://wintworks.com/submit-job.html">
+<meta name="theme-color" content="#14357f">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/app.css">
+<script>try{if(JSON.parse(localStorage.getItem('ww:theme'))||matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="./">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d4ed8"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+        <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#lg)"/>
+        <path d="M24 8l2.6 6.6 6.6-2.6-2.6 6.6 6.6 2.6-6.6 2.6 2.6 6.6-6.6-2.6-2.6 6.6-2.6-6.6-6.6 2.6 2.6-6.6L8.2 21.2l6.6-2.6-2.6-6.6 6.6 2.6z" fill="#fff" opacity=".95" transform="translate(0,10.5) scale(.66)"/>
+        <text x="24" y="36.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#fff">W</text>
+      </svg>
+      <span>Wint<b>Works</b></span>
+    </a>
+    <nav class="main-nav">
+      <a href="./#jobs">Jobs</a>
+      <a href="about.html">About</a>
+      <a href="submit-job.html">Post a Job</a>
+      <a class="cta" href="advertise.html">Advertise</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="var d=document.documentElement;var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;localStorage.setItem('ww:theme',JSON.stringify(n))" aria-label="Toggle dark mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main>
+<div class="page"><div class="container">
+
+
+<div class="page-card">
+<h1>Post a job</h1>
+<p>Reach thousands of active US job seekers on WintWorks. Basic listings are <b>free</b>; featured placements are optional and bring your job to the top.</p>
+<form class="contact-form" onsubmit="composeJob(event)">
+  <label for="jcompany">Company name *</label>
+  <input id="jcompany" type="text" required>
+  <label for="jtitle">Job title *</label>
+  <input id="jtitle" type="text" required>
+  <label for="jloc">Location (city, state or "Remote — USA") *</label>
+  <input id="jloc" type="text" required>
+  <label for="jemail">Contact email *</label>
+  <input id="jemail" type="email" required>
+  <label for="jurl">Application link (URL) *</label>
+  <input id="jurl" type="url" required placeholder="https://…">
+  <label for="jdesc">Short description (optional)</label>
+  <textarea id="jdesc" rows="5" placeholder="2–4 sentences about the role…"></textarea>
+  <label for="jplan">Listing type</label>
+  <select id="jplan">
+    <option value="free">Basic — Free</option>
+    <option value="featured">Featured — $29 / week (top of category)</option>
+    <option value="spotlight">Homepage Spotlight — $99 / week</option>
+  </select>
+  <button class="btn" type="submit" style="justify-self:start">Submit listing →</button>
+</form>
+<p style="margin-top:18px;font-size:14px;color:var(--muted)">A team member will review and publish your listing within 24 hours. Payment for featured plans is arranged by email.</p>
+</div>
+<script>
+function composeJob(e){
+  e.preventDefault();
+  const g=id=>document.getElementById(id).value;
+  const body='Company: '+g('jcompany')+'\nTitle: '+g('jtitle')+'\nLocation: '+g('jloc')+'\nApply URL: '+g('jurl')+'\n\nDescription:\n'+g('jdesc')+'\n\nRequested plan: '+document.getElementById('jplan').selectedOptions[0].text+'\nContact: '+g('jemail');
+  location.href='mailto:jobs@wintworks.com?subject='+encodeURIComponent('[WintWorks] Job submission: '+g('jtitle')+' @ '+g('jcompany'))+'&body='+encodeURIComponent(body);
+}
+</script>
+
+
+</div></div>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="./"><svg viewBox="0 0 48 48" aria-hidden="true" width="30" height="30">
+          <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#lg)"/>
+          <path d="M24 8l2.6 6.6 6.6-2.6-2.6 6.6 6.6 2.6-6.6 2.6 2.6 6.6-6.6-2.6-2.6 6.6-2.6-6.6-6.6 2.6 2.6-6.6L8.2 21.2l6.6-2.6-2.6-6.6 6.6 2.6z" fill="#fff" opacity=".95" transform="translate(0,10.5) scale(.66)"/>
+          <text x="24" y="36.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#fff">W</text>
+        </svg><span>Wint<b>Works</b></span></a>
+        <p>WintWorks is a free job aggregator for the United States and Europe. Listings are pulled automatically from trusted public sources.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="./#jobs">Browse jobs</a>
+        <a href="submit-job.html">Post a job</a>
+        <a href="advertise.html">Advertise with us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </div>
+      <div class="footer-col">
+        <h4>Data sources</h4>
+        <a href="https://www.themuse.com" target="_blank" rel="noopener">The Muse</a>
+        <a href="https://jobicy.com" target="_blank" rel="noopener">Jobicy</a>
+        <a href="https://remoteok.com" target="_blank" rel="noopener">RemoteOK</a>
+        <a href="https://remotive.com" target="_blank" rel="noopener">Remotive</a>
+        <a href="https://www.arbeitnow.com" target="_blank" rel="noopener">Arbeitnow</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <script>document.write(new Date().getFullYear())</script> <a href="./">WintWorks.com</a> — All rights reserved.</span>
+      <span>Jobs are aggregated automatically and remain the property of their original employers.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
