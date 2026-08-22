@@ -230,8 +230,8 @@ TAXONOMY = [
         "engineer","tech","it ","information technology","cloud","security","sysadmin",
         "infrastructure","web","python","java","javascript","react","node","golang",
         "ruby","php","blockchain","game","embedded","hardware","architect"]),
-    ("Data & AI", ["data","analytics","analyst","analyst","machine learning","ml",
-        "ai","artificial intelligence","bi ","database","scientist","statistician",
+    ("Data & AI", ["data","analytics","analyst","analyst","machine learning"," ml ",
+        " ai ","artificial intelligence","bi ","database","scientist","statistician",
         "deep learning","nlp","computer vision"]),
     ("Design & Creative", ["design","ux","ui","graphic","creative","illustrator",
         "animation","art ","visual","brand","figma","product design","interior"]),
@@ -256,7 +256,7 @@ TAXONOMY = [
     ("Education & Training", ["education","teacher","tutor","training",
         "instructional","elearning","learning","professor","curriculum","edtech"]),
     ("Healthcare & Wellness", ["healthcare","nurse","medical","clinical","health",
-        "therapy","pharma","physician","care","dentist","psycholog","wellness"]),
+        "therapy","pharma","physician"," care ","dentist","psycholog","wellness"]),
     ("Legal & Compliance", ["legal","lawyer","attorney","compliance","counsel",
         "paralegal","law ","legal counsel","regulatory"]),
     ("Other", []),
@@ -274,9 +274,9 @@ def map_category(*texts) -> str:
     return "Other"
 
 
-def fmt_money(lo, hi, cur="USD", period="/ year"):
+def fmt_money(lo, hi, symbol="$", period="/ year"):
     def m(v):
-        return "${:,.0f}".format(float(v)) if v else None
+        return f"{symbol}{float(v):,.0f}" if v else None
     a, b = m(lo), m(hi)
     if a and b:
         return f"{a} – {b} {period}"
@@ -299,6 +299,62 @@ def clean_desc(html: str) -> str:
 def dt(ts=None):
     return datetime.now(timezone.utc).isoformat()
 
+
+
+# Multilingual keywords (DE/FR/ES/IT/NL/PL) so localized Adzuna/Arbeitnow listings
+# still map into the right category.
+_EXTRA_KEYS = {
+    "Engineering & IT": ["informatik", "informatica", "informática", "informatyka",
+        "ingenieur", "ingeniero", "ingénieur", "inżynier", "entwickler",
+        "desarrollador", "programador", "programmeur", "programista",
+        "softwareentwickler", "sistemas", "système", "elektronik", "netzwerk",
+        "technik", "ingeniería", "ingenieria", "ingenierie"],
+    "Data & AI": ["daten", "datos", "données", "dane", "künstliche intelligenz",
+        "inteligencia artificial", "intelligence artificielle",
+        "sztuczna inteligencja", "analityk", "datenschutz"],
+    "Design & Creative": ["gestaltung", "diseño", "diseno", "conception",
+        "projektowanie", "grafika", "ilustración", "illustration"],
+    "Marketing & Growth": ["werbung", "publicidad", "pubblicità", "reklama",
+        "kommunikation", "comunicación", "communication", "communicatie",
+        "komunikacja", "mercadeo", "marketing"],
+    "Sales & Business Dev": ["verkauf", "vertrieb", "ventas", "vendite",
+        "sprzedaż", "sprzedaz", "verkoop", "handel", "commercial"],
+    "Product & Project": ["produktmanager", "projektleitung", "projektmanager",
+        "chef de projet", "projectleider", "kierownik projektu",
+        "productmanager"],
+    "Customer Support": ["kundendienst", "service client", "servicio al cliente",
+        "klantenservice", "obsługa klienta", "observação",
+        "support"],
+    "Finance & Accounting": ["finanzen", "finanzas", "finances", "financieel",
+        "księgowość", "ksiegowosc", "buchhaltung", "comptabilité",
+        "contabilidad", "contabilità", "rechnungswesen", "buchhalter",
+        "accountant", "finanz"],
+    "HR & Recruiting": ["personalwesen", "recursos humanos",
+        "ressources humaines", "personeelszaken", "zasoby ludzkie",
+        "personalabteilung"],
+    "Writing & Content": ["redaktion", "redacción", "rédaction", "tekst",
+        "content", "übersetzer", "traductor", "traducteur", "tłumacz"],
+    "Operations & Admin": ["logistik", "logística", "logistique", "logistiek",
+        "logistyka", "verwaltung", "administración", "administration",
+        "administratie", "administracja", "einkauf", "compras", "achats",
+        "inkoop", "zakupy", "lager", "sachbearbeiter"],
+    "Education & Training": ["bildung", "enseñanza", "enseignement",
+        "onderwijs", "nauczanie", "lehrer", "profesor", "enseignant",
+        "docent", "nauczyciel", "ausbildung"],
+    "Healthcare & Wellness": ["gesundheit", "gesundheitswesen", "pflege",
+        "soins", "santé", "sanidad", "salud", "salute", "zdrowie",
+        "gezondheidszorg", "verpleging", "verpleegkundige", "cuidados",
+        "medizin", "médecine", "medicina", "medycyna",
+        "krankenpflege", "infirmier"],
+    "Legal & Compliance": ["recht", "droit", "derecho", "diritto", "prawo",
+        "juridique", "juridisch", "jurídico", "giuridico", "prawny",
+        "anwalt", "advocaat"],
+}
+for _cat, _kws in _EXTRA_KEYS.items():
+    for _row in TAXONOMY:
+        if _row[0] == _cat:
+            _row[1].extend(_kws)
+            break
 
 # ---------------------------------------------------------------- sources
 def fetch_muse():
@@ -512,15 +568,29 @@ def fetch_arbeitnow():
 
 
 ADZUNA_MARKETS = [
-    ("gb", "United Kingdom"), ("de", "Germany"), ("fr", "France"), ("nl", "Netherlands"),
-    ("it", "Italy"), ("es", "Spain"), ("pl", "Poland"), ("at", "Austria"),
-    ("be", "Belgium"), ("ch", "Switzerland"), ("us", "USA"),
+    ("gb", "United Kingdom", "£"), ("de", "Germany", "€"), ("fr", "France", "€"),
+    ("nl", "Netherlands", "€"), ("it", "Italy", "€"), ("es", "Spain", "€"),
+    ("pl", "Poland", "zł"), ("at", "Austria", "€"), ("be", "Belgium", "€"),
+    ("ch", "Switzerland", "CHF"), ("us", "USA", "$"),
 ]
 
 
+def _parse_date(v):
+    """Accepts ISO-8601 ('2026-08-10T20:43:36Z') or unix seconds."""
+    if not v:
+        return ""
+    if isinstance(v, (int, float)) or str(v).isdigit():
+        return datetime.fromtimestamp(float(v), tz=timezone.utc).isoformat()
+    s = str(v).strip()
+    try:
+        return datetime.fromisoformat(s.replace("Z", "+00:00")).isoformat()
+    except Exception:
+        return s[:10]
+
+
 def fetch_adzuna():
-    """Optional source — needs a free key from developer.adzuna.com.
-    Reads env ADZUNA_ID / ADZUNA_KEY, or data/adzuna.json."""
+    """Optional source — uses keys from env ADZUNA_ID/ADZUNA_KEY or data/adzuna.json.
+    Free key: https://developer.adzuna.com — 1 call per market per day."""
     app_id = os.environ.get("ADZUNA_ID", "")
     app_key = os.environ.get("ADZUNA_KEY", "")
     if not app_id or not app_key:
@@ -536,53 +606,46 @@ def fetch_adzuna():
         print("  Adzuna: skipped (no key) — get a free one at developer.adzuna.com")
         return []
     jobs = []
-    for code, label in ADZUNA_MARKETS:
+    for code, label, symbol in ADZUNA_MARKETS:
         try:
             d = get_json(
                 f"https://api.adzuna.com/v1/api/jobs/{code}/search/1"
-                f"?app_id={app_id}&app_key={app_key}&results_per_page=50", timeout=30)
+                f"?app_id={app_id}&app_key={app_key}&results_per_page=50&sort_by=date",
+                timeout=30)
         except Exception as e:
-            print(f"  Adzuna {code}: {e}")
+            print(f"  Adzuna {code}: ERROR {e}")
             continue
         for r in d.get("results", []):
             loc_inner = r.get("location") or {}
-            loc = (loc_inner.get("display_name") or "") or                 ", ".join([x for x in loc_inner.get("area", []) if x])
-            if not region_of(loc):
-                # fall back: market label as country
-                loc = loc or label
-                if not region_of(loc):
-                    continue
+            loc = (loc_inner.get("display_name") or "").strip() or label
             title = r.get("title", "")
             company = (r.get("company") or {}).get("display_name", "")
             salary = ""
             if r.get("salary_min") or r.get("salary_max"):
-                salary = fmt_money(r.get("salary_min"), r.get("salary_max"))
-            created = r.get("created", "")
-            date = ""
-            if created:
-                try:
-                    date = datetime.fromtimestamp(float(created), tz=timezone.utc).isoformat()
-                except Exception:
-                    date = str(created)[:10]
+                salary = fmt_money(r.get("salary_min"), r.get("salary_max"),
+                                   symbol=symbol, period="/ year")
+            cat_label = (r.get("category") or {}).get("label", "")
             jobs.append({
-                "id": f"adzuna-{r.get('id')}",
+                "id": f"adzuna-{code}-{r.get('id')}",
                 "title": title,
                 "company": company,
                 "logo": "",
                 "location": loc,
-                "region": region_of(loc),
-                "country": country_of(loc) or label,
-                "remote": "remote" in loc.lower(),
-                "type": r.get("contract_type") or r.get("contract_time") or "",
+                "region": "US" if code == "us" else "EU",
+                "country": "USA" if code == "us" else label,
+                "remote": "remote" in loc.lower() or "remote" in title.lower(),
+                "type": "",
                 "salary": salary,
-                "date": date,
-                "category": map_category((r.get("category") or {}).get("label", ""), title),
-                "tags": [t for t in (r.get("contract_time"), r.get("contract_type")) if t][:4],
+                "date": _parse_date(r.get("created")),
+                "category": map_category(cat_label, title),
+                "tags": [t for t in (r.get("contract_time"),) if t][:3],
                 "description": clean_desc(r.get("description", "")),
-                "url": r.get("redirect_url", ""),
+                "url": r.get("redirect_url", "") or r.get("redirect_link", ""),
                 "source": "Adzuna",
             })
     return jobs
+
+
 
 
 SOURCES = [
