@@ -923,9 +923,10 @@ function bindEvents() {
 }
 
 function initTheme() {
+  // الوضع الافتراضي = فاتح. الداكن فقط إذا اختاره المستخدم بنفسه.
   const saved = store.get("ww:theme", null);
-  const dark = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  if (dark) document.documentElement.dataset.theme = "dark";
+  if (saved === "dark") document.documentElement.dataset.theme = "dark";
+  else document.documentElement.dataset.theme = "light";
 }
 
 /* ===================== URL FILTER PARAMS (SEO landing) ===================== */
