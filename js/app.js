@@ -204,7 +204,7 @@ function regionEmoji(j) {
 /* ======================== CATEGORY TAXONOMY ======================== */
 const TAXONOMY = [
   ["Engineering & IT", ["engineering","software","developer","development","devops","frontend","backend","full stack","mobile","ios","android","qa","testing","engineer","tech","it ","information technology","cloud","security","sysadmin","infrastructure","web","python","java","javascript","react","node","golang","ruby","php","blockchain","game","embedded","hardware","architect"]],
-  ["Data & AI", ["data","analytics","analyst","machine learning","ml","ai","artificial intelligence","bi ","database","scientist","statistician","deep learning","nlp","computer vision"]],
+  ["Data & AI", ["data","analytics","analyst","machine learning"," ml "," ai ","artificial intelligence","bi ","database","scientist","statistician","deep learning","nlp","computer vision"]],
   ["Design & Creative", ["design","ux","ui","graphic","creative","illustrator","animation","art ","visual","brand","figma","product design"]],
   ["Marketing & Growth", ["marketing","seo","growth","digital marketing","social media","content marketing","brand","affiliate","ppc","advertising","go-to-market","gtm","communications","community","email marketing"]],
   ["Sales & Business Dev", ["sales","account executive","business development","bdr","sdr","account manager","partnership","sales development"]],
@@ -215,10 +215,30 @@ const TAXONOMY = [
   ["Writing & Content", ["writing","writer","content","copywriter","editor","journalism","translation","editorial","blog","author","proofreader"]],
   ["Operations & Admin", ["operations","administration","office manager","logistics","supply chain","facilities","executive assistant","admin","procurement","warehouse","receptionist"]],
   ["Education & Training", ["education","teacher","tutor","training","instructional","elearning","learning","professor","curriculum","edtech"]],
-  ["Healthcare & Wellness", ["healthcare","nurse","medical","clinical","health","therapy","pharma","physician","care","dentist","psycholog","wellness"]],
+  ["Healthcare & Wellness", ["healthcare","nurse","medical","clinical","health","therapy","pharma","physician"," care ","dentist","psycholog","wellness"]],
   ["Legal & Compliance", ["legal","lawyer","attorney","compliance","counsel","paralegal","law ","regulatory"]],
 ];
 const OTHER = "Other";
+const EXTRA_KEYS = {
+  "Engineering & IT": ["informatik","informatica","informática","informatyka","ingenieur","ingeniero","ingénieur","inżynier","entwickler","desarrollador","programador","programmeur","programista","softwareentwickler","sistemas","système","elektronik","netzwerk","technik","ingeniería","ingenierie"],
+  "Data & AI": ["daten","datos","données","dane","künstliche intelligenz","inteligencia artificial","intelligence artificielle","sztuczna inteligencja","analityk"],
+  "Design & Creative": ["gestaltung","diseño","conception","projektowanie","grafika","ilustración","illustration"],
+  "Marketing & Growth": ["werbung","publicidad","pubblicità","reklama","kommunikation","comunicación","communication","communicatie","komunikacja","mercadeo"],
+  "Sales & Business Dev": ["verkauf","vertrieb","ventas","vendite","sprzedaż","verkoop","handel","commercial"],
+  "Product & Project": ["produktmanager","projektleitung","projektmanager","chef de projet","projectleider","kierownik projektu","productmanager"],
+  "Customer Support": ["kundendienst","service client","servicio al cliente","klantenservice","obsługa klienta"],
+  "Finance & Accounting": ["finanzen","finanzas","finances","financieel","księgowość","buchhaltung","comptabilité","contabilidad","contabilità","rechnungswesen","buchhalter","accountant","finanz"],
+  "HR & Recruiting": ["personalwesen","recursos humanos","ressources humaines","personeelszaken","zasoby ludzkie"],
+  "Writing & Content": ["redaktion","redacción","rédaction","übersetzer","traductor","traducteur","tłumacz"],
+  "Operations & Admin": ["logistik","logística","logistique","logistiek","logistyka","verwaltung","administración","administration","administratie","administracja","einkauf","compras","achats","inkoop","zakupy","lager","sachbearbeiter"],
+  "Education & Training": ["bildung","enseñanza","enseignement","onderwijs","nauczanie","lehrer","profesor","enseignant","docent","nauczyciel","ausbildung"],
+  "Healthcare & Wellness": ["gesundheit","gesundheitswesen","pflege","soins","santé","sanidad","salud","salute","zdrowie","gezondheidszorg","verpleging","verpleegkundige","cuidados","medizin","médecine","medicina","medycyna","krankenpflege","infirmier"],
+  "Legal & Compliance": ["recht","droit","derecho","diritto","prawo","juridique","juridisch","jurídico","giuridico","prawny","anwalt","advocaat"],
+};
+for (const [cat, kws] of Object.entries(EXTRA_KEYS)) {
+  const row = TAXONOMY.find((r) => r[0] === cat);
+  if (row) row[1].push(...kws);
+}
 function mapCategory() {
   const blob = [...arguments].filter(Boolean).join(" ").toLowerCase();
   for (const [name, keys] of TAXONOMY) {
@@ -226,8 +246,8 @@ function mapCategory() {
   }
   return OTHER;
 }
-function fmtMoney(lo, hi) {
-  const f = (v) => (v ? "$" + Number(v).toLocaleString("en-US", { maximumFractionDigits: 0 }) : "");
+function fmtMoney(lo, hi, symbol = "$") {
+  const f = (v) => (v ? symbol + Number(v).toLocaleString("en-US", { maximumFractionDigits: 0 }) : "");
   if (lo && hi) return `${f(lo)} – ${f(hi)} / yr`;
   if (lo) return `${f(lo)} / yr`;
   if (hi) return `up to ${f(hi)} / yr`;
@@ -393,13 +413,15 @@ const SOURCES = [
 async function fetchSource(src) {
   const results = [];
   let anySuccess = false;
-  for (const url of src.urls) {
+  for (const item of src.urls) {
+    const url = typeof item === "string" ? item : item.url;
+    const meta = typeof item === "object" ? item : null;
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 20000);
     try {
       const res = await fetch(url, { signal: ctrl.signal });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      results.push(...src.parse(await res.json()));
+      results.push(...src.parse(await res.json(), meta));
       anySuccess = true;
     } catch (_) { /* skip failed page, keep others */ }
     finally { clearTimeout(timer); }
@@ -410,12 +432,17 @@ async function fetchSource(src) {
 
 /* ======================= OPTIONAL: ADZUNA (multi-country) ======================= */
 const ADZUNA_MARKETS = [
-  { code: "gb", label: "United Kingdom" }, { code: "de", label: "Germany" },
-  { code: "fr", label: "France" }, { code: "nl", label: "Netherlands" },
-  { code: "it", label: "Italy" }, { code: "es", label: "Spain" },
-  { code: "pl", label: "Poland" }, { code: "at", label: "Austria" },
-  { code: "be", label: "Belgium" }, { code: "ch", label: "Switzerland" },
-  { code: "us", label: "USA" },
+  { code: "gb", label: "United Kingdom", symbol: "£" },
+  { code: "de", label: "Germany", symbol: "€" },
+  { code: "fr", label: "France", symbol: "€" },
+  { code: "nl", label: "Netherlands", symbol: "€" },
+  { code: "it", label: "Italy", symbol: "€" },
+  { code: "es", label: "Spain", symbol: "€" },
+  { code: "pl", label: "Poland", symbol: "zł" },
+  { code: "at", label: "Austria", symbol: "€" },
+  { code: "be", label: "Belgium", symbol: "€" },
+  { code: "ch", label: "Switzerland", symbol: "CHF" },
+  { code: "us", label: "USA", symbol: "$" },
 ];
 let adzunaSource = null;
 function buildAdzunaSource() {
@@ -424,33 +451,34 @@ function buildAdzunaSource() {
   return {
     name: "Adzuna",
     icon: "AZ",
-    urls: ADZUNA_MARKETS.map((m) =>
-      `https://api.adzuna.com/v1/api/jobs/${m.code}/search/1?app_id=${encodeURIComponent(a.appId)}&app_key=${encodeURIComponent(a.appKey)}&results_per_page=50&content-type=application/json`),
-    parse(json) {
+    urls: ADZUNA_MARKETS.map((m) => ({
+      url: `https://api.adzuna.com/v1/api/jobs/${m.code}/search/1?app_id=${encodeURIComponent(a.appId)}&app_key=${encodeURIComponent(a.appKey)}&results_per_page=50&sort_by=date`,
+      code: m.code, label: m.label, symbol: m.symbol,
+    })),
+    parse(json, meta) {
       const out = [];
+      const market = meta || {};
       for (const r of json.results || []) {
-        const locName = ((r.location || {}).display_name || "") + ", " + ((r.location || {}).area || []);
         const title = r.title || "";
-        const meta = [title, (r.category || {}).label, (r.company || {}).display_name].join(" ");
-        const region = regionOf(locName) || (r.location && r.location.country ? null : null);
-        if (!regionOf(locName)) continue;
+        const locName = (r.location || {}).display_name || market.label || "";
         const sal = [r.salary_min, r.salary_max].some((x) => x != null)
-          ? fmtMoney(r.salary_min, r.salary_max) : "";
+          ? fmtMoney(r.salary_min, r.salary_max, market.symbol || "$") : "";
         out.push({
-          id: `adzuna-${r.id}`,
+          id: `adzuna-${market.code}-${r.id}`,
           title,
           company: (r.company || {}).display_name || "",
           logo: "",
           location: locName,
-          region: regionOf(locName),
-          remote: /remote/i.test(locName),
-          type: r.contract_type || r.contract_time || "",
+          region: market.code === "us" ? "US" : "EU",
+          country: market.code === "us" ? "USA" : market.label || "",
+          remote: /remote/i.test(locName) || /remote/i.test(title),
+          type: r.contract_time || r.contract_type || "",
           salary: sal,
-          date: r.created ? (Number(r.created) * 1000 ? new Date(Number(r.created) * 1000).toISOString() : new Date(r.created).toISOString()) : "",
+          date: r.created ? new Date(r.created).toISOString() : "",
           category: mapCategory((r.category || {}).label, title),
           tags: [r.contract_time, r.contract_type].filter(Boolean).slice(0, 4),
           description: r.description || "",
-          url: r.redirect_url || "",
+          url: r.redirect_url || r.redirect_link || "",
           source: "Adzuna",
         });
       }
@@ -472,8 +500,10 @@ const state = {
 function normalize(job) {
   job.salaryNum = salaryNumber(job.salary);
   job.isBookmarked = state.bookmarks.has(job.id);
-  job.region = regionOf(job.location);
-  job.country = job.country || countryOf(job.location);
+  // prefer values from the source/snapshot (e.g. Adzuna market), fall back to
+  // location-string detection for live-fetched jobs.
+  job.region = job.region || regionOf(job.location) || null;
+  job.country = job.country || countryOf(job.location) || "";
   return job;
 }
 
