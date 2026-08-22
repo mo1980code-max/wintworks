@@ -19,10 +19,6 @@ const CONFIG = {
   /* ── refresh cadence (minutes) ── */
   refreshMinutes: 20,
   maxJobsInMemory: 1800,
-  /* Optional: Adzuna (free developer key at developer.adzuna.com) — covers GB/DE/FR/NL/IT/ES/PL/AT/BE/CH/US.
-     Paste keys into data/config.json → { "adzuna": { "appId": "…", "appKey": "…" } } and the site
-     starts pulling local jobs from every European market automatically. */
-  adzuna: null,
 };
 
 /* ============================ UTILS ============================ */
@@ -262,7 +258,7 @@ function salaryNumber(salaryStr) {
 const SOURCES = [
   {
     name: "The Muse", icon: "M",
-    urls: [1, 2, 3, 4].map((p) => `https://www.themuse.com/api/public/jobs?page=${p}&limit=20`),
+    urls: [1, 2].map((p) => `https://www.themuse.com/api/public/jobs?page=${p}&limit=20`),
     parse(json) {
       const out = [];
       for (const r of json.results || []) {
@@ -379,7 +375,7 @@ const SOURCES = [
   },
   {
     name: "Arbeitnow", icon: "A",
-    urls: Array.from({length: 8}, (_, i) => `https://www.arbeitnow.com/api/job-board-api?page=${i + 1}`),
+    urls: Array.from({length: 2}, (_, i) => `https://www.arbeitnow.com/api/job-board-api?page=${i + 1}`),
     parse(json) {
       const out = [];
       for (const r of json.data || []) {
@@ -430,63 +426,6 @@ async function fetchSource(src) {
   return results;
 }
 
-/* ======================= OPTIONAL: ADZUNA (multi-country) ======================= */
-const ADZUNA_MARKETS = [
-  { code: "gb", label: "United Kingdom", symbol: "£" },
-  { code: "de", label: "Germany", symbol: "€" },
-  { code: "fr", label: "France", symbol: "€" },
-  { code: "nl", label: "Netherlands", symbol: "€" },
-  { code: "it", label: "Italy", symbol: "€" },
-  { code: "es", label: "Spain", symbol: "€" },
-  { code: "pl", label: "Poland", symbol: "zł" },
-  { code: "at", label: "Austria", symbol: "€" },
-  { code: "be", label: "Belgium", symbol: "€" },
-  { code: "ch", label: "Switzerland", symbol: "CHF" },
-  { code: "us", label: "USA", symbol: "$" },
-];
-let adzunaSource = null;
-function buildAdzunaSource() {
-  const a = CONFIG.adzuna;
-  if (!a || !a.appId || !a.appKey || /YOUR[_A-Z]/.test(a.appId) || /YOUR[_A-Z]/.test(a.appKey)) return null;
-  return {
-    name: "Adzuna",
-    icon: "AZ",
-    urls: ADZUNA_MARKETS.map((m) => ({
-      url: `https://api.adzuna.com/v1/api/jobs/${m.code}/search/1?app_id=${encodeURIComponent(a.appId)}&app_key=${encodeURIComponent(a.appKey)}&results_per_page=50&sort_by=date`,
-      code: m.code, label: m.label, symbol: m.symbol,
-    })),
-    parse(json, meta) {
-      const out = [];
-      const market = meta || {};
-      for (const r of json.results || []) {
-        const title = r.title || "";
-        const locName = (r.location || {}).display_name || market.label || "";
-        const sal = [r.salary_min, r.salary_max].some((x) => x != null)
-          ? fmtMoney(r.salary_min, r.salary_max, market.symbol || "$") : "";
-        out.push({
-          id: `adzuna-${market.code}-${r.id}`,
-          title,
-          company: (r.company || {}).display_name || "",
-          logo: "",
-          location: locName,
-          region: market.code === "us" ? "US" : "EU",
-          country: market.code === "us" ? "USA" : market.label || "",
-          remote: /remote/i.test(locName) || /remote/i.test(title),
-          type: r.contract_time || r.contract_type || "",
-          salary: sal,
-          date: r.created ? new Date(r.created).toISOString() : "",
-          category: mapCategory((r.category || {}).label, title),
-          tags: [r.contract_time, r.contract_type].filter(Boolean).slice(0, 4),
-          description: r.description || "",
-          url: r.redirect_url || r.redirect_link || "",
-          source: "Adzuna",
-        });
-      }
-      return out;
-    },
-  };
-}
-
 /* ============================ DATA LAYER ============================ */
 const state = {
   jobs: [],
@@ -534,28 +473,28 @@ function setJobs(list) {
   renderAll();
 }
 
+const SNAP_TTL = 30 * 60 * 1000; // نعاود استخدام السناپشوت المخزن 30 دقيقة
+
 async function load() {
-  // 1) instant snapshot from static file (same-origin, fast)
+  // 1) عرض فوري من localStorage (صفر تحميل للزائر العائد)
+  const cached = store.get("ww:snap", null);
+  if (cached && cached.jobs && Date.now() - cached.t < SNAP_TTL) {
+    setJobs(cached.jobs.map(normalize));
+  }
+  // 2) تحديث من ملف السناپشوت (يستفيد من كاش HTTP؛ بدون cache-buster)
   try {
-    const res = await fetch(`data/jobs.json?t=${Date.now()}`);
+    const res = await fetch("data/jobs.json");
     if (res.ok) {
       const snap = await res.json();
-      setJobs((snap.jobs || []).map(normalize));
+      store.set("ww:snap", { t: Date.now(), jobs: snap.jobs }); // نسخة خفيفة للكاش فقط
+      setJobs(snap.jobs.map(normalize));
     } else throw new Error("no snapshot");
   } catch {
-    // 2) fallback: browser cache
-    const cached = store.get("ww:jobs", null);
-    if (cached && Array.isArray(cached)) setJobs(cached);
-  }
-  // optional Adzuna config
-  try {
-    const cfgRes = await fetch("data/config.json?t=" + Date.now());
-    if (cfgRes.ok) {
-      const cfg = await cfgRes.json();
-      if (cfg.adzuna) CONFIG.adzuna = cfg.adzuna;
+    if (!cached) {
+      const old = store.get("ww:jobs", null);
+      if (old && Array.isArray(old)) setJobs(old);
     }
-  } catch (_) {}
-  adzunaSource = buildAdzunaSource();
+  }
   // 3) live refresh from all sources
   refreshLive(true);
   if (state.urlFiltered) {
@@ -567,7 +506,7 @@ async function load() {
 
 async function refreshLive(initial = false) {
   const prevIds = new Set(state.jobs.map((j) => j.id));
-  const active = adzunaSource ? [...SOURCES, adzunaSource] : SOURCES;
+  const active = SOURCES;
   const settled = await Promise.allSettled(active.map((s) => fetchSource(s)));
   const fresh = [];
   settled.forEach((r, i) => {
@@ -580,7 +519,6 @@ async function refreshLive(initial = false) {
     }
   });
   state.lastLive = new Date();
-  store.set("ww:jobs", fresh);   // cache for offline fallback
   setJobs(mergeJobs(fresh));
   const gained = state.jobs.filter((j) => !prevIds.has(j.id)).length;
   if (!initial && gained > 0) {
@@ -709,11 +647,16 @@ function renderHome() {
 function updateSyncPills() {
   const wrap = $("#syncStatus");
   if (!wrap) return;
-  const active = adzunaSource ? [...SOURCES, adzunaSource] : SOURCES;
-  wrap.innerHTML = active.map((s) => {
-    const st = state.sourceStatus[s.name];
-    const cls = st ? (st.ok ? "ok" : "err") : "";
-    return `<span class="src-pill ${cls}"><span class="dot"></span>${esc(s.name)}${st ? ` <b>${st.count}</b>` : ""}</span>`;
+  // مصدر Adzuna يأتي في السناپشوت اليومي (وليس من المتصفح) — نعرضه من بيانات الحالة
+  const snapCounts = {};
+  state.jobs.forEach((j) => { snapCounts[j.source] = (snapCounts[j.source] || 0) + 1; });
+  const names = SOURCES.map((s) => s.name);
+  Object.keys(snapCounts).forEach((n) => { if (!names.includes(n)) names.push(n); });
+  wrap.innerHTML = names.map((name) => {
+    const st = state.sourceStatus[name];
+    const count = st ? st.count : snapCounts[name] || 0;
+    const cls = st ? (st.ok ? "ok" : "err") : "ok";
+    return `<span class="src-pill ${cls}"><span class="dot"></span>${esc(name)} <b>${count}</b></span>`;
   }).join("");
 }
 
