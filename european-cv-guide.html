@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#14357f">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="css/app.css">
-<script>try{if(JSON.parse(localStorage.getItem('ww:theme'))||matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+<script>try{var t=JSON.parse(localStorage.getItem('ww:theme'));if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type": "Question", "name": "What is the difference between a CV and a resume in Europe?", "acceptedAnswer": {"@type": "Answer", "text": "In Europe a CV is the standard document: 1\u20132 pages, reverse-chronological, with education and dates. A 'resume' (US style) is a shorter, achievement-focused version. Both are accepted in international companies, but the CV is expected in most European countries."}},
 {"@type": "Question", "name": "Do I need a photo on my CV in Europe?", "acceptedAnswer": {"@type": "Answer", "text": "Traditionally photo+date-of-birth were standard in Germany, France and Austria, but it is now optional in most companies and even discouraged in the UK, Ireland, the Netherlands and the Nordics. Skip it unless the employer asks; modern ATS systems strip photos anyway."}},
