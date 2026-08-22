@@ -293,7 +293,7 @@ def clean_desc(html: str) -> str:
     # normalize newlines inside plain-text descriptions
     if not re.search(r"<[a-zA-Z]", html):
         html = html.replace("\n", "<br>")
-    return html[:3000]
+    return html[:1200]
 
 
 def dt(ts=None):
@@ -688,6 +688,13 @@ def main():
     jobs = sorted(seen.values(),
                   key=lambda j: j.get("date", ""), reverse=True)[:1800]
 
+    for j in jobs:  # drop empty fields to shrink the payload
+        if not j.get("logo"):
+            j.pop("logo", None)
+        if not j.get("type"):
+            j.pop("type", None)
+        if not j.get("tags"):
+            j.pop("tags", None)
     payload = {
         "generated_at": dt(),
         "count": len(jobs),
@@ -696,7 +703,7 @@ def main():
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False)
+        json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
     from collections import Counter
     regs = Counter(j.get("region", "") for j in jobs)
     ctrs = Counter(j.get("country", "Worldwide / Remote") for j in jobs)
