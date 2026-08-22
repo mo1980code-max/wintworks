@@ -558,6 +558,11 @@ async function load() {
   adzunaSource = buildAdzunaSource();
   // 3) live refresh from all sources
   refreshLive(true);
+  if (state.urlFiltered) {
+    const j = $("#jobs");
+    if (j && typeof j.scrollIntoView === "function")
+      setTimeout(() => j.scrollIntoView({ behavior: "smooth" }), 350);
+  }
 }
 
 async function refreshLive(initial = false) {
@@ -980,10 +985,25 @@ function initTheme() {
   if (dark) document.documentElement.dataset.theme = "dark";
 }
 
+/* ===================== URL FILTER PARAMS (SEO landing) ===================== */
+function applyUrlParams() {
+  const p = new URLSearchParams(location.search);
+  let applied = false;
+  if (p.has("q")) { state.filters.q = p.get("q").trim(); $("#searchInput").value = state.filters.q; applied = true; }
+  if (p.has("cat")) { state.filters.cat = p.get("cat"); $("#filterCat").value = state.filters.cat; applied = true; }
+  if (p.has("region")) { state.filters.region = p.get("region"); $("#filterRegion").value = state.filters.region; applied = true; }
+  if (p.has("country")) { state.filters.country = p.get("country"); applied = true; }
+  if (p.get("remote") === "1") { state.filters.remoteOnly = true; $("#filterRemote").checked = true; applied = true; }
+  if (p.get("saved") === "1") { state.filters.savedOnly = true; $("#filterSaved").checked = true; applied = true; }
+  if (applied) state.urlFiltered = true;
+  return applied;
+}
+
 /* ============================ BOOT ============================ */
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   bindEvents();
+  applyUrlParams();
   $("#savedCount").textContent = state.bookmarks.size;
   $("#year").textContent = new Date().getFullYear();
   updateSyncPills();
