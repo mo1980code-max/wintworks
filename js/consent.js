@@ -72,6 +72,11 @@
   }
 
   function openSettings() {
+    // When Google's certified TCF CMP is active, use its official revocation flow.
+    if (typeof window.__tcfapi === "function" && window.googlefc && window.googlefc.callbackQueue) {
+      window.googlefc.callbackQueue.push(window.googlefc.showRevocationMessage);
+      return;
+    }
     var modal = document.getElementById("cookieModal");
     if (!modal) return;
     document.getElementById("consentPreferences").checked = state ? !!state.preferences : true;
@@ -161,6 +166,13 @@
     markup();
     bind();
     addSettingsLink();
-    if (!state) document.getElementById("cookieBanner").hidden = false;
+    if (!state) {
+      // Give an enabled Google-certified CMP time to initialise; avoid showing two notices.
+      window.setTimeout(function () {
+        if (typeof window.__tcfapi !== "function") {
+          document.getElementById("cookieBanner").hidden = false;
+        }
+      }, 800);
+    }
   });
 })();

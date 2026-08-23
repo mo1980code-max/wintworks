@@ -14,10 +14,11 @@ const CONFIG = {
      After AdSense approves your site, replace the XXXX below with
      your publisher ID (starts with ca-pub-). Then create ad units
      and paste their slot IDs. That's the ONLY manual step. */
-  adsenseClient: "ca-pub-XXXXXXXXXXXXXXXX",
-  adSlots: { top: "0000000001", feed: "0000000002", detail: "0000000003" },
+  adsenseClient: "ca-pub-7088247829787060",
+  adSlots: { top: "", feed: "", detail: "" }, // Auto Ads; add real unit IDs only if you create manual units.
   /* ── refresh cadence (minutes) ── */
-  refreshMinutes: 20,
+  refreshMinutes: 60,
+  browserLiveRefresh: false, // Central snapshot avoids per-visitor API polling and respects source limits.
   maxJobsInMemory: 1800,
 };
 
@@ -88,6 +89,10 @@ const EU_WORDS = ["europe","european","uk","united kingdom","britain","british",
 const EU_ABBR = new Set(["uk","gb","ie","fr","es","it","pt","nl","be","lu","ch","at","se","no","dk","fi","is","pl","cz","sk","hu","ro","bg","gr","hr","si","rs","ba","mk","xk","ee","lv","lt","ua","by","ru","cy","tr"]);
 const EU_CITIES = new Set(["london","leeds","liverpool","edinburgh","glasgow","belfast","cardiff","dublin","cork","paris","lyon","marseille","toulouse","bordeaux","nice","lille","strasbourg","nantes","berlin","munich","munchen","münchen","hamburg","frankfurt","cologne","köln","stuttgart","dusseldorf","düsseldorf","leipzig","dortmund","essen","bremen","dresden","hanover","nuremberg","nürnberg","trier","zurich","zürich","geneva","genève","basel","bern","lausanne","amsterdam","rotterdam","utrecht","eindhoven","brussels","brussel","antwerp","ghent","vienna","wien","graz","linz","salzburg","madrid","barcelona","valencia","seville","bilbao","malaga","lisbon","lisboa","porto","milan","milano","rome","roma","turin","torino","naples","napoli","florence","firenze","warsaw","warszawa","krakow","kraków","wroclaw","gdansk","poznan","lodz","lublin","katowice","szczecin","prague","praha","brno","bratislava","budapest","debrecen","szeged","bucharest","bucuresti","cluj","timisoara","iasi","brasov","sofia","plovdiv","varna","athens","athina","thessaloniki","zagreb","split","dubrovnik","ljubljana","belgrade","beograd","sarajevo","skopje","tirana","podgorica","tallinn","tartu","riga","vilnius","kaunas","klaipeda","kyiv","kiev","lviv","odesa","chisinau","minsk","valletta","nicosia","limassol","istanbul","ankara","tbilisi","yerevan","baku","reykjavik","monaco","gibraltar","stockholm","gothenburg","malmo","uppsala","lund","oslo","bergen","stavanger","trondheim","copenhagen","københavn","helsinki","tampere","turku","oulu"]);
 
+// City names shared by the UK and US must not be treated as US evidence without a state/country.
+const UK_AMBIGUOUS_CITIES = ["manchester","birmingham","bristol","cambridge","oxford","newcastle","richmond","plymouth","brighton","york","bath"];
+UK_AMBIGUOUS_CITIES.forEach((city) => { US_CITIES.delete(city); EU_CITIES.add(city); });
+
 const WW_WORDS = ["worldwide","anywhere","any country","global","all countries","international","emea","remote","homeoffice","fully remote","remote job","work from home","wfh"];
 function hasWorldwide(s) {
   const low = s.toLowerCase();
@@ -96,7 +101,7 @@ function hasWorldwide(s) {
 
 /* country markers: [countryName, [markers…]] — checked with word boundaries */
 const COUNTRY_MARKERS = [
-  ["United Kingdom", ["united kingdom","britain","british","england","scotland","wales","northern ireland","uk","london","manchester","leeds","liverpool","edinburgh","glasgow","belfast","cardiff","grossbritannien","großbritannien","royaume-uni"]],
+  ["United Kingdom", ["united kingdom","britain","british","england","scotland","wales","northern ireland","uk","london","manchester","birmingham","bristol","cambridge","oxford","newcastle","richmond","plymouth","brighton","york","bath","leeds","liverpool","edinburgh","glasgow","belfast","cardiff","grossbritannien","großbritannien","royaume-uni"]],
   ["Germany", ["germany","deutschland","allemagne","bavaria","bayern","berlin","munich","munchen","münchen","hamburg","frankfurt","cologne","köln","stuttgart","dusseldorf","düsseldorf","leipzig","dortmund","essen","bremen","dresden","hanover","nuremberg","nürnberg","trier","de-"]],
   ["France", ["france","paris","lyon","marseille","toulouse","bordeaux","nice","lille","strasbourg","nantes"]],
   ["Netherlands", ["netherlands","nederland","holland","amsterdam","rotterdam","utrecht","eindhoven"]],
@@ -380,7 +385,9 @@ const SOURCES = [
       const out = [];
       for (const r of json.data || []) {
         const loc = r.location || "";
-        const reg = regionOf(loc);
+        const sourceUrl = r.url || "";
+        const isUkSource = /arbeitnow\.co\.uk/i.test(sourceUrl);
+        const reg = isUkSource ? "EU" : regionOf(loc);
         if (!reg) continue;
         const jt = r.job_types || [];
         out.push({
@@ -390,6 +397,7 @@ const SOURCES = [
           logo: "",
           location: loc,
           region: reg,
+          country: isUkSource ? "United Kingdom" : countryOf(loc),
           remote: !!r.remote,
           type: jt[0] || "",
           salary: "",
@@ -495,8 +503,9 @@ async function load() {
       if (old && Array.isArray(old)) setJobs(old);
     }
   }
-  // 3) live refresh from all sources
-  refreshLive(true);
+  // 3) Optional browser-side refresh. Disabled in production: the central snapshot
+  // is rebuilt by GitHub Actions, avoiding duplicate API calls from every visitor.
+  if (CONFIG.browserLiveRefresh) refreshLive(true);
   if (state.urlFiltered) {
     const j = $("#jobs");
     if (j && typeof j.scrollIntoView === "function")
@@ -683,7 +692,7 @@ function adsenseActive() {
   return adsenseConfigured() && !!(window.WintConsent && window.WintConsent.allows("advertising"));
 }
 function loadAdsense() {
-  if (!adsenseActive() || adsLoaded || window.adsbygoogle) return;
+  if (!adsenseActive() || adsLoaded || document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')) return;
   adsLoaded = true;
   const s = document.createElement("script");
   s.async = true;
@@ -694,8 +703,8 @@ function loadAdsense() {
 function adEl(slot, label = "Advertisement") {
   const div = document.createElement("div");
   div.className = "ad-slot";
-  if (!adsenseActive()) {
-    // Keep unconfigured ad placements completely invisible to visitors and reviewers.
+  if (!adsenseActive() || !slot) {
+    // Auto Ads need no manual slot. Keep empty/manual placements invisible.
     div.classList.add("hidden");
     div.setAttribute("aria-hidden", "true");
     return div;
@@ -940,11 +949,13 @@ function bindEvents() {
     if (event.detail && event.detail.advertising) renderAll();
   });
 
-  // auto refresh (set & forget)
-  setInterval(() => { if (!document.hidden) refreshLive(); }, CONFIG.refreshMinutes * 60000);
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && state.lastLive && Date.now() - state.lastLive > 10 * 60000) refreshLive();
-  });
+  // Optional browser refresh for local/testing use only.
+  if (CONFIG.browserLiveRefresh) {
+    setInterval(() => { if (!document.hidden) refreshLive(); }, CONFIG.refreshMinutes * 60000);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && state.lastLive && Date.now() - state.lastLive > CONFIG.refreshMinutes * 60000) refreshLive();
+    });
+  }
 }
 
 function initTheme() {
