@@ -392,3 +392,69 @@ button { font: inherit; cursor: pointer; }
   .search-wrap svg { display: none; }
   .search-wrap button { width: 100%; }
 }
+
+/* ---------- compact, policy-compliant source attribution ---------- */
+.job-source-line {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+.posted-age::after { content: "·"; margin-left: 6px; }
+.source-credit {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+}
+.source-credit:hover { color: var(--primary); text-decoration: underline; }
+/* Adzuna's API terms require “Jobs by Adzuna” on every displayed advert,
+   with the complete label occupying at least 116 × 23 px. */
+.source-credit.adzuna-credit {
+  width: 116px;
+  min-width: 116px;
+  height: 23px;
+  padding: 0 4px;
+  gap: 4px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: #fff;
+  color: #334155;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.adzuna-credit span { font-size: 10px; line-height: 1; }
+.adzuna-credit img {
+  display: block;
+  width: 63px;
+  height: 23px;
+  object-fit: contain;
+}
+.detail-meta .source-credit { margin-left: 2px; }
+@media (max-width: 390px) {
+  .job-foot { align-items: flex-end; gap: 8px; }
+}
+
+/* ---------- reviewed country guides ---------- */
+.article-meta {
+  margin: -8px 0 22px;
+  color: var(--muted) !important;
+  font-size: 13px;
+}
+.guide-note {
+  margin: 20px 0;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--primary) 32%, var(--border));
+  border-left: 4px solid var(--primary);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--primary) 5%, var(--card));
+  color: color-mix(in srgb, var(--text) 88%, var(--muted));
+  font-size: 14px;
+}
+.official-sources a { overflow-wrap: anywhere; }
+.country-guide h3 { font-size: 16px; margin: 20px 0 5px; }
+.country-guide .btn { margin-top: 8px; }
