@@ -569,6 +569,21 @@ function logoHtml(job, size = 46) {
   return fb;
 }
 
+function sourceName(source) {
+  return source === "RemoteOK" ? "Remote OK" : source || "Original source";
+}
+
+function sourceAttribution(job) {
+  const url = esc(job.url || "#");
+  const rel = "noopener noreferrer"; // Deliberately no nofollow: Remote OK requires a followed source link.
+  if (job.source === "Adzuna") {
+    return `<a class="source-credit adzuna-credit" href="${url}" target="_blank" rel="${rel}" aria-label="Jobs by Adzuna">
+      <span>Jobs by</span><img src="assets/adzuna-logo.png" alt="Adzuna" width="63" height="23">
+    </a>`;
+  }
+  return `<a class="source-credit" href="${url}" target="_blank" rel="${rel}">Source: ${esc(sourceName(job.source))}</a>`;
+}
+
 function cardHtml(job) {
   const saved = state.bookmarks.has(job.id);
   return `
@@ -590,8 +605,8 @@ function cardHtml(job) {
     ${job.salary ? `<div class="job-meta"><span class="badge salary">💰 ${esc(job.salary)}</span></div>` : ""}
     ${job.tags && job.tags.length ? `<div class="job-tags">${job.tags.slice(0, 3).map((t) => `<span class="job-tag">${esc(t)}</span>`).join("")}</div>` : ""}
     <div class="job-foot">
-      <span>${timeAgo(job.date)} · <span class="badge src">${esc(job.source)}</span></span>
-      <a class="apply" href="${esc(job.url)}" target="_blank" rel="noopener noreferrer nofollow">Apply <span>→</span></a>
+      <span class="job-source-line"><span class="posted-age">${timeAgo(job.date)}</span>${sourceAttribution(job)}</span>
+      <a class="apply" href="${esc(job.url)}" target="_blank" rel="noopener noreferrer">Apply <span>→</span></a>
     </div>
   </article>`;
 }
@@ -638,7 +653,7 @@ function renderHome() {
   $("#statNew").textContent = "24h"; // placeholder, updated below
   const dayAgo = Date.now() - 86400000;
   $("#statNew").textContent = state.jobs.filter((j) => new Date(j.date) > dayAgo).length;
-  $("#statSources").textContent = SOURCES.length;
+  $("#statSources").textContent = new Set(state.jobs.map((j) => j.source).filter(Boolean)).size || SOURCES.length;
   $("#statSalary").textContent = state.jobs.filter((j) => j.salary).length;
 
   injectFeedAds();
@@ -677,7 +692,9 @@ function adEl(slot, label = "Advertisement") {
   const div = document.createElement("div");
   div.className = "ad-slot";
   if (!adsenseActive()) {
-    div.innerHTML = `<div class="ad-label">${esc(label)}</div><div class="ad-placeholder">Google AdSense slot — activate after approval in <b>js/app.js</b> → CONFIG.adsenseClient</div>`;
+    // Keep unconfigured ad placements completely invisible to visitors and reviewers.
+    div.classList.add("hidden");
+    div.setAttribute("aria-hidden", "true");
     return div;
   }
   div.innerHTML = `<div class="ad-label">${esc(label)}</div><ins class="adsbygoogle" style="display:block" data-ad-client="${esc(CONFIG.adsenseClient)}" data-ad-slot="${esc(slot)}" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
@@ -718,7 +735,7 @@ function renderDetail(job, scroll = true) {
     ${job.remote ? '<span class="badge remote">🌐 Remote</span>' : ""}
     ${job.type ? `<span class="badge">${esc(job.type)}</span>` : ""}
     <span class="badge">${timeAgo(job.date)}</span>
-    <span class="badge src">via ${esc(job.source)}</span>`;
+    ${sourceAttribution(job)}`;
   $("#detailSalary").textContent = job.salary || "Not specified";
   $("#detailBody").innerHTML = sanitizeHtml(job.description) || "<p><em>Full description available on the employer's page.</em></p>";
   $("#applyNowBtn").href = job.url;
