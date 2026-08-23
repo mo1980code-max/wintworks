@@ -1,9 +1,9 @@
-# WintWorks — automatic daily job snapshot update
+# WintWorks — automatic job snapshot update every six hours
 name: Auto-update jobs
 
 on:
   schedule:
-    - cron: "23 6 * * *"
+    - cron: "23 */6 * * *"
   workflow_dispatch: {}
 
 permissions:
