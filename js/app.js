@@ -676,8 +676,11 @@ function updateSyncPills() {
 }
 
 let adsLoaded = false;
-function adsenseActive() {
+function adsenseConfigured() {
   return CONFIG.adsenseClient.startsWith("ca-pub-") && !CONFIG.adsenseClient.includes("XXXX");
+}
+function adsenseActive() {
+  return adsenseConfigured() && !!(window.WintConsent && window.WintConsent.allows("advertising"));
 }
 function loadAdsense() {
   if (!adsenseActive() || adsLoaded || window.adsbygoogle) return;
@@ -931,6 +934,11 @@ function bindEvents() {
 
   // router
   window.addEventListener("hashchange", route);
+
+  // Load advertising only after an explicit advertising-storage choice.
+  window.addEventListener("wintworks:consentchange", (event) => {
+    if (event.detail && event.detail.advertising) renderAll();
+  });
 
   // auto refresh (set & forget)
   setInterval(() => { if (!document.hidden) refreshLive(); }, CONFIG.refreshMinutes * 60000);
