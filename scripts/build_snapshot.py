@@ -103,12 +103,18 @@ EU_CITIES = {
     "uppsala","lund","oslo","bergen","stavanger","trondheim","copenhagen",
     "københavn","helsinki","tampere","turku","oulu",
 }
+# City names shared by the UK and US are not US evidence without a state/country.
+UK_AMBIGUOUS_CITIES = {"manchester","birmingham","bristol","cambridge","oxford",
+    "newcastle","richmond","plymouth","brighton","york","bath"}
+US_CITIES.difference_update(UK_AMBIGUOUS_CITIES)
+EU_CITIES.update(UK_AMBIGUOUS_CITIES)
+
 WW_WORDS = ["worldwide","anywhere","any country","global","all countries",
     "international","emea","remote","homeoffice","fully remote","remote job",
     "work from home","wfh"]
 
 COUNTRY_MARKERS = [
-    ("United Kingdom", ["united kingdom","britain","british","england","scotland","wales","northern ireland","uk","london","manchester","leeds","liverpool","edinburgh","glasgow","belfast","cardiff"]),
+    ("United Kingdom", ["united kingdom","britain","british","england","scotland","wales","northern ireland","uk","london","manchester","birmingham","bristol","cambridge","oxford","newcastle","richmond","plymouth","brighton","york","bath","leeds","liverpool","edinburgh","glasgow","belfast","cardiff"]),
     ("Germany", ["germany","deutschland","allemagne","bavaria","bayern","berlin","munich","munchen","münchen","hamburg","frankfurt","cologne","köln","stuttgart","dusseldorf","düsseldorf","leipzig","dortmund","essen","bremen","dresden","hanover","nuremberg","nürnberg","trier","de-"]),
     ("France", ["france","paris","lyon","marseille","toulouse","bordeaux","nice","lille","strasbourg","nantes"]),
     ("Netherlands", ["netherlands","nederland","holland","amsterdam","rotterdam","utrecht","eindhoven"]),
@@ -539,7 +545,9 @@ def fetch_arbeitnow():
             continue
         for r in d.get("data", []):
             loc = r.get("location", "")
-            reg = region_of(loc)
+            source_url = r.get("url", "") or ""
+            is_uk_source = "arbeitnow.co.uk" in source_url.lower()
+            reg = "EU" if is_uk_source else region_of(loc)
             if not reg:
                 continue
             jt = r.get("job_types") or []
@@ -550,7 +558,7 @@ def fetch_arbeitnow():
                 "logo": "",
                 "location": loc,
                 "region": reg,
-                "country": country_of(loc),
+                "country": "United Kingdom" if is_uk_source else country_of(loc),
                 "remote": bool(r.get("remote")),
                 "type": jt[0] if jt else "",
                 "salary": "",
