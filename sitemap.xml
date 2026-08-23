@@ -23,4 +23,9 @@
   <url><loc>https://wintworks.com/submit-job.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://wintworks.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://wintworks.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url>
+    <loc>https://wintworks.com/sources.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>

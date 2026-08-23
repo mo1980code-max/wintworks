@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Post a Job — WintWorks</title>
-<meta name="description" content="Post your job on WintWorks. Free basic listings for US employers, with optional featured placement to reach thousands of job seekers.">
-<link rel="canonical" href="https://wintworks.com/submit-job.html">
+<title>Job Sources & Attribution | WintWorks</title>
+<meta name="description" content="Learn where WintWorks job listings come from, how each source is credited, and where applications are submitted.">
+<link rel="canonical" href="https://wintworks.com/sources.html">
 <meta name="theme-color" content="#14357f">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="css/app.css">
@@ -41,39 +41,31 @@
 
 
 <div class="page-card">
-<h1>Post a job</h1>
-<p>Reach thousands of active US job seekers on WintWorks. Basic listings are <b>free</b>; featured placements are optional and bring your job to the top.</p>
-<form class="contact-form" onsubmit="composeJob(event)">
-  <label for="jcompany">Company name *</label>
-  <input id="jcompany" type="text" required>
-  <label for="jtitle">Job title *</label>
-  <input id="jtitle" type="text" required>
-  <label for="jloc">Location (city, state or "Remote — USA") *</label>
-  <input id="jloc" type="text" required>
-  <label for="jemail">Contact email *</label>
-  <input id="jemail" type="email" required>
-  <label for="jurl">Application link (URL) *</label>
-  <input id="jurl" type="url" required placeholder="https://…">
-  <label for="jdesc">Short description (optional)</label>
-  <textarea id="jdesc" rows="5" placeholder="2–4 sentences about the role…"></textarea>
-  <label for="jplan">Listing type</label>
-  <select id="jplan">
-    <option value="free">Basic — Free</option>
-    <option value="featured">Featured — $29 / week (top of category)</option>
-    <option value="spotlight">Homepage Spotlight — $99 / week</option>
-  </select>
-  <button class="btn" type="submit" style="justify-self:start">Submit listing →</button>
-</form>
-<p style="margin-top:18px;font-size:14px;color:var(--muted)">A team member will review and publish your listing within 24 hours. Payment for featured plans is arranged by email.</p>
+<h1>Job Sources &amp; Attribution</h1>
+<p>WintWorks organizes job listings supplied by third-party job platforms. Every listing identifies its source and links directly to the source listing. WintWorks does not accept applications or claim ownership of third-party job content.</p>
+
+<h2>Our sources</h2>
+<ul>
+  <li><a href="https://www.themuse.com" target="_blank" rel="noopener">The Muse</a> — listings link back to their original The Muse pages.</li>
+  <li><a href="https://jobicy.com" target="_blank" rel="noopener">Jobicy</a> — each listing retains its original Jobicy URL.</li>
+  <li><a href="https://remoteok.com" target="_blank" rel="noopener">Remote OK</a> — Remote OK is named on each listing and linked with a standard followed link.</li>
+  <li><a href="https://remotive.com" target="_blank" rel="noopener">Remotive</a> — Remotive is named as the source and each listing links back to Remotive.</li>
+  <li><a href="https://www.arbeitnow.com" target="_blank" rel="noopener">Arbeitnow</a>
+        <a href="https://www.adzuna.com" target="_blank" rel="noopener">Adzuna</a> — listings link back to the original Arbeitnow listing.</li>
+  <li><a href="https://developer.adzuna.com" target="_blank" rel="noopener">Adzuna</a> — Adzuna listings display the required “Jobs by Adzuna” credit and link back to Adzuna.</li>
+</ul>
+
+<h2>How attribution appears</h2>
+<p>A compact source credit appears on every job card and job-detail view. The application button also sends the visitor to the third-party source URL. Adzuna listings use the following required credit format:</p>
+<p><a class="source-credit adzuna-credit" href="https://www.adzuna.com" target="_blank" rel="noopener" aria-label="Jobs by Adzuna"><span>Jobs by</span><img src="assets/adzuna-logo.png" alt="Adzuna" width="63" height="23"></a></p>
+
+<h2>Accuracy and ownership</h2>
+<p>Job details can change or expire at any time. Verify the role, employer, location, salary and application requirements on the linked source page before applying. Job descriptions, employer names and logos remain the property of their respective owners.</p>
+<p>WintWorks is an independent aggregation service and is not affiliated with or endorsed by the listed employers or job platforms unless expressly stated.</p>
+
+<h2>Corrections and removal</h2>
+<p>If you represent an employer or source and need a listing corrected or removed, please <a href="contact.html">contact us</a> with the listing URL.</p>
 </div>
-<script>
-function composeJob(e){
-  e.preventDefault();
-  const g=id=>document.getElementById(id).value;
-  const body='Company: '+g('jcompany')+'\nTitle: '+g('jtitle')+'\nLocation: '+g('jloc')+'\nApply URL: '+g('jurl')+'\n\nDescription:\n'+g('jdesc')+'\n\nRequested plan: '+document.getElementById('jplan').selectedOptions[0].text+'\nContact: '+g('jemail');
-  location.href='mailto:jobs@wintworks.com?subject='+encodeURIComponent('[WintWorks] Job submission: '+g('jtitle')+' @ '+g('jcompany'))+'&body='+encodeURIComponent(body);
-}
-</script>
 
 
 </div></div>
