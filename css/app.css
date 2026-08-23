@@ -560,3 +560,23 @@ button { font: inherit; cursor: pointer; }
   .cookie-actions .primary { grid-column: auto; }
   .cookie-modal-actions { align-items: stretch; flex-direction: column-reverse; }
 }
+
+/* ---------- guide directory ---------- */
+.guides-page { max-width: 1040px; }
+.guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.guide-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.guide-card:hover { transform: translateY(-2px); border-color: var(--primary-2); box-shadow: var(--shadow); text-decoration: none; }
+.guide-card > span { font-size: 28px; line-height: 1; }
+.guide-card h3 { margin: 0 0 3px; font-size: 16px; }
+.guide-card p { margin: 0; font-size: 13px; color: var(--muted); }
+@media (max-width: 680px) { .guide-grid { grid-template-columns: 1fr; } }
