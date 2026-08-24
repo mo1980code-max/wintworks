@@ -1427,6 +1427,30 @@ function bindEvents() {
         refreshLive();
     });
   }
+
+  // ── JOB/SCHOLARSHIP TITLE CLICK HANDLER ──
+  // Render details immediately on click, bypassing hashchange delays
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#/job/"], a[href^="#/scholarship/"]');
+    if (link) {
+      const hash = link.getAttribute('href');
+      if (hash.startsWith('#/job/')) {
+        const id = decodeURIComponent(hash.replace('#/job/', ''));
+        const job = state.jobs.find(j => j.id === id);
+        if (job) {
+          e.preventDefault();
+          renderDetail(job, true);
+        }
+      } else if (hash.startsWith('#/scholarship/')) {
+        const id = decodeURIComponent(hash.replace('#/scholarship/', ''));
+        const s = state.scholarships.find(x => x.id === id);
+        if (s) {
+          e.preventDefault();
+          renderScholarshipDetail(s, true);
+        }
+      }
+    }
+  });
 }
 
 /* ============================ DETAIL VIEW (JOBS) ============================ */
