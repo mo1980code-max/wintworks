@@ -1438,21 +1438,31 @@ function bindEvents() {
     const link = e.target.closest('a[href^="#/job/"], a[href^="#/scholarship/"]');
     if (link) {
       const hash = link.getAttribute('href');
+      e.preventDefault();
+      // Always set the hash so route() / renderAll() can handle it later
+      if (history.pushState) {
+        history.pushState(null, "", hash);
+      } else {
+        location.hash = hash;
+      }
+      // Try to render immediately if data is available
       if (hash.startsWith('#/job/')) {
         const id = decodeURIComponent(hash.replace('#/job/', ''));
         const job = state.jobs.find(j => j.id === id);
         if (job) {
-          e.preventDefault();
           renderDetail(job, true);
+          return;
         }
       } else if (hash.startsWith('#/scholarship/')) {
         const id = decodeURIComponent(hash.replace('#/scholarship/', ''));
         const s = state.scholarships.find(x => x.id === id);
         if (s) {
-          e.preventDefault();
           renderScholarshipDetail(s, true);
+          return;
         }
       }
+      // Data not ready yet — route() / renderAll() will handle it when loaded
+      route();
     }
   });
 }
@@ -1613,6 +1623,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // restore tab preference
   switchTab(loadTabPref());
+
+  // Handle initial hash (when user opens URL with #/job/... directly)
+  route();
 
   // load both datasets in parallel
   load();
