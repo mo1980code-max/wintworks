@@ -974,7 +974,7 @@ function renderScholarships() {
   $("#tabScholarshipsCount").textContent = state.scholarships.length;
 }
 
-function loadScholarships() {
+async function loadScholarships() {
   store.set("ww:schSnap", null);  // force fresh load
   try {
     const res = await fetch("data/scholarships.json");
