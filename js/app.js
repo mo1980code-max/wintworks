@@ -635,6 +635,8 @@ async function load() {
     if (j && typeof j.scrollIntoView === "function")
       setTimeout(() => j.scrollIntoView({ behavior: "smooth" }), 350);
   }
+  // Re-route to handle any hash set before data finished loading
+  route();
 }
 
 async function refreshLive(initial = false) {
@@ -1010,6 +1012,8 @@ async function loadScholarships() {
       }
     } catch {}
   }
+  // Re-route to handle any hash set before data finished loading
+  route();
 }
 
 /* ============================ SCHOLARSHIP DETAIL ============================ */
