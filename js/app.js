@@ -724,7 +724,7 @@ function cardHtml(job) {
   <div class="job-card-top">
     ${logoHtml(job)}
     <div style="min-width:0">
-      <h3 class="job-title"><a href="#/job/${encodeURIComponent(job.id)}">${esc(job.title)}</a></h3>
+      <h3 class="job-title">${esc(job.title)}</h3>
       <div class="job-company">${esc(job.company)}</div>
     </div>
     <button class="bookmark-btn ${saved ? "saved" : ""}" data-bookmark="${esc(job.id)}"
