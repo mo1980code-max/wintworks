@@ -492,28 +492,51 @@ button { font: inherit; cursor: pointer; }
   padding: 14px 20px 20px; border-top: 1px solid var(--border);
 }
 
-/* cookie settings link (footer) */
-.cookie-settings-link {
-  border: 1px solid var(--border); background: var(--card); color: var(--muted);
-  border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: all .12s;
+/* contact / submit-job form */
+.contact-form {
+  display: flex; flex-direction: column; gap: 16px;
+  margin: 24px 0;
 }
-.cookie-settings-link:hover { color: var(--primary); border-color: var(--primary-2); }
-
-/* overlay when modal open */
-html.cookie-modal-open { overflow: hidden; }
-body.cookie-modal-open { overflow: hidden; }
-@media (max-width: 600px) {
-  .cookie-modal { align-items: flex-end; padding: 10px; }
-  .cookie-modal-card { max-width: 100%; border-radius: 14px 14px 0 0; }
-  .cookie-banner { padding: 12px 14px; }
-  .cookie-actions { gap: 6px; }
-  .cookie-btn { padding: 9px 14px; font-size: 13px; }
+.contact-form label {
+  font-size: 13.5px; font-weight: 600; color: var(--muted);
+  margin: 0;
 }
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="url"],
+.contact-form textarea,
+.contact-form select {
+  border: 1px solid var(--border); background: var(--bg);
+  color: var(--text); border-radius: 10px;
+  padding: 11px 14px; font-size: 14px; font-family: inherit;
+  outline: none; min-width: 0; width: 100%;
+  transition: border-color .15s, box-shadow .15s;
+}
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  border-color: var(--primary-2);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-2) 25%, transparent);
+}
+.contact-form textarea { resize: vertical; min-height: 120px; }
+.contact-form select { cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%235b6b83' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  padding-right: 36px;
+}
+.contact-form .btn { align-self: start; margin-top: 4px; }
 
-/* ============================================================
-   SCHOLARSHIPS — new styles (additions only)
-   ============================================================ */
+/* email cards (contact page) */
+.email-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px;
+  box-shadow: var(--shadow);
+}
+.email-card h3 { margin: 0 0 6px; font-size: 16px; }
+.email-card p { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+.email-card a { font-weight: 700; color: var(--primary); font-size: 15px; }
+.email-card a:hover { text-decoration: underline; }
+
 
 /* scholarship grid */
 .scholarships-grid {
