@@ -1,0 +1,57 @@
+# WintWorks — automatic scholarships snapshot update every 24 hours
+#
+# Runs once daily (offset from the jobs workflow's 6-hour cadence) to
+# re-fetch scholarships from configured APIs and update data/scholarships.json.
+#
+# Required secrets (edit in repo Settings → Secrets and variables → Actions):
+#   SCHOLARSHIPAPI_KEY    — ScholarshipAPI.com bearer token (free tier)
+#   SCHOLARSHIPS_COM_KEY  — Parse API key for Scholarships.com (free tier)
+#
+# If no secrets are set, the script writes a seed snapshot and the page still
+# renders correctly. Add keys later to switch to live data.
+
+name: Auto-update scholarships
+
+on:
+  schedule:
+    # 06:15 UTC daily — slightly offset from the jobs workflow
+    - cron: "15 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-scholarships:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # no third-party deps needed — stdlib only
+
+      - name: Build scholarships snapshot
+        env:
+          SCHOLARSHIPAPI_KEY:    ${{ secrets.SCHOLARSHIPAPI_KEY }}
+          SCHOLARSHIPS_COM_KEY:  ${{ secrets.SCHOLARSHIPS_COM_KEY }}
+        run: python scripts/fetch_scholarships.py
+
+      - name: Commit updated snapshot
+        run: |
+          git config user.name "wintworks-bot"
+          git config user.email "bot@wintworks.com"
+          git add data/scholarships.json
+          if git diff --cached --quiet; then
+            echo "No new scholarships — nothing to commit."
+          else
+            git commit -m "chore: auto-update scholarship snapshot $(date -u +%F)"
+            git push
+          fi
