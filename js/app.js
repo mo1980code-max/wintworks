@@ -547,6 +547,7 @@ async function fetchSource(src) {
 /* ============================ DATA LAYER (JOBS) ============================ */
 const state = {
   jobs: [],
+  scholarships: [],
   filters: {
     q:"", cat:"All", region:"All", country:"All", loc:"",
     remoteOnly:false, savedOnly:false, sort:"new",
@@ -557,6 +558,20 @@ const state = {
   lastLive: null,
   sourceStatus: {},
 };
+
+/* ============================ SCHOLARSHIP STATE ============================ */
+const state$sch = {
+  schBookmarks: new Set(store.get("ww:schBookmarks", [])),
+};
+
+function toggleSchBookmark(id) {
+  if (state$sch.schBookmarks.has(id)) state$sch.schBookmarks.delete(id);
+  else state$sch.schBookmarks.add(id);
+  store.set("ww:schBookmarks", [...state$sch.schBookmarks]);
+  renderScholarships();
+  const s = state.scholarships.find(x => x.id === id);
+  if (s) renderScholarshipDetail(s);
+}
 
 function normalize(job) {
   job.salaryNum = salaryNumber(job.salary);
@@ -775,7 +790,7 @@ function renderHome() {
   $("#filterCountry").innerHTML =
     `<option value="All">All countries (${state.jobs.length})</option>` +
     cNames.map(n => `<option value="${esc(n)}">${esc(n)} (${cc[n]})</option>`).join("") +
-    (cc.WW ? `<option value="WW">🌍 Worldwide / Remote (${cc.WW]})</option>` : "");
+    (cc.WW ? `<option value="WW">🌍 Worldwide / Remote (${cc.WW})</option>` : "");
   $("#filterCountry").value = f.country;
 
   $("#statTotal").textContent    = state.jobs.length.toLocaleString();
@@ -921,6 +936,7 @@ function scholarshipCardHtml(s) {
 }
 
 function renderScholarships() {
+  if (!state.scholarships || !Array.isArray(state.scholarships)) return;
   const f    = SCH_FILTERS;
   const list = schVisible();
   const shown = list.slice(0, state.schVisible);
@@ -1086,18 +1102,8 @@ function loadTabPref() {
   return "jobs";
 }
 
-/* ============================ BOOKMARKS (SCHOLARSHIPS) ============================ */
-const state$sch = {
-  schBookmarks: new Set(store.get("ww:schBookmarks", [])),
-};
-function toggleSchBookmark(id) {
-  if (state$sch.schBookmarks.has(id)) state$sch.schBookmarks.delete(id);
-  else state$sch.schBookmarks.add(id);
-  store.set("ww:schBookmarks", [...state$sch.schBookmarks]);
-  renderScholarships();
-  const s = state.scholarships.find(x => x.id === id);
-  if (s) renderScholarshipDetail(s);
-}
+
+
 
 /* ============================ ADS ============================ */
 let adsLoaded = false;
