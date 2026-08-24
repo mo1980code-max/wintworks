@@ -385,6 +385,133 @@ button { font: inherit; cursor: pointer; }
 .breadcrumb a:hover { color: var(--text); }
 
 /* ============================================================
+   COOKIE CONSENT — banner + modal styles
+   ============================================================ */
+
+/* cookie banner (bottom bar) */
+.cookie-banner {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: color-mix(in srgb, var(--card) 95%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 20px rgba(15, 23, 42, .08);
+  padding: 14px 20px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cookie-banner[hidden] { display: none; }
+.cookie-banner-copy {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 13.5px; color: var(--muted);
+}
+.cookie-banner-copy h2 {
+  margin: 0; font-size: 15px; color: var(--text); font-weight: 700;
+}
+.cookie-banner-copy p { margin: 0; line-height: 1.5; }
+.cookie-banner-copy a { color: var(--primary); }
+.cookie-banner-copy a:hover { text-decoration: underline; }
+.cookie-actions {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+}
+.cookie-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border-radius: 10px; padding: 10px 18px; font-weight: 700; font-size: 13.5px;
+  border: 1px solid var(--border); background: var(--card); color: var(--text);
+  transition: all .15s ease; cursor: pointer;
+}
+.cookie-btn.secondary { background: transparent; }
+.cookie-btn.secondary:hover { background: var(--bg-soft); border-color: var(--muted); }
+.cookie-btn.primary { background: var(--primary-grad); color: #fff; border-color: transparent; }
+.cookie-btn.primary:hover { filter: brightness(1.08); }
+.cookie-btn:hover { text-decoration: none; }
+
+/* cookie modal (settings dialog) */
+.cookie-modal {
+  position: fixed; inset: 0; z-index: 110;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(15, 23, 42, .45);
+  padding: 16px;
+  animation: fadeIn .2s ease;
+}
+.cookie-modal[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.cookie-modal-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%; max-width: 480px;
+  max-height: 85vh; overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp .25s ease;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.cookie-modal-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 12px; padding: 20px 20px 8px;
+}
+.cookie-modal-head h2 {
+  margin: 0; font-size: 18px; color: var(--text); letter-spacing: -.01em;
+}
+.cookie-modal-head p {
+  margin: 4px 0 0; font-size: 13px; color: var(--muted);
+}
+.cookie-close {
+  flex: none; width: 32px; height: 32px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg-soft); color: var(--muted);
+  font-size: 18px; line-height: 1; display: grid; place-items: center;
+  cursor: pointer; transition: all .12s;
+}
+.cookie-close:hover { color: var(--text); border-color: var(--muted); background: var(--bg); }
+.cookie-modal-body {
+  padding: 8px 20px 18px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cookie-choice {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 14px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--bg-soft);
+  cursor: pointer; transition: background .12s;
+}
+.cookie-choice:hover { background: color-mix(in srgb, var(--bg) 80%, transparent); }
+.cookie-choice input[type="checkbox"] {
+  flex: none; width: 17px; height: 17px; accent-color: var(--primary);
+  margin-top: 2px; cursor: pointer;
+}
+.cookie-choice > div { flex: 1; }
+.cookie-choice b { display: block; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.cookie-choice p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.45; }
+.cookie-choice > span {
+  flex: none; font-size: 11.5px; font-weight: 600; color: var(--muted);
+  padding: 3px 8px; border-radius: 999px; background: var(--bg);
+  border: 1px solid var(--border); margin-top: 1px;
+}
+.cookie-choice input:checked + div b {
+  /* visual feedback when checked — handled by browser */
+}
+.cookie-modal-actions {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end;
+  padding: 14px 20px 20px; border-top: 1px solid var(--border);
+}
+
+/* cookie settings link (footer) */
+.cookie-settings-link {
+  border: 1px solid var(--border); background: var(--card); color: var(--muted);
+  border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .12s;
+}
+.cookie-settings-link:hover { color: var(--primary); border-color: var(--primary-2); }
+
+/* overlay when modal open */
+html.cookie-modal-open { overflow: hidden; }
+body.cookie-modal-open { overflow: hidden; }
+@media (max-width: 600px) {
+  .cookie-modal { align-items: flex-end; padding: 10px; }
+  .cookie-modal-card { max-width: 100%; border-radius: 14px 14px 0 0; }
+  .cookie-banner { padding: 12px 14px; }
+  .cookie-actions { gap: 6px; }
+  .cookie-btn { padding: 9px 14px; font-size: 13px; }
+}
+
+/* ============================================================
    SCHOLARSHIPS — new styles (additions only)
    ============================================================ */
 
