@@ -1067,8 +1067,9 @@ function switchTab(tab) {
     $("#viewDetail").classList.add("hidden");
     document.title = `${CONFIG.siteName} — Jobs in the USA & Europe | Auto-Updated Job Board`;
   } else {
-    $("#viewHome").classList.add("hidden");
+    $("#viewHome").classList.remove("hidden");
     $("#viewDetail").classList.add("hidden");
+    $("#scholarships").scrollIntoView({ behavior: "smooth" });
     document.title = `${CONFIG.siteName} — Scholarships & Funding | USA & Europe`;
     renderScholarships();
   }
