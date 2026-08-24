@@ -817,7 +817,7 @@ function schNormalize(s) {
   s.deadlineRemains = s.deadline_remains ||
     (s.deadline ? timeAgo(s.deadline) : "");
   s.amountNum  = s.amount ? Number(s.amount) : 0;
-  s.isSaved    = state.schBookmarks.has(s.id);
+  s.isSaved    = state$sch.schBookmarks.has(s.id);
   return s;
 }
 
@@ -870,7 +870,7 @@ function schVisible() {
 }
 
 function scholarshipCardHtml(s) {
-  const saved = state.schBookmarks.has(s.id);
+  const saved = state$sch.schBookmarks.has(s.id);
   const fundingColors = {
     "Fully Funded":     { bg:"var(--green-bg)",  cls:"funding-fully"  },
     "Partially Funded": { bg:"var(--amber-bg)",  cls:"funding-partial" },
@@ -1020,7 +1020,7 @@ function renderScholarshipDetail(s, scroll = true) {
 
   $("#applyNowBtn").href     = s.url || "#";
   $("#applyNowBtn").dataset.url = s.url || "#";
-  $("#detailSaveBtn").innerHTML = state.schBookmarks.has(s.id) ? "★ Saved" : "☆ Save";
+  $("#detailSaveBtn").innerHTML = state$sch.schBookmarks.has(s.id) ? "★ Saved" : "☆ Save";
   $("#detailSaveBtn").onclick   = () => {
     toggleSchBookmark(s.id);
     renderScholarshipDetail(s);
