@@ -650,3 +650,78 @@ button { font: inherit; cursor: pointer; }
 }
 .scholarship-card .bookmark-btn:hover { background: var(--bg-soft); }
 .scholarship-card .bookmark-btn.saved { color: var(--amber); }
+
+/* ============================================================
+   FOOTER STYLES
+   ============================================================ */
+.site-footer {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 56px 0 28px;
+  margin-top: 60px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 36px;
+  margin-bottom: 40px;
+}
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+.footer-brand .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.footer-brand .logo svg { width: 30px; height: 30px; }
+.footer-brand .logo span b { color: var(--primary); }
+.footer-brand p {
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 320px;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.footer-col h4 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+.footer-col a {
+  color: var(--muted);
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+.footer-col a:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.footer-bottom a {
+  color: var(--primary);
+  font-weight: 600;
+}
