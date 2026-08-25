@@ -1,0 +1,36 @@
+# WintWorks — deploy site to hosting server via SSH
+# Runs on every push to main branch.
+#
+# Required secrets (repo Settings → Secrets and variables → Actions):
+#   HOST        — server hostname or IP (e.g. wintworks.com or 123.45.67.89)
+#   USERNAME    — SSH username on the server
+#   PASSWORD    — SSH password  (or use SSH_PRIVATE_KEY instead)
+#   SITE_PATH   — absolute path on the server where the site lives
+#                 (e.g. /home/username/public_html)
+#
+# If your host supports Git pull / webhook deployment, prefer that over
+# this rsync-based workflow — it is simpler and does not require storing
+# SSH credentials in GitHub Secrets.
+
+name: Deploy site to hosting
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Deploy files via rsync over SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd ${{ secrets.SITE_PATH }}
+            rsync -av --delete ${{ github.workspace }}/ ./
