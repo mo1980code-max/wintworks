@@ -565,15 +565,17 @@ const state$sch = {
 };
 
 function toggleSchBookmark(id) {
-  if (state$sch.schBookmarks.has(id)) state$sch.schBookmarks.delete(id);
-  else state$sch.schBookmarks.add(id);
+  const strId = String(id);
+  if (state$sch.schBookmarks.has(strId)) state$sch.schBookmarks.delete(strId);
+  else state$sch.schBookmarks.add(strId);
   store.set("ww:schBookmarks", [...state$sch.schBookmarks]);
   renderScholarships();
-  const s = state.scholarships.find(x => x.id === id);
+  const s = state.scholarships.find(x => String(x.id) === strId);
   if (s) renderScholarshipDetail(s, false);
 }
 
-function normalize(job) {
+function normalize(job, idx) {
+  job.id = job.id ? String(job.id) : `job-${idx}`;
   job.salaryNum = salaryNumber(job.salary);
   job.isBookmarked = state.bookmarks.has(job.id);
   job.region  = job.region  || regionOf(job.location) || null;
@@ -605,7 +607,7 @@ function mergeJobs(list) {
 }
 
 function setJobs(list) {
-  state.jobs = list.map(normalize);
+  state.jobs = list.map((j, idx) => normalize(j, idx));
   renderAll();
 }
 
@@ -614,7 +616,7 @@ const SNAP_TTL = 30 * 60 * 1000;
 async function load() {
   const cached = store.get("ww:snap", null);
   if (cached && cached.jobs && Date.now() - cached.t < SNAP_TTL) {
-    setJobs(cached.jobs.map(normalize));
+    setJobs(cached.jobs.map((j, idx) => normalize(j, idx)));
   }
   try {
     const res = await fetch("data/jobs.json");
@@ -622,7 +624,7 @@ async function load() {
       const snap = await res.json();
       const jobsList = Array.isArray(snap) ? snap : (snap.jobs || []);
       store.set("ww:snap", { t: Date.now(), jobs: jobsList });
-      setJobs(jobsList.map(normalize));
+      setJobs(jobsList.map((j, idx) => normalize(j, idx)));
     } else throw new Error("no snapshot");
   } catch (err) {
     if (!cached) {
@@ -843,13 +845,14 @@ const SCH_FILTERS = {
   sort:"deadline",
 };
 
-function schNormalize(s) {
+function schNormalize(s, idx) {
+  s.id = s.id ? String(s.id) : (s.slug ? String(s.slug) : `sch-${idx != null ? idx : Math.random().toString(36).slice(2, 8)}`);
   s.region     = s.region     || regionOf(s.location || s.country || "") || "";
   s.country    = s.country    || countryOf(s.location || s.country || "") || "";
   s.deadlineRemains = s.deadline_remains ||
     (s.deadline ? timeAgo(s.deadline) : "");
   s.amountNum  = s.amount ? Number(s.amount) : 0;
-  s.isSaved    = state$sch.schBookmarks.has(s.id);
+  s.isSaved    = state$sch.schBookmarks.has(String(s.id));
   return s;
 }
 
@@ -901,7 +904,7 @@ function schVisible() {
 }
 
 function scholarshipCardHtml(s) {
-  const saved = state$sch.schBookmarks.has(s.id);
+  const saved = state$sch.schBookmarks.has(String(s.id));
   const fundingColors = {
     "Fully Funded":     { bg:"var(--green-bg)",  cls:"funding-fully"  },
     "Partially Funded": { bg:"var(--amber-bg)",  cls:"funding-partial" },
@@ -1024,7 +1027,7 @@ async function loadScholarships() {
     if (res.ok) {
       const snap = await res.json();
       const schList = Array.isArray(snap) ? snap : (snap.scholarships || []);
-      state.scholarships = schList.map(schNormalize);
+      state.scholarships = schList.map((s, idx) => schNormalize(s, idx));
       renderScholarships();
     }
   } catch {
@@ -1033,7 +1036,7 @@ async function loadScholarships() {
       if (res2.ok) {
         const snap = await res2.json();
         const schList = Array.isArray(snap) ? snap : (snap.scholarships || []);
-        state.scholarships = schList.map(schNormalize);
+        state.scholarships = schList.map((s, idx) => schNormalize(s, idx));
         renderScholarships();
       }
     } catch {}
@@ -1043,7 +1046,7 @@ async function loadScholarships() {
 
 /* ============================ SCHOLARSHIP DETAIL ============================ */
 function renderScholarshipDetail(s, scroll = false) {
-  if (!s) { location.hash = ""; return; }
+  if (!s) { return; }
   document.title = `${s.title} | ${CONFIG.siteName}`;
   const dTitle = $("#detailTitle");
   if (dTitle) dTitle.innerHTML = esc(s.title);
@@ -1079,7 +1082,7 @@ function renderScholarshipDetail(s, scroll = false) {
 
   const saveBtn = $("#detailSaveBtn");
   if (saveBtn) {
-    saveBtn.innerHTML = state$sch.schBookmarks.has(s.id) ? "★ Saved" : "☆ Save";
+    saveBtn.innerHTML = state$sch.schBookmarks.has(String(s.id)) ? "★ Saved" : "☆ Save";
     saveBtn.onclick = () => {
       toggleSchBookmark(s.id);
       renderScholarshipDetail(s, false);
@@ -1096,7 +1099,7 @@ function renderScholarshipDetail(s, scroll = false) {
   if ($("#detailSource")) $("#detailSource").textContent     = s.source || "—";
 
   const rel = state.scholarships
-    .filter(x => x.funding === s.funding && x.id !== s.id)
+    .filter(x => x.funding === s.funding && String(x.id) !== String(s.id))
     .slice(0, 4);
   const relT = $("#relatedTitle");
   if (relT) {
@@ -1586,14 +1589,14 @@ function bindEvents() {
       }
       if (hash.startsWith('#/job/')) {
         const id = decodeURIComponent(hash.replace('#/job/', ''));
-        const job = state.jobs.find(j => j.id === id);
+        const job = state.jobs.find(j => String(j.id) === String(id));
         if (job) {
           renderDetail(job, false);
           return;
         }
       } else if (hash.startsWith('#/scholarship/')) {
         const id = decodeURIComponent(hash.replace('#/scholarship/', ''));
-        const s = state.scholarships.find(x => x.id === id);
+        const s = state.scholarships.find(x => String(x.id) === String(id));
         if (s) {
           renderScholarshipDetail(s, false);
           return;
@@ -1607,11 +1610,11 @@ function bindEvents() {
 /* ============================ DETAIL VIEW (JOBS) ============================ */
 function relatedJobs(job, n = 4) {
   return state.jobs.filter(
-    j => j.category === job.category && j.id !== job.id).slice(0, n);
+    j => j.category === job.category && String(j.id) !== String(job.id)).slice(0, n);
 }
 
 function renderDetail(job, scroll = false) {
-  if (!job) { location.hash = ""; return; }
+  if (!job) { return; }
   document.title = `${job.title} at ${job.company} | ${CONFIG.siteName}`;
   
   const dTitle = $("#detailTitle");
@@ -1697,7 +1700,7 @@ function renderAll() {
 
   const m = location.hash.match(/^#\/job\/(.+)$/);
   if (m) {
-    const job = state.jobs.find(j => j.id === decodeURIComponent(m[1]));
+    const job = state.jobs.find(j => String(j.id) === String(decodeURIComponent(m[1])));
     if (job) {
       renderDetail(job, false);
       return;
@@ -1706,7 +1709,7 @@ function renderAll() {
 
   const sm = location.hash.match(/^#\/scholarship\/(.+)$/);
   if (sm) {
-    const s = state.scholarships.find(x => x.id === decodeURIComponent(sm[1]));
+    const s = state.scholarships.find(x => String(x.id) === String(decodeURIComponent(sm[1])));
     if (s) {
       renderScholarshipDetail(s, false);
       return;
@@ -1720,18 +1723,13 @@ function route() {
   const m = location.hash.match(/^#\/job\/(.+)$/);
   if (m) {
     const id = decodeURIComponent(m[1]);
-    const job = state.jobs.find(j => j.id === id);
+    const job = state.jobs.find(j => String(j.id) === String(id));
     if (job) { 
       renderDetail(job, false); 
       return; 
     }
     if (state.jobs.length > 0) {
       showHomeView(false);
-      if (history.replaceState) {
-        history.replaceState(null, "", "#/");
-      } else {
-        location.hash = "#/";
-      }
       return;
     }
   }
@@ -1739,18 +1737,13 @@ function route() {
   const sm = location.hash.match(/^#\/scholarship\/(.+)$/);
   if (sm) {
     const id = decodeURIComponent(sm[1]);
-    const s = state.scholarships.find(x => x.id === id);
+    const s = state.scholarships.find(x => String(x.id) === String(id));
     if (s) { 
       renderScholarshipDetail(s, false); 
       return; 
     }
     if (state.scholarships.length > 0) {
       showHomeView(false);
-      if (history.replaceState) {
-        history.replaceState(null, "", "#/");
-      } else {
-        location.hash = "#/";
-      }
       return;
     }
   }
