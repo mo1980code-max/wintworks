@@ -570,7 +570,7 @@ function toggleSchBookmark(id) {
   store.set("ww:schBookmarks", [...state$sch.schBookmarks]);
   renderScholarships();
   const s = state.scholarships.find(x => x.id === id);
-  if (s) renderScholarshipDetail(s);
+  if (s) renderScholarshipDetail(s, false);
 }
 
 function normalize(job) {
@@ -1125,30 +1125,36 @@ let activeTab = "jobs";
 
 function switchTab(tab) {
   activeTab = tab;
+  
   $$(".tab-btn").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.tab === tab);
   });
   $$(".tab-link").forEach(link => {
     link.style.fontWeight = link.dataset.tab === tab ? "700" : "600";
   });
+
+  const vHome = $("#viewHome");
+  const vDet = $("#viewDetail");
+  const secJobs = $("#jobs");
+  const secScholarships = $("#scholarships");
+
+  if (vHome) vHome.classList.remove("hidden");
+  if (vDet) vDet.classList.add("hidden");
+
   if (tab === "jobs") {
-    const vHome = $("#viewHome");
-    if (vHome) vHome.classList.remove("hidden");
-    const vDet = $("#viewDetail");
-    if (vDet) vDet.classList.add("hidden");
+    if (secJobs) secJobs.classList.remove("hidden");
+    if (secScholarships) secScholarships.classList.add("hidden");
     document.title = `${CONFIG.siteName} — Jobs in the USA & Europe | Auto-Updated Job Board`;
   } else {
-    const vHome = $("#viewHome");
-    if (vHome) vHome.classList.remove("hidden");
-    const vDet = $("#viewDetail");
-    if (vDet) vDet.classList.add("hidden");
-    const schSec = $("#scholarships");
-    if (schSec) schSec.scrollIntoView({ behavior: "smooth" });
+    if (secJobs) secJobs.classList.add("hidden");
+    if (secScholarships) secScholarships.classList.remove("hidden");
     document.title = `${CONFIG.siteName} — Scholarships & Funding | USA & Europe`;
     renderScholarships();
   }
+  
   saveTabPref();
 }
+
 function saveTabPref() {
   try { localStorage.setItem("ww:tab", activeTab); } catch {}
 }
@@ -1505,13 +1511,6 @@ function bindEvents() {
   $$(".quick-chip[data-tab]").forEach(chip => {
     chip.addEventListener("click", () => {
       switchTab(chip.dataset.tab);
-      if (chip.dataset.tab === "scholarships") {
-        const schSec = $("#scholarships");
-        if (schSec) schSec.scrollIntoView({ behavior: "smooth" });
-      } else {
-        const jSec = $("#jobs");
-        if (jSec) jSec.scrollIntoView({ behavior: "smooth" });
-      }
     });
   });
 
@@ -1684,7 +1683,7 @@ function renderDetail(job, scroll = false) {
   if (scroll) window.scrollTo({ top: 0 });
 }
 
-function showHomeView(scroll = true) {
+function showHomeView(scroll = false) {
   const vDet = $("#viewDetail");
   if (vDet) vDet.classList.add("hidden");
   const vHome = $("#viewHome");
