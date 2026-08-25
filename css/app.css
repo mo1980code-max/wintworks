@@ -298,6 +298,7 @@ button { font: inherit; cursor: pointer; }
   display: inline-flex; gap: 5px; align-items: center;
 }
 .job-foot a.apply:hover { text-decoration: none; color: var(--primary-2); }
+
 /* skeleton */
 .skel {
   position: relative; overflow: hidden; background: var(--card); border: 1px solid var(--border);
@@ -312,7 +313,7 @@ button { font: inherit; cursor: pointer; }
 .skel .l { height: 14px; border-radius: 6px; background: var(--bg-soft); margin-bottom: 12px; }
 .skel .l.w60 { width: 60%; } .skel .l.w40 { width: 40%; } .skel .l.w80 { width: 80%; }
 
-.load-more-wrap { text-align: center; margin-top: 28px; }
+.load-more-wrap { text-align: center; margin: 36px 0 16px; }
 .btn {
   display: inline-flex; align-items: center; gap: 8px; justify-content: center;
   border: 0; border-radius: 12px; padding: 12px 26px; font-weight: 700; font-size: 15px;
@@ -385,10 +386,8 @@ button { font: inherit; cursor: pointer; }
 .breadcrumb a:hover { color: var(--text); }
 
 /* ============================================================
-   COOKIE CONSENT — banner + modal styles
+   COOKIE CONSENT
    ============================================================ */
-
-/* cookie banner (bottom bar) */
 .cookie-banner {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
   background: color-mix(in srgb, var(--card) 95%, transparent);
@@ -403,15 +402,11 @@ button { font: inherit; cursor: pointer; }
   display: flex; flex-direction: column; gap: 6px;
   font-size: 13.5px; color: var(--muted);
 }
-.cookie-banner-copy h2 {
-  margin: 0; font-size: 15px; color: var(--text); font-weight: 700;
-}
+.cookie-banner-copy h2 { margin: 0; font-size: 15px; color: var(--text); font-weight: 700; }
 .cookie-banner-copy p { margin: 0; line-height: 1.5; }
 .cookie-banner-copy a { color: var(--primary); }
 .cookie-banner-copy a:hover { text-decoration: underline; }
-.cookie-actions {
-  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-}
+.cookie-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .cookie-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   border-radius: 10px; padding: 10px 18px; font-weight: 700; font-size: 13.5px;
@@ -424,7 +419,6 @@ button { font: inherit; cursor: pointer; }
 .cookie-btn.primary:hover { filter: brightness(1.08); }
 .cookie-btn:hover { text-decoration: none; }
 
-/* cookie modal (settings dialog) */
 .cookie-modal {
   position: fixed; inset: 0; z-index: 110;
   display: flex; align-items: flex-end; justify-content: center;
@@ -448,12 +442,8 @@ button { font: inherit; cursor: pointer; }
   display: flex; align-items: flex-start; justify-content: space-between;
   gap: 12px; padding: 20px 20px 8px;
 }
-.cookie-modal-head h2 {
-  margin: 0; font-size: 18px; color: var(--text); letter-spacing: -.01em;
-}
-.cookie-modal-head p {
-  margin: 4px 0 0; font-size: 13px; color: var(--muted);
-}
+.cookie-modal-head h2 { margin: 0; font-size: 18px; color: var(--text); letter-spacing: -.01em; }
+.cookie-modal-head p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
 .cookie-close {
   flex: none; width: 32px; height: 32px; border-radius: 8px;
   border: 1px solid var(--border); background: var(--bg-soft); color: var(--muted);
@@ -461,10 +451,7 @@ button { font: inherit; cursor: pointer; }
   cursor: pointer; transition: all .12s;
 }
 .cookie-close:hover { color: var(--text); border-color: var(--muted); background: var(--bg); }
-.cookie-modal-body {
-  padding: 8px 20px 18px;
-  display: flex; flex-direction: column; gap: 12px;
-}
+.cookie-modal-body { padding: 8px 20px 18px; display: flex; flex-direction: column; gap: 12px; }
 .cookie-choice {
   display: flex; align-items: flex-start; gap: 12px;
   padding: 12px 14px; border-radius: 10px;
@@ -472,10 +459,7 @@ button { font: inherit; cursor: pointer; }
   cursor: pointer; transition: background .12s;
 }
 .cookie-choice:hover { background: color-mix(in srgb, var(--bg) 80%, transparent); }
-.cookie-choice input[type="checkbox"] {
-  flex: none; width: 17px; height: 17px; accent-color: var(--primary);
-  margin-top: 2px; cursor: pointer;
-}
+.cookie-choice input[type="checkbox"] { flex: none; width: 17px; height: 17px; accent-color: var(--primary); margin-top: 2px; cursor: pointer; }
 .cookie-choice > div { flex: 1; }
 .cookie-choice b { display: block; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
 .cookie-choice p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.45; }
@@ -484,61 +468,14 @@ button { font: inherit; cursor: pointer; }
   padding: 3px 8px; border-radius: 999px; background: var(--bg);
   border: 1px solid var(--border); margin-top: 1px;
 }
-.cookie-choice input:checked + div b {
-  /* visual feedback when checked — handled by browser */
-}
 .cookie-modal-actions {
   display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end;
   padding: 14px 20px 20px; border-top: 1px solid var(--border);
 }
 
-/* contact / submit-job form */
-.contact-form {
-  display: flex; flex-direction: column; gap: 16px;
-  margin: 24px 0;
-}
-.contact-form label {
-  font-size: 13.5px; font-weight: 600; color: var(--muted);
-  margin: 0;
-}
-.contact-form input[type="text"],
-.contact-form input[type="email"],
-.contact-form input[type="url"],
-.contact-form textarea,
-.contact-form select {
-  border: 1px solid var(--border); background: var(--bg);
-  color: var(--text); border-radius: 10px;
-  padding: 11px 14px; font-size: 14px; font-family: inherit;
-  outline: none; min-width: 0; width: 100%;
-  transition: border-color .15s, box-shadow .15s;
-}
-.contact-form input:focus,
-.contact-form textarea:focus,
-.contact-form select:focus {
-  border-color: var(--primary-2);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-2) 25%, transparent);
-}
-.contact-form textarea { resize: vertical; min-height: 120px; }
-.contact-form select { cursor: pointer; appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%235b6b83' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 12px center;
-  padding-right: 36px;
-}
-.contact-form .btn { align-self: start; margin-top: 4px; }
-
-/* email cards (contact page) */
-.email-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 10px; padding: 20px;
-  box-shadow: var(--shadow);
-}
-.email-card h3 { margin: 0 0 6px; font-size: 16px; }
-.email-card p { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
-.email-card a { font-weight: 700; color: var(--primary); font-size: 15px; }
-.email-card a:hover { text-decoration: underline; }
-
-
-/* scholarship grid */
+/* ============================================================
+   SCHOLARSHIP GRID & CARDS
+   ============================================================ */
 .scholarships-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px;
 }
@@ -548,13 +485,8 @@ button { font: inherit; cursor: pointer; }
   padding: 18px; box-shadow: var(--shadow); transition: transform .16s ease, box-shadow .16s ease;
   animation: fadeUp .35s ease both;
 }
-.scholarship-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-}
-.scholarship-card-top {
-  display: flex; gap: 10px; align-items: flex-start;
-}
+.scholarship-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.scholarship-card-top { display: flex; gap: 10px; align-items: flex-start; }
 .scholarship-badge {
   font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 999px;
   white-space: nowrap; color: #fff; letter-spacing: .02em; text-transform: uppercase;
@@ -565,9 +497,7 @@ button { font: inherit; cursor: pointer; }
 .funding-fellow  { color: #7c3aed; }
 .funding-annual  { color: #047857; }
 .funding-self    { color: #6b7280; }
-.scholarship-title {
-  font-size: 16px; font-weight: 700; line-height: 1.35; margin: 0;
-}
+.scholarship-title { font-size: 16px; font-weight: 700; line-height: 1.35; margin: 0; }
 .scholarship-title a { color: var(--text); }
 .scholarship-title a:hover { color: var(--primary); text-decoration: none; }
 .scholarship-provider { color: var(--muted); font-size: 13.5px; margin-top: 2px; }
@@ -587,27 +517,6 @@ button { font: inherit; cursor: pointer; }
 .scholarship-source-line a.source-credit { color: var(--muted); }
 .scholarship-source-line a.source-credit:hover { color: var(--primary); text-decoration: none; }
 
-/* Extra badges for scholarships page */
-.badge[data-badge="arab"] {
-  background: #fef3c7; color: #92400e; border-color: #fde68a;
-}
-.badge[data-badge="women"] {
-  background: #fce7f3; color: #9d174d; border-color: #fbcfe8;
-}
-.badge[data-badge="tech"] {
-  background: #dbeafe; color: #1e40af; border-color: #bfdbfe;
-}
-.badge.arab-world {
-  background: #fef3c7; color: #92400e; border-color: #fde68a;
-}
-.badge.women-badge {
-  background: #fce7f3; color: #9d174d; border-color: #fbcfe8;
-}
-.badge.tech-badge {
-  background: #dbeafe; color: #1e40af; border-color: #bfdbfe;
-}
-
-/* scholarship filter bar extras */
 #scholarshipFilterBar select,
 #scholarshipFilterBar input[type="text"] {
   border: 1px solid var(--border); background: var(--bg); color: var(--text);
@@ -616,33 +525,8 @@ button { font: inherit; cursor: pointer; }
 #scholarshipFilterBar select:focus,
 #scholarshipFilterBar input:focus { border-color: var(--amber); }
 #scholarshipFilterBar .btn-reset:hover { color: var(--amber); border-color: var(--amber); }
-
-/* scholarship section spacing */
 .section-scholarships { margin-top: 8px; }
 
-/* scholarship detail — new facts */
-.detail-card #detailAmount,
-.detail-card #detailProvider,
-.detail-card #detailLocation,
-.detail-card #detailFunding,
-.detail-card #detailLevel,
-.detail-card #detailDeadline,
-.detail-card #detailSource {
-  color: var(--muted); text-align: right;
-}
-.detail-card #detailAmount span,
-.detail-card #detailProvider span,
-.detail-card #detailLocation span,
-.detail-card #detailFunding span,
-.detail-card #detailLevel span,
-.detail-card #detailDeadline span,
-.detail-card #detailSource span {
-  display: block;
-  color: var(--muted);
-  text-align: right;
-}
-
-/* scholarship bookmark button */
 .scholarship-card .bookmark-btn {
   margin-left: auto; flex: none; border: 0; background: transparent; color: var(--muted);
   width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
@@ -650,3 +534,88 @@ button { font: inherit; cursor: pointer; }
 }
 .scholarship-card .bookmark-btn:hover { background: var(--bg-soft); }
 .scholarship-card .bookmark-btn.saved { color: var(--amber); }
+
+/* ============================================================
+   FOOTER STYLES (RESTORED & POLISHED)
+   ============================================================ */
+.site-footer {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 56px 0 28px;
+  margin-top: 60px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 36px;
+  margin-bottom: 40px;
+}
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+.footer-brand .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.footer-brand p {
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 320px;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.footer-col h4 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+.footer-col a {
+  color: var(--muted);
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+.footer-col a:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.footer-bottom a {
+  color: var(--primary);
+  font-weight: 600;
+}
+.footer-bottom button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+}
+.footer-bottom button:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
