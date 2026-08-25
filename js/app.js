@@ -22,7 +22,7 @@ const CONFIG = {
 /* ============================ UTILS ============================ */
 const $  = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-const esc = (s) => String(s ?? "").replace(/[&<>\"']/g, (c) =>
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
   ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 
 function timeAgo(iso) {
@@ -80,7 +80,7 @@ const store = {
 };
 
 /* ================================================================
-   JOBS — region/country detection (unchanged)
+   JOBS — region/country detection
    ================================================================ */
 const US_STATES = new Set([
   "alabama","alaska","arizona","arkansas","california","colorado","connecticut",
@@ -585,7 +585,7 @@ function mergeJobs(list) {
   const byId = new Map(state.jobs.map(j => [j.id, j]));
   for (const raw of list) {
     const j = normalize(raw);
-    if (!j.title || !j.url || !j.region) continue;
+    if (!j.title || !j.url) continue;
     const exId = byId.get(j.id);
     if (exId) {
       if ((j.description||"").length > (exId.description||"").length)
@@ -620,10 +620,11 @@ async function load() {
     const res = await fetch("data/jobs.json");
     if (res.ok) {
       const snap = await res.json();
-      store.set("ww:snap", { t: Date.now(), jobs: snap.jobs });
-      setJobs(snap.jobs.map(normalize));
+      const jobsList = Array.isArray(snap) ? snap : (snap.jobs || []);
+      store.set("ww:snap", { t: Date.now(), jobs: jobsList });
+      setJobs(jobsList.map(normalize));
     } else throw new Error("no snapshot");
-  } catch {
+  } catch (err) {
     if (!cached) {
       const old = store.get("ww:jobs", null);
       if (old && Array.isArray(old)) setJobs(old);
@@ -635,7 +636,6 @@ async function load() {
     if (j && typeof j.scrollIntoView === "function")
       setTimeout(() => j.scrollIntoView({ behavior: "smooth" }), 350);
   }
-  // Re-route to handle any hash set before data finished loading
   route();
 }
 
@@ -764,44 +764,59 @@ function renderHome() {
   const list = visibleJobs();
   const shown = list.slice(0, state.visible);
 
-  $("#resultCount").textContent =
-    `${list.length} job${list.length === 1 ? "" : "s"}${f.q || f.cat !== "All" || f.loc ? " found" : " available"}`;
-  $("#grid").innerHTML = shown.length
-    ? shown.map(cardHtml).join("")
-    : `<div class="empty"><h3>No jobs match your filters</h3>
-      <p>Try clearing the search or filters.</p>
-      <button class="btn ghost" id="resetBtn">Reset filters</button></div>`;
+  const rc = $("#resultCount");
+  if (rc) rc.textContent = `${list.length} job${list.length === 1 ? "" : "s"}${f.q || f.cat !== "All" || f.loc ? " found" : " available"}`;
+  
+  const gd = $("#grid");
+  if (gd) {
+    gd.innerHTML = shown.length
+      ? shown.map(cardHtml).join("")
+      : `<div class="empty"><h3>No jobs match your filters</h3>
+        <p>Try clearing the search or filters.</p>
+        <button class="btn ghost" id="resetBtn">Reset filters</button></div>`;
+  }
+
   const lb = $("#loadMoreWrap");
-  lb.classList.toggle("hidden", list.length <= shown.length);
-  $("#loadMoreBtn").textContent =
-    `Show more (${list.length - shown.length} left)`;
+  if (lb) {
+    lb.classList.toggle("hidden", list.length <= shown.length);
+    const lmb = $("#loadMoreBtn");
+    if (lmb) lmb.textContent = `Show more (${list.length - shown.length} left)`;
+  }
 
   const counts = {};
   state.jobs.forEach(j => { counts[j.category] = (counts[j.category]||0) + 1; });
   const cats = Object.entries(counts).sort((a,b) => b[1] - a[1]);
-  $("#catChips").innerHTML =
-    `<button class="cat-chip ${f.cat === "All" ? "active" : ""}" data-cat="All">
-      All (${state.jobs.length})</button>` +
-    cats.map(([c,n]) => `<button class="cat-chip ${f.cat === c ? "active" : ""}"
-      data-cat="${esc(c)}">${esc(c)} (${n})</button>`).join("");
+  const catEl = $("#catChips");
+  if (catEl) {
+    catEl.innerHTML =
+      `<button class="cat-chip ${f.cat === "All" ? "active" : ""}" data-cat="All">
+        All (${state.jobs.length})</button>` +
+      cats.map(([c,n]) => `<button class="cat-chip ${f.cat === c ? "active" : ""}"
+        data-cat="${esc(c)}">${esc(c)} (${n})</button>`).join("");
+  }
 
   const cc = {};
   state.jobs.forEach(j => { const k = j.country || "WW"; cc[k] = (cc[k]||0) + 1; });
-  const cNames = Object.keys(cc).filter(k => k !== "WW")
-    .sort((a,b) => cc[b] - cc[a]);
-  $("#filterCountry").innerHTML =
-    `<option value="All">All countries (${state.jobs.length})</option>` +
-    cNames.map(n => `<option value="${esc(n)}">${esc(n)} (${cc[n]})</option>`).join("") +
-    (cc.WW ? `<option value="WW">🌍 Worldwide / Remote (${cc.WW})</option>` : "");
-  $("#filterCountry").value = f.country;
+  const cNames = Object.keys(cc).filter(k => k !== "WW").sort((a,b) => cc[b] - cc[a]);
+  const fc = $("#filterCountry");
+  if (fc) {
+    fc.innerHTML =
+      `<option value="All">All countries (${state.jobs.length})</option>` +
+      cNames.map(n => `<option value="${esc(n)}">${esc(n)} (${cc[n]})</option>`).join("") +
+      (cc.WW ? `<option value="WW">🌍 Worldwide / Remote (${cc.WW})</option>` : "");
+    fc.value = f.country;
+  }
 
-  $("#statTotal").textContent    = state.jobs.length.toLocaleString();
-  $("#statNew").textContent      = state.jobs.filter(
-    j => new Date(j.date) > Date.now() - 86400000).length;
-  $("#statSources").textContent  = new Set(
-    state.jobs.map(j => j.source).filter(Boolean)).size || SOURCES.length;
-  $("#statSalary").textContent   = state.jobs.filter(j => j.salary).length;
-  $("#tabJobsCount").textContent = state.jobs.length;
+  const stTot = $("#statTotal");
+  if (stTot) stTot.textContent = state.jobs.length.toLocaleString();
+  const stNew = $("#statNew");
+  if (stNew) stNew.textContent = state.jobs.filter(j => new Date(j.date) > Date.now() - 86400000).length;
+  const stSrc = $("#statSources");
+  if (stSrc) stSrc.textContent = new Set(state.jobs.map(j => j.source).filter(Boolean)).size || SOURCES.length;
+  const stSal = $("#statSalary");
+  if (stSal) stSal.textContent = state.jobs.filter(j => j.salary).length;
+  const tabJc = $("#tabJobsCount");
+  if (tabJc) tabJc.textContent = state.jobs.length;
 
   injectFeedAds();
 }
@@ -814,9 +829,9 @@ function updateSyncPills() {
   const names = SOURCES.map(s => s.name);
   Object.keys(snapCounts).forEach(n => { if (!names.includes(n)) names.push(n); });
   wrap.innerHTML = names.map(name => {
-    const st   = state.sourceStatus[name];
+    const st    = state.sourceStatus[name];
     const count = st ? st.count : snapCounts[name] || 0;
-    const cls  = st ? (st.ok ? "ok" : "err") : "ok";
+    const cls   = st ? (st.ok ? "ok" : "err") : "ok";
     return `<span class="src-pill ${cls}"><span class="dot"></span>${esc(name)}
       <b>${count}</b></span>`;
   }).join("");
@@ -843,7 +858,6 @@ function schMatches(s, f) {
   if (f.level   !== "All" && s.level   !== f.level)   return false;
   if (f.region  !== "All") {
     if (f.region === "AR") {
-      // Show all Arab region scholarships
       if (s.region !== "AR" && !["Egypt","Morocco","Tunisia","Algeria",
         "Jordan","Lebanon","United Arab Emirates","Saudi Arabia","Oman",
         "Bahrain","Qatar","Palestine","Syria","Iraq","Sudan","Libya",
@@ -943,131 +957,166 @@ function renderScholarships() {
   const list = schVisible();
   const shown = list.slice(0, state.schVisible);
 
-  $("#scholarshipResultCount").textContent =
-    `${list.length} scholarship${list.length === 1 ? "" : "s"}${
+  const src = $("#scholarshipResultCount");
+  if (src) {
+    src.textContent = `${list.length} scholarship${list.length === 1 ? "" : "s"}${
       f.q || f.funding !== "All" || f.level !== "All" ? " found" : " available"}`;
-  $("#scholarshipGrid").innerHTML = shown.length
-    ? shown.map(scholarshipCardHtml).join("")
-    : `<div class="empty"><h3>No scholarships match your filters</h3>
-      <p>Try clearing the search or filters.</p>
-      <button class="btn ghost" id="scholarshipResetBtn">Reset filters</button></div>`;
-  const lb = $("#scholarshipLoadMoreWrap");
-  lb.classList.toggle("hidden", list.length <= shown.length);
-  $("#scholarshipLoadMoreBtn").textContent =
-    `Show more (${list.length - shown.length} left)`;
+  }
 
-  // funding type chips
+  const sg = $("#scholarshipGrid");
+  if (sg) {
+    sg.innerHTML = shown.length
+      ? shown.map(scholarshipCardHtml).join("")
+      : `<div class="empty"><h3>No scholarships match your filters</h3>
+        <p>Try clearing the search or filters.</p>
+        <button class="btn ghost" id="scholarshipResetBtn">Reset filters</button></div>`;
+  }
+
+  const lb = $("#scholarshipLoadMoreWrap");
+  if (lb) {
+    lb.classList.toggle("hidden", list.length <= shown.length);
+    const slmb = $("#scholarshipLoadMoreBtn");
+    if (slmb) slmb.textContent = `Show more (${list.length - shown.length} left)`;
+  }
+
   const fcounts = {};
   state.scholarships.forEach(s => {
     fcounts[s.funding] = (fcounts[s.funding]||0) + 1;
   });
-  $("#scholarshipCatChips").innerHTML =
-    `<button class="cat-chip ${f.funding === "All" ? "active" : ""}" data-sch-funding="All">
-      All (${state.scholarships.length})</button>` +
-    Object.entries(fcounts).sort((a,b) => b[1]-a[1]).map(([ft,n]) =>
-      `<button class="cat-chip ${f.funding === ft ? "active" : ""}"
-        data-sch-funding="${esc(ft)}">${esc(ft)} (${n})</button>`).join("");
+  const schCat = $("#scholarshipCatChips");
+  if (schCat) {
+    schCat.innerHTML =
+      `<button class="cat-chip ${f.funding === "All" ? "active" : ""}" data-sch-funding="All">
+        All (${state.scholarships.length})</button>` +
+      Object.entries(fcounts).sort((a,b) => b[1]-a[1]).map(([ft,n]) =>
+        `<button class="cat-chip ${f.funding === ft ? "active" : ""}"
+          data-sch-funding="${esc(ft)}">${esc(ft)} (${n})</button>`).join("");
+  }
 
-  // country select — including Arab countries
   const cc = {};
   state.scholarships.forEach(s => {
     const k = s.country || (s.region === "WW" ? "WW" :
       s.region === "AR" ? "AR" : "Other");
     cc[k] = (cc[k]||0) + 1;
   });
-  const cNames = Object.keys(cc).filter(k => k !== "WW" && k !== "AR" && k !== "Other")
-    .sort((a,b) => cc[b]-cc[a]);
-  const arabNames = Object.keys(cc).filter(k => k === "AR" || cc[k] > 0 && k !== "AR")
-    .filter(k => k !== "WW" && k !== "Other")
-    .sort((a,b) => cc[b]-cc[a]);
-  $("#scholarshipCountry").innerHTML =
-    `<option value="All">All countries (${state.scholarships.length})</option>` +
-    cNames.map(n => `<option value="${esc(n)}">${esc(n)} (${cc[n]})</option>`).join("") +
-    (cc.WW ? `<option value="WW">🌍 Worldwide / Remote (${cc["WW"]})</option>` : "") +
-    (cc.AR ? `<option value="AR">🌙 Arab world (${cc["AR"]})</option>` : "") +
-    (cc.Other ? `<option value="Other">Other (${cc["Other"]})</option>` : "");
-  $("#scholarshipCountry").value = f.country;
+  const cNames = Object.keys(cc).filter(k => k !== "WW" && k !== "AR" && k !== "Other").sort((a,b) => cc[b]-cc[a]);
+  const schCountEl = $("#scholarshipCountry");
+  if (schCountEl) {
+    schCountEl.innerHTML =
+      `<option value="All">All countries (${state.scholarships.length})</option>` +
+      cNames.map(n => `<option value="${esc(n)}">${esc(n)} (${cc[n]})</option>`).join("") +
+      (cc.WW ? `<option value="WW">🌍 Worldwide / Remote (${cc["WW"]})</option>` : "") +
+      (cc.AR ? `<option value="AR">🌙 Arab world (${cc["AR"]})</option>` : "") +
+      (cc.Other ? `<option value="Other">Other (${cc["Other"]})</option>` : "");
+    schCountEl.value = f.country;
+  }
 
-  $("#statScholarships").textContent = state.scholarships.length;
-  $("#tabScholarshipsCount").textContent = state.scholarships.length;
+  const statSch = $("#statScholarships");
+  if (statSch) statSch.textContent = state.scholarships.length;
+  const tabSch = $("#tabScholarshipsCount");
+  if (tabSch) tabSch.textContent = state.scholarships.length;
 }
 
 async function loadScholarships() {
-  store.set("ww:schSnap", null);  // force fresh load
+  store.set("ww:schSnap", null);
   try {
     const res = await fetch("data/scholarships.json");
     if (res.ok) {
       const snap = await res.json();
-      state.scholarships = snap.scholarships.map(schNormalize);
+      const schList = Array.isArray(snap) ? snap : (snap.scholarships || []);
+      state.scholarships = schList.map(schNormalize);
       renderScholarships();
     }
   } catch {
-    // seed already committed in data/scholarships.json
     try {
       const res2 = await fetch("data/scholarships.json");
       if (res2.ok) {
         const snap = await res2.json();
-        state.scholarships = snap.scholarships.map(schNormalize);
+        const schList = Array.isArray(snap) ? snap : (snap.scholarships || []);
+        state.scholarships = schList.map(schNormalize);
         renderScholarships();
       }
     } catch {}
   }
-  // Re-route to handle any hash set before data finished loading
   route();
 }
 
 /* ============================ SCHOLARSHIP DETAIL ============================ */
-function renderScholarshipDetail(s, scroll = true) {
+function renderScholarshipDetail(s, scroll = false) {
   if (!s) { location.hash = ""; return; }
   document.title = `${s.title} | ${CONFIG.siteName}`;
-  $("#detailTitle").innerHTML    = esc(s.title);
-  $("#detailCompany").textContent = s.provider || "";
-  $("#detailLogo").innerHTML     = logoHtml({ company: s.provider || s.title,
-    logo:"" }, 64);
+  const dTitle = $("#detailTitle");
+  if (dTitle) dTitle.innerHTML = esc(s.title);
+  const dComp = $("#detailCompany");
+  if (dComp) dComp.textContent = s.provider || "";
+  const dLogo = $("#detailLogo");
+  if (dLogo) dLogo.innerHTML = logoHtml({ company: s.provider || s.title, logo:"" }, 64);
 
-  $("#detailMeta").innerHTML = `
-    <span class="badge">📍 ${esc(s.location || s.country || "—")}</span>
-    ${s.remote ? '<span class="badge remote">🌐 Remote / Worldwide</span>' : ""}
-    ${s.level ? `<span class="badge">${esc(s.level)}</span>` : ""}
-    ${s.funding ? `<span class="badge funding-badge" style="background:var(--green-bg)">
-      ${esc(s.funding)}</span>` : ""}
-    <span class="badge">${timeAgo(s.deadline || s.date)}</span>
-    <a class="source-credit" href="${esc(s.url || "#")}" target="_blank"
-      rel="noopener noreferrer">Source: ${esc(s.source || "")}</a>`;
+  const dMeta = $("#detailMeta");
+  if (dMeta) {
+    dMeta.innerHTML = `
+      <span class="badge">📍 ${esc(s.location || s.country || "—")}</span>
+      ${s.remote ? '<span class="badge remote">🌐 Remote / Worldwide</span>' : ""}
+      ${s.level ? `<span class="badge">${esc(s.level)}</span>` : ""}
+      ${s.funding ? `<span class="badge funding-badge" style="background:var(--green-bg)">
+        ${esc(s.funding)}</span>` : ""}
+      <span class="badge">${timeAgo(s.deadline || s.date)}</span>
+      <a class="source-credit" href="${esc(s.url || "#")}" target="_blank"
+        rel="noopener noreferrer">Source: ${esc(s.source || "")}</a>`;
+  }
 
-  $("#detailBody").innerHTML = sanitizeHtml(s.description) ||
-    "<p><em>Full details available on the provider's page.</em></p>";
+  const dBody = $("#detailBody");
+  if (dBody) {
+    dBody.innerHTML = sanitizeHtml(s.description) ||
+      "<p><em>Full details available on the provider's page.</em></p>";
+  }
 
-  $("#applyNowBtn").href     = s.url || "#";
-  $("#applyNowBtn").dataset.url = s.url || "#";
-  $("#detailSaveBtn").innerHTML = state$sch.schBookmarks.has(s.id) ? "★ Saved" : "☆ Save";
-  $("#detailSaveBtn").onclick   = () => {
-    toggleSchBookmark(s.id);
-    renderScholarshipDetail(s);
-  };
+  const appBtn = $("#applyNowBtn");
+  if (appBtn) {
+    appBtn.href = s.url || "#";
+    appBtn.dataset.url = s.url || "#";
+  }
 
-  $("#detailAmount").textContent  = s.amount_str || "Not specified";
-  $("#detailProvider").textContent= s.provider || "—";
-  $("#detailLocation").textContent= s.location || s.country || "—";
-  $("#detailFunding").textContent = s.funding || "—";
-  $("#detailLevel").textContent   = s.level || "—";
-  $("#detailDeadline").textContent= s.deadline ? new Date(s.deadline).toLocaleDateString(
+  const saveBtn = $("#detailSaveBtn");
+  if (saveBtn) {
+    saveBtn.innerHTML = state$sch.schBookmarks.has(s.id) ? "★ Saved" : "☆ Save";
+    saveBtn.onclick = () => {
+      toggleSchBookmark(s.id);
+      renderScholarshipDetail(s, false);
+    };
+  }
+
+  if ($("#detailAmount")) $("#detailAmount").textContent   = s.amount_str || "Not specified";
+  if ($("#detailProvider")) $("#detailProvider").textContent = s.provider || "—";
+  if ($("#detailLocation")) $("#detailLocation").textContent = s.location || s.country || "—";
+  if ($("#detailFunding")) $("#detailFunding").textContent   = s.funding || "—";
+  if ($("#detailLevel")) $("#detailLevel").textContent       = s.level || "—";
+  if ($("#detailDeadline")) $("#detailDeadline").textContent = s.deadline ? new Date(s.deadline).toLocaleDateString(
     "en-US", { month:"short", day:"numeric", year:"numeric" }) : "Not specified";
-  $("#detailSource").textContent  = s.source || "—";
+  if ($("#detailSource")) $("#detailSource").textContent     = s.source || "—";
 
   const rel = state.scholarships
     .filter(x => x.funding === s.funding && x.id !== s.id)
     .slice(0, 4);
-  $("#relatedTitle").classList.toggle("hidden", !rel.length);
-  $("#relatedGrid").innerHTML = rel.map(scholarshipCardHtml).join("");
+  const relT = $("#relatedTitle");
+  if (relT) {
+    relT.textContent = "Similar scholarships";
+    relT.classList.toggle("hidden", !rel.length);
+  }
+  const relG = $("#relatedGrid");
+  if (relG) relG.innerHTML = rel.map(scholarshipCardHtml).join("");
 
   const adBox = $("#detailAd");
-  adBox.innerHTML = "";
-  adBox.append(adEl(CONFIG.adSlots.detail));
+  if (adBox) {
+    adBox.innerHTML = "";
+    adBox.append(adEl(CONFIG.adSlots.detail));
+  }
   try { if (adsenseActive()) (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch {}
 
-  $("#viewHome").classList.add("hidden");
-  $("#viewDetail").classList.remove("hidden");
+  const vHome = $("#viewHome");
+  if (vHome) vHome.classList.add("hidden");
+  const vDet = $("#viewDetail");
+  if (vDet) vDet.classList.remove("hidden");
   if (scroll) window.scrollTo({ top: 0 });
 }
 
@@ -1083,13 +1132,18 @@ function switchTab(tab) {
     link.style.fontWeight = link.dataset.tab === tab ? "700" : "600";
   });
   if (tab === "jobs") {
-    $("#viewHome").classList.remove("hidden");
-    $("#viewDetail").classList.add("hidden");
+    const vHome = $("#viewHome");
+    if (vHome) vHome.classList.remove("hidden");
+    const vDet = $("#viewDetail");
+    if (vDet) vDet.classList.add("hidden");
     document.title = `${CONFIG.siteName} — Jobs in the USA & Europe | Auto-Updated Job Board`;
   } else {
-    $("#viewHome").classList.remove("hidden");
-    $("#viewDetail").classList.add("hidden");
-    $("#scholarships").scrollIntoView({ behavior: "smooth" });
+    const vHome = $("#viewHome");
+    if (vHome) vHome.classList.remove("hidden");
+    const vDet = $("#viewDetail");
+    if (vDet) vDet.classList.add("hidden");
+    const schSec = $("#scholarships");
+    if (schSec) schSec.scrollIntoView({ behavior: "smooth" });
     document.title = `${CONFIG.siteName} — Scholarships & Funding | USA & Europe`;
     renderScholarships();
   }
@@ -1105,9 +1159,6 @@ function loadTabPref() {
   } catch {}
   return "jobs";
 }
-
-
-
 
 /* ============================ ADS ============================ */
 let adsLoaded = false;
@@ -1167,209 +1218,282 @@ function applyFilters() { renderHome(); }
 function applySchFilters() { renderScholarships(); }
 
 function bindEvents() {
-  // ── JOBS search & filters ──
   let debounce;
-  $("#searchInput").addEventListener("input", e => {
-    clearTimeout(debounce);
-    debounce = setTimeout(() => {
-      state.filters.q = e.target.value.trim();
-      state.visible = 24;
-      applyFilters();
-    }, 250);
-  });
-  $("#filterRegion").addEventListener("change", e => {
-    state.filters.region = e.target.value;
-    state.visible = 24;
-    applyFilters();
-  });
-  $("#filterCountry").addEventListener("change", e => {
-    state.filters.country = e.target.value;
-    state.visible = 24;
-    applyFilters();
-  });
-  $("#filterCat").addEventListener("change", e => {
-    state.filters.cat = e.target.value;
-    state.visible = 24;
-    applyFilters();
-  });
-  $("#filterLoc").addEventListener("input", e => {
-    state.filters.loc = e.target.value.trim();
-    state.visible = 24;
-    applyFilters();
-  });
-  $("#filterSort").addEventListener("change", e => {
-    state.filters.sort = e.target.value;
-    state.visible = 24;
-    applyFilters();
-  });
-  $("#filterRemote").addEventListener("change", e => {
-    state.filters.remoteOnly = e.target.checked;
-    state.visible = 24;
-    applyFilters();
-  });
-  $("#filterSaved").addEventListener("change", e => {
-    state.filters.savedOnly = e.target.checked;
-    applyFilters();
-  });
-  $("#resetFilters").addEventListener("click", () => {
-    state.filters = {
-      q:"", cat:"All", region:"All", country:"All", loc:"",
-      remoteOnly:false, savedOnly:false, sort:"new",
-    };
-    $("#searchInput").value  = "";
-    $("#filterLoc").value    = "";
-    $("#filterCat").value    = "All";
-    $("#filterRegion").value = "All";
-    $("#filterCountry").value= "All";
-    $("#filterSort").value   = "new";
-    $("#filterRemote").checked = false;
-    $("#filterSaved").checked  = false;
-    state.visible = 24;
-    applyFilters();
-  });
-
-  // ── JOBS category chips ──
-  $("#catChips").addEventListener("click", e => {
-    const btn = e.target.closest(".cat-chip");
-    if (!btn) return;
-    state.filters.cat = btn.dataset.cat;
-    $("#filterCat").value = state.filters.cat;
-    state.visible = 24;
-    applyFilters();
-  });
-
-  // ── JOBS quick chips (hero) ──
-  $$(".quick-chip").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const cat    = btn.dataset.quick;
-      const isCountry = btn.dataset.quickType === "country";
-      state.filters.remoteOnly = false;
-      $("#filterRemote").checked = false;
-      if (cat === "Remote") {
-        state.filters.remoteOnly = true;
-        $("#filterRemote").checked = true;
-      } else if (isCountry) {
-        state.filters.region  = "All";
-        $("#filterRegion").value = "All";
-        state.filters.country = cat;
-        $("#filterCountry").value = cat;
-      } else if (cat === "US" || cat === "EU" || cat === "WW") {
-        state.filters.country = "All";
-        $("#filterCountry").value = "All";
-        state.filters.region  = cat;
-        $("#filterRegion").value = cat;
-      } else {
-        state.filters.country  = "All";
-        $("#filterCountry").value = "All";
-        state.filters.region  = "All";
-        $("#filterRegion").value = "All";
-        state.filters.cat = cat;
-        $("#filterCat").value = cat;
-      }
-      state.visible = 24;
-      applyFilters();
-      $("#jobs").scrollIntoView({ behavior: "smooth" });
+  const sIn = $("#searchInput");
+  if (sIn) {
+    sIn.addEventListener("input", e => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => {
+        state.filters.q = e.target.value.trim();
+        state.visible = 24;
+        applyFilters();
+      }, 250);
     });
-  });
+  }
 
-  // ── JOBS load more ──
-  $("#loadMoreBtn").addEventListener("click", () => {
-    state.visible += 24;
-    renderHome();
-  });
+  const fReg = $("#filterRegion");
+  if (fReg) {
+    fReg.addEventListener("change", e => {
+      state.filters.region = e.target.value;
+      state.visible = 24;
+      applyFilters();
+    });
+  }
 
-  // ── JOBS grid clicks (bookmark + reset) ──
-  $("#grid").addEventListener("click", e => {
-    const b = e.target.closest("[data-bookmark]");
-    if (b) { e.preventDefault(); toggleBookmark(b.dataset.bookmark); return; }
-    if (e.target.id === "resetBtn" || e.target.id === "scholarshipResetBtn") {
+  const fCount = $("#filterCountry");
+  if (fCount) {
+    fCount.addEventListener("change", e => {
+      state.filters.country = e.target.value;
+      state.visible = 24;
+      applyFilters();
+    });
+  }
+
+  const fCat = $("#filterCat");
+  if (fCat) {
+    fCat.addEventListener("change", e => {
+      state.filters.cat = e.target.value;
+      state.visible = 24;
+      applyFilters();
+    });
+  }
+
+  const fLoc = $("#filterLoc");
+  if (fLoc) {
+    fLoc.addEventListener("input", e => {
+      state.filters.loc = e.target.value.trim();
+      state.visible = 24;
+      applyFilters();
+    });
+  }
+
+  const fSort = $("#filterSort");
+  if (fSort) {
+    fSort.addEventListener("change", e => {
+      state.filters.sort = e.target.value;
+      state.visible = 24;
+      applyFilters();
+    });
+  }
+
+  const fRem = $("#filterRemote");
+  if (fRem) {
+    fRem.addEventListener("change", e => {
+      state.filters.remoteOnly = e.target.checked;
+      state.visible = 24;
+      applyFilters();
+    });
+  }
+
+  const fSav = $("#filterSaved");
+  if (fSav) {
+    fSav.addEventListener("change", e => {
+      state.filters.savedOnly = e.target.checked;
+      applyFilters();
+    });
+  }
+
+  const resFilt = $("#resetFilters");
+  if (resFilt) {
+    resFilt.addEventListener("click", () => {
       state.filters = {
         q:"", cat:"All", region:"All", country:"All", loc:"",
         remoteOnly:false, savedOnly:false, sort:"new",
       };
+      if ($("#searchInput")) $("#searchInput").value = "";
+      if ($("#filterLoc")) $("#filterLoc").value     = "";
+      if ($("#filterCat")) $("#filterCat").value     = "All";
+      if ($("#filterRegion")) $("#filterRegion").value = "All";
+      if ($("#filterCountry")) $("#filterCountry").value= "All";
+      if ($("#filterSort")) $("#filterSort").value   = "new";
+      if ($("#filterRemote")) $("#filterRemote").checked = false;
+      if ($("#filterSaved")) $("#filterSaved").checked  = false;
+      state.visible = 24;
       applyFilters();
-    }
+    });
+  }
+
+  const cChips = $("#catChips");
+  if (cChips) {
+    cChips.addEventListener("click", e => {
+      const btn = e.target.closest(".cat-chip");
+      if (!btn) return;
+      state.filters.cat = btn.dataset.cat;
+      if ($("#filterCat")) $("#filterCat").value = state.filters.cat;
+      state.visible = 24;
+      applyFilters();
+    });
+  }
+
+  $$(".quick-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const cat     = btn.dataset.quick;
+      const isCountry = btn.dataset.quickType === "country";
+      state.filters.remoteOnly = false;
+      if ($("#filterRemote")) $("#filterRemote").checked = false;
+      if (cat === "Remote") {
+        state.filters.remoteOnly = true;
+        if ($("#filterRemote")) $("#filterRemote").checked = true;
+      } else if (isCountry) {
+        state.filters.region  = "All";
+        if ($("#filterRegion")) $("#filterRegion").value = "All";
+        state.filters.country = cat;
+        if ($("#filterCountry")) $("#filterCountry").value = cat;
+      } else if (cat === "US" || cat === "EU" || cat === "WW") {
+        state.filters.country = "All";
+        if ($("#filterCountry")) $("#filterCountry").value = "All";
+        state.filters.region  = cat;
+        if ($("#filterRegion")) $("#filterRegion").value = cat;
+      } else {
+        state.filters.country  = "All";
+        if ($("#filterCountry")) $("#filterCountry").value = "All";
+        state.filters.region  = "All";
+        if ($("#filterRegion")) $("#filterRegion").value = "All";
+        state.filters.cat = cat;
+        if ($("#filterCat")) $("#filterCat").value = cat;
+      }
+      state.visible = 24;
+      applyFilters();
+      const jSec = $("#jobs");
+      if (jSec) jSec.scrollIntoView({ behavior: "smooth" });
+    });
   });
+
+  const lmBtn = $("#loadMoreBtn");
+  if (lmBtn) {
+    lmBtn.addEventListener("click", () => {
+      state.visible += 24;
+      renderHome();
+    });
+  }
+
+  const gridEl = $("#grid");
+  if (gridEl) {
+    gridEl.addEventListener("click", e => {
+      const b = e.target.closest("[data-bookmark]");
+      if (b) { e.preventDefault(); toggleBookmark(b.dataset.bookmark); return; }
+      if (e.target.id === "resetBtn" || e.target.id === "scholarshipResetBtn") {
+        state.filters = {
+          q:"", cat:"All", region:"All", country:"All", loc:"",
+          remoteOnly:false, savedOnly:false, sort:"new",
+        };
+        applyFilters();
+      }
+    });
+  }
 
   // ── SCHOLARSHIPS search & filters ──
   let schDebounce;
-  $("#scholarshipSearch").addEventListener("input", e => {
-    clearTimeout(schDebounce);
-    schDebounce = setTimeout(() => {
-      SCH_FILTERS.q = e.target.value.trim();
+  const schSrch = $("#scholarshipSearch");
+  if (schSrch) {
+    schSrch.addEventListener("input", e => {
+      clearTimeout(schDebounce);
+      schDebounce = setTimeout(() => {
+        SCH_FILTERS.q = e.target.value.trim();
+        state.schVisible = 24;
+        applySchFilters();
+      }, 250);
+    });
+  }
+
+  const schFund = $("#scholarshipFunding");
+  if (schFund) {
+    schFund.addEventListener("change", e => {
+      SCH_FILTERS.funding = e.target.value;
       state.schVisible = 24;
       applySchFilters();
-    }, 250);
-  });
-  $("#scholarshipFunding").addEventListener("change", e => {
-    SCH_FILTERS.funding = e.target.value;
-    state.schVisible = 24;
-    applySchFilters();
-  });
-  $("#scholarshipLevel").addEventListener("change", e => {
-    SCH_FILTERS.level = e.target.value;
-    state.schVisible = 24;
-    applySchFilters();
-  });
-  $("#scholarshipRegion").addEventListener("change", e => {
-    SCH_FILTERS.region = e.target.value;
-    state.schVisible = 24;
-    applySchFilters();
-  });
-  $("#scholarshipCountry").addEventListener("change", e => {
-    SCH_FILTERS.country = e.target.value;
-    state.schVisible = 24;
-    applySchFilters();
-  });
-  $("#scholarshipSort").addEventListener("change", e => {
-    SCH_FILTERS.sort = e.target.value;
-    state.schVisible = 24;
-    applySchFilters();
-  });
-  $("#scholarshipReset").addEventListener("click", () => {
-    SCH_FILTERS = {
-      q:"", funding:"All", level:"All", region:"All", country:"All",
-      sort:"deadline",
-    };
-    $("#scholarshipSearch").value   = "";
-    $("#scholarshipFunding").value   = "All";
-    $("#scholarshipLevel").value     = "All";
-    $("#scholarshipRegion").value    = "All";
-    $("#scholarshipCountry").value   = "All";
-    $("#scholarshipSort").value      = "deadline";
-    state.schVisible = 24;
-    applySchFilters();
-  });
+    });
+  }
 
-  // ── SCHOLARSHIPS category chips ──
-  $("#scholarshipCatChips").addEventListener("click", e => {
-    const btn = e.target.closest("[data-sch-funding]");
-    if (!btn) return;
-    SCH_FILTERS.funding = btn.dataset.schFunding;
-    $("#scholarshipFunding").value = SCH_FILTERS.funding;
-    state.schVisible = 24;
-    applySchFilters();
-  });
+  const schLvl = $("#scholarshipLevel");
+  if (schLvl) {
+    schLvl.addEventListener("change", e => {
+      SCH_FILTERS.level = e.target.value;
+      state.schVisible = 24;
+      applySchFilters();
+    });
+  }
 
-  // ── SCHOLARSHIPS grid clicks ──
-  $("#scholarshipGrid").addEventListener("click", e => {
-    const b = e.target.closest("[data-sch-bookmark]");
-    if (b) { e.preventDefault(); toggleSchBookmark(b.dataset.schBookmark); return; }
-    const r = e.target.closest("#scholarshipResetBtn");
-    if (r) {
+  const schReg = $("#scholarshipRegion");
+  if (schReg) {
+    schReg.addEventListener("change", e => {
+      SCH_FILTERS.region = e.target.value;
+      state.schVisible = 24;
+      applySchFilters();
+    });
+  }
+
+  const schCntry = $("#scholarshipCountry");
+  if (schCntry) {
+    schCntry.addEventListener("change", e => {
+      SCH_FILTERS.country = e.target.value;
+      state.schVisible = 24;
+      applySchFilters();
+    });
+  }
+
+  const schSrt = $("#scholarshipSort");
+  if (schSrt) {
+    schSrt.addEventListener("change", e => {
+      SCH_FILTERS.sort = e.target.value;
+      state.schVisible = 24;
+      applySchFilters();
+    });
+  }
+
+  const schRst = $("#scholarshipReset");
+  if (schRst) {
+    schRst.addEventListener("click", () => {
       SCH_FILTERS = {
         q:"", funding:"All", level:"All", region:"All", country:"All",
         sort:"deadline",
       };
+      if ($("#scholarshipSearch")) $("#scholarshipSearch").value   = "";
+      if ($("#scholarshipFunding")) $("#scholarshipFunding").value  = "All";
+      if ($("#scholarshipLevel")) $("#scholarshipLevel").value    = "All";
+      if ($("#scholarshipRegion")) $("#scholarshipRegion").value   = "All";
+      if ($("#scholarshipCountry")) $("#scholarshipCountry").value  = "All";
+      if ($("#scholarshipSort")) $("#scholarshipSort").value     = "deadline";
+      state.schVisible = 24;
       applySchFilters();
-    }
-  });
+    });
+  }
 
-  // ── SCHOLARSHIPS load more ──
-  $("#scholarshipLoadMoreBtn").addEventListener("click", () => {
-    state.schVisible += 24;
-    renderScholarships();
-  });
+  const schChips = $("#scholarshipCatChips");
+  if (schChips) {
+    schChips.addEventListener("click", e => {
+      const btn = e.target.closest("[data-sch-funding]");
+      if (!btn) return;
+      SCH_FILTERS.funding = btn.dataset.schFunding;
+      if ($("#scholarshipFunding")) $("#scholarshipFunding").value = SCH_FILTERS.funding;
+      state.schVisible = 24;
+      applySchFilters();
+    });
+  }
+
+  const schGrd = $("#scholarshipGrid");
+  if (schGrd) {
+    schGrd.addEventListener("click", e => {
+      const b = e.target.closest("[data-sch-bookmark]");
+      if (b) { e.preventDefault(); toggleSchBookmark(b.dataset.schBookmark); return; }
+      const r = e.target.closest("#scholarshipResetBtn");
+      if (r) {
+        SCH_FILTERS = {
+          q:"", funding:"All", level:"All", region:"All", country:"All",
+          sort:"deadline",
+        };
+        applySchFilters();
+      }
+    });
+  }
+
+  const schLmBtn = $("#scholarshipLoadMoreBtn");
+  if (schLmBtn) {
+    schLmBtn.addEventListener("click", () => {
+      state.schVisible += 24;
+      renderScholarships();
+    });
+  }
 
   // ── TABS ──
   $$(".tab-btn").forEach(btn => {
@@ -1382,35 +1506,53 @@ function bindEvents() {
     chip.addEventListener("click", () => {
       switchTab(chip.dataset.tab);
       if (chip.dataset.tab === "scholarships") {
-        $("#scholarships").scrollIntoView({ behavior: "smooth" });
+        const schSec = $("#scholarships");
+        if (schSec) schSec.scrollIntoView({ behavior: "smooth" });
       } else {
-        $("#jobs").scrollIntoView({ behavior: "smooth" });
+        const jSec = $("#jobs");
+        if (jSec) jSec.scrollIntoView({ behavior: "smooth" });
       }
     });
   });
 
   // ── BOOKMARKS (JOBS) ──
-  $("#savedBtn").addEventListener("click", () => {
-    state.filters.savedOnly = !state.filters.savedOnly;
-    $("#filterSaved").checked = state.filters.savedOnly;
-    applyFilters();
-    $("#jobs").scrollIntoView({ behavior: "smooth" });
-  });
-  $("#detailSaveBtn").addEventListener("click", () => {
-    const m = location.hash.match(/^#\/job\/(.+)$/);
-    if (m) toggleBookmark(decodeURIComponent(m[1]));
-  });
+  const sBtn = $("#savedBtn");
+  if (sBtn) {
+    sBtn.addEventListener("click", () => {
+      state.filters.savedOnly = !state.filters.savedOnly;
+      if ($("#filterSaved")) $("#filterSaved").checked = state.filters.savedOnly;
+      applyFilters();
+      const jSec = $("#jobs");
+      if (jSec) jSec.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
+  const dSaveBtn = $("#detailSaveBtn");
+  if (dSaveBtn) {
+    dSaveBtn.addEventListener("click", () => {
+      const m = location.hash.match(/^#\/job\/(.+)$/);
+      if (m) toggleBookmark(decodeURIComponent(m[1]));
+    });
+  }
 
   // ── THEME ──
-  $("#themeBtn").addEventListener("click", () => {
-    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    store.set("ww:theme", next);
-  });
+  const thBtn = $("#themeBtn");
+  if (thBtn) {
+    thBtn.addEventListener("click", () => {
+      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      store.set("ww:theme", next);
+    });
+  }
 
   // ── MOBILE NAV ──
-  $("#navToggle").addEventListener("click", () =>
-    $("#mainNav").classList.toggle("open"));
+  const navTgl = $("#navToggle");
+  if (navTgl) {
+    navTgl.addEventListener("click", () => {
+      const mNav = $("#mainNav");
+      if (mNav) mNav.classList.toggle("open");
+    });
+  }
 
   // ── ROUTER ──
   window.addEventListener("hashchange", route);
@@ -1420,7 +1562,7 @@ function bindEvents() {
     if (e.detail && e.detail.advertising) renderAll();
   });
 
-  // ── LIVE REFRESH (optional) ──
+  // ── LIVE REFRESH ──
   if (CONFIG.browserLiveRefresh) {
     setInterval(() => {
       if (!document.hidden) refreshLive();
@@ -1432,36 +1574,32 @@ function bindEvents() {
     });
   }
 
-  // ── JOB/SCHOLARSHIP TITLE CLICK HANDLER ──
-  // Render details immediately on click, bypassing hashchange delays
+  // ── CLICK HANDLER ──
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href^="#/job/"], a[href^="#/scholarship/"]');
     if (link) {
       const hash = link.getAttribute('href');
       e.preventDefault();
-      // Always set the hash so route() / renderAll() can handle it later
       if (history.pushState) {
         history.pushState(null, "", hash);
       } else {
         location.hash = hash;
       }
-      // Try to render immediately if data is available
       if (hash.startsWith('#/job/')) {
         const id = decodeURIComponent(hash.replace('#/job/', ''));
         const job = state.jobs.find(j => j.id === id);
         if (job) {
-          renderDetail(job, true);
+          renderDetail(job, false);
           return;
         }
       } else if (hash.startsWith('#/scholarship/')) {
         const id = decodeURIComponent(hash.replace('#/scholarship/', ''));
         const s = state.scholarships.find(x => x.id === id);
         if (s) {
-          renderScholarshipDetail(s, true);
+          renderScholarshipDetail(s, false);
           return;
         }
       }
-      // Data not ready yet — route() / renderAll() will handle it when loaded
       route();
     }
   });
@@ -1472,69 +1610,111 @@ function relatedJobs(job, n = 4) {
   return state.jobs.filter(
     j => j.category === job.category && j.id !== job.id).slice(0, n);
 }
-function renderDetail(job, scroll = true) {
+
+function renderDetail(job, scroll = false) {
   if (!job) { location.hash = ""; return; }
   document.title = `${job.title} at ${job.company} | ${CONFIG.siteName}`;
-  $("#detailTitle").innerHTML    = esc(job.title);
-  $("#detailCompany").textContent = job.company;
-  $("#detailLogo").innerHTML     = logoHtml(job, 64);
-  $("#detailMeta").innerHTML = `
-    <span class="badge">📍 ${esc(job.location || "USA")}</span>
-    ${job.remote ? '<span class="badge remote">🌐 Remote</span>' : ""}
-    ${job.type ? `<span class="badge">${esc(job.type)}</span>` : ""}
-    <span class="badge">${timeAgo(job.date)}</span>
-    ${sourceAttribution(job)}`;
-  $("#detailSalary").textContent = job.salary || "Not specified";
-  $("#detailBody").innerHTML = sanitizeHtml(job.description) ||
-    "<p><em>Full description available on the employer's page.</em></p>";
-  $("#applyNowBtn").href       = job.url;
-  $("#applyNowBtn").dataset.url = job.url;
-  $("#detailSaveBtn").innerHTML = state.bookmarks.has(job.id) ? "★ Saved" : "☆ Save job";
-  $("#detailSaveBtn").onclick   = () => { toggleBookmark(job.id); renderDetail(job); };
+  
+  const dTitle = $("#detailTitle");
+  if (dTitle) dTitle.innerHTML = esc(job.title);
+  
+  const dComp = $("#detailCompany");
+  if (dComp) dComp.textContent = job.company;
+  
+  const dLogo = $("#detailLogo");
+  if (dLogo) dLogo.innerHTML = logoHtml(job, 64);
+  
+  const dMeta = $("#detailMeta");
+  if (dMeta) {
+    dMeta.innerHTML = `
+      <span class="badge">📍 ${esc(job.location || "USA")}</span>
+      ${job.remote ? '<span class="badge remote">🌐 Remote</span>' : ""}
+      ${job.type ? `<span class="badge">${esc(job.type)}</span>` : ""}
+      <span class="badge">${timeAgo(job.date)}</span>
+      ${sourceAttribution(job)}`;
+  }
+  
+  const dBody = $("#detailBody");
+  if (dBody) {
+    dBody.innerHTML = sanitizeHtml(job.description) ||
+      "<p><em>Full description available on the employer's page.</em></p>";
+  }
+  
+  const apBtn = $("#applyNowBtn");
+  if (apBtn) {
+    apBtn.href = job.url;
+    apBtn.dataset.url = job.url;
+  }
+  
+  const sBtn = $("#detailSaveBtn");
+  if (sBtn) {
+    sBtn.innerHTML = state.bookmarks.has(job.id) ? "★ Saved" : "☆ Save job";
+    sBtn.onclick = () => { toggleBookmark(job.id); renderDetail(job, false); };
+  }
 
-  $("#factCompany").textContent  = job.company;
-  $("#factLocation").textContent = job.location || "USA";
-  $("#factType").textContent     = job.type || (job.remote ? "Remote" : "—");
-  $("#factDate").textContent     = new Date(job.date).toLocaleDateString(
+  if ($("#detailAmount")) $("#detailAmount").textContent   = job.salary || "Not specified";
+  if ($("#detailProvider")) $("#detailProvider").textContent = job.company || "—";
+  if ($("#detailLocation")) $("#detailLocation").textContent = job.location || "USA";
+  if ($("#detailFunding")) $("#detailFunding").textContent   = job.type || (job.remote ? "Remote" : "—");
+  if ($("#detailLevel")) $("#detailLevel").textContent       = job.category || "—";
+  if ($("#detailDeadline")) $("#detailDeadline").textContent = new Date(job.date).toLocaleDateString(
     "en-US", { month:"short", day:"numeric", year:"numeric" });
-  $("#factCategory").textContent = job.category;
-  const fc = $("#factCountry");
-  if (fc) fc.textContent = job.country || (job.region === "WW" ? "Worldwide / Remote" : "—");
+  if ($("#detailSource")) $("#detailSource").textContent     = job.source || "—";
 
   const rel = relatedJobs(job);
-  $("#relatedTitle").classList.toggle("hidden", !rel.length);
-  $("#relatedGrid").innerHTML = rel.map(cardHtml).join("");
+  const relTitle = $("#relatedTitle");
+  if (relTitle) {
+    relTitle.textContent = "Similar jobs";
+    relTitle.classList.toggle("hidden", !rel.length);
+  }
+  const relGrid = $("#relatedGrid");
+  if (relGrid) relGrid.innerHTML = rel.map(cardHtml).join("");
 
   const adBox = $("#detailAd");
-  adBox.innerHTML = "";
-  adBox.append(adEl(CONFIG.adSlots.detail));
+  if (adBox) {
+    adBox.innerHTML = "";
+    adBox.append(adEl(CONFIG.adSlots.detail));
+  }
   try { if (adsenseActive()) (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch {}
 
-  $("#viewHome").classList.add("hidden");
-  $("#viewDetail").classList.remove("hidden");
+  const vHome = $("#viewHome");
+  if (vHome) vHome.classList.add("hidden");
+  const vDet = $("#viewDetail");
+  if (vDet) vDet.classList.remove("hidden");
   if (scroll) window.scrollTo({ top: 0 });
 }
 
 function showHomeView(scroll = true) {
-  $("#viewDetail").classList.add("hidden");
-  $("#viewHome").classList.remove("hidden");
+  const vDet = $("#viewDetail");
+  if (vDet) vDet.classList.add("hidden");
+  const vHome = $("#viewHome");
+  if (vHome) vHome.classList.remove("hidden");
   document.title = `${CONFIG.siteName} — Jobs in the USA & Europe | Auto-Updated Job Board`;
   if (scroll) window.scrollTo({ top: 0 });
 }
 
 function renderAll() {
   updateSyncPills();
-  renderHome();
+
   const m = location.hash.match(/^#\/job\/(.+)$/);
   if (m) {
     const job = state.jobs.find(j => j.id === decodeURIComponent(m[1]));
-    if (job) renderDetail(job, false);
+    if (job) {
+      renderDetail(job, false);
+      return;
+    }
   }
+
   const sm = location.hash.match(/^#\/scholarship\/(.+)$/);
   if (sm) {
     const s = state.scholarships.find(x => x.id === decodeURIComponent(sm[1]));
-    if (s) renderScholarshipDetail(s, false);
+    if (s) {
+      renderScholarshipDetail(s, false);
+      return;
+    }
   }
+
+  renderHome();
 }
 
 function route() {
@@ -1542,7 +1722,10 @@ function route() {
   if (m) {
     const id = decodeURIComponent(m[1]);
     const job = state.jobs.find(j => j.id === id);
-    if (job) { renderDetail(job, false); return; }
+    if (job) { 
+      renderDetail(job, false); 
+      return; 
+    }
     if (state.jobs.length > 0) {
       showHomeView(false);
       if (history.replaceState) {
@@ -1553,11 +1736,15 @@ function route() {
       return;
     }
   }
+
   const sm = location.hash.match(/^#\/scholarship\/(.+)$/);
   if (sm) {
     const id = decodeURIComponent(sm[1]);
     const s = state.scholarships.find(x => x.id === id);
-    if (s) { renderScholarshipDetail(s, false); return; }
+    if (s) { 
+      renderScholarshipDetail(s, false); 
+      return; 
+    }
     if (state.scholarships.length > 0) {
       showHomeView(false);
       if (history.replaceState) {
@@ -1568,6 +1755,7 @@ function route() {
       return;
     }
   }
+
   switchTab(activeTab);
 }
 
@@ -1581,45 +1769,70 @@ function toggleBookmark(id) {
     card.classList.toggle("saved", state.bookmarks.has(id));
     card.textContent = state.bookmarks.has(id) ? "★" : "☆";
   }
-  $("#savedCount").textContent = state.bookmarks.size;
+  const sc = $("#savedCount");
+  if (sc) sc.textContent = state.bookmarks.size;
 }
 
 /* ============================ SHARE ============================ */
-$("#shareCopyBtn").addEventListener("click", () => {
-  const url = $("#applyNowBtn") ? location.href : "";
-  if (navigator.clipboard)
-    navigator.clipboard.writeText(location.href).then(
-      () => toast("Link copied to clipboard"));
-  else toast("Copy the URL from the address bar");
-});
-$("#shareXBtn").addEventListener("click", () => {
-  const t = encodeURIComponent(document.title);
-  window.open(`https://twitter.com/intent/tweet?text=${t}&url=${encodeURIComponent(location.href)}`,
-    "_blank", "noopener");
-});
-$("#shareFBBtn").addEventListener("click", () => {
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,
-    "_blank", "noopener");
-});
+const sCopy = $("#shareCopyBtn");
+if (sCopy) {
+  sCopy.addEventListener("click", () => {
+    if (navigator.clipboard)
+      navigator.clipboard.writeText(location.href).then(
+        () => toast("Link copied to clipboard"));
+    else toast("Copy the URL from the address bar");
+  });
+}
+
+const sX = $("#shareXBtn");
+if (sX) {
+  sX.addEventListener("click", () => {
+    const t = encodeURIComponent(document.title);
+    window.open(`https://twitter.com/intent/tweet?text=${t}&url=${encodeURIComponent(location.href)}`,
+      "_blank", "noopener");
+  });
+}
+
+const sFB = $("#shareFBBtn");
+if (sFB) {
+  sFB.addEventListener("click", () => {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,
+      "_blank", "noopener");
+  });
+}
 
 /* ============================ URL PARAMS ============================ */
 function applyUrlParams() {
   const p = new URLSearchParams(location.search);
   let applied = false;
-  if (p.has("q"))       { state.filters.q = p.get("q").trim();
-    $("#searchInput").value = state.filters.q; applied = true; }
-  if (p.has("cat"))     { state.filters.cat = p.get("cat");
-    $("#filterCat").value = state.filters.cat; applied = true; }
-  if (p.has("region"))  { state.filters.region = p.get("region");
-    $("#filterRegion").value = state.filters.region; applied = true; }
-  if (p.has("country")) { state.filters.country = p.get("country"); applied = true; }
+  if (p.has("q")) { 
+    state.filters.q = p.get("q").trim();
+    if ($("#searchInput")) $("#searchInput").value = state.filters.q; 
+    applied = true; 
+  }
+  if (p.has("cat")) { 
+    state.filters.cat = p.get("cat");
+    if ($("#filterCat")) $("#filterCat").value = state.filters.cat; 
+    applied = true; 
+  }
+  if (p.has("region")) { 
+    state.filters.region = p.get("region");
+    if ($("#filterRegion")) $("#filterRegion").value = state.filters.region; 
+    applied = true; 
+  }
+  if (p.has("country")) { 
+    state.filters.country = p.get("country"); 
+    applied = true; 
+  }
   if (p.get("remote") === "1") {
     state.filters.remoteOnly = true;
-    $("#filterRemote").checked = true; applied = true;
+    if ($("#filterRemote")) $("#filterRemote").checked = true; 
+    applied = true;
   }
   if (p.get("saved") === "1") {
     state.filters.savedOnly = true;
-    $("#filterSaved").checked = true; applied = true;
+    if ($("#filterSaved")) $("#filterSaved").checked = true; 
+    applied = true;
   }
   if (p.has("tab")) {
     switchTab(p.get("tab"));
@@ -1634,15 +1847,16 @@ document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   bindEvents();
   applyUrlParams();
-  $("#savedCount").textContent = state.bookmarks.size;
-  $("#year").textContent = new Date().getFullYear();
+  const sc = $("#savedCount");
+  if (sc) sc.textContent = state.bookmarks.size;
+  const yr = $("#year");
+  if (yr) yr.textContent = new Date().getFullYear();
   updateSyncPills();
   renderSkeletons();
 
-  // restore tab preference
   switchTab(loadTabPref());
+  route();
 
-  // load both datasets in parallel; route() is called internally after each completes
   load();
   loadScholarships();
 });
@@ -1653,7 +1867,7 @@ function initTheme() {
 }
 
 /* ================================================================
-   SCHOLARSHIP API HANDLERS (for future live refresh)
+   SCHOLARSHIP API HANDLERS
    ================================================================ */
 async function fetchScholarshipApiLive() {
   const token = (window.WintSchConfig && window.WintSchConfig.scholarshipApiKey) || "";
@@ -1670,8 +1884,8 @@ async function fetchScholarshipApiLive() {
     if (!res.ok) return [];
     const data = await res.json();
     return (data.hits || []).map(h => ({
-      id:     `live-${h.name?.toLowerCase().replace(/[^a-z0-9]/g,"-")}`,
-      title:  h.name || "",
+      id:      `live-${h.name?.toLowerCase().replace(/[^a-z0-9]/g,"-")}`,
+      title:   h.name || "",
       provider:h.university || "",
       location:h.university || "",
       region: "",
