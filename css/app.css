@@ -652,6 +652,17 @@ button { font: inherit; cursor: pointer; }
 .scholarship-card .bookmark-btn.saved { color: var(--amber); }
 
 /* ============================================================
+   ARAB WORLD FILTER HIGHLIGHT
+   ============================================================ */
+#scholarshipRegion option[value="AR"] {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  font-weight: 700;
+}
+#scholarshipRegion option[value="AR"]:hover {
+  background: linear-gradient(135deg, #fde68a, #fbbf24);
+}
+
+/* ============================================================
    FOOTER STYLES
    ============================================================ */
 .site-footer {
