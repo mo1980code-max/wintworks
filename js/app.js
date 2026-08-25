@@ -585,7 +585,7 @@ function mergeJobs(list) {
   const byId = new Map(state.jobs.map(j => [j.id, j]));
   for (const raw of list) {
     const j = normalize(raw);
-    if (!j.title || !j.url || !j.region) continue;
+    if (!j.title || !j.url) continue;
     const exId = byId.get(j.id);
     if (exId) {
       if ((j.description||"").length > (exId.description||"").length)
@@ -620,10 +620,11 @@ async function load() {
     const res = await fetch("data/jobs.json");
     if (res.ok) {
       const snap = await res.json();
-      store.set("ww:snap", { t: Date.now(), jobs: snap.jobs });
-      setJobs(snap.jobs.map(normalize));
+      const jobsList = Array.isArray(snap) ? snap : (snap.jobs || []);
+      store.set("ww:snap", { t: Date.now(), jobs: jobsList });
+      setJobs(jobsList.map(normalize));
     } else throw new Error("no snapshot");
-  } catch {
+  } catch (err) {
     if (!cached) {
       const old = store.get("ww:jobs", null);
       if (old && Array.isArray(old)) setJobs(old);
@@ -978,7 +979,6 @@ function renderScholarships() {
     if (slmb) slmb.textContent = `Show more (${list.length - shown.length} left)`;
   }
 
-  // funding type chips
   const fcounts = {};
   state.scholarships.forEach(s => {
     fcounts[s.funding] = (fcounts[s.funding]||0) + 1;
@@ -993,7 +993,6 @@ function renderScholarships() {
           data-sch-funding="${esc(ft)}">${esc(ft)} (${n})</button>`).join("");
   }
 
-  // country select
   const cc = {};
   state.scholarships.forEach(s => {
     const k = s.country || (s.region === "WW" ? "WW" :
@@ -1024,7 +1023,8 @@ async function loadScholarships() {
     const res = await fetch("data/scholarships.json");
     if (res.ok) {
       const snap = await res.json();
-      state.scholarships = snap.scholarships.map(schNormalize);
+      const schList = Array.isArray(snap) ? snap : (snap.scholarships || []);
+      state.scholarships = schList.map(schNormalize);
       renderScholarships();
     }
   } catch {
@@ -1032,7 +1032,8 @@ async function loadScholarships() {
       const res2 = await fetch("data/scholarships.json");
       if (res2.ok) {
         const snap = await res2.json();
-        state.scholarships = snap.scholarships.map(schNormalize);
+        const schList = Array.isArray(snap) ? snap : (snap.scholarships || []);
+        state.scholarships = schList.map(schNormalize);
         renderScholarships();
       }
     } catch {}
@@ -1695,7 +1696,6 @@ function showHomeView(scroll = true) {
 function renderAll() {
   updateSyncPills();
 
-  // التحقق أولاً من رابط الوظيفة أو المنحة قبل إظهار الصفحة الرئيسية
   const m = location.hash.match(/^#\/job\/(.+)$/);
   if (m) {
     const job = state.jobs.find(j => j.id === decodeURIComponent(m[1]));
@@ -1729,7 +1729,7 @@ function route() {
       showHomeView(false);
       return;
     }
-    return; // الانتظار في حال عدم اكتمال تحميل البيانات
+    return;
   }
 
   const sm = location.hash.match(/^#\/scholarship\/(.+)$/);
@@ -1743,7 +1743,7 @@ function route() {
       showHomeView(false);
       return;
     }
-    return; // الانتظار في حال عدم اكتمال تحميل البيانات
+    return;
   }
 
   switchTab(activeTab);
@@ -1844,13 +1844,9 @@ document.addEventListener("DOMContentLoaded", () => {
   updateSyncPills();
   renderSkeletons();
 
-  // restore tab preference
   switchTab(loadTabPref());
-
-  // Handle initial hash
   route();
 
-  // load both datasets in parallel
   load();
   loadScholarships();
 });
