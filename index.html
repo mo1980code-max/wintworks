@@ -7,12 +7,20 @@
   <meta name="description" content="Search live jobs across the United States, major European markets and worldwide remote roles. Filter by country, category and work style. Updated automatically and free to use.">
   <meta name="keywords" content="jobs USA, jobs Europe, jobs in Europe, jobs London, jobs Berlin, jobs Paris, jobs Amsterdam, jobs Netherlands, jobs Germany, jobs UK, remote jobs, job search, work abroad">
   <link rel="canonical" href="https://wintworks.com/">
-  <meta property="og:title" content="WintWorks — Jobs in the USA, Europe & Remote Markets">
-  <meta property="og:description" content="Automatically updated job board covering the United States, major European markets and worldwide remote roles.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://wintworks.com/">
   <meta theme-color="14357f">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wintworks.com/">
+  <meta property="og:title" content="WintWorks — Jobs in the USA, Europe & Remote Markets">
+  <meta property="og:description" content="Live job board covering the USA, major European markets and worldwide remote roles. Updated automatically, free to use.">
+  <meta property="og:image" content="https://wintworks.com/favicon.svg">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://wintworks.com/">
+  <meta name="twitter:title" content="WintWorks — Jobs in the USA, Europe & Remote Markets">
+  <meta name="twitter:description" content="Live job board covering the USA, major European markets and worldwide remote roles. Updated automatically, free to use.">
+  <meta name="twitter:image" content="https://wintworks.com/favicon.svg">
   <link rel="preconnect" href="https://www.themuse.com">
   <link rel="preconnect" href="https://jobicy.com">
   <link rel="preconnect" href="https://remoteok.com">
@@ -82,7 +90,7 @@
       <div class="container hero-inner">
         <h1>Find your next job<br><span class="grad">in the USA &amp; Europe</span></h1>
         <p>WintWorks collects fresh job openings several times a day — remote, hybrid and on-site across the <b>USA, major European markets and worldwide remote roles</b> — from trusted sources. No sign-up, no fees.</p>
-        <form class="search-wrap" id="searchForm" role="search" onsubmit="return false">
+        <form class="search-wrap" id="searchForm" role="search" aria-label="Search jobs" onsubmit="return false">
           <svg viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
           <input type="search" id="searchInput" placeholder="Search jobs, companies, cities… e.g. nurse, Berlin, London, Austin" autocomplete="off">
           <button type="submit">Search</button>
@@ -213,15 +221,15 @@
             </select>
             <select id="scholarshipRegion" aria-label="Region">
               <option value="All">🌍 All regions</option>
+              <option value="AR">🌙 Arab world 🕌</option>
               <option value="US">🇺🇸 USA</option>
               <option value="EU">🇪🇺 Europe</option>
-              <option value="AR">🌙 Arab world</option>
               <option value="WW">🌍 Worldwide / Remote</option>
             </select>
             <select id="scholarshipCountry" aria-label="Country">
               <option value="All">All countries</option>
             </select>
-            <input type="text" id="scholarshipSearch" placeholder="Search scholarships, countries, providers…" aria-label="Search scholarships">
+            <input type="text" id="scholarshipSearch" placeholder="Search scholarships, countries, providers…" aria-label="Search scholarships, countries and providers">
             <select id="scholarshipSort" aria-label="Sort">
               <option value="deadline">Deadline soonest</option>
               <option value="amount">Highest amount</option>
@@ -347,6 +355,6 @@
     </div>
   </footer>
 
-  <script src="js/app.js" defer></script>
+  <script src="js/app.min.js" defer></script>
 </body>
 </html>
