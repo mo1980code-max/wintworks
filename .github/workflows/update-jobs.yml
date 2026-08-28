@@ -25,7 +25,8 @@ jobs:
         run: |
           git config user.name "wintworks-bot"
           git config user.email "bot@wintworks.com"
-          git add data/jobs.json
+          # Include SEO detail pages, pre-rendered home links, and sitemap changes.
+          git add -A data/jobs.json jobs/ index.html sitemap.xml
           if git diff --cached --quiet; then
             echo "No new jobs — nothing to commit."
           else

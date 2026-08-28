@@ -25,12 +25,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Deploy files via rsync over SSH
-        uses: appleboy/ssh-action@v1
+      # This action runs rsync on the GitHub runner and pushes files to the
+      # remote host. ssh-action cannot access $GITHUB_WORKSPACE remotely.
+      - name: Deploy files via rsync from runner to host
+        uses: burnett01/rsync-deployments@7.0.7
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-            cd ${{ secrets.SITE_PATH }}
-            rsync -av --delete ${{ github.workspace }}/ ./
+          switches: -avzr --delete --exclude=.git --exclude=.github
+          path: ./
+          remote_path: ${{ secrets.SITE_PATH }}
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.USERNAME }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
