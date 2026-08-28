@@ -7,7 +7,7 @@ Every listing is auto-tagged **🇺🇸 USA / 🇪🇺 Europe / 🌍 Worldwide**
 - Central job snapshot refreshed every six hours via GitHub Actions; no per-visitor API polling
 - Region + **country** auto-detection (USA / available European markets / Worldwide), per-country dropdown filter
 - **Adzuna** source: local-market jobs for GB/DE/FR/NL/IT/ES/PL/AT/BE/CH/US
-- Google AdSense Auto Ads connected to publisher `pub-7088247829787060`; Consent Mode defaults are denied
+- Google AdSense Auto Ads connected to publisher `pub-`; Consent Mode defaults are denied
 - AdSense-ready pages: About / Contact / Privacy / Terms
 - Monetization extras: paid featured listings (`advertise.html`), free job posting form
 
