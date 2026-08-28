@@ -504,38 +504,6 @@ def fetch_remoteok():
 
 
 def fetch_arbeitnow():
-    try:
-        d = get_json("https://www.arbeitnow.com/api/job-board-api")
-    except Exception:
-        return []
-    jobs = []
-    for r in d.get("data", []):
-        loc = r.get("location", "")
-        if not is_us_location(loc):
-            continue
-        jt = r.get("job_types") or []
-        jobs.append({
-            "id": f"arbeitnow-{r.get('slug', '')}",
-            "title": r.get("title", ""),
-            "company": r.get("company_name", ""),
-            "logo": "",
-            "location": loc,
-            "remote": bool(r.get("remote")),
-            "type": jt[0] if jt else "",
-            "salary": "",
-            "date": datetime.fromtimestamp(r.get("created_at", 0), tz=timezone.utc)
-                .isoformat() if r.get("created_at") else "",
-            "category": map_category(*(r.get("tags") or []), r.get("title", "")),
-            "tags": (r.get("tags") or [])[:6],
-            "description": clean_desc(r.get("description", "")),
-            "url": r.get("url", ""),
-            "source": "Arbeitnow",
-        })
-    return jobs
-
-
-
-def fetch_arbeitnow():
     jobs = []
     for page in range(1, 21):
         try:
@@ -721,6 +689,11 @@ def main():
     print(f"Wrote {OUT}: {len(jobs)} jobs ({size:.0f} KB)")
     if errors:
         print("Errors:", errors)
+
+    # Generate dedicated, crawlable detail pages with JobPosting JSON-LD.
+    # Import here so this file remains runnable directly from any working directory.
+    from generate_static_jobs import main as generate_static_jobs
+    generate_static_jobs()
     return 0
 
 
