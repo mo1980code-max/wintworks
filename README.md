@@ -31,8 +31,6 @@ The included `.github/workflows/update-jobs.yml` re-fetches jobs every day autom
 
 Then point your domain `wintworks.com` to the host (Netlify shows you the DNS records).
 
-**User guide (Arabic): see `README-AR.md`.**
-
 ## After AdSense approval
 
 1. In AdSense, open **Privacy & messaging** and enable Google’s certified European regulations CMP.

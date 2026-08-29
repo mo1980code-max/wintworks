@@ -16,28 +16,28 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const nl2br = (s) => esc(s).replace(/\n/g, "<br>");
 
-const STORE_KEY = "ww:cv:v2";
+const STORE_KEY = "ww:cv:v3en";
 let currentTpl = "executive";
 
 /* -------------------- state -------------------- */
 const defaults = {
   tpl: "executive",
-  name: "محمد أحمد",
-  jobTitle: "مهندس برمجيات",
-  email: "mohammed@example.com",
-  phone: "+962 79 000 0000",
-  location: "عمّان، الأردن",
+  name: "John Smith",
+  jobTitle: "Software Engineer",
+  email: "john@example.com",
+  phone: "+1 555 000 0000",
+  location: "Berlin, Germany",
   link: "linkedin.com/in/username",
-  summary: "مهندس برمجيات بخبرة تزيد عن 5 سنوات في بناء تطبيقات ويب قابلة للتوسّع. شغوف بحلّ المشكلات المعقّدة ورفع كفاءة الأنظمة، مع سجلّ حافل في تحسين الأداء وقيادة الفرق التقنية.",
-  skills: "JavaScript, Python, React, Node.js, إدارة المشاريع, العمل بمنهجية Agile",
-  langs: "العربية (اللغة الأم), الإنجليزية (طليق), الألمانية (B2)",
+  summary: "Software engineer with 5+ years of experience building scalable web applications. Passionate about solving complex problems and improving system efficiency, with a proven track record of boosting performance and leading technical teams.",
+  skills: "JavaScript, Python, React, Node.js, Project Management, Agile Methodology",
+  langs: "English (Fluent), German (B2), Arabic (Native)",
   experiences: [
-    { id: 1, title: "مهندس برمجيات أول", company: "شركة الحلول التقنية", date: "يناير 2021 - الآن",
-      desc: "- قيادة تطوير وصيانة تطبيقات ويب قابلة للتوسّع.\n- التعاون مع فرق متعددة التخصصات لتصميم مزايا جديدة.\n- تحسين أداء التطبيق بنسبة 30%." },
+    { id: 1, title: "Senior Software Engineer", company: "Tech Solutions Inc.", date: "Jan 2021 - Present",
+      desc: "- Led the development and maintenance of scalable web applications.\n- Collaborated with cross-functional teams to design new features.\n- Improved application performance by 30%." },
   ],
   educations: [
-    { id: 2, degree: "بكالوريوس علوم الحاسوب", school: "الجامعة الأردنية", date: "2016 - 2020",
-      desc: "تخرّج بمرتبة الشرف مع تركيز على هندسة البرمجيات والخوارزميات." },
+    { id: 2, degree: "B.Sc. in Computer Science", school: "Technical University of Berlin", date: "2016 - 2020",
+      desc: "Graduated with honors, focusing on software engineering and algorithms." },
   ],
 };
 
@@ -89,24 +89,24 @@ function renderExpForm() {
   c.innerHTML = experiences.map((exp) => `
     <div class="repeater-item" data-id="${exp.id}">
       <div class="repeater-head">
-        <b>خبرة</b>
-        <button type="button" class="remove-btn" data-remove-exp="${exp.id}">✕ حذف</button>
+        <b>Experience</b>
+        <button type="button" class="remove-btn" data-remove-exp="${exp.id}">✕ Remove</button>
       </div>
       <div class="fg">
-        <label>المسمى الوظيفي</label>
-        <input type="text" value="${esc(exp.title)}" data-exp="${exp.id}" data-field="title" placeholder="مثال: مدير مشاريع">
+        <label>Job Title</label>
+        <input type="text" value="${esc(exp.title)}" data-exp="${exp.id}" data-field="title" placeholder="e.g. Project Manager">
       </div>
       <div class="fg">
-        <label>الشركة / جهة العمل</label>
-        <input type="text" value="${esc(exp.company)}" data-exp="${exp.id}" data-field="company" placeholder="مثال: شركة التقنية المتقدمة">
+        <label>Company / Employer</label>
+        <input type="text" value="${esc(exp.company)}" data-exp="${exp.id}" data-field="company" placeholder="e.g. Advanced Tech Corp">
       </div>
       <div class="fg">
-        <label>الفترة الزمنية</label>
-        <input type="text" value="${esc(exp.date)}" data-exp="${exp.id}" data-field="date" placeholder="مثال: يناير 2021 - الآن">
+        <label>Time Period</label>
+        <input type="text" value="${esc(exp.date)}" data-exp="${exp.id}" data-field="date" placeholder="e.g. Jan 2021 - Present">
       </div>
       <div class="fg">
-        <label>الوصف والإنجازات</label>
-        <textarea rows="3" data-exp="${exp.id}" data-field="desc" placeholder="استخدم نقاطاً تبدأ بـ (-) وأبرز إنجازاً قابلاً للقياس، مثل: خفّضت التكاليف 20%.">${esc(exp.desc)}</textarea>
+        <label>Description &amp; Achievements</label>
+        <textarea rows="3" data-exp="${exp.id}" data-field="desc" placeholder="Use bullet points starting with (-) and highlight a measurable achievement, e.g. reduced costs by 20%.">${esc(exp.desc)}</textarea>
       </div>
     </div>`).join("");
 }
@@ -116,24 +116,24 @@ function renderEduForm() {
   c.innerHTML = educations.map((edu) => `
     <div class="repeater-item" data-id="${edu.id}">
       <div class="repeater-head">
-        <b>مؤهل</b>
-        <button type="button" class="remove-btn" data-remove-edu="${edu.id}">✕ حذف</button>
+        <b>Education</b>
+        <button type="button" class="remove-btn" data-remove-edu="${edu.id}">✕ Remove</button>
       </div>
       <div class="fg">
-        <label>الشهادة / الدرجة</label>
-        <input type="text" value="${esc(edu.degree)}" data-edu="${edu.id}" data-field="degree" placeholder="مثال: بكالوريوس علوم الحاسوب">
+        <label>Degree / Certificate</label>
+        <input type="text" value="${esc(edu.degree)}" data-edu="${edu.id}" data-field="degree" placeholder="e.g. B.Sc. in Computer Science">
       </div>
       <div class="fg">
-        <label>الجامعة / المؤسسة</label>
-        <input type="text" value="${esc(edu.school)}" data-edu="${edu.id}" data-field="school" placeholder="مثال: الجامعة الأردنية">
+        <label>University / Institution</label>
+        <input type="text" value="${esc(edu.school)}" data-edu="${edu.id}" data-field="school" placeholder="e.g. Technical University of Berlin">
       </div>
       <div class="fg">
-        <label>الفترة الزمنية</label>
-        <input type="text" value="${esc(edu.date)}" data-edu="${edu.id}" data-field="date" placeholder="مثال: 2016 - 2020">
+        <label>Time Period</label>
+        <input type="text" value="${esc(edu.date)}" data-edu="${edu.id}" data-field="date" placeholder="e.g. 2016 - 2020">
       </div>
       <div class="fg">
-        <label>تفاصيل إضافية (اختياري)</label>
-        <textarea rows="2" data-edu="${edu.id}" data-field="desc" placeholder="مثال: تخرّج بمرتبة الشرف، معدّل تراكمي مرتفع.">${esc(edu.desc)}</textarea>
+        <label>Additional Details (optional)</label>
+        <textarea rows="2" data-edu="${edu.id}" data-field="desc" placeholder="e.g. Graduated with honors, high GPA.">${esc(edu.desc)}</textarea>
       </div>
     </div>`).join("");
 }
@@ -185,11 +185,11 @@ function renderExecutive() {
     </div>`;
 
   if (val("#cvSummary")) {
-    h += `<div class="cv-section"><div class="cv-sec-title">الملخص المهني</div>
+    h += `<div class="cv-section"><div class="cv-sec-title">Professional Summary</div>
       <div class="cv-item-desc">${nl2br(val("#cvSummary"))}</div></div>`;
   }
   if (experiences.length) {
-    h += `<div class="cv-section"><div class="cv-sec-title">الخبرات المهنية</div>`;
+    h += `<div class="cv-section"><div class="cv-sec-title">Work Experience</div>`;
     experiences.forEach((e) => {
       h += `<div class="cv-item">
         <div class="cv-item-title"><span>${esc(e.title)}</span><span class="date">${esc(e.date)}</span></div>
@@ -200,7 +200,7 @@ function renderExecutive() {
     h += `</div>`;
   }
   if (educations.length) {
-    h += `<div class="cv-section"><div class="cv-sec-title">التعليم</div>`;
+    h += `<div class="cv-section"><div class="cv-sec-title">Education</div>`;
     educations.forEach((e) => {
       h += `<div class="cv-item">
         <div class="cv-item-title"><span>${esc(e.degree)}</span><span class="date">${esc(e.date)}</span></div>
@@ -211,11 +211,11 @@ function renderExecutive() {
     h += `</div>`;
   }
   if (skillsArr().length) {
-    h += `<div class="cv-section"><div class="cv-sec-title">المهارات</div>
+    h += `<div class="cv-section"><div class="cv-sec-title">Skills</div>
       <div class="cv-tags">${skillsArr().map((s) => `<span class="cv-tag">${esc(s)}</span>`).join("")}</div></div>`;
   }
   if (langsArr().length) {
-    h += `<div class="cv-section"><div class="cv-sec-title">اللغات</div>
+    h += `<div class="cv-section"><div class="cv-sec-title">Languages</div>
       <div class="cv-langs">${langsArr().map((l) => esc(l)).join(" &nbsp;•&nbsp; ")}</div></div>`;
   }
   return h;
@@ -227,7 +227,7 @@ function renderTech() {
   let side = `
     <h1 class="cv-name">${esc(val("#cvName"))}</h1>
     <div class="cv-job-title">${esc(val("#cvJobTitle"))}</div>
-    <div class="side-title">التواصل</div>`;
+    <div class="side-title">Contact</div>`;
   if (email) side += `<div class="contact-item"><span class="ic">✉</span><span dir="ltr">${esc(email)}</span></div>`;
   if (phone) side += `<div class="contact-item"><span class="ic">☎</span><span dir="ltr">${esc(phone)}</span></div>`;
   if (loc)   side += `<div class="contact-item"><span class="ic">📍</span><span>${esc(loc)}</span></div>`;
@@ -235,7 +235,7 @@ function renderTech() {
 
   const skills = skillsArr();
   if (skills.length) {
-    side += `<div class="side-title">المهارات</div><ul class="skills-list">`;
+    side += `<div class="side-title">Skills</div><ul class="skills-list">`;
     skills.forEach((s, i) => {
       const pct = 70 + ((i * 7) % 26); // 70–95% varied, purely decorative
       side += `<li>${esc(s)}<div class="bar"><span style="width:${pct}%"></span></div></li>`;
@@ -244,7 +244,7 @@ function renderTech() {
   }
   const langs = langsArr();
   if (langs.length) {
-    side += `<div class="side-title">اللغات</div><ul class="lang-list">`;
+    side += `<div class="side-title">Languages</div><ul class="lang-list">`;
     langs.forEach((l) => (side += `<li>${esc(l)}</li>`));
     side += `</ul>`;
   }
@@ -252,11 +252,11 @@ function renderTech() {
   // main
   let main = "";
   if (val("#cvSummary")) {
-    main += `<div class="cv-section"><div class="main-title">نبذة مهنية</div>
+    main += `<div class="cv-section"><div class="main-title">Profile</div>
       <div class="profile-text">${nl2br(val("#cvSummary"))}</div></div>`;
   }
   if (experiences.length) {
-    main += `<div class="cv-section"><div class="main-title">الخبرات المهنية</div>`;
+    main += `<div class="cv-section"><div class="main-title">Work Experience</div>`;
     experiences.forEach((e) => {
       main += `<div class="cv-item">
         <div class="cv-item-title">${esc(e.title)}</div>
@@ -267,7 +267,7 @@ function renderTech() {
     main += `</div>`;
   }
   if (educations.length) {
-    main += `<div class="cv-section"><div class="main-title">التعليم</div>`;
+    main += `<div class="cv-section"><div class="main-title">Education</div>`;
     educations.forEach((e) => {
       main += `<div class="cv-item">
         <div class="cv-item-title">${esc(e.degree)}</div>
@@ -290,11 +290,11 @@ function renderCreative() {
       <div class="cv-contact">${contact}</div>
     </div>`;
   if (val("#cvSummary")) {
-    h += `<div class="cv-section"><div class="cv-sec-title">نبذة</div>
+    h += `<div class="cv-section"><div class="cv-sec-title">Profile</div>
       <div class="cv-item-desc">${nl2br(val("#cvSummary"))}</div></div>`;
   }
   if (experiences.length) {
-    h += `<div class="cv-section"><div class="cv-sec-title">الخبرات</div>`;
+    h += `<div class="cv-section"><div class="cv-sec-title">Experience</div>`;
     experiences.forEach((e) => {
       h += `<div class="cv-item">
         <div class="cv-item-title">${esc(e.title)}</div>
@@ -305,7 +305,7 @@ function renderCreative() {
     h += `</div>`;
   }
   if (educations.length) {
-    h += `<div class="cv-section"><div class="cv-sec-title">التعليم</div>`;
+    h += `<div class="cv-section"><div class="cv-sec-title">Education</div>`;
     educations.forEach((e) => {
       h += `<div class="cv-item">
         <div class="cv-item-title">${esc(e.degree)}</div>
@@ -316,11 +316,11 @@ function renderCreative() {
     h += `</div>`;
   }
   if (skillsArr().length) {
-    h += `<div class="cv-section"><div class="cv-sec-title">المهارات</div>
+    h += `<div class="cv-section"><div class="cv-sec-title">Skills</div>
       <div class="cv-tags">${skillsArr().map((s) => `<span class="cv-tag">${esc(s)}</span>`).join("")}</div></div>`;
   }
   if (langsArr().length) {
-    h += `<div class="cv-section"><div class="cv-sec-title">اللغات</div>
+    h += `<div class="cv-section"><div class="cv-sec-title">Languages</div>
       <div class="cv-langs">${langsArr().map((l) => esc(l)).join(" &nbsp;•&nbsp; ")}</div></div>`;
   }
   return h;
@@ -370,7 +370,7 @@ function exportPDF() {
 
   btn.disabled = true;
   const prev = label.textContent;
-  label.textContent = "جارٍ التحضير...";
+  label.textContent = "Preparing...";
 
   // Render at full scale in a detached clone so the PDF is crisp & 1:1.
   const clone = paper.cloneNode(true);
