@@ -19,8 +19,14 @@ This repository was checked against the supplied 12-item audit. The recommendati
 
 - **AdSense warning:** this is a policy/editorial recommendation, not a deterministic code bug. Manual ad slots are already empty and guarded by JavaScript. The site also has original guides plus About, Contact, Privacy, Terms, and Sources pages. Do not invent slot IDs. AdSense approval still cannot be guaranteed by code.
 - **Downgrade `actions/checkout@v5` / `setup-python@v6`:** rejected. These are official stable releases, not experimental versions. Downgrading would be incorrect. GitHub-hosted `ubuntu-latest` runners satisfy their Node 24 runner requirement.
-- **Netlify `_redirects` with `410!`:** not added because that syntax is not a portable/verified Netlify rule. The repository's SSH deployment is consistent with Apache/LiteSpeed hosting, so `.htaccess` contains the valid 410 rules. If production uses Nginx or Cloudflare instead, equivalent server-side rules must be configured there.
+- **Netlify `_redirects` with `410!`:** not added because that syntax is not a portable/verified Netlify rule. `.htaccess` still contains Apache/LiteSpeed 410 rules for inherited spam URLs. Production is GitHub Pages (which ignores `.htaccess`); if a VPS or Cloudflare is used later, equivalent server-side rules must be configured there.
 
-## Required deployment secret change
+## Deployment
 
-The deploy workflow now requires `SSH_PRIVATE_KEY` in GitHub Actions secrets. Remove the old password secret after a successful key-based deployment.
+Production is **GitHub Pages** from `main` (`pages-build-deployment`). The old
+rsync-to-host workflow (`.github/workflows/deploy.yml`) was removed: its
+HOST / USERNAME / SITE_PATH / SSH_PRIVATE_KEY secrets were never configured,
+so every push to `main` failed while Pages was already publishing the site.
+
+If a VPS/rsync deploy is needed later, restore that workflow from git history
+and set the secrets first — do not re-enable it empty.

@@ -24,12 +24,30 @@ The `update-jobs` workflow passes them to `scripts/build_snapshot.py` as environ
 
 ## Deploy (free)
 
-**Netlify Drop** (easiest): drag this whole folder into https://app.netlify.com/drop
+The live site at [wintworks.com](https://wintworks.com) is published automatically
+via **GitHub Pages** from the `main` branch. No SSH host, rsync workflow, or
+server secrets are required.
 
-**GitHub Pages**: push this folder to a repo → Settings → Pages → deploy from `main` branch.
-The included `.github/workflows/update-jobs.yml` re-fetches jobs every day automatically.
+**GitHub Pages** (what production uses): Settings → Pages → deploy from `main`.
+The included `.github/workflows/update-jobs.yml` re-fetches jobs every six hours;
+`.github/workflows/update-scholarships.yml` refreshes scholarships daily.
 
-Then point your domain `wintworks.com` to the host (Netlify shows you the DNS records).
+**Netlify Drop** (optional alternative): drag this whole folder into https://app.netlify.com/drop
+
+Then point your domain `wintworks.com` to the host.
+
+### Optional extra scholarship APIs
+
+Live listings already come from public WordPress sources (no keys). To enable
+two additional free-tier APIs later, add these **repository secrets** in
+*Settings → Secrets and variables → Actions*:
+
+- `SCHOLARSHIPAPI_KEY` — ScholarshipAPI.com bearer token
+- `SCHOLARSHIPS_COM_KEY` — Scholarships.com Parse API key
+
+The `update-scholarships` workflow already passes them to
+`scripts/fetch_scholarships.py`. Without the keys the workflow still succeeds
+using WordPress sources plus seed data.
 
 ## After AdSense approval
 
