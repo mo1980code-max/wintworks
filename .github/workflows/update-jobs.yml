@@ -20,6 +20,12 @@ jobs:
         with:
           python-version: "3.12"
       - name: Build job snapshot (fetch all sources)
+        env:
+          # Adzuna keys are provided via repository secrets (Settings → Secrets →
+          # Actions → ADZUNA_APP_ID / ADZUNA_APP_KEY). Never commit them to the
+          # repository. Get free keys at https://developer.adzuna.com
+          ADZUNA_ID:  ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_KEY: ${{ secrets.ADZUNA_APP_KEY }}
         run: python scripts/build_snapshot.py
       - name: Commit updated snapshot
         run: |
