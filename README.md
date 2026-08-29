@@ -49,8 +49,8 @@ The included `.github/workflows/update-jobs.yml` re-fetches jobs every day autom
 This is how `wintworks.com` is served today: Pages builds from `main` on every push.
 
 > `.github/workflows/deploy.yml` is an **optional** rsync mirror for hosting the site on your own
-> server. It is off until you add the four SSH secrets in the table above — until then it skips
-> itself and reports success, so it never fails a build.
+> server. It stays idle until you add the four SSH secrets in the table above; it is not part of
+> the GitHub Pages pipeline, so it can be left off (or deleted) with no effect on the live site.
 
 Then point your domain `wintworks.com` to the host (Netlify shows you the DNS records).
 
