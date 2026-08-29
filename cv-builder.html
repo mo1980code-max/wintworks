@@ -118,6 +118,9 @@
               <option value="classic">Classic (Standard)</option>
               <option value="modern" selected>Modern (Two-Column)</option>
               <option value="minimal">Minimalist</option>
+              <option value="professional">Professional (Header Bar)</option>
+              <option value="elegant">Elegant (Serif Sidebar)</option>
+              <option value="compact">Compact (One Page)</option>
             </select>
           </div>
           <button class="download-btn" onclick="window.print()">
@@ -127,8 +130,10 @@
         </div>
 
         <!-- The Paper -->
-        <div class="cv-paper temp-modern" id="cvPaper">
-          <!-- Injected via JS -->
+        <div class="cv-paper-scaler" id="cvScaler">
+          <div class="cv-paper temp-modern" id="cvPaper">
+            <!-- Injected via JS -->
+          </div>
         </div>
       </div>
     </div>

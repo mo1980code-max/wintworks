@@ -45,14 +45,24 @@
   cursor: pointer;
 }
 
+/* Scaler wrapper: reserves the correct (scaled) footprint so the paper
+   never overlaps the editor or leaves a huge blank gap below it.
+   The paper is scaled via a CSS var set by JS to fit the column width. */
+.cv-paper-scaler {
+  width: 100%;
+  max-width: 210mm;
+  overflow: hidden;
+  /* height is set inline by JS = paperHeight * scale */
+}
+
 .cv-paper {
   background: #fff;
   width: 210mm;
   min-height: 297mm;
   padding: 20mm;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  transform-origin: top center;
-  transform: scale(0.65);
+  transform-origin: top left;
+  transform: scale(var(--cv-scale, 1));
   color: #333;
   overflow: hidden;
 }
@@ -199,16 +209,67 @@
 .temp-minimal .cv-item-desc { font-size: 10pt; line-height: 1.6; color: #444; white-space: pre-wrap;}
 .temp-minimal .minimal-summary { font-size: 10.5pt; line-height: 1.6; color: #444; margin-bottom: 20px; white-space: pre-wrap;}
 
+/* Template 4: Professional (full-width header bar + accent) */
+.temp-professional { font-family: "Calibri", "Segoe UI", Arial, sans-serif; color: #2d3748; }
+.temp-professional .cv-header { background: #1a365d; color: #fff; margin: -20mm -20mm 20px -20mm; padding: 22mm 20mm 12mm; }
+.temp-professional .cv-name { font-size: 26pt; font-weight: 700; margin: 0; letter-spacing: .5px; }
+.temp-professional .cv-job-title { font-size: 13pt; color: #90cdf4; margin-top: 4px; font-weight: 500; }
+.temp-professional .cv-contact { font-size: 9.5pt; color: #cbd5e0; margin-top: 10px; }
+.temp-professional .cv-section { margin-bottom: 18px; }
+.temp-professional .cv-sec-title { font-size: 13pt; font-weight: 700; color: #1a365d; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #90cdf4; padding-bottom: 4px; margin-bottom: 10px; }
+.temp-professional .cv-item { margin-bottom: 14px; padding-left: 12px; border-left: 3px solid #e2e8f0; }
+.temp-professional .cv-item-title { font-size: 12pt; font-weight: 700; color: #1a202c; display: flex; justify-content: space-between; gap: 12px; }
+.temp-professional .cv-item-sub { font-size: 10.5pt; color: #2b6cb0; margin: 2px 0 5px; font-weight: 600; }
+.temp-professional .cv-item-desc { font-size: 10pt; line-height: 1.5; color: #4a5568; white-space: pre-wrap; }
+.temp-professional .cv-skills { font-size: 10.5pt; line-height: 1.7; }
+
+/* Template 5: Elegant (serif, left sidebar) */
+.temp-elegant { font-family: Georgia, "Times New Roman", serif; display: flex; margin: -20mm; min-height: 297mm; width: 210mm; }
+.temp-elegant .elegant-left { width: 33%; background: #f7f3ec; color: #4a3f35; padding: 20mm 8mm; box-sizing: border-box; border-right: 3px solid #c9a227; }
+.temp-elegant .elegant-right { width: 67%; padding: 20mm; box-sizing: border-box; background: #fff; }
+.temp-elegant .cv-name { font-size: 24pt; font-weight: normal; margin: 0; color: #3b3226; line-height: 1.15; }
+.temp-elegant .cv-job-title { font-size: 12pt; font-style: italic; color: #8a6d3b; margin: 6px 0 20px; }
+.temp-elegant .cv-sec-title-left { font-size: 12pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; color: #8a6d3b; border-bottom: 1px solid #d8c9a3; padding-bottom: 5px; margin: 22px 0 12px; }
+.temp-elegant .cv-contact-item { font-size: 9.5pt; margin-bottom: 8px; line-height: 1.4; word-break: break-word; }
+.temp-elegant .cv-skills-list { list-style: none; padding: 0; margin: 0; font-size: 10pt; }
+.temp-elegant .cv-skills-list li { margin-bottom: 6px; padding-left: 12px; position: relative; }
+.temp-elegant .cv-skills-list li::before { content: "◆"; color: #c9a227; position: absolute; left: 0; font-size: 7pt; top: 3px; }
+.temp-elegant .cv-sec-title-right { font-size: 15pt; font-weight: normal; letter-spacing: 1px; color: #3b3226; border-bottom: 2px solid #c9a227; padding-bottom: 5px; margin-bottom: 14px; }
+.temp-elegant .cv-item { margin-bottom: 15px; }
+.temp-elegant .cv-item-title { font-size: 12pt; font-weight: bold; color: #2d2519; }
+.temp-elegant .cv-item-sub { font-size: 10pt; font-style: italic; color: #8a6d3b; margin: 3px 0 5px; }
+.temp-elegant .cv-item-desc { font-size: 10pt; line-height: 1.55; color: #4a4034; white-space: pre-wrap; }
+
+/* Template 6: Compact (dense single page, ATS-friendly) */
+.temp-compact { font-family: "Segoe UI", Arial, sans-serif; color: #333; font-size: 9.5pt; }
+.temp-compact .cv-header { text-align: left; border-bottom: 3px solid #16a085; padding-bottom: 8px; margin-bottom: 12px; }
+.temp-compact .cv-name { font-size: 20pt; font-weight: 700; margin: 0; color: #1a1a1a; }
+.temp-compact .cv-job-title { font-size: 11pt; color: #16a085; font-weight: 600; margin: 2px 0 4px; }
+.temp-compact .cv-contact { font-size: 8.5pt; color: #555; }
+.temp-compact .cv-section { margin-bottom: 12px; }
+.temp-compact .cv-sec-title { font-size: 11pt; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #16a085; border-bottom: 1px solid #ddd; padding-bottom: 2px; margin-bottom: 7px; }
+.temp-compact .cv-item { margin-bottom: 9px; }
+.temp-compact .cv-item-title { font-size: 10.5pt; font-weight: 700; color: #1a1a1a; display: flex; justify-content: space-between; gap: 10px; }
+.temp-compact .cv-item-sub { font-size: 9.5pt; color: #666; margin: 1px 0 3px; }
+.temp-compact .cv-item-desc { font-size: 9.5pt; line-height: 1.4; color: #444; white-space: pre-wrap; }
+.temp-compact .cv-skills { font-size: 9.5pt; line-height: 1.6; }
+
 @media print {
   body * { visibility: hidden; }
   .cv-preview-wrapper, .cv-preview-wrapper * { visibility: visible; }
   .cv-preview-wrapper { position: absolute; left: 0; top: 0; width: 100%; transform: none; display: block;}
-  .cv-paper { 
-    box-shadow: none !important; 
-    margin: 0 !important; 
-    padding: 20mm !important; 
-    width: 210mm !important; 
-    height: 297mm !important; 
+  .cv-paper-scaler {
+    width: 210mm !important;
+    max-width: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .cv-paper {
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 20mm !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
     transform: none !important;
   }
   .temp-modern { margin: 0 !important; padding: 0 !important; height: 100% !important; min-height: 297mm; }
@@ -219,7 +280,6 @@
 
 @media (max-width: 900px) {
   .cv-builder-container { flex-direction: column; }
-  .cv-paper { transform: scale(0.6); transform-origin: top center; margin-bottom: -150px;}
   .cv-editor { max-height: none; }
 }
 

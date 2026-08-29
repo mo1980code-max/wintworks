@@ -25,6 +25,28 @@ function bindInputs() {
   });
 }
 
+/* Fit the A4 paper into the available column width by scaling it and
+   giving the wrapper the correct (scaled) height, so nothing overlaps
+   the editor and there is no dead space below the paper. */
+function fitPaper() {
+  const scaler = $('#cvScaler');
+  const paper = $('#cvPaper');
+  if (!scaler || !paper) return;
+
+  // Reset transform to measure natural size.
+  paper.style.setProperty('--cv-scale', '1');
+  const available = scaler.clientWidth;
+  const paperWidth = paper.offsetWidth;   // 210mm in px
+  if (!paperWidth) return;
+
+  const scale = Math.min(1, available / paperWidth);
+  paper.style.setProperty('--cv-scale', String(scale));
+
+  // offsetHeight is the unscaled height; reserve the scaled height.
+  const scaledHeight = paper.offsetHeight * scale;
+  scaler.style.height = scaledHeight + 'px';
+}
+
 function renderExpForm() {
   const container = $('#expContainer');
   container.innerHTML = experiences.map((exp, i) => `
@@ -316,12 +338,205 @@ function renderMinimal() {
   return html;
 }
 
+function renderProfessional() {
+  const name = $('#cvName').value;
+  const title = $('#cvJobTitle').value;
+  const sum = $('#cvSummary').value;
+  const skills = $('#cvSkills').value;
+  const langs = $('#cvLangs').value;
+
+  let html = `
+    <div class="cv-header">
+      <h1 class="cv-name">${esc(name)}</h1>
+      <div class="cv-job-title">${esc(title)}</div>
+      <div class="cv-contact">${getContactLine(" &nbsp;•&nbsp; ")}</div>
+    </div>
+  `;
+
+  if(sum) {
+    html += `<div class="cv-section">
+      <div class="cv-sec-title">Professional Summary</div>
+      <div class="cv-item-desc">${esc(sum)}</div>
+    </div>`;
+  }
+
+  if(experiences.length) {
+    html += `<div class="cv-section"><div class="cv-sec-title">Experience</div>`;
+    experiences.forEach(e => {
+      html += `<div class="cv-item">
+        <div class="cv-item-title"><span>${esc(e.title)}</span> <span>${esc(e.date)}</span></div>
+        <div class="cv-item-sub">${esc(e.company)}</div>
+        <div class="cv-item-desc">${esc(e.desc)}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  if(educations.length) {
+    html += `<div class="cv-section"><div class="cv-sec-title">Education</div>`;
+    educations.forEach(e => {
+      html += `<div class="cv-item">
+        <div class="cv-item-title"><span>${esc(e.degree)}</span> <span>${esc(e.date)}</span></div>
+        <div class="cv-item-sub">${esc(e.school)}</div>
+        ${e.desc ? `<div class="cv-item-desc">${esc(e.desc)}</div>` : ''}
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  let misc = [];
+  if(skills) misc.push(`<b>Skills:</b> ${esc(skills)}`);
+  if(langs) misc.push(`<b>Languages:</b> ${esc(langs)}`);
+  if(misc.length) {
+    html += `<div class="cv-section">
+      <div class="cv-sec-title">Skills & Languages</div>
+      <div class="cv-skills">${misc.join("<br>")}</div>
+    </div>`;
+  }
+
+  return html;
+}
+
+function renderElegant() {
+  const name = $('#cvName').value;
+  const title = $('#cvJobTitle').value;
+  const sum = $('#cvSummary').value;
+  const skills = $('#cvSkills').value;
+  const langs = $('#cvLangs').value;
+
+  const email = $('#cvEmail').value;
+  const phone = $('#cvPhone').value;
+  const loc = $('#cvLocation').value;
+  const ln = $('#cvLink').value;
+
+  const skillArr = skills.split(',').map(s=>s.trim()).filter(Boolean);
+  const langArr = langs.split(',').map(s=>s.trim()).filter(Boolean);
+
+  let leftHtml = `
+    <div class="cv-sec-title-left">Contact</div>
+    ${email ? `<div class="cv-contact-item">${esc(email)}</div>` : ''}
+    ${phone ? `<div class="cv-contact-item">${esc(phone)}</div>` : ''}
+    ${loc ? `<div class="cv-contact-item">${esc(loc)}</div>` : ''}
+    ${ln ? `<div class="cv-contact-item">${esc(ln)}</div>` : ''}
+  `;
+
+  if(skillArr.length) {
+    leftHtml += `<div class="cv-sec-title-left">Skills</div><ul class="cv-skills-list">`;
+    skillArr.forEach(s => leftHtml += `<li>${esc(s)}</li>`);
+    leftHtml += `</ul>`;
+  }
+
+  if(langArr.length) {
+    leftHtml += `<div class="cv-sec-title-left">Languages</div><ul class="cv-skills-list">`;
+    langArr.forEach(l => leftHtml += `<li>${esc(l)}</li>`);
+    leftHtml += `</ul>`;
+  }
+
+  let rightHtml = `
+    <h1 class="cv-name">${esc(name)}</h1>
+    <div class="cv-job-title">${esc(title)}</div>
+  `;
+
+  if(sum) {
+    rightHtml += `<div class="cv-sec-title-right">Profile</div>
+      <div class="cv-item-desc" style="margin-bottom:20px;">${esc(sum)}</div>`;
+  }
+
+  if(experiences.length) {
+    rightHtml += `<div class="cv-sec-title-right">Experience</div>`;
+    experiences.forEach(e => {
+      rightHtml += `<div class="cv-item">
+        <div class="cv-item-title">${esc(e.title)}</div>
+        <div class="cv-item-sub">${esc(e.company)} — ${esc(e.date)}</div>
+        <div class="cv-item-desc">${esc(e.desc)}</div>
+      </div>`;
+    });
+  }
+
+  if(educations.length) {
+    rightHtml += `<div class="cv-sec-title-right" style="margin-top:22px;">Education</div>`;
+    educations.forEach(e => {
+      rightHtml += `<div class="cv-item">
+        <div class="cv-item-title">${esc(e.degree)}</div>
+        <div class="cv-item-sub">${esc(e.school)} — ${esc(e.date)}</div>
+        ${e.desc ? `<div class="cv-item-desc">${esc(e.desc)}</div>` : ''}
+      </div>`;
+    });
+  }
+
+  return `<div class="elegant-left">${leftHtml}</div><div class="elegant-right">${rightHtml}</div>`;
+}
+
+function renderCompact() {
+  const name = $('#cvName').value;
+  const title = $('#cvJobTitle').value;
+  const sum = $('#cvSummary').value;
+  const skills = $('#cvSkills').value;
+  const langs = $('#cvLangs').value;
+
+  let html = `
+    <div class="cv-header">
+      <h1 class="cv-name">${esc(name)}</h1>
+      <div class="cv-job-title">${esc(title)}</div>
+      <div class="cv-contact">${getContactLine(" • ")}</div>
+    </div>
+  `;
+
+  if(sum) {
+    html += `<div class="cv-section">
+      <div class="cv-sec-title">Summary</div>
+      <div class="cv-item-desc">${esc(sum)}</div>
+    </div>`;
+  }
+
+  if(experiences.length) {
+    html += `<div class="cv-section"><div class="cv-sec-title">Experience</div>`;
+    experiences.forEach(e => {
+      html += `<div class="cv-item">
+        <div class="cv-item-title"><span>${esc(e.title)}</span> <span>${esc(e.date)}</span></div>
+        <div class="cv-item-sub">${esc(e.company)}</div>
+        <div class="cv-item-desc">${esc(e.desc)}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  if(educations.length) {
+    html += `<div class="cv-section"><div class="cv-sec-title">Education</div>`;
+    educations.forEach(e => {
+      html += `<div class="cv-item">
+        <div class="cv-item-title"><span>${esc(e.degree)}</span> <span>${esc(e.date)}</span></div>
+        <div class="cv-item-sub">${esc(e.school)}</div>
+        ${e.desc ? `<div class="cv-item-desc">${esc(e.desc)}</div>` : ''}
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  let misc = [];
+  if(skills) misc.push(`<b>Skills:</b> ${esc(skills)}`);
+  if(langs) misc.push(`<b>Languages:</b> ${esc(langs)}`);
+  if(misc.length) {
+    html += `<div class="cv-section">
+      <div class="cv-sec-title">Skills & Languages</div>
+      <div class="cv-skills">${misc.join("<br>")}</div>
+    </div>`;
+  }
+
+  return html;
+}
+
 function renderPreview() {
   const tpl = $('#templateSelect').value;
   const paper = $('#cvPaper');
   if(tpl === 'classic') paper.innerHTML = renderClassic();
   else if(tpl === 'modern') paper.innerHTML = renderModern();
   else if(tpl === 'minimal') paper.innerHTML = renderMinimal();
+  else if(tpl === 'professional') paper.innerHTML = renderProfessional();
+  else if(tpl === 'elegant') paper.innerHTML = renderElegant();
+  else if(tpl === 'compact') paper.innerHTML = renderCompact();
+  else paper.innerHTML = renderModern();
+  fitPaper();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -329,4 +544,8 @@ document.addEventListener("DOMContentLoaded", () => {
   renderEduForm();
   bindInputs();
   renderPreview();
+  fitPaper();
 });
+
+window.addEventListener('resize', fitPaper);
+window.addEventListener('load', fitPaper);
