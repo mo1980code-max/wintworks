@@ -8,8 +8,8 @@ REVIEWED = "August 23, 2026"
 
 GUIDES = {
 "jobs-in-germany.html": {
-"title": "Jobs in Germany for Foreigners 2026: Visas, Salaries & How to Apply | WintWorks",
-"description": "Reviewed 2026 guide to jobs in Germany for foreign applicants: EU Blue Card thresholds, Opportunity Card, indicative salaries, application steps and official sources.",
+"title": "Jobs in Germany 2026: Visas, Salaries & How to Apply | WintWorks",
+"description": "Reviewed 2026 guide to jobs in Germany: EU Blue Card thresholds, Opportunity Card, indicative salaries and application steps.",
 "h1": "Jobs in Germany for Foreigners 2026: Visas, Salaries & How to Apply",
 "intro": "Germany recruits international professionals across technology, engineering, healthcare, scientific research and skilled trades. Your immigration route depends on your nationality, qualifications, occupation and salary—not simply on whether an employer calls a role “sponsored.”",
 "body": r'''
@@ -64,8 +64,8 @@ GUIDES = {
 ("Can I work in Germany using only English?", "Some international technology, research and startup roles use English. German is usually important or mandatory in regulated healthcare, public-facing and many local-market roles."),
 ]},
 "jobs-in-united-kingdom.html": {
-"title": "UK Visa Sponsorship Jobs 2026: Skilled Worker Requirements & How to Apply | WintWorks",
-"description": "Reviewed 2026 guide to UK visa sponsorship jobs: Skilled Worker salary and English rules, licensed sponsors, Health and Care route and official GOV.UK sources.",
+"title": "UK Skilled Worker Visa Jobs 2026 | WintWorks",
+"description": "UK visa sponsorship in 2026: Skilled Worker salary and English rules, licensed sponsors and the Health and Care route.",
 "h1": "UK Visa Sponsorship Jobs 2026: Skilled Worker Requirements & How to Apply",
 "intro": "A UK employer can sponsor an overseas applicant only when it holds the correct sponsor licence, the job is eligible and the applicant meets the salary, skill, English and other immigration requirements. A vacancy mentioning “visa sponsorship” is not by itself a guarantee of eligibility.",
 "body": r'''
@@ -113,8 +113,8 @@ GUIDES = {
 ("Can overseas applicants still be sponsored as care workers?", "New overseas applications for care worker and senior care worker roles are no longer accepted under the current route. Limited in-country switching rules may apply."),
 ]},
 "jobs-in-netherlands.html": {
-"title": "Jobs in the Netherlands for English Speakers 2026: Salaries, Visas & Top Cities | WintWorks",
-"description": "Reviewed 2026 guide to jobs in the Netherlands: Highly Skilled Migrant salary thresholds, recognised sponsors, Expat Scheme, cities and official sources.",
+"title": "Jobs in the Netherlands 2026: Visas & Salaries | WintWorks",
+"description": "Working in the Netherlands: the Highly Skilled Migrant route, English-speaking roles, Randstad salaries and the 30% ruling.",
 "h1": "Jobs in the Netherlands for English Speakers 2026: Salaries, Visas & Top Cities",
 "intro": "The Netherlands has a large international job market, but non-EU applicants should distinguish between an English-speaking vacancy and a role that qualifies for immigration sponsorship. The main Highly Skilled Migrant route requires an IND-recognised sponsor and a salary that meets the current threshold.",
 "body": r'''
@@ -165,8 +165,8 @@ GUIDES = {
 ("Does the Netherlands have a general digital nomad visa?", "The Netherlands does not offer a general residence route formally called a digital nomad visa. Remote workers must qualify under an existing residence and work category."),
 ]},
 "jobs-in-spain.html": {
-"title": "Jobs in Spain for Foreigners 2026: Work Visas, Salaries & Hiring Cities | WintWorks",
-"description": "Reviewed 2026 guide to jobs in Spain: local work permits, Digital Nomad Visa limits, salaries, hiring cities and official government sources.",
+"title": "Jobs in Spain for Foreigners 2026: Visas & Salaries | WintWorks",
+"description": "Working in Spain: work permits, the digital nomad visa, hiring cities and indicative salaries — explained simply.",
 "h1": "Jobs in Spain for Foreigners 2026: Work Visas, Salaries & Hiring Cities",
 "intro": "Spain offers local employment and international-remote-work routes, but they are legally different. A Digital Nomad Visa does not generally authorise a foreign employee to take an ordinary job with a Spanish employer; applicants seeking local employment normally need the relevant work authorisation.",
 "body": r'''
@@ -219,8 +219,8 @@ GUIDES = {
 ("Can a self-employed digital nomad have Spanish clients?", "Yes, but Spanish activity must be a professional rather than employment relationship and cannot exceed 20% of total professional activity."),
 ]},
 "jobs-in-france.html": {
-"title": "Jobs in France for Foreigners 2026: Work Permits, Salaries & In-Demand Jobs | WintWorks",
-"description": "Reviewed 2026 guide to jobs in France: standard work authorisation, Talent Passport and EU Blue Card rules, salaries, sectors and official France-Visas sources.",
+"title": "Jobs in France 2026: Work Permits & Salaries | WintWorks",
+"description": "Working in France: work authorisation for foreigners, in-demand sectors, indicative salaries and how to apply.",
 "h1": "Jobs in France for Foreigners 2026: Work Permits, Salaries & In-Demand Jobs",
 "intro": "Foreign applicants can work in France through several routes. The correct route depends on nationality, contract length, occupation, qualifications and salary. “Talent Passport” is an umbrella covering multiple categories; it is not one visa with a single set of requirements.",
 "body": r'''

@@ -33,6 +33,41 @@ def safe_slug(value: str) -> str:
     return (slug[:150] or "job") + ".html"
 
 
+BRAND_SUFFIX = " | WintWorks"
+TITLE_LIMIT = 65          # keep <title> short enough that Google does not truncate it
+DESC_META_LIMIT = 158     # meta description sweet spot
+
+
+def truncate_words(text: str, limit: int) -> str:
+    """Cut text at the last full word below `limit` and append an ellipsis."""
+    text = text.strip()
+    if len(text) <= limit:
+        return text
+    cut = text[: limit - 1].rsplit(" ", 1)[0].rstrip(" ,;:-–—/|(")
+    return cut + "…"
+
+
+def fit_escaped(text: str, limit: int, quote: bool = False) -> str:
+    """Truncate text so that the HTML-escaped result stays within `limit`."""
+    candidate = truncate_words(text, limit)
+    while len(html.escape(candidate, quote=quote)) > limit and len(candidate) > 20:
+        candidate = truncate_words(text, len(candidate) - 2)
+    return html.escape(candidate, quote=quote)
+
+
+def page_title(job: dict) -> str:
+    """'<title> at <company> | WintWorks', shortened to TITLE_LIMIT chars (escaped)."""
+    budget = TITLE_LIMIT - len(BRAND_SUFFIX)
+    title = re.sub(r"\s+", " ", str(job.get("title", ""))).strip()
+    company = re.sub(r"\s+", " ", str(job.get("company", ""))).strip()
+    combined = f"{title} at {company}" if company else title
+    if len(html.escape(combined, quote=False)) <= budget:
+        return html.escape(combined, quote=False) + BRAND_SUFFIX
+    if len(html.escape(title, quote=False)) <= budget:
+        return html.escape(title, quote=False) + BRAND_SUFFIX
+    return fit_escaped(title, budget) + BRAND_SUFFIX
+
+
 def iso_date(value: str) -> str:
     if not value:
         return ""
@@ -110,31 +145,36 @@ def render_job(job: dict, filename: str) -> str:
     category = html.escape(job.get("category") or "Jobs")
     posted = iso_date(job.get("date", ""))
     remote = " · Remote" if job.get("remote") else ""
+    # SEO-safe <title>/OG/Twitter text: full JobPosting title stays in JSON-LD.
+    seo_title = page_title(job)
     schema = json.dumps(schema_for(job, page_url), ensure_ascii=False,
                         separators=(",", ":")).replace("</", "<\\/")
-    desc_meta = html.escape(
+    desc_meta = fit_escaped(
         f"Apply for {job['title']} at {job['company']} in {job.get('location') or 'remote'}. "
-        f"View the job description and original application link.", quote=True)[:300]
+        f"View the job description and original application link.",
+        DESC_META_LIMIT,
+        quote=True,
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} at {company} | WintWorks</title>
+<title>{seo_title}</title>
 <meta name="description" content="{desc_meta}">
 <link rel="canonical" href="{page_url}">
 <meta name="theme-color" content="#14357f">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{page_url}">
-<meta property="og:title" content="{title} at {company} | WintWorks">
+<meta property="og:title" content="{seo_title}">
 <meta property="og:description" content="{desc_meta}">
 <meta property="og:image" content="{OG_IMAGE}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{title} at {company} | WintWorks">
+<meta name="twitter:title" content="{seo_title}">
 <meta name="twitter:description" content="{desc_meta}">
 <meta name="twitter:image" content="{OG_IMAGE}">
 <link rel="stylesheet" href="../css/app.css">
