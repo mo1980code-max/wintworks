@@ -1,9 +1,50 @@
 
+/* ============================================================
+   Scroll restoration — keep your place across a reload.
+   The old code force-scrolled to the top on every load (twice),
+   which — combined with the page's `scroll-behavior: smooth` —
+   made refreshing mid-page visibly jump to the top. Instead we
+   save the offset when the page is hidden and restore it
+   instantly, after the scholarship list has rendered.
+   ============================================================ */
 if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
+  history.scrollRestoration = 'manual'; // we handle restoration ourselves
 }
-window.scrollTo(0, 0);
-window.onload = function() { window.scrollTo(0, 0); };
+
+const WW_SCROLL_KEY = "ww:scroll:" + location.pathname + location.search;
+
+function wwSaveScroll() {
+  try {
+    sessionStorage.setItem(WW_SCROLL_KEY, String(Math.round(window.scrollY)));
+  } catch (e) { /* private mode etc. — ignore */ }
+}
+
+function wwScrollInstant(y) {
+  const de = document.documentElement;
+  const prev = de.style.scrollBehavior;
+  de.style.scrollBehavior = "auto"; // bypass CSS `scroll-behavior: smooth`
+  window.scrollTo(0, y);
+  de.style.scrollBehavior = prev;
+}
+
+function wwRestoreScroll() {
+  if (wwRestoreScroll.done) return;
+  if (location.hash) return;        // hash routes (#/scholarship/…) manage their own scroll
+  let y = 0;
+  try { y = parseInt(sessionStorage.getItem(WW_SCROLL_KEY) || "0", 10) || 0; } catch (e) {}
+  if (y > 0) {
+    wwScrollInstant(y);
+    wwRestoreScroll.done = true;
+    try { sessionStorage.removeItem(WW_SCROLL_KEY); } catch (e) {}
+  }
+}
+
+window.addEventListener("pagehide", wwSaveScroll);
+window.addEventListener("beforeunload", wwSaveScroll);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") wwSaveScroll();
+});
+
 /* ============================================================
    WintWorks — dedicated scholarships page engine
    ============================================================ */
@@ -588,22 +629,19 @@ document.addEventListener("DOMContentLoaded", () => {
   $("#savedCount").textContent = state.bookmarks.size;
   $("#year").textContent = new Date().getFullYear();
 
-  // Load scholarships
-  fetch("data/scholarships.json")
-    .then(r => r.json())
-    .then(snap => {
-      state.scholarships = snap.scholarships.map(normalize);
-      renderScholarships();
-    })
-    .catch(() => {
-      // fallback: try again
-      fetch("data/scholarships.json")
-        .then(r => r.json())
-        .then(snap => {
-          state.scholarships = snap.scholarships.map(normalize);
-          renderScholarships();
-        });
-    });
+  // Load scholarships, then restore the pre-reload scroll position
+  const loadSch = (retry = true) =>
+    fetch("data/scholarships.json")
+      .then(r => r.json())
+      .then(snap => {
+        state.scholarships = snap.scholarships.map(normalize);
+        renderScholarships();
+      })
+      .catch(() => {
+        // fallback: try again
+        if (retry) return loadSch(false);
+      });
+  loadSch().then(wwRestoreScroll);
 
   // Init theme
   const saved = store.get("ww:theme-page", null);

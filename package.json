@@ -6,7 +6,7 @@
   "scripts": {
     "build:min": "terser js/app.js --compress --mangle --comments false -o js/app.min.js",
     "build": "npm run build:min",
-    "test": "python3 -c \"import xml.etree.ElementTree as ET, glob; [ET.parse(f) for f in glob.glob('sitemap.xml')]; print('OK')\""
+    "test": "python3 -c \"import xml.etree.ElementTree as ET, glob; [ET.parse(f) for f in glob.glob('sitemap.xml')]; print('OK')\" && node tests/scroll_restore.test.js"
   },
   "keywords": [],
   "author": "",
