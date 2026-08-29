@@ -7,6 +7,17 @@ Every listing is auto-tagged **🇺🇸 USA / 🇪🇺 Europe / 🌍 Worldwide**
 - Central job snapshot refreshed every six hours via GitHub Actions; no per-visitor API polling
 - Region + **country** auto-detection (USA / available European markets / Worldwide), per-country dropdown filter
 - **Adzuna** source: local-market jobs for GB/DE/FR/NL/IT/ES/PL/AT/BE/CH/US
+
+### Adzuna keys (required for the Adzuna source)
+
+Register free at [developer.adzuna.com](https://developer.adzuna.com), then add two **repository secrets** in
+*Settings → Secrets and variables → Actions*:
+
+- `ADZUNA_APP_ID` — your Adzuna App ID
+- `ADZUNA_APP_KEY` — your Adzuna App Key
+
+The `update-jobs` workflow passes them to `scripts/build_snapshot.py` as environment variables.
+**Never commit real keys to the repository** — `data/adzuna.json` is git-ignored for this reason.
 - Google AdSense Auto Ads connected to publisher `pub-`; Consent Mode defaults are denied
 - AdSense-ready pages: About / Contact / Privacy / Terms
 - Monetization extras: paid featured listings (`advertise.html`), free job posting form

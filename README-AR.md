@@ -104,7 +104,7 @@ CNAME  www           wintworks.netlify.app
 | تضيف مصدراً جديداً | أضف كائناً في `SOURCES` في `js/app.js` (نفس نموذج أي مصدر) + دالة في `build_snapshot.py` |
 | تفحص أعلى راتب | فرز "Highest salary" |
 | تبحث في أوروبا | فلتر "🇪🇺 All Europe" أو **منسدل البلدان** (أي دولة من 40+) أو الأزرار السريعة |
-| تـفعّل Adzuna (كل الدول) | سجّل مجاناً في developer.adzuna.com → انسخ App ID/Key → ضعها في `data/config.json` (للموقع) و `data/adzuna.json` (للسناپشوت) → كل دولة تظهر بوظائفها المحلية |
+| تـفعّل Adzuna (كل الدول) | سجّل مجاناً في developer.adzuna.com → انسخ App ID/Key → أضفها كـ Secrets في إعدادات المستودع: `ADZUNA_APP_ID` و `ADZUNA_APP_KEY` (لا تضعها في ملف داخل المستودع أبداً — الـ workflow يمررها تلقائياً) → كل دولة تظهر بوظائفها المحلية |
 | تعيد بناء الـ snapshot يدوياً | `python3 scripts/build_snapshot.py` |
 
 ---

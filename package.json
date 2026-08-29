@@ -2,9 +2,11 @@
   "name": "wintworks",
   "version": "1.0.0",
   "description": "A complete, static, zero-maintenance job board for the **United States, Europe & remote markets**. Jobs are fetched **automatically** from 5 free public sources (no API keys, no fees) — **The Muse · Jobicy · RemoteOK · Remotive · Arbeitnow (20 pages)** — plus an **Adzuna** API source covering 10 European markets + the US. Every listing is auto-tagged **🇺🇸 USA / 🇪🇺 Europe / 🌍 Worldwide** with a region filter.",
-  "main": "index.js",
+  "main": "js/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:min": "terser js/app.js --compress --mangle --comments false -o js/app.min.js",
+    "build": "npm run build:min",
+    "test": "python3 -c \"import xml.etree.ElementTree as ET, glob; [ET.parse(f) for f in glob.glob('sitemap.xml')]; print('OK')\""
   },
   "keywords": [],
   "author": "",

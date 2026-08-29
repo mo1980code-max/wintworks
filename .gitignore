@@ -1,0 +1,15 @@
+# Never commit real API keys — use GitHub Actions secrets instead.
+data/adzuna.json
+data/config.json
+
+# Build artifacts and caches
+node_modules/
+.jobs-staging/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Local tooling
+.vscode/
+.idea/
