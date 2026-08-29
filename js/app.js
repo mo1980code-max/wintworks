@@ -1593,7 +1593,6 @@ function toggleBookmark(id) {
 
 /* ============================ SHARE ============================ */
 $("#shareCopyBtn").addEventListener("click", () => {
-  const url = $("#applyNowBtn") ? location.href : "";
   if (navigator.clipboard)
     navigator.clipboard.writeText(location.href).then(
       () => toast("Link copied to clipboard"));
