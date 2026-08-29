@@ -1,194 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free CV Builder — WintWorks</title>
-<meta name="description" content="Create a professional CV/Resume for European and US jobs in minutes. Multiple templates, 100% free, download as PDF.">
+<title>منشئ السيرة الذاتية المجاني — WintWorks</title>
+<meta name="description" content="أنشئ سيرة ذاتية احترافية للوظائف في أوروبا وأمريكا خلال دقائق. قوالب عصرية متعددة، معاينة حية فورية، دعم كامل للعربية، وتحميل مباشر بصيغة PDF — مجاناً 100%.">
 <link rel="canonical" href="https://wintworks.com/cv-builder.html">
 <meta name="theme-color" content="#14357f">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="css/app.css">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Cairo', 'Tajawal', 'system-ui', 'sans-serif'],
+        },
+        colors: {
+          brand: {
+            50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',
+            500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#14357f'
+          }
+        }
+      }
+    }
+  }
+</script>
+<script>try{var t=JSON.parse(localStorage.getItem('ww:theme'));if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.dataset.theme='dark';}}catch(e){}</script>
+
+<!-- CV paper / template styles (kept outside Tailwind for reliable PDF output) -->
 <link rel="stylesheet" href="css/cv-builder.css">
-<script>try{var t=JSON.parse(localStorage.getItem('ww:theme'));if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
-<script src="js/consent.js"></script>
+
+<!-- PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
 </head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="./" aria-label="WintWorks home">
-        <svg viewBox="0 0 48 48" aria-hidden="true">
-          <defs>
-            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#1d4ed8"/><stop offset="1" stop-color="#38bdf8"/>
-            </linearGradient>
-          </defs>
+
+<body class="font-sans bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-[1500px] mx-auto px-4 h-16 flex items-center gap-4">
+      <a href="./" class="flex items-center gap-2 font-extrabold text-lg text-slate-900 dark:text-white shrink-0" aria-label="WintWorks الرئيسية">
+        <svg viewBox="0 0 48 48" class="w-8 h-8" aria-hidden="true">
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d4ed8"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
           <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#lg)"/>
-          <path d="M24 8l2.6 6.6 6.6-2.6-2.6 6.6 6.6 2.6-6.6 2.6 2.6 6.6-6.6-2.6-2.6 6.6-2.6-6.6-6.6 2.6 2.6-6.6L8.2 21.2l6.6-2.6-2.6-6.6 6.6 2.6z" fill="#fff" opacity=".95" transform="translate(0,10.5) scale(.66)"/>
-          <text x="24" y="36.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#fff">W</text>
+          <text x="24" y="33" text-anchor="middle" font-family="Arial" font-size="22" font-weight="800" fill="#fff">W</text>
         </svg>
-        <span>Wint<b>Works</b></span>
+        <span>Wint<span class="text-brand-600">Works</span></span>
       </a>
 
-      <nav class="main-nav" id="mainNav">
-        <a href="./#jobs">Jobs</a>
-        <a href="./#scholarships">Scholarships</a>
-        <a href="guides.html">Guides</a>
-        <a href="cv-builder.html" style="color:var(--primary);font-weight:bold;">CV Builder</a>
-        <a href="about.html">About</a>
-        <a href="submit-job.html">Post a Job</a>
-        <a class="cta" href="advertise.html">Advertise</a>
+      <nav id="mainNav" class="hidden md:flex items-center gap-1 flex-1 text-[14.5px] font-semibold">
+        <a href="./#jobs" class="px-3 py-2 rounded-lg text-slate-500 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">وظائف</a>
+        <a href="./#scholarships" class="px-3 py-2 rounded-lg text-slate-500 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">منح دراسية</a>
+        <a href="guides.html" class="px-3 py-2 rounded-lg text-slate-500 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">أدلة إرشادية</a>
+        <a href="cv-builder.html" class="px-3 py-2 rounded-lg text-brand-600 font-bold bg-brand-50 dark:bg-slate-800">منشئ السيرة</a>
+        <a href="about.html" class="px-3 py-2 rounded-lg text-slate-500 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">من نحن</a>
+        <a href="submit-job.html" class="px-3 py-2 rounded-lg text-slate-500 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">أضف وظيفة</a>
+        <a href="advertise.html" class="px-3 py-2 rounded-lg text-white bg-gradient-to-l from-sky-400 to-brand-700 hover:brightness-110">أعلن معنا</a>
       </nav>
 
-      <div class="header-actions">
-        <button class="icon-btn" id="themeBtn" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <div class="flex items-center gap-2 ms-auto md:ms-0">
+        <button id="themeBtn" title="الوضع الداكن" aria-label="تبديل الوضع الداكن" class="w-10 h-10 grid place-items-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-300 hover:text-brand-600">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4l1.4-1.4"/></svg>
         </button>
-        <button class="icon-btn nav-toggle-btn" id="navToggle" aria-label="Menu">
+        <button id="navToggle" aria-label="القائمة" class="md:hidden w-10 h-10 grid place-items-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-300">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
       </div>
     </div>
+    <!-- mobile nav -->
+    <nav id="mobileNav" class="hidden md:hidden flex-col gap-1 px-4 pb-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-sm font-semibold">
+      <a href="./#jobs" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">وظائف</a>
+      <a href="./#scholarships" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">منح دراسية</a>
+      <a href="guides.html" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">أدلة إرشادية</a>
+      <a href="cv-builder.html" class="px-3 py-2 rounded-lg text-brand-600 bg-brand-50 dark:bg-slate-800">منشئ السيرة</a>
+      <a href="about.html" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">من نحن</a>
+      <a href="submit-job.html" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">أضف وظيفة</a>
+      <a href="advertise.html" class="px-3 py-2 rounded-lg text-white bg-brand-700">أعلن معنا</a>
+    </nav>
   </header>
 
-  <main>
-    <div class="page-header" style="text-align:center; padding: 40px 20px 20px;">
-      <h1>Free CV Builder</h1>
-      <p class="subtitle" style="max-width:600px; margin:0 auto;">Create a professional CV for the European and US markets. Fill in your details below and download instantly as PDF.</p>
-    </div>
+  <!-- ============ PAGE INTRO ============ -->
+  <section class="text-center px-4 pt-8 pb-4">
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">منشئ السيرة الذاتية المجاني</h1>
+    <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mt-2 text-sm sm:text-base">
+      صمّم سيرة ذاتية احترافية للسوقين الأوروبي والأمريكي خلال دقائق. اكتب بياناتك وشاهد المعاينة تتحدث فوراً، ثم حمّلها بصيغة PDF نظيفة.
+    </p>
+  </section>
 
-    <div class="cv-builder-container">
-      <!-- EDITOR -->
-      <div class="cv-editor" id="cvEditor">
-        <h2 class="cv-section-title">Personal Details</h2>
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="cvName" placeholder="e.g. John Doe" value="John Doe">
-        </div>
-        <div class="form-group">
-          <label>Job Title</label>
-          <input type="text" id="cvJobTitle" placeholder="e.g. Software Engineer" value="Software Engineer">
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="cvEmail" placeholder="john@example.com" value="john@example.com">
-        </div>
-        <div class="form-group">
-          <label>Phone</label>
-          <input type="text" id="cvPhone" placeholder="+1 234 567 890" value="+1 234 567 890">
-        </div>
-        <div class="form-group">
-          <label>Location / Address</label>
-          <input type="text" id="cvLocation" placeholder="Berlin, Germany" value="Berlin, Germany">
-        </div>
-        <div class="form-group">
-          <label>LinkedIn / Portfolio URL (Optional)</label>
-          <input type="text" id="cvLink" placeholder="linkedin.com/in/johndoe" value="linkedin.com/in/johndoe">
-        </div>
-        <div class="form-group">
-          <label>Professional Summary</label>
-          <textarea id="cvSummary" rows="4" placeholder="A brief summary of your professional background...">Experienced Software Engineer with a passion for developing innovative programs that expedite the efficiency and effectiveness of organizational success.</textarea>
-        </div>
+  <!-- ============ BUILDER : SPLIT SCREEN ============ -->
+  <main class="max-w-[1500px] mx-auto px-3 sm:px-4 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
-        <h2 class="cv-section-title">Work Experience</h2>
-        <div id="expContainer"></div>
-        <button class="add-btn" id="addExpBtn">+ Add Experience</button>
+      <!-- ---------- EDITOR (right in RTL) ---------- -->
+      <section id="cvEditor" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-4 sm:p-6 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:sticky lg:top-20 space-y-2">
 
-        <h2 class="cv-section-title">Education</h2>
-        <div id="eduContainer"></div>
-        <button class="add-btn" id="addEduBtn">+ Add Education</button>
-
-        <h2 class="cv-section-title">Skills & Languages</h2>
-        <div class="form-group">
-          <label>Skills (comma separated)</label>
-          <textarea id="cvSkills" rows="3" placeholder="JavaScript, Python, Project Management...">JavaScript, Python, React, Node.js, Agile Methodologies</textarea>
-        </div>
-        <div class="form-group">
-          <label>Languages (comma separated)</label>
-          <input type="text" id="cvLangs" placeholder="English (Fluent), German (B2)" value="English (Native), German (B2)">
-        </div>
-      </div>
-
-      <!-- PREVIEW -->
-      <div class="cv-preview-wrapper">
-        <div class="cv-preview-actions">
-          <div class="template-selector">
-            <label style="align-self:center; font-weight:500;">Template:</label>
-            <select id="templateSelect">
-              <option value="classic">Classic (Standard)</option>
-              <option value="modern" selected>Modern (Two-Column)</option>
-              <option value="minimal">Minimalist</option>
-              <option value="professional">Professional (Header Bar)</option>
-              <option value="elegant">Elegant (Serif Sidebar)</option>
-              <option value="compact">Compact (One Page)</option>
-            </select>
+        <!-- Personal -->
+        <div class="editor-block">
+          <h2 class="sec-heading"><span class="sec-num">1</span> المعلومات الشخصية</h2>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="fg">
+              <label>الاسم الكامل</label>
+              <input type="text" id="cvName" value="محمد أحمد" placeholder="مثال: محمد أحمد">
+            </div>
+            <div class="fg">
+              <label>المسمى الوظيفي المستهدف</label>
+              <input type="text" id="cvJobTitle" value="مهندس برمجيات" placeholder="مثال: مهندس برمجيات">
+              <small class="hint">اكتب المسمى الذي تتقدّم إليه فعلاً — يظهر أسفل اسمك مباشرة.</small>
+            </div>
+            <div class="fg">
+              <label>البريد الإلكتروني</label>
+              <input type="email" id="cvEmail" value="mohammed@example.com" placeholder="name@example.com" dir="ltr">
+            </div>
+            <div class="fg">
+              <label>رقم الهاتف</label>
+              <input type="text" id="cvPhone" value="+962 79 000 0000" placeholder="+962 79 000 0000" dir="ltr">
+            </div>
+            <div class="fg">
+              <label>الموقع / المدينة</label>
+              <input type="text" id="cvLocation" value="عمّان، الأردن" placeholder="عمّان، الأردن">
+            </div>
+            <div class="fg">
+              <label>LinkedIn / الموقع الشخصي (اختياري)</label>
+              <input type="text" id="cvLink" value="linkedin.com/in/username" placeholder="linkedin.com/in/username" dir="ltr">
+            </div>
           </div>
-          <button class="download-btn" onclick="window.print()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            Download PDF
+        </div>
+
+        <!-- Summary -->
+        <div class="editor-block">
+          <h2 class="sec-heading"><span class="sec-num">2</span> الملخص المهني</h2>
+          <div class="fg">
+            <label>نبذة مختصرة عنك</label>
+            <textarea id="cvSummary" rows="4" placeholder="اكتب ملخصاً مهنياً لا يتجاوز 3 أسطر يبرز أبرز خبراتك وإنجازاتك.">مهندس برمجيات بخبرة تزيد عن 5 سنوات في بناء تطبيقات ويب قابلة للتوسّع. شغوف بحلّ المشكلات المعقّدة ورفع كفاءة الأنظمة، مع سجلّ حافل في تحسين الأداء وقيادة الفرق التقنية.</textarea>
+            <small class="hint">نصيحة: ابدأ بمسمّاك وسنوات خبرتك، ثم أضف إنجازاً واحداً قابلاً للقياس (مثل «رفعت الأداء 30%»).</small>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="editor-block">
+          <h2 class="sec-heading"><span class="sec-num">3</span> الخبرات المهنية</h2>
+          <div id="expContainer" class="space-y-3"></div>
+          <button type="button" id="addExpBtn" class="add-btn">+ إضافة خبرة جديدة</button>
+        </div>
+
+        <!-- Education -->
+        <div class="editor-block">
+          <h2 class="sec-heading"><span class="sec-num">4</span> التعليم</h2>
+          <div id="eduContainer" class="space-y-3"></div>
+          <button type="button" id="addEduBtn" class="add-btn">+ إضافة مؤهل تعليمي</button>
+        </div>
+
+        <!-- Skills & Languages -->
+        <div class="editor-block">
+          <h2 class="sec-heading"><span class="sec-num">5</span> المهارات واللغات</h2>
+          <div class="fg">
+            <label>المهارات (افصل بينها بفاصلة)</label>
+            <textarea id="cvSkills" rows="3" placeholder="JavaScript، Python، إدارة المشاريع، القيادة...">JavaScript, Python, React, Node.js, إدارة المشاريع, العمل بمنهجية Agile</textarea>
+            <small class="hint">أضف 6–12 مهارة مرتبطة بالوظيفة المستهدفة. تظهر على شكل وسوم أنيقة.</small>
+          </div>
+          <div class="fg">
+            <label>اللغات (افصل بينها بفاصلة)</label>
+            <input type="text" id="cvLangs" value="العربية (اللغة الأم), الإنجليزية (طليق), الألمانية (B2)" placeholder="العربية (اللغة الأم)، الإنجليزية (طليق)">
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- PREVIEW (left in RTL) ---------- -->
+      <section class="lg:sticky lg:top-20">
+        <!-- Toolbar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-3 shadow-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">القالب:</span>
+            <div id="templateBtns" class="flex flex-wrap gap-1.5">
+              <button type="button" class="tpl-btn is-active" data-tpl="executive">تنفيذي</button>
+              <button type="button" class="tpl-btn" data-tpl="tech">تقني</button>
+              <button type="button" class="tpl-btn" data-tpl="creative">إبداعي</button>
+            </div>
+          </div>
+          <button type="button" id="downloadBtn" class="inline-flex items-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 text-sm shadow-sm disabled:opacity-60">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span id="downloadLabel">تحميل PDF</span>
           </button>
         </div>
 
-        <!-- The Paper -->
-        <div class="cv-paper-scaler" id="cvScaler">
-          <div class="cv-paper temp-modern" id="cvPaper">
-            <!-- Injected via JS -->
+        <!-- Paper -->
+        <div class="cv-stage rounded-xl bg-slate-200/60 dark:bg-slate-800/40 p-3 sm:p-5 overflow-hidden">
+          <div class="cv-paper-scaler mx-auto" id="cvScaler">
+            <div class="cv-paper temp-executive" id="cvPaper" dir="rtl"><!-- injected by JS --></div>
           </div>
         </div>
-      </div>
+        <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-3">
+          المعاينة مطابقة لملف PDF الناتج (مقاس A4). بياناتك تُحفظ تلقائياً في متصفحك ولا تغادر جهازك.
+        </p>
+      </section>
+
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a class="logo" href="./">
-            <svg viewBox="0 0 48 48" aria-hidden="true" width="30" height="30">
-              <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#lg)"/>
-              <path d="M24 8l2.6 6.6 6.6-2.6-2.6 6.6 6.6 2.6-6.6 2.6 2.6 6.6-6.6-2.6-2.6 6.6-2.6-6.6-6.6 2.6 2.6-6.6L8.2 21.2l6.6-2.6-2.6-6.6 6.6 2.6z" fill="#fff" opacity=".95" transform="translate(0,10.5) scale(.66)"/>
-              <text x="24" y="36.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#fff">W</text>
-            </svg>
-            <span>Wint<b>Works</b></span>
-          </a>
-          <p>WintWorks is a free job and scholarship aggregator for the United States and Europe. Listings are pulled automatically from trusted public sources.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Explore</h4>
-          <a href="./#jobs">Browse jobs</a>
-          <a href="./#scholarships">Browse scholarships</a>
-          <a href="cv-builder.html">Free CV Builder</a>
-          <a href="jobs-in-germany.html">Jobs in Germany</a>
-          <a href="remote-jobs-no-experience.html">No-experience remote jobs</a>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="guides.html">Guides</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms of Use</a>
-          <a href="disclaimer.html">Disclaimer</a>
-        </div>
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-slate-900 text-slate-300 mt-8">
+    <div class="max-w-6xl mx-auto px-4 py-10 grid sm:grid-cols-3 gap-8 text-sm">
+      <div>
+        <a href="./" class="flex items-center gap-2 font-extrabold text-white text-lg mb-3">
+          <svg viewBox="0 0 48 48" class="w-7 h-7"><rect x="2" y="2" width="44" height="44" rx="12" fill="url(#lg)"/><text x="24" y="33" text-anchor="middle" font-family="Arial" font-size="22" font-weight="800" fill="#fff">W</text></svg>
+          Wint<span class="text-brand-400">Works</span>
+        </a>
+        <p class="text-slate-400 leading-relaxed">منصة مجانية لتجميع الوظائف والمنح الدراسية للولايات المتحدة وأوروبا، مع أدوات مهنية تساعدك على التقديم بثقة.</p>
       </div>
-      <div class="footer-bottom">
-        <span>© <span id="year"></span> <a href="./">WintWorks.com</a> — All rights reserved.</span>
+      <div>
+        <h4 class="text-white font-bold mb-3">استكشف</h4>
+        <ul class="space-y-2">
+          <li><a href="./#jobs" class="hover:text-white">تصفّح الوظائف</a></li>
+          <li><a href="./#scholarships" class="hover:text-white">المنح الدراسية</a></li>
+          <li><a href="cv-builder.html" class="hover:text-white">منشئ السيرة الذاتية</a></li>
+          <li><a href="jobs-in-germany.html" class="hover:text-white">وظائف في ألمانيا</a></li>
+        </ul>
       </div>
+      <div>
+        <h4 class="text-white font-bold mb-3">الشركة</h4>
+        <ul class="space-y-2">
+          <li><a href="about.html" class="hover:text-white">من نحن</a></li>
+          <li><a href="contact.html" class="hover:text-white">اتصل بنا</a></li>
+          <li><a href="privacy.html" class="hover:text-white">سياسة الخصوصية</a></li>
+          <li><a href="terms.html" class="hover:text-white">شروط الاستخدام</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+      © <span id="year"></span> <a href="./" class="hover:text-white">WintWorks.com</a> — جميع الحقوق محفوظة.
     </div>
   </footer>
 
-  <script src="js/cv-builder.js"></script>
+  <script src="js/cv-builder.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     document.getElementById('navToggle').addEventListener('click', () => {
-      document.getElementById('mainNav').classList.toggle('active');
+      document.getElementById('mobileNav').classList.toggle('hidden');
+      document.getElementById('mobileNav').classList.toggle('flex');
     });
-    const tb = document.getElementById('themeBtn');
-    if (tb) tb.addEventListener('click', () => {
+    document.getElementById('themeBtn').addEventListener('click', () => {
       const root = document.documentElement;
-      const isDark = root.dataset.theme === 'dark';
-      if (isDark) { delete root.dataset.theme; localStorage.setItem('ww:theme', '"light"'); }
-      else { root.dataset.theme = 'dark'; localStorage.setItem('ww:theme', '"dark"'); }
+      const isDark = root.classList.toggle('dark');
+      if (isDark) { root.dataset.theme = 'dark'; localStorage.setItem('ww:theme', '"dark"'); }
+      else { delete root.dataset.theme; localStorage.setItem('ww:theme', '"light"'); }
     });
   </script>
 </body>

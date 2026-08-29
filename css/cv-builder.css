@@ -1,286 +1,217 @@
-.cv-builder-container {
-  display: flex;
-  flex-direction: row;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-  gap: 30px;
-  min-height: calc(100vh - 120px);
+/* ============================================================
+   WintWorks — CV Builder
+   Editor form components + A4 paper templates.
+   The app chrome (header/footer/layout) uses Tailwind in the HTML.
+   These rules are plain CSS so the PDF/print output is deterministic
+   and independent of Tailwind's runtime.
+   ============================================================ */
+
+/* ---------- Editor form components ---------- */
+.editor-block { padding: 8px 0 4px; }
+.editor-block + .editor-block { border-top: 1px solid var(--ww-border, #e2e8f0); margin-top: 6px; }
+.dark .editor-block + .editor-block { border-top-color: #1e293b; }
+
+.sec-heading {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1.05rem; font-weight: 700; margin: 14px 0 14px;
+  color: #0f172a;
+}
+.dark .sec-heading { color: #e2e8f0; }
+.sec-num {
+  display: grid; place-items: center;
+  width: 26px; height: 26px; border-radius: 8px;
+  background: #2563eb; color: #fff; font-size: 0.85rem; font-weight: 800;
 }
 
-.cv-editor {
-  flex: 1;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  overflow-y: auto;
-  max-height: 80vh;
+.fg { margin-bottom: 14px; }
+.fg > label {
+  display: block; margin-bottom: 6px;
+  font-weight: 600; font-size: 0.85rem; color: #475569;
 }
-
-.cv-preview-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.dark .fg > label { color: #94a3b8; }
+.fg input, .fg textarea {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid #cbd5e1; border-radius: 8px;
+  background: #fff; color: #0f172a;
+  font-family: inherit; font-size: 0.92rem;
+  transition: border-color .15s, box-shadow .15s;
 }
-
-.cv-preview-actions {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
+.dark .fg input, .dark .fg textarea {
+  background: #0f172a; color: #e2e8f0; border-color: #334155;
 }
-
-.cv-preview-actions select {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  font-weight: 500;
-  cursor: pointer;
+.fg input:focus, .fg textarea:focus {
+  outline: none; border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
 }
+.fg textarea { resize: vertical; line-height: 1.6; }
+.hint { display: block; margin-top: 5px; font-size: 0.75rem; color: #94a3b8; line-height: 1.5; }
 
-/* Scaler wrapper: reserves the correct (scaled) footprint so the paper
-   never overlaps the editor or leaves a huge blank gap below it.
-   The paper is scaled via a CSS var set by JS to fit the column width. */
+.add-btn {
+  width: 100%; margin-top: 4px; padding: 10px 16px;
+  border: 1.5px dashed #93c5fd; border-radius: 10px;
+  background: #eff6ff; color: #2563eb;
+  font-weight: 700; font-size: 0.9rem; cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.add-btn:hover { background: #dbeafe; border-color: #2563eb; }
+.dark .add-btn { background: rgba(37,99,235,.12); border-color: #1d4ed8; color: #93c5fd; }
+.dark .add-btn:hover { background: rgba(37,99,235,.22); }
+
+/* Repeater cards (experience / education) */
+.repeater-item {
+  position: relative;
+  background: #f8fafc; border: 1px solid #e2e8f0;
+  padding: 16px; border-radius: 12px;
+}
+.dark .repeater-item { background: #0f172a; border-color: #334155; }
+.repeater-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.repeater-head b { font-size: 0.8rem; color: #64748b; font-weight: 700; }
+.remove-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #fef2f2; color: #dc2626;
+  border: 1px solid #fecaca; border-radius: 7px;
+  padding: 5px 10px; cursor: pointer;
+  font-size: 0.78rem; font-weight: 700;
+}
+.remove-btn:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
+.dark .remove-btn { background: rgba(220,38,38,.12); border-color: #7f1d1d; }
+
+/* Template switcher buttons */
+.tpl-btn {
+  padding: 7px 14px; border-radius: 8px;
+  border: 1px solid #cbd5e1; background: #fff; color: #475569;
+  font-size: 0.85rem; font-weight: 700; cursor: pointer;
+  transition: all .15s;
+}
+.tpl-btn:hover { border-color: #2563eb; color: #2563eb; }
+.tpl-btn.is-active { background: #2563eb; color: #fff; border-color: #2563eb; box-shadow: 0 2px 8px rgba(37,99,235,.35); }
+.dark .tpl-btn { background: #0f172a; border-color: #334155; color: #cbd5e1; }
+.dark .tpl-btn.is-active { background: #2563eb; color: #fff; }
+
+/* ---------- Preview stage & scaling ---------- *
+   The A4 paper is 210mm wide. We scale it down to fit the column with a
+   wrapper that RESERVES the scaled height (so it never overlaps the editor
+   nor leaves a blank gap). JS sets --cv-scale and the wrapper height. */
 .cv-paper-scaler {
   width: 100%;
   max-width: 210mm;
   overflow: hidden;
-  /* height is set inline by JS = paperHeight * scale */
+  /* height set inline by JS = paperHeight * scale */
 }
-
 .cv-paper {
   background: #fff;
   width: 210mm;
   min-height: 297mm;
-  padding: 20mm;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  transform-origin: top left;
+  padding: 18mm 16mm;
+  box-shadow: 0 10px 40px rgba(15,23,42,.18);
+  transform-origin: top right;           /* RTL: scale from top-right corner */
   transform: scale(var(--cv-scale, 1));
-  color: #333;
+  color: #1f2937;
+  box-sizing: border-box;
   overflow: hidden;
+  direction: rtl;
 }
+:root:not([dir="rtl"]) .cv-paper,
+.cv-paper[dir="ltr"] { transform-origin: top left; }
 
-[data-theme="dark"] .cv-paper {
-  background: #fff;
-  color: #000;
+/* =====================================================================
+   TEMPLATE 1 — EXECUTIVE / PROFESSIONAL
+   Formal, clean, calm navy accents. Focus on experience & achievements.
+   ===================================================================== */
+.temp-executive { font-family: 'IBM Plex Sans Arabic','Cairo',Arial,sans-serif; }
+.temp-executive .cv-header {
+  border-bottom: 3px solid #14357f; padding-bottom: 16px; margin-bottom: 20px;
 }
-
-.cv-section-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-top: 25px;
-  margin-bottom: 15px;
-  padding-bottom: 5px;
-  border-bottom: 2px solid var(--border);
-  color: var(--text);
+.temp-executive .cv-name { font-size: 27pt; font-weight: 800; margin: 0; color: #14357f; letter-spacing: -.5px; }
+.temp-executive .cv-job-title { font-size: 13.5pt; color: #475569; font-weight: 600; margin-top: 4px; }
+.temp-executive .cv-contact { font-size: 9.5pt; color: #475569; margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.temp-executive .cv-contact span { display: inline-flex; align-items: center; gap: 5px; }
+.temp-executive .cv-section { margin-bottom: 18px; }
+.temp-executive .cv-sec-title {
+  font-size: 12.5pt; font-weight: 800; color: #14357f; text-transform: uppercase;
+  letter-spacing: .5px; border-bottom: 1.5px solid #dbe3f4; padding-bottom: 5px; margin-bottom: 11px;
 }
+.temp-executive .cv-item { margin-bottom: 13px; }
+.temp-executive .cv-item-title { font-size: 11.5pt; font-weight: 700; color: #1f2937; display: flex; justify-content: space-between; gap: 12px; }
+.temp-executive .cv-item-title .date { font-size: 9.5pt; font-weight: 600; color: #64748b; white-space: nowrap; }
+.temp-executive .cv-item-sub { font-size: 10.5pt; color: #2563eb; font-weight: 600; margin: 2px 0 5px; }
+.temp-executive .cv-item-desc { font-size: 10pt; line-height: 1.6; color: #374151; white-space: pre-wrap; }
+.temp-executive .cv-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.temp-executive .cv-tag { font-size: 9pt; background: #eef2fb; color: #14357f; border: 1px solid #d7e0f5; padding: 3px 10px; border-radius: 6px; font-weight: 600; }
+.temp-executive .cv-langs { font-size: 10pt; line-height: 1.8; color: #374151; }
+.temp-executive .cv-langs b { color: #14357f; }
 
-.form-group {
-  margin-bottom: 15px;
-}
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-.form-group input, .form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--bg);
-  color: var(--text);
-  font-family: inherit;
-}
-.form-group input:focus, .form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(29,78,216,0.1);
-}
+/* =====================================================================
+   TEMPLATE 2 — TECH / MODERN  (sidebar layout, IT & AI friendly)
+   ===================================================================== */
+.temp-tech { font-family: 'Tajawal','Cairo',Arial,sans-serif; display: flex; margin: -18mm -16mm; min-height: 297mm; width: 210mm; box-sizing: border-box; }
+.temp-tech .tech-side { width: 34%; background: linear-gradient(160deg,#0f172a 0%,#1e293b 100%); color: #e2e8f0; padding: 18mm 9mm; box-sizing: border-box; }
+.temp-tech .tech-main { width: 66%; padding: 18mm 14mm; box-sizing: border-box; background: #fff; }
+.temp-tech .cv-name { font-size: 21pt; font-weight: 800; margin: 0; color: #fff; line-height: 1.15; }
+.temp-tech .cv-job-title { font-size: 11.5pt; color: #38bdf8; font-weight: 600; margin: 6px 0 22px; }
+.temp-tech .side-title { font-size: 11pt; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px; margin: 22px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #334155; }
+.temp-tech .contact-item { font-size: 9pt; margin-bottom: 9px; color: #cbd5e1; display: flex; gap: 7px; align-items: flex-start; word-break: break-word; }
+.temp-tech .contact-item .ic { color: #38bdf8; flex: none; }
+.temp-tech .skills-list { list-style: none; padding: 0; margin: 0; }
+.temp-tech .skills-list li { font-size: 9pt; color: #e2e8f0; margin-bottom: 9px; }
+.temp-tech .skills-list .bar { height: 5px; background: #334155; border-radius: 3px; margin-top: 4px; overflow: hidden; }
+.temp-tech .skills-list .bar span { display: block; height: 100%; background: linear-gradient(90deg,#38bdf8,#2563eb); border-radius: 3px; }
+.temp-tech .lang-list { list-style: none; padding: 0; margin: 0; }
+.temp-tech .lang-list li { font-size: 9pt; color: #cbd5e1; margin-bottom: 7px; padding-right: 12px; position: relative; }
+.temp-tech .lang-list li::before { content: "▹"; color: #38bdf8; position: absolute; right: 0; }
+.temp-tech .main-title { font-size: 14pt; font-weight: 800; color: #0f172a; margin-bottom: 12px; position: relative; padding-right: 14px; }
+.temp-tech .main-title::before { content: ""; position: absolute; right: 0; top: 3px; bottom: 3px; width: 5px; border-radius: 3px; background: linear-gradient(180deg,#38bdf8,#2563eb); }
+.temp-tech .cv-item { margin-bottom: 14px; }
+.temp-tech .cv-item-title { font-size: 11.5pt; font-weight: 700; color: #0f172a; }
+.temp-tech .cv-item-sub { font-size: 9.5pt; color: #2563eb; font-weight: 600; margin: 3px 0 5px; }
+.temp-tech .cv-item-desc { font-size: 9.5pt; line-height: 1.6; color: #374151; white-space: pre-wrap; }
+.temp-tech .profile-text { font-size: 9.5pt; line-height: 1.7; color: #374151; white-space: pre-wrap; margin-bottom: 8px; }
 
-.repeater-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  position: relative;
-}
-.remove-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: var(--red-bg, #fee2e2);
-  color: #ef4444;
-  border: 1px solid #fca5a5;
-  border-radius: 4px;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-.remove-btn:hover { background: #fca5a5; color: #fff; }
-.add-btn {
-  background: var(--surface);
-  color: var(--text);
-  border: 1px dashed var(--border);
-  border-radius: 6px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-  font-weight: 600;
-  width: 100%;
-}
-.add-btn:hover {
-  background: var(--border);
-}
+/* =====================================================================
+   TEMPLATE 3 — CREATIVE / MINIMALIST  (airy whitespace, modern type)
+   ===================================================================== */
+.temp-creative { font-family: 'Cairo','Tajawal',Arial,sans-serif; color: #27272a; }
+.temp-creative .cv-header { text-align: center; padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid #e4e4e7; }
+.temp-creative .cv-name { font-size: 30pt; font-weight: 300; letter-spacing: 1px; margin: 0; color: #18181b; }
+.temp-creative .cv-name b { font-weight: 800; }
+.temp-creative .cv-job-title { font-size: 12pt; color: #f43f5e; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; margin-top: 8px; }
+.temp-creative .cv-contact { font-size: 9pt; color: #71717a; margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: center; }
+.temp-creative .cv-section { margin-bottom: 26px; }
+.temp-creative .cv-sec-title { font-size: 10.5pt; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #f43f5e; text-align: center; margin-bottom: 16px; }
+.temp-creative .cv-item { margin-bottom: 18px; text-align: center; }
+.temp-creative .cv-item-title { font-size: 12pt; font-weight: 700; color: #18181b; }
+.temp-creative .cv-item-sub { font-size: 9.5pt; color: #71717a; margin: 4px 0 8px; }
+.temp-creative .cv-item-sub .dot { color: #f43f5e; margin: 0 6px; }
+.temp-creative .cv-item-desc { font-size: 9.5pt; line-height: 1.7; color: #3f3f46; white-space: pre-wrap; max-width: 85%; margin: 0 auto; }
+.temp-creative .cv-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.temp-creative .cv-tag { font-size: 9pt; color: #3f3f46; border: 1px solid #e4e4e7; padding: 4px 14px; border-radius: 999px; font-weight: 500; }
+.temp-creative .cv-langs { font-size: 9.5pt; line-height: 1.9; color: #3f3f46; text-align: center; }
+.temp-creative .cv-langs b { color: #f43f5e; font-weight: 600; }
 
-.download-btn {
-  background: #10b981;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 20px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.download-btn:hover { background: #059669; }
-
-/* ======== TEMPLATES ======== */
-
-/* Template 1: Classic */
-.temp-classic { font-family: 'Times New Roman', Times, serif; }
-.temp-classic .cv-header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px; }
-.temp-classic .cv-name { font-size: 28pt; font-weight: bold; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
-.temp-classic .cv-job-title { font-size: 14pt; margin: 5px 0 10px 0; color: #555; }
-.temp-classic .cv-contact { font-size: 10pt; color: #444; }
-.temp-classic .cv-section { margin-bottom: 20px; }
-.temp-classic .cv-sec-title { font-size: 14pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #ccc; margin-bottom: 10px; padding-bottom: 3px; color: #222; }
-.temp-classic .cv-item { margin-bottom: 15px; }
-.temp-classic .cv-item-title { font-size: 12pt; font-weight: bold; display: flex; justify-content: space-between; }
-.temp-classic .cv-item-sub { font-size: 11pt; font-style: italic; color: #444; margin-bottom: 5px; }
-.temp-classic .cv-item-desc { font-size: 10.5pt; line-height: 1.5; white-space: pre-wrap; }
-.temp-classic .cv-skills { font-size: 10.5pt; line-height: 1.6; }
-
-/* Template 2: Modern */
-.temp-modern { font-family: Arial, Helvetica, sans-serif; display: flex; margin: -20mm; height: 297mm; width: 210mm;}
-.temp-modern .modern-left { background: #2c3e50; color: #fff; width: 35%; padding: 20mm 10mm; box-sizing: border-box; }
-.temp-modern .modern-right { width: 65%; padding: 20mm; background: #fff; box-sizing: border-box; }
-.temp-modern .cv-name { font-size: 22pt; font-weight: bold; margin: 0; line-height: 1.1; }
-.temp-modern .cv-job-title { font-size: 12pt; color: #abc; margin-top: 5px; margin-bottom: 20px; }
-.temp-modern .cv-contact-item { font-size: 9pt; margin-bottom: 10px; }
-.temp-modern .cv-sec-title-left { font-size: 12pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #567; padding-bottom: 5px; margin: 25px 0 15px; letter-spacing: 1px; color: #fff; }
-.temp-modern .cv-sec-title-right { font-size: 16pt; font-weight: bold; text-transform: uppercase; color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 5px; margin-bottom: 15px; }
-.temp-modern .cv-item { margin-bottom: 15px; }
-.temp-modern .cv-item-title { font-size: 12pt; font-weight: bold; color: #222; display: flex; justify-content: space-between;}
-.temp-modern .cv-item-sub { font-size: 10pt; color: #666; margin: 3px 0; font-weight: bold;}
-.temp-modern .cv-item-date { font-size: 9pt; color: #888; margin-bottom: 5px; }
-.temp-modern .cv-item-desc { font-size: 10pt; line-height: 1.5; color: #444; white-space: pre-wrap; }
-.temp-modern .cv-skills-list { list-style: none; padding: 0; margin: 0; font-size: 10pt; }
-.temp-modern .cv-skills-list li { margin-bottom: 5px; }
-.temp-modern .modern-desc-left { font-size: 9.5pt; line-height: 1.5; color: #ddd; white-space: pre-wrap; margin-bottom: 20px;}
-
-/* Template 3: Minimalist */
-.temp-minimal { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #333; }
-.temp-minimal .cv-header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 30px; }
-.temp-minimal .cv-name { font-size: 32pt; font-weight: 300; margin: 0; letter-spacing: -1px; }
-.temp-minimal .cv-job-title { font-size: 14pt; color: #888; font-weight: 400; margin-top: 5px;}
-.temp-minimal .cv-contact { text-align: right; font-size: 9pt; color: #666; line-height: 1.6; }
-.temp-minimal .cv-section { display: flex; margin-bottom: 30px; }
-.temp-minimal .cv-sec-left { width: 25%; font-size: 11pt; font-weight: bold; color: #222; text-transform: uppercase; padding-right: 20px; box-sizing: border-box;}
-.temp-minimal .cv-sec-right { width: 75%; }
-.temp-minimal .cv-item { margin-bottom: 20px; }
-.temp-minimal .cv-item-title { font-size: 12pt; font-weight: 600; color: #000; margin: 0 0 3px 0; display: flex; justify-content: space-between; }
-.temp-minimal .cv-item-sub { font-size: 10pt; color: #777; margin-bottom: 8px; }
-.temp-minimal .cv-item-desc { font-size: 10pt; line-height: 1.6; color: #444; white-space: pre-wrap;}
-.temp-minimal .minimal-summary { font-size: 10.5pt; line-height: 1.6; color: #444; margin-bottom: 20px; white-space: pre-wrap;}
-
-/* Template 4: Professional (full-width header bar + accent) */
-.temp-professional { font-family: "Calibri", "Segoe UI", Arial, sans-serif; color: #2d3748; }
-.temp-professional .cv-header { background: #1a365d; color: #fff; margin: -20mm -20mm 20px -20mm; padding: 22mm 20mm 12mm; }
-.temp-professional .cv-name { font-size: 26pt; font-weight: 700; margin: 0; letter-spacing: .5px; }
-.temp-professional .cv-job-title { font-size: 13pt; color: #90cdf4; margin-top: 4px; font-weight: 500; }
-.temp-professional .cv-contact { font-size: 9.5pt; color: #cbd5e0; margin-top: 10px; }
-.temp-professional .cv-section { margin-bottom: 18px; }
-.temp-professional .cv-sec-title { font-size: 13pt; font-weight: 700; color: #1a365d; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #90cdf4; padding-bottom: 4px; margin-bottom: 10px; }
-.temp-professional .cv-item { margin-bottom: 14px; padding-left: 12px; border-left: 3px solid #e2e8f0; }
-.temp-professional .cv-item-title { font-size: 12pt; font-weight: 700; color: #1a202c; display: flex; justify-content: space-between; gap: 12px; }
-.temp-professional .cv-item-sub { font-size: 10.5pt; color: #2b6cb0; margin: 2px 0 5px; font-weight: 600; }
-.temp-professional .cv-item-desc { font-size: 10pt; line-height: 1.5; color: #4a5568; white-space: pre-wrap; }
-.temp-professional .cv-skills { font-size: 10.5pt; line-height: 1.7; }
-
-/* Template 5: Elegant (serif, left sidebar) */
-.temp-elegant { font-family: Georgia, "Times New Roman", serif; display: flex; margin: -20mm; min-height: 297mm; width: 210mm; }
-.temp-elegant .elegant-left { width: 33%; background: #f7f3ec; color: #4a3f35; padding: 20mm 8mm; box-sizing: border-box; border-right: 3px solid #c9a227; }
-.temp-elegant .elegant-right { width: 67%; padding: 20mm; box-sizing: border-box; background: #fff; }
-.temp-elegant .cv-name { font-size: 24pt; font-weight: normal; margin: 0; color: #3b3226; line-height: 1.15; }
-.temp-elegant .cv-job-title { font-size: 12pt; font-style: italic; color: #8a6d3b; margin: 6px 0 20px; }
-.temp-elegant .cv-sec-title-left { font-size: 12pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; color: #8a6d3b; border-bottom: 1px solid #d8c9a3; padding-bottom: 5px; margin: 22px 0 12px; }
-.temp-elegant .cv-contact-item { font-size: 9.5pt; margin-bottom: 8px; line-height: 1.4; word-break: break-word; }
-.temp-elegant .cv-skills-list { list-style: none; padding: 0; margin: 0; font-size: 10pt; }
-.temp-elegant .cv-skills-list li { margin-bottom: 6px; padding-left: 12px; position: relative; }
-.temp-elegant .cv-skills-list li::before { content: "◆"; color: #c9a227; position: absolute; left: 0; font-size: 7pt; top: 3px; }
-.temp-elegant .cv-sec-title-right { font-size: 15pt; font-weight: normal; letter-spacing: 1px; color: #3b3226; border-bottom: 2px solid #c9a227; padding-bottom: 5px; margin-bottom: 14px; }
-.temp-elegant .cv-item { margin-bottom: 15px; }
-.temp-elegant .cv-item-title { font-size: 12pt; font-weight: bold; color: #2d2519; }
-.temp-elegant .cv-item-sub { font-size: 10pt; font-style: italic; color: #8a6d3b; margin: 3px 0 5px; }
-.temp-elegant .cv-item-desc { font-size: 10pt; line-height: 1.55; color: #4a4034; white-space: pre-wrap; }
-
-/* Template 6: Compact (dense single page, ATS-friendly) */
-.temp-compact { font-family: "Segoe UI", Arial, sans-serif; color: #333; font-size: 9.5pt; }
-.temp-compact .cv-header { text-align: left; border-bottom: 3px solid #16a085; padding-bottom: 8px; margin-bottom: 12px; }
-.temp-compact .cv-name { font-size: 20pt; font-weight: 700; margin: 0; color: #1a1a1a; }
-.temp-compact .cv-job-title { font-size: 11pt; color: #16a085; font-weight: 600; margin: 2px 0 4px; }
-.temp-compact .cv-contact { font-size: 8.5pt; color: #555; }
-.temp-compact .cv-section { margin-bottom: 12px; }
-.temp-compact .cv-sec-title { font-size: 11pt; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #16a085; border-bottom: 1px solid #ddd; padding-bottom: 2px; margin-bottom: 7px; }
-.temp-compact .cv-item { margin-bottom: 9px; }
-.temp-compact .cv-item-title { font-size: 10.5pt; font-weight: 700; color: #1a1a1a; display: flex; justify-content: space-between; gap: 10px; }
-.temp-compact .cv-item-sub { font-size: 9.5pt; color: #666; margin: 1px 0 3px; }
-.temp-compact .cv-item-desc { font-size: 9.5pt; line-height: 1.4; color: #444; white-space: pre-wrap; }
-.temp-compact .cv-skills { font-size: 9.5pt; line-height: 1.6; }
-
+/* =====================================================================
+   PRINT / PDF  — clean output, no chrome, exact A4
+   ===================================================================== */
 @media print {
-  body * { visibility: hidden; }
-  .cv-preview-wrapper, .cv-preview-wrapper * { visibility: visible; }
-  .cv-preview-wrapper { position: absolute; left: 0; top: 0; width: 100%; transform: none; display: block;}
-  .cv-paper-scaler {
-    width: 210mm !important;
-    max-width: none !important;
-    height: auto !important;
-    overflow: visible !important;
+  body * { visibility: hidden !important; }
+  #cvScaler, #cvScaler * { visibility: visible !important; }
+  #cvScaler {
+    position: absolute; inset: 0 auto auto 0;
+    width: 210mm !important; max-width: none !important;
+    height: auto !important; overflow: visible !important; padding: 0 !important; margin: 0 !important;
   }
   .cv-paper {
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 20mm !important;
-    width: 210mm !important;
-    min-height: 297mm !important;
+    box-shadow: none !important; margin: 0 !important;
+    width: 210mm !important; min-height: 297mm !important;
     transform: none !important;
   }
-  .temp-modern { margin: 0 !important; padding: 0 !important; height: 100% !important; min-height: 297mm; }
+  .temp-tech { margin: 0 !important; min-height: 297mm; }
   @page { size: A4; margin: 0; }
-  .cv-preview-actions { display: none !important; }
-  .site-header, .site-footer { display: none !important; }
+  html, body { background: #fff !important; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
-@media (max-width: 900px) {
-  .cv-builder-container { flex-direction: column; }
-  .cv-editor { max-height: none; }
-}
-
-@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+/* Utility state used while html2pdf renders at full scale */
+.cv-paper.pdf-rendering { transform: none !important; }
