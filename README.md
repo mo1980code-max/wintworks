@@ -18,6 +18,23 @@ Register free at [developer.adzuna.com](https://developer.adzuna.com), then add 
 
 The `update-jobs` workflow passes them to `scripts/build_snapshot.py` as environment variables.
 **Never commit real keys to the repository** — `data/adzuna.json` is git-ignored for this reason.
+
+### Other optional secrets
+
+All of these live in the same place: *Settings → Secrets and variables → Actions*.
+
+| Secret | Used by | What it enables |
+| --- | --- | --- |
+| `SCHOLARSHIPAPI_KEY` | `.github/workflows/update-scholarships.yml` | ScholarshipAPI.com source (free tier: 100 req/day) |
+| `SCHOLARSHIPS_COM_KEY` | `.github/workflows/update-scholarships.yml` | Scholarships.com source (Parse free tier) |
+| `HOST` · `USERNAME` · `SSH_PRIVATE_KEY` · `SITE_PATH` | `.github/workflows/deploy.yml` | Optional rsync mirror of the site to your own server |
+
+Both scholarship keys are **optional**: `scripts/fetch_scholarships.py` skips a source when its
+key is absent and still writes a snapshot from the key-free WordPress sources, so
+`scholarships.html` renders normally. Add the keys at any time — the next scheduled run
+(daily, 06:15 UTC) picks up the extra sources with no code change.
+
+**Never commit real keys to the repository.**
 - Google AdSense Auto Ads connected to publisher `pub-`; Consent Mode defaults are denied
 - AdSense-ready pages: About / Contact / Privacy / Terms
 - Monetization extras: paid featured listings (`advertise.html`), free job posting form
@@ -28,6 +45,12 @@ The `update-jobs` workflow passes them to `scripts/build_snapshot.py` as environ
 
 **GitHub Pages**: push this folder to a repo → Settings → Pages → deploy from `main` branch.
 The included `.github/workflows/update-jobs.yml` re-fetches jobs every day automatically.
+
+This is how `wintworks.com` is served today: Pages builds from `main` on every push.
+
+> `.github/workflows/deploy.yml` is an **optional** rsync mirror for hosting the site on your own
+> server. It is off until you add the four SSH secrets in the table above — until then it skips
+> itself and reports success, so it never fails a build.
 
 Then point your domain `wintworks.com` to the host (Netlify shows you the DNS records).
 
