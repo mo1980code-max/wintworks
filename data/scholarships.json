@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-29T19:20:44.831375+00:00",
-  "count": 77,
+  "generated_at": "2026-08-29T19:25:59.088650+00:00",
+  "count": 86,
   "per_source": {
     "Outreachy": 1,
     "GWI": 1,
@@ -23,6 +23,7 @@
     "Croatian Ministry": 1,
     "Moroccan MESRS": 1,
     "Palantir": 1,
+    "Scholars4Dev": 3,
     "Spanish Ministry": 1,
     "AAUW": 1,
     "Misr El Kheir": 1,
@@ -75,12 +76,14 @@
     "Rhodes Trust": 1,
     "Commonwealth UK": 1,
     "Nuffic": 1,
-    "NSF": 1
+    "NSF": 1,
+    "ScholarshipsCorner": 5,
+    "OpportunitiesForYouth": 1
   },
   "sources_ok": {
-    "Scholars4Dev": false,
-    "ScholarshipsCorner": false,
-    "OpportunitiesForYouth": false,
+    "Scholars4Dev": 3,
+    "ScholarshipsCorner": 5,
+    "OpportunitiesForYouth": 1,
     "seed": true
   },
   "scholarships": [
@@ -94,7 +97,7 @@
       "funding": "Fully Funded",
       "amount": 6500,
       "amount_str": "$6,500 stipend",
-      "deadline": "2026-09-05T19:20:44.830306+00:00",
+      "deadline": "2026-09-05T19:25:59.088028+00:00",
       "level": "Internship",
       "description": "Paid remote internships in open source for underrepresented groups in tech.",
       "tags": [
@@ -118,7 +121,7 @@
       "funding": "Fully Funded",
       "amount": 15000,
       "amount_str": "$15,000",
-      "deadline": "2026-09-06T19:20:44.830306+00:00",
+      "deadline": "2026-09-06T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for women pursuing graduate studies in the USA.",
       "tags": [
@@ -143,7 +146,7 @@
       "funding": "Fully Funded",
       "amount": 2000,
       "amount_str": "$2,000 + tool pack",
-      "deadline": "2026-09-06T19:20:44.830306+00:00",
+      "deadline": "2026-09-06T19:25:59.088028+00:00",
       "level": "Bachelor",
       "description": "Scholarships + free developer tools for students building technology projects.",
       "tags": [
@@ -168,7 +171,7 @@
       "funding": "Fully Funded",
       "amount": 35000,
       "amount_str": "£35,000",
-      "deadline": "2026-09-08T19:20:44.830306+00:00",
+      "deadline": "2026-09-08T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Global scholarship programme for future leaders to study in the UK.",
       "tags": [
@@ -193,7 +196,7 @@
       "funding": "Partially Funded",
       "amount": 5000,
       "amount_str": "$5,000",
-      "deadline": "2026-09-08T19:20:44.830306+00:00",
+      "deadline": "2026-09-08T19:25:59.088028+00:00",
       "level": "Bachelor",
       "description": "Scholarship for women pursuing bachelor's degree in gaming or computer science.",
       "tags": [
@@ -218,7 +221,7 @@
       "funding": "Fully Funded",
       "amount": 50000,
       "amount_str": "$50,000 / yr",
-      "deadline": "2026-09-10T19:20:44.830306+00:00",
+      "deadline": "2026-09-10T19:25:59.088028+00:00",
       "level": "Bachelor",
       "description": "Last-dollar scholarship for minority high-achieving students in the USA.",
       "tags": [
@@ -242,7 +245,7 @@
       "funding": "Fully Funded",
       "amount": 10000,
       "amount_str": "$10,000 + retreat",
-      "deadline": "2026-09-10T19:20:44.830306+00:00",
+      "deadline": "2026-09-10T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship + mentorship + retreat for women in technology studying at university.",
       "tags": [
@@ -267,7 +270,7 @@
       "funding": "Fully Funded",
       "amount": 12000,
       "amount_str": "€12,000 / yr",
-      "deadline": "2026-09-12T19:20:44.830306+00:00",
+      "deadline": "2026-09-12T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "NAWA scholarships for foreign students and researchers in Poland.",
       "tags": [
@@ -291,7 +294,7 @@
       "funding": "Fully Funded",
       "amount": 7000,
       "amount_str": "$7,000 / yr",
-      "deadline": "2026-09-12T19:20:44.830306+00:00",
+      "deadline": "2026-09-12T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Palestinian and Arab students to pursue higher education.",
       "tags": [
@@ -316,7 +319,7 @@
       "funding": "Fully Funded",
       "amount": 10000,
       "amount_str": "$10,000 / yr",
-      "deadline": "2026-09-13T19:20:44.830306+00:00",
+      "deadline": "2026-09-13T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Jordanian and Arab students pursuing masters in Jordan.",
       "tags": [
@@ -341,7 +344,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000",
-      "deadline": "2026-09-13T19:20:44.830306+00:00",
+      "deadline": "2026-09-13T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Global scholarship for women pursuing studies or careers in technology fields.",
       "tags": [
@@ -366,7 +369,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000 + conference pass",
-      "deadline": "2026-09-14T19:20:44.830306+00:00",
+      "deadline": "2026-09-14T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship to attend the Grace Hopper Celebration for women in computing.",
       "tags": [
@@ -391,7 +394,7 @@
       "funding": "Partially Funded",
       "amount": 4000,
       "amount_str": "$4,000 / yr",
-      "deadline": "2026-09-15T19:20:44.830306+00:00",
+      "deadline": "2026-09-15T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Partial scholarships for Arab students to study at Lebanese University.",
       "tags": [
@@ -415,7 +418,7 @@
       "funding": "Partially Funded",
       "amount": 8000,
       "amount_str": "€8,000 / yr",
-      "deadline": "2026-09-16T19:20:44.830306+00:00",
+      "deadline": "2026-09-16T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Finnish government scholarships for international masters students.",
       "tags": [
@@ -438,7 +441,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000 / yr (tuition + stipend)",
-      "deadline": "2026-09-16T19:20:44.830306+00:00",
+      "deadline": "2026-09-16T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for international Muslim students to study at Al-Azhar University in Cairo.",
       "tags": [
@@ -463,7 +466,7 @@
       "funding": "Fully Funded",
       "amount": 15000,
       "amount_str": "$15,000 / yr",
-      "deadline": "2026-09-16T19:20:44.830306+00:00",
+      "deadline": "2026-09-16T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for international women to pursue graduate study in the USA or Canada.",
       "tags": [
@@ -488,7 +491,7 @@
       "funding": "Fully Funded",
       "amount": 22000,
       "amount_str": "$22,000 / yr",
-      "deadline": "2026-09-17T19:20:44.830306+00:00",
+      "deadline": "2026-09-17T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully funded masters scholarships for international students at OSU.",
       "tags": [
@@ -511,7 +514,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000 / yr (tuition waiver)",
-      "deadline": "2026-09-17T19:20:44.830306+00:00",
+      "deadline": "2026-09-17T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Arab and regional students to study at Iraqi universities.",
       "tags": [
@@ -536,7 +539,7 @@
       "funding": "Fully Funded",
       "amount": 8000,
       "amount_str": "€8,000 / yr",
-      "deadline": "2026-09-18T19:20:44.830306+00:00",
+      "deadline": "2026-09-18T19:25:59.088028+00:00",
       "level": "Bachelor",
       "description": "State scholarships for foreign citizens studying in Croatia.",
       "tags": [
@@ -559,7 +562,7 @@
       "funding": "Fully Funded",
       "amount": 6000,
       "amount_str": "$6,000 / yr",
-      "deadline": "2026-09-18T19:20:44.830306+00:00",
+      "deadline": "2026-09-18T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Moroccan and Arab students to study in Moroccan universities.",
       "tags": [
@@ -584,7 +587,7 @@
       "funding": "Fully Funded",
       "amount": 7000,
       "amount_str": "$7,000 + mentorship",
-      "deadline": "2026-09-18T19:20:44.830306+00:00",
+      "deadline": "2026-09-18T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for women studying computer science or related technical fields.",
       "tags": [
@@ -600,6 +603,33 @@
       "id": "palantir-women-in-technology-scholarship"
     },
     {
+      "id": "s4d-cud-development-scholarships-for-developing-countries",
+      "title": "ARES Scholarships in Belgium for Developing Countries",
+      "provider": "",
+      "location": "Belgium",
+      "region": "EU",
+      "country": "Belgium",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "2026-09-18T23:59:00+00:00",
+      "level": "Masters",
+      "description": "CUD ARES \nMasters Degree/Training Deadline: 18 Sept 2026 (annual)\nStudy in: Belgium\nCourse starts 2027 Brief description: Each year, the ARES offers the chance to pursue an advanced bachelor’s or master’s degree programme or a 2-to-6-month continuing education course within a higher education institution of the Wallonia-Brussels Federation, Belgium. Host Institution(s): Participating universities and academic institutions in Belgium Level/Fields of study: Eligible Bachelors, Masters, and continuing education courses in the fields of aquaculture, health, food technology, economics, internationa",
+      "tags": [
+        "africans scholarships",
+        "annual scholarships",
+        "any developing country scholarships",
+        "asians scholarships",
+        "belgium scholarships",
+        "development scholarships"
+      ],
+      "url": "https://www.scholars4dev.com/2489/cud-development-scholarships-for-developing-countries/",
+      "source": "Scholars4Dev",
+      "date": "2026-08-24T21:51:12",
+      "posted_ago": ""
+    },
+    {
       "title": "Spain Grant for International Masters Students",
       "provider": "Spanish Ministry of Education",
       "location": "Spain",
@@ -609,7 +639,7 @@
       "funding": "Partially Funded",
       "amount": 6000,
       "amount_str": "€6,000 / yr",
-      "deadline": "2026-09-19T19:20:44.830306+00:00",
+      "deadline": "2026-09-19T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Partial scholarship for international students enrolled in a masters program in Spain.",
       "tags": [
@@ -632,7 +662,7 @@
       "funding": "Partially Funded",
       "amount": 20000,
       "amount_str": "$20,000",
-      "deadline": "2026-09-20T19:20:44.830306+00:00",
+      "deadline": "2026-09-20T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fellowship for women who are not US citizens to pursue graduate study in the USA.",
       "tags": [
@@ -657,7 +687,7 @@
       "funding": "Fully Funded",
       "amount": 8000,
       "amount_str": "$8,000 / yr",
-      "deadline": "2026-09-20T19:20:44.830306+00:00",
+      "deadline": "2026-09-20T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Egyptian and Arab students pursuing higher education in Egypt.",
       "tags": [
@@ -682,7 +712,7 @@
       "funding": "Partially Funded",
       "amount": 4000,
       "amount_str": "$4,000 / yr",
-      "deadline": "2026-09-20T19:20:44.830306+00:00",
+      "deadline": "2026-09-20T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Partial scholarships for Arab students in scientific and technological fields.",
       "tags": [
@@ -707,7 +737,7 @@
       "funding": "Partially Funded",
       "amount": 3000,
       "amount_str": "$3,000",
-      "deadline": "2026-09-20T19:20:44.830306+00:00",
+      "deadline": "2026-09-20T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for women pursuing electrical, electronics, or computer engineering degrees.",
       "tags": [
@@ -731,7 +761,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000 / yr (tuition waiver)",
-      "deadline": "2026-09-22T19:20:44.830306+00:00",
+      "deadline": "2026-09-22T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Arab and African students to study at Tunisian universities.",
       "tags": [
@@ -756,7 +786,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000 + training",
-      "deadline": "2026-09-22T19:20:44.830306+00:00",
+      "deadline": "2026-09-22T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for students in developer circles pursuing technology degrees.",
       "tags": [
@@ -781,7 +811,7 @@
       "funding": "Partially Funded",
       "amount": 10000,
       "amount_str": "DKK 100,000",
-      "deadline": "2026-09-23T19:20:44.830306+00:00",
+      "deadline": "2026-09-23T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Danish government scholarships for international master's students.",
       "tags": [
@@ -804,7 +834,7 @@
       "funding": "Fully Funded",
       "amount": 20000,
       "amount_str": "$20,000 / yr",
-      "deadline": "2026-09-23T19:20:44.830306+00:00",
+      "deadline": "2026-09-23T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Government scholarship for international students to study at Kuwaiti universities.",
       "tags": [
@@ -828,7 +858,7 @@
       "funding": "Fully Funded",
       "amount": 20000,
       "amount_str": "$20,000 / yr",
-      "deadline": "2026-09-23T19:20:44.830306+00:00",
+      "deadline": "2026-09-23T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Arab students in science and technology fields.",
       "tags": [
@@ -853,7 +883,7 @@
       "funding": "Partially Funded",
       "amount": 20000,
       "amount_str": "$20,000",
-      "deadline": "2026-09-23T19:20:44.830306+00:00",
+      "deadline": "2026-09-23T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "MBA scholarships for women at Forté Foundation partner business schools.",
       "tags": [
@@ -878,7 +908,7 @@
       "funding": "Fully Funded",
       "amount": 45000,
       "amount_str": "$45,000",
-      "deadline": "2026-09-24T19:20:44.830306+00:00",
+      "deadline": "2026-09-24T19:25:59.088028+00:00",
       "level": "PhD",
       "description": "Fellowship for PhD students in computing and related areas worldwide.",
       "tags": [
@@ -902,7 +932,7 @@
       "funding": "Fully Funded",
       "amount": 6000,
       "amount_str": "$6,000 / yr (tuition + stipend)",
-      "deadline": "2026-09-24T19:20:44.830306+00:00",
+      "deadline": "2026-09-24T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Arab and African students to study at Algerian universities.",
       "tags": [
@@ -927,7 +957,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000 + AWS training",
-      "deadline": "2026-09-24T19:20:44.830306+00:00",
+      "deadline": "2026-09-24T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for students studying cloud computing, AI, or related technology fields.",
       "tags": [
@@ -952,7 +982,7 @@
       "funding": "Partially Funded",
       "amount": 8000,
       "amount_str": "€8,000",
-      "deadline": "2026-09-25T19:20:44.830306+00:00",
+      "deadline": "2026-09-25T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Partial scholarships for Latin American students to study masters in Spain.",
       "tags": [
@@ -976,7 +1006,7 @@
       "funding": "Fully Funded",
       "amount": 40000,
       "amount_str": "$40,000 / yr",
-      "deadline": "2026-09-26T19:20:44.830306+00:00",
+      "deadline": "2026-09-26T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "US government scholarship for international students to pursue masters or PhD in the USA.",
       "tags": [
@@ -1001,7 +1031,7 @@
       "funding": "Partially Funded",
       "amount": 10000,
       "amount_str": "£10,000",
-      "deadline": "2026-09-26T19:20:44.830306+00:00",
+      "deadline": "2026-09-26T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Partial scholarship for students from low- and middle-income countries.",
       "tags": [
@@ -1025,7 +1055,7 @@
       "funding": "Fully Funded",
       "amount": 25000,
       "amount_str": "$25,000 / yr",
-      "deadline": "2026-09-26T19:20:44.830306+00:00",
+      "deadline": "2026-09-26T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Government scholarships for Arab students to study at UAE universities.",
       "tags": [
@@ -1050,7 +1080,7 @@
       "funding": "Fully Funded",
       "amount": 10000,
       "amount_str": "$10,000 + internship",
-      "deadline": "2026-09-26T19:20:44.830306+00:00",
+      "deadline": "2026-09-26T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for women pursuing computer science or related fields at university.",
       "tags": [
@@ -1075,7 +1105,7 @@
       "funding": "Fully Funded",
       "amount": 40000,
       "amount_str": "SGD 40,000 / yr",
-      "deadline": "2026-09-27T19:20:44.830306+00:00",
+      "deadline": "2026-09-27T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for international students to pursue masters at Singapore universities.",
       "tags": [
@@ -1099,7 +1129,7 @@
       "funding": "Fully Funded",
       "amount": 15000,
       "amount_str": "€15,000 / yr",
-      "deadline": "2026-09-28T19:20:44.830306+00:00",
+      "deadline": "2026-09-28T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Funding for international graduates pursuing a masters or PhD at a German university.",
       "tags": [
@@ -1123,7 +1153,7 @@
       "funding": "Fully Funded",
       "amount": 50000,
       "amount_str": "$50,000",
-      "deadline": "2026-09-28T19:20:44.830306+00:00",
+      "deadline": "2026-09-28T19:25:59.088028+00:00",
       "level": "PhD",
       "description": "Global fellowship for PhD students in computer science and related fields.",
       "tags": [
@@ -1147,7 +1177,7 @@
       "funding": "Partially Funded",
       "amount": 8000,
       "amount_str": "£8,000",
-      "deadline": "2026-09-28T19:20:44.830306+00:00",
+      "deadline": "2026-09-28T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for international students studying development-related masters at Sussex.",
       "tags": [
@@ -1171,7 +1201,7 @@
       "funding": "Fully Funded",
       "amount": 3000,
       "amount_str": "$3,000 + pass",
-      "deadline": "2026-09-28T19:20:44.830306+00:00",
+      "deadline": "2026-09-28T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for students attending Dreamforce tech conference.",
       "tags": [
@@ -1196,7 +1226,7 @@
       "funding": "Fully Funded",
       "amount": 30000,
       "amount_str": "₩30,000 / yr + stipend",
-      "deadline": "2026-09-30T19:20:44.830306+00:00",
+      "deadline": "2026-09-30T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Full scholarship for international students pursuing masters or PhD at KAIST.",
       "tags": [
@@ -1221,7 +1251,7 @@
       "funding": "Fully Funded",
       "amount": 18000,
       "amount_str": "NT$18,000 / month",
-      "deadline": "2026-10-01T19:20:44.830306+00:00",
+      "deadline": "2026-10-01T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Full scholarship for international students at NTHU Taiwan.",
       "tags": [
@@ -1244,7 +1274,7 @@
       "funding": "Fully Funded",
       "amount": 50000,
       "amount_str": "$50,000 / yr",
-      "deadline": "2026-10-01T19:20:44.830306+00:00",
+      "deadline": "2026-10-01T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for international students to study in Saudi Arabia or partner countries.",
       "tags": [
@@ -1268,7 +1298,7 @@
       "funding": "Fully Funded",
       "amount": 50000,
       "amount_str": "$50,000 / yr",
-      "deadline": "2026-10-01T19:20:44.830306+00:00",
+      "deadline": "2026-10-01T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for Arab students to study at Saudi universities or partner institutions abroad.",
       "tags": [
@@ -1293,7 +1323,7 @@
       "funding": "Fully Funded",
       "amount": 8000,
       "amount_str": "$8,000 research grant",
-      "deadline": "2026-10-01T19:20:44.830306+00:00",
+      "deadline": "2026-10-01T19:25:59.088028+00:00",
       "level": "PhD",
       "description": "Research grant for PhD students working on machine learning with TensorFlow.",
       "tags": [
@@ -1318,7 +1348,7 @@
       "funding": "Fully Funded",
       "amount": 35000,
       "amount_str": "$35,000 / yr",
-      "deadline": "2026-10-02T19:20:44.830306+00:00",
+      "deadline": "2026-10-02T19:25:59.088028+00:00",
       "level": "PhD",
       "description": "Fellowship for applied physical and biological sciences PhD students in the USA.",
       "tags": [
@@ -1342,7 +1372,7 @@
       "funding": "Fully Funded",
       "amount": 14000,
       "amount_str": "€14,000 / yr",
-      "deadline": "2026-10-03T19:20:44.830306+00:00",
+      "deadline": "2026-10-03T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "MAECI scholarships for foreign citizens to study at masters and PhD level in Italy.",
       "tags": [
@@ -1365,7 +1395,7 @@
       "funding": "Fully Funded",
       "amount": 30000,
       "amount_str": "$30,000 / yr",
-      "deadline": "2026-10-03T19:20:44.830306+00:00",
+      "deadline": "2026-10-03T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for young Africans with a track record of leadership.",
       "tags": [
@@ -1390,7 +1420,7 @@
       "funding": "Fully Funded",
       "amount": 35000,
       "amount_str": "$35,000 / yr",
-      "deadline": "2026-10-03T19:20:44.830306+00:00",
+      "deadline": "2026-10-03T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fulbright scholarship for Colombian citizens to pursue masters study in the USA.",
       "tags": [
@@ -1414,7 +1444,7 @@
       "funding": "Fully Funded",
       "amount": 25000,
       "amount_str": "¥25,000 / month + tuition waiver",
-      "deadline": "2026-10-04T19:20:44.830306+00:00",
+      "deadline": "2026-10-04T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Tuition waiver and monthly stipend for international students at University of Tokyo.",
       "tags": [
@@ -1438,7 +1468,7 @@
       "funding": "Fully Funded",
       "amount": 25000,
       "amount_str": "¥25,000 / yr + accommodation",
-      "deadline": "2026-10-06T19:20:44.830306+00:00",
+      "deadline": "2026-10-06T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for international students to study at Chinese universities.",
       "tags": [
@@ -1463,7 +1493,7 @@
       "funding": "Fully Funded",
       "amount": 28000,
       "amount_str": "£28,000",
-      "deadline": "2026-10-08T19:20:44.830306+00:00",
+      "deadline": "2026-10-08T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Full scholarship for citizens of Commonwealth countries to study in the UK.",
       "tags": [
@@ -1488,7 +1518,7 @@
       "funding": "Fully Funded",
       "amount": 45000,
       "amount_str": "$45,000 / yr",
-      "deadline": "2026-10-08T19:20:44.830306+00:00",
+      "deadline": "2026-10-08T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for students from developing countries to study at top universities.",
       "tags": [
@@ -1512,7 +1542,7 @@
       "funding": "Partially Funded",
       "amount": 10000,
       "amount_str": "€10,000",
-      "deadline": "2026-10-08T19:20:44.830306+00:00",
+      "deadline": "2026-10-08T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Partial scholarships for international students at Santander-partner universities worldwide.",
       "tags": [
@@ -1536,7 +1566,7 @@
       "funding": "Fully Funded",
       "amount": 50000,
       "amount_str": "$50,000 / yr",
-      "deadline": "2026-10-08T19:20:44.830306+00:00",
+      "deadline": "2026-10-08T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for Arab students to pursue masters at Qatar Foundation partner universities.",
       "tags": [
@@ -1561,7 +1591,7 @@
       "funding": "Fully Funded",
       "amount": 40000,
       "amount_str": "$40,000 / yr",
-      "deadline": "2026-10-08T19:20:44.830306+00:00",
+      "deadline": "2026-10-08T19:25:59.088028+00:00",
       "level": "PhD",
       "description": "Fellowship for women in developing countries pursuing PhD in STEM fields.",
       "tags": [
@@ -1587,7 +1617,7 @@
       "funding": "Fully Funded",
       "amount": 35000,
       "amount_str": "¥35,000 / month + expenses",
-      "deadline": "2026-10-10T19:20:44.830306+00:00",
+      "deadline": "2026-10-10T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded Japanese government scholarship for international students at Japanese universities.",
       "tags": [
@@ -1611,7 +1641,7 @@
       "funding": "Fully Funded",
       "amount": 30000,
       "amount_str": "₩30,000 / yr + stipend",
-      "deadline": "2026-10-12T19:20:44.830306+00:00",
+      "deadline": "2026-10-12T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded Korean government scholarship for international students.",
       "tags": [
@@ -1635,7 +1665,7 @@
       "funding": "Fully Funded",
       "amount": 18000,
       "amount_str": "€18,000 / yr",
-      "deadline": "2026-10-13T19:20:44.830306+00:00",
+      "deadline": "2026-10-13T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "French government scholarship for international master's and PhD students.",
       "tags": [
@@ -1659,7 +1689,7 @@
       "funding": "Fully Funded",
       "amount": 20000,
       "amount_str": "$20,000 / yr",
-      "deadline": "2026-10-13T19:20:44.830306+00:00",
+      "deadline": "2026-10-13T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "AfDB scholarship for African students pursuing masters at African universities.",
       "tags": [
@@ -1683,7 +1713,7 @@
       "funding": "Fully Funded",
       "amount": 18000,
       "amount_str": "R$18,000 / yr",
-      "deadline": "2026-10-13T19:20:44.830306+00:00",
+      "deadline": "2026-10-13T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Brazilian government scholarships for international students to study in Brazil.",
       "tags": [
@@ -1707,7 +1737,7 @@
       "funding": "Fully Funded",
       "amount": 30000,
       "amount_str": "$30,000 / yr",
-      "deadline": "2026-10-13T19:20:44.830306+00:00",
+      "deadline": "2026-10-13T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarships for Arab citizens to pursue masters at top international universities.",
       "tags": [
@@ -1732,7 +1762,7 @@
       "funding": "Fully Funded",
       "amount": 30000,
       "amount_str": "£30,000",
-      "deadline": "2026-10-16T19:20:44.830306+00:00",
+      "deadline": "2026-10-16T19:25:59.088028+00:00",
       "level": "PhD",
       "description": "Full PhD funding for Commonwealth citizens.",
       "tags": [
@@ -1756,7 +1786,7 @@
       "funding": "Fully Funded",
       "amount": 15000,
       "amount_str": "₹15,000 / month + tuition",
-      "deadline": "2026-10-16T19:20:44.830306+00:00",
+      "deadline": "2026-10-16T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarships for international students from select countries to study in India.",
       "tags": [
@@ -1781,7 +1811,7 @@
       "funding": "Fully Funded",
       "amount": 22000,
       "amount_str": "SEK 220,000",
-      "deadline": "2026-10-18T19:20:44.830306+00:00",
+      "deadline": "2026-10-18T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Full scholarship for global professionals to pursue a masters in Sweden.",
       "tags": [
@@ -1805,7 +1835,7 @@
       "funding": "Fully Funded",
       "amount": 40000,
       "amount_str": "$40,000 / yr",
-      "deadline": "2026-10-18T19:20:44.830306+00:00",
+      "deadline": "2026-10-18T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for students from World Bank eligible countries to study development-related masters.",
       "tags": [
@@ -1830,7 +1860,7 @@
       "funding": "Fully Funded",
       "amount": 25000,
       "amount_str": "$25,000 / yr",
-      "deadline": "2026-10-18T19:20:44.830306+00:00",
+      "deadline": "2026-10-18T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Scholarship for students from IsDB member countries to pursue masters at IsDB partner universities.",
       "tags": [
@@ -1854,7 +1884,7 @@
       "funding": "Fully Funded",
       "amount": 25000,
       "amount_str": "CAD 25,000",
-      "deadline": "2026-10-20T19:20:44.830306+00:00",
+      "deadline": "2026-10-20T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Fully funded masters scholarship for international students in Canada.",
       "tags": [
@@ -1877,7 +1907,7 @@
       "funding": "Fully Funded",
       "amount": 38000,
       "amount_str": "£38,000",
-      "deadline": "2026-10-23T19:20:44.830306+00:00",
+      "deadline": "2026-10-23T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Prestigious scholarship for outstanding students from selected countries to study at Oxford.",
       "tags": [
@@ -1901,7 +1931,7 @@
       "funding": "Fully Funded",
       "amount": 15000,
       "amount_str": "£15,000",
-      "deadline": "2026-10-23T19:20:44.830306+00:00",
+      "deadline": "2026-10-23T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "Distance-learning PhD and masters scholarships for Commonwealth citizens.",
       "tags": [
@@ -1926,7 +1956,7 @@
       "funding": "Fully Funded",
       "amount": 20000,
       "amount_str": "€20,000",
-      "deadline": "2026-10-28T19:20:44.830306+00:00",
+      "deadline": "2026-10-28T19:25:59.088028+00:00",
       "level": "Masters",
       "description": "OKP scholarships for professionals from developing countries for short masters in the Netherlands.",
       "tags": [
@@ -1950,7 +1980,7 @@
       "funding": "Fully Funded",
       "amount": 34000,
       "amount_str": "$34,000 / yr",
-      "deadline": "2026-10-28T19:20:44.830306+00:00",
+      "deadline": "2026-10-28T19:25:59.088028+00:00",
       "level": "PhD",
       "description": "Prestigious US government fellowship for graduate students in STEM.",
       "tags": [
@@ -1964,6 +1994,212 @@
       "source": "NSF",
       "posted_ago": "",
       "id": "nsf-graduate-research-fellowship"
+    },
+    {
+      "id": "sc-ewc-graduate-degree-fellowship-usa",
+      "title": "EWC Graduate Degree Fellowship in the United States | Fully Funded",
+      "provider": "",
+      "location": "",
+      "region": "US",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "2026-12-01T23:59:00+00:00",
+      "level": "Masters",
+      "description": "East West Centre Graduate Degree Fellowship in the United States welcomes committed, hardworking, and passionate young graduates from around the globe. Everyone, having a Bachelor’s degree from a higher institution abroad or from U.S. based institute can apply for this remarkable opportunity in the United States. This scholarship in the USA will help the fellows […]",
+      "tags": [
+        "fellowships",
+        "masters scholarships",
+        "opportunities",
+        "phd scholarships",
+        "scholarships",
+        "scholarships in usa"
+      ],
+      "url": "https://scholarshipscorner.website/ewc-graduate-degree-fellowship-usa/",
+      "source": "ScholarshipsCorner",
+      "date": "2026-08-27T17:12:39",
+      "posted_ago": ""
+    },
+    {
+      "id": "s4d-gates-scholarships-for-international-students-at-university-",
+      "title": "Gates Cambridge Scholarships for International Students",
+      "provider": "",
+      "location": "",
+      "region": "EU",
+      "country": "",
+      "remote": false,
+      "funding": "Government",
+      "amount": 22000.0,
+      "amount_str": "£22,000",
+      "deadline": "2026-12-08T23:59:00+00:00",
+      "level": "Masters",
+      "description": "Gates Cambridge Trust \nMasters/PhD Degree Deadline: 14 Oct/8 Dec 2026/6 Jan 2027 (annual)\nStudy in: UK\nCourse starts October 2027 Brief description: The Gates Cambridge Scholarships are one of the most prestigious international scholarships in the world. Scholarships are awarded to outstanding applicants from countries outside the UK to pursue a full-time postgraduate degree in any subject available at the University of Cambridge. Host Institution(s): University of Cambridge, United Kingdom Level/Field of study: PhD; MLitt; One year postgraduate course (full-time). Number of Awards: About 80 s",
+      "tags": [
+        "africans scholarships",
+        "annual scholarships",
+        "any developing country scholarships",
+        "any field of study scholarships",
+        "asians scholarships",
+        "europe scholarships"
+      ],
+      "url": "https://www.scholars4dev.com/2043/gates-scholarships-for-international-students-at-university-of-cambridge/",
+      "source": "Scholars4Dev",
+      "date": "2026-08-24T21:29:06",
+      "posted_ago": ""
+    },
+    {
+      "id": "s4d-scholarships-in-switzerland-for-international-students",
+      "title": "Top 10 Scholarships in Switzerland for International Students",
+      "provider": "",
+      "location": "",
+      "region": "EU",
+      "country": "Switzerland",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 1500.0,
+      "amount_str": "$1,500",
+      "deadline": "",
+      "level": "Exchange",
+      "description": "Did you know that tuition fees at Swiss universities are relatively low compared to other European Countries? You can enrol at a Swiss University for as low as $1,500 a year. This makes Switzerland one of the top choices for international students looking to pursue studies in Europe. Moreover, there are available Swiss scholarships for international students that help towards tuition fees and living costs. Swiss Government Scholarships for International Students » Swiss Excellence Scholarships for Foreign Students: Each year, the Swiss Confederation awards Government Excellence Scholarships to",
+      "tags": [
+        "scholarships list",
+        "list of scholarships"
+      ],
+      "url": "https://www.scholars4dev.com/8874/scholarships-in-switzerland-for-international-students/",
+      "source": "Scholars4Dev",
+      "date": "2026-08-24T22:38:05",
+      "posted_ago": ""
+    },
+    {
+      "id": "sc-harpswell-leadership-residency-cambodia",
+      "title": "Harpswell Leadership Residency 2027 in Cambodia | Funded",
+      "provider": "",
+      "location": "",
+      "region": "",
+      "country": "",
+      "remote": false,
+      "funding": "Annual",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "",
+      "level": "",
+      "description": "The Harpswell Leadership Residency 2027 in Cambodia is a unique professional development opportunity for volunteers. The funded program will take place in Harpswell’s leadership centers in Phnom Penh. During the stay, selected leadership residents (LRs) will support and collaborate with the Cambodian Women’s Leadership students and alumnae. They will join the Harpswell sisterhood and alumnae […]",
+      "tags": [
+        "leadership programs",
+        "opportunities",
+        "youth leadership fellowship",
+        "youth leadership program",
+        "youth training program"
+      ],
+      "url": "https://scholarshipscorner.website/harpswell-leadership-residency-cambodia/",
+      "source": "ScholarshipsCorner",
+      "date": "2026-08-26T17:11:51",
+      "posted_ago": ""
+    },
+    {
+      "id": "sc-stigler-center-journalists-in-residence-program",
+      "title": "Stigler Center Journalists in Residence Program 2027 in USA (Fully Funded)",
+      "provider": "",
+      "location": "",
+      "region": "US",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "",
+      "level": "",
+      "description": "The Stigler Center Journalists in Residence Program 2027 in USA is launched with an aim to empower leaders in business reporting. The fully funded program invites journalists in any form of media from around the world. Selected participants will spend around 12 weeks in Chicago Hyde Park campus. Tentatively scheduled to take place from March […]",
+      "tags": [
+        "fellowships",
+        "opportunities",
+        "international journalism fellowship",
+        "stigler center fellowship",
+        "us fellowships"
+      ],
+      "url": "https://scholarshipscorner.website/stigler-center-journalists-in-residence-program/",
+      "source": "ScholarshipsCorner",
+      "date": "2026-08-26T17:11:14",
+      "posted_ago": ""
+    },
+    {
+      "id": "sc-nus-iris-research-internship-singapore",
+      "title": "NUS IRIS Research Internship in Singapore 2027 (Fully Funded)",
+      "provider": "",
+      "location": "",
+      "region": "",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "",
+      "level": "Internship",
+      "description": "The NUS IRIS Research Internship in Singapore 2027 is a fully funded research programme by the National University of Singapore (NUS). It is open to undergraduate and master’s students from all fields. This programme is called Internship and Research Immersion in Singapore (IRIS). It is a research-based internship, not a job. IELTS is NOT required […]",
+      "tags": [
+        "internships",
+        "opportunities",
+        "nus iris internshio",
+        "research internship in singapore",
+        "singapore internship"
+      ],
+      "url": "https://scholarshipscorner.website/nus-iris-research-internship-singapore/",
+      "source": "ScholarshipsCorner",
+      "date": "2026-08-23T11:31:54",
+      "posted_ago": ""
+    },
+    {
+      "id": "sc-erasmus-mundus-scholarship",
+      "title": "Erasmus Mundus Scholarship 2027 | Fully Funded | EMJM Scholarship",
+      "provider": "",
+      "location": "",
+      "region": "EU",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "",
+      "level": "Exchange",
+      "description": "The Erasmus Mundus Scholarship, officially offered through Erasmus Mundus Joint Masters (EMJM), gives students from around the world the opportunity to pursue an international master’s degree. These prestigious programs bring together universities from different countries. Students can study in multiple locations, experience different cultures, and gain international academic experience. Erasmus Scholarship programs are unique international […]",
+      "tags": [
+        "blogs",
+        "government scholarships",
+        "masters scholarships",
+        "scholarships",
+        "scholarships in europe",
+        "scholarships regions"
+      ],
+      "url": "https://scholarshipscorner.website/erasmus-mundus-scholarship/",
+      "source": "ScholarshipsCorner",
+      "date": "2026-08-22T14:51:04",
+      "posted_ago": ""
+    },
+    {
+      "id": "ofy-international-coproduction-fund-ikf-2026-funding-opportunity",
+      "title": "International Coproduction Fund (IKF) 2026: Funding Opportunity for International Music, Dance and Theatre Projects",
+      "provider": "",
+      "location": "",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Annual",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "",
+      "level": "",
+      "description": "The Goethe-Institut International Coproduction Fund (IKF) supports international artistic collaborations that bring creators from different cultural backgrounds together to develop innovative productions and new approaches to intercultural exchange. The fund is designed to encourage international coproduction, cultural dialogue, artistic collaboration, and the development of new creative networks within a global context. The 2026 application period […]",
+      "tags": [
+        "grants",
+        "funding",
+        "opportunities"
+      ],
+      "url": "https://opportunitiesforyouth.org/2026/08/29/international-coproduction-fund-ikf-2026-funding-opportunity-for-international-music-dance-and-theatre-projects/",
+      "source": "OpportunitiesForYouth",
+      "date": "2026-08-29T14:19:13",
+      "posted_ago": ""
     }
   ]
 }
