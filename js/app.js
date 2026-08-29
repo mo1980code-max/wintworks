@@ -1,9 +1,55 @@
 
+/* ============================================================
+   Scroll restoration — keep your place across a reload.
+   The old code force-scrolled to the top on every load (twice:
+   at parse time and on window.onload), and because the page
+   sets `scroll-behavior: smooth` those scrolls were ANIMATED,
+   so refreshing mid-page visibly yanked the page to the top.
+
+   Instead: save the scroll offset when the page is hidden and
+   restore it instantly, but only after the async job/scholarship
+   lists have rendered (so the page actually has the height to
+   scroll back to).
+   ============================================================ */
 if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
+  history.scrollRestoration = 'manual'; // we handle restoration ourselves
 }
-window.scrollTo(0, 0);
-window.onload = function() { window.scrollTo(0, 0); };
+
+const WW_SCROLL_KEY = "ww:scroll:" + location.pathname + location.search;
+
+function wwSaveScroll() {
+  try {
+    sessionStorage.setItem(WW_SCROLL_KEY, String(Math.round(window.scrollY)));
+  } catch (e) { /* private mode etc. — ignore */ }
+}
+
+function wwScrollInstant(y) {
+  const de = document.documentElement;
+  const prev = de.style.scrollBehavior;
+  de.style.scrollBehavior = "auto"; // bypass CSS `scroll-behavior: smooth`
+  window.scrollTo(0, y);
+  de.style.scrollBehavior = prev;
+}
+
+function wwRestoreScroll() {
+  if (wwRestoreScroll.done) return;
+  if (location.hash) return;        // hash routes (#/job/…) manage their own scroll
+  if (state.urlFiltered) return;    // filtered URLs scroll to #jobs themselves
+  let y = 0;
+  try { y = parseInt(sessionStorage.getItem(WW_SCROLL_KEY) || "0", 10) || 0; } catch (e) {}
+  if (y > 0) {
+    wwScrollInstant(y);
+    wwRestoreScroll.done = true;
+    try { sessionStorage.removeItem(WW_SCROLL_KEY); } catch (e) {}
+  }
+}
+
+window.addEventListener("pagehide", wwSaveScroll);
+window.addEventListener("beforeunload", wwSaveScroll);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") wwSaveScroll();
+});
+
 /* ============================================================
    WintWorks — job board + scholarship engine
    Fetches US/Europe jobs AND scholarships automatically from
@@ -1670,8 +1716,11 @@ document.addEventListener("DOMContentLoaded", () => {
   switchTab(loadTabPref());
 
   // load both datasets in parallel; route() is called internally after each completes
-  load();
-  loadScholarships();
+  Promise.all([load(), loadScholarships()]).then(() => {
+    // Both lists are rendered, so the page has (roughly) its final height —
+    // safe to put the user back where they were before the reload.
+    wwRestoreScroll();
+  });
 });
 
 function initTheme() {
