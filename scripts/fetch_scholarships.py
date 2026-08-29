@@ -129,9 +129,11 @@ def _region_of(text):
     ww_hit    = any(w in s for w in ww_words)
     if us_strong and (eu_strong or arab_strong):
         return "WW"
-    if eu_strong and not us_strong:
+    if us_strong:
+        return "US"
+    if eu_strong:
         return "EU"
-    if arab_strong and not us_strong:
+    if arab_strong:
         return "AR"  # Arab region
     if ww_hit:
         return "WW"
@@ -205,11 +207,16 @@ def _funding_type(title, desc):
 
 
 def _level(title, desc):
+    """Earliest level keyword mentioned wins (a post about both bachelor
+    and master programmes usually leads with the primary one)."""
     blob = f"{title or ''} {desc or ''}".lower()
+    best, best_pos = "", 1 << 30
     for lvl, keys in LEVELS:
-        if any(k in blob for k in keys):
-            return lvl
-    return ""
+        for k in keys:
+            p = blob.find(k)
+            if p != -1 and p < best_pos:
+                best_pos, best = p, lvl
+    return best
 
 
 def _amount(text):
@@ -426,119 +433,267 @@ def fetch_scholarships_com():
 # ---------------------------------------------------------------------------
 # source: Scholars4Dev  (best-effort scrape of listing pages)
 # ---------------------------------------------------------------------------
-def fetch_scholars4dev():
-    """Scrape Scholars4Dev category listing pages for scholarship entries.
-    Best-effort: each page may or may not render; failures are silent.
-    We cap at a few pages to respect their server and our runtime budget.
-    """
-    out = []
-    pages = [
-        "https://www.scholars4dev.com/category/fully-funded-scholarships/",
-        "https://www.scholars4dev.com/category/phd-scholarships/",
-        "https://www.scholars4dev.com/category/masters-scholarships/",
-        "https://www.scholars4dev.com/category/undergraduate-scholarships/",
-        "https://www.scholars4dev.com/category/partial-scholarships/",
-    ]
-    for page_url in pages:
-        try:
-            req = urllib_request.Request(
-                page_url,
-                headers={**UA, "Accept": "text/html,application/xhtml+xml"},
-            )
-            with urllib_request.urlopen(req, timeout=20) as r:
-                html = r.read().decode("utf-8", errors="replace")
-        except Exception as e:
-            print(f"[scholars4dev] {page_url} failed: {e}", file=sys.stderr)
+# ---------------------------------------------------------------------------
+# source: WordPress REST API scholarship aggregators (free, no API keys)
+#
+# These sites run WordPress and expose a stable, documented JSON endpoint:
+#   GET {base}/wp-json/wp/v2/posts?per_page=100&page=N
+# Far more reliable than HTML scraping (the old regex scraper silently
+# returned 0 items from scholars4dev while reporting success).
+#
+# Verified sources:
+#   • scholars4dev.com          — international scholarship listings
+#   • scholarshipscorner.website — scholarships/fellowships, updated daily
+#   • opportunitiesforyouth.org — scholarships, fellowships, grants for youth
+# ---------------------------------------------------------------------------
+WP_SOURCES = [
+    {"name": "Scholars4Dev",         "base": "https://www.scholars4dev.com",     "pages": 2},
+    {"name": "ScholarshipsCorner",   "base": "https://scholarshipscorner.website", "pages": 2},
+    {"name": "OpportunitiesForYouth","base": "https://opportunitiesforyouth.org",  "pages": 2},
+]
+
+_BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+               "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+
+# posts that are clearly not funding opportunities (e.g. plain internships,
+# news, "how to apply" guides) are filtered out
+_FUNDING_WORDS_RX = re.compile(
+    r"scholarship|fellowship|grant|bursar|funding|stipend|financial aid|award",
+    re.I)
+
+_MONTHS = {}
+for _i, _m in enumerate(
+        ["january","february","march","april","may","june","july",
+         "august","september","october","november","december"], 1):
+    _MONTHS[_m] = _i
+    _MONTHS[_m[:3]] = _i
+_MONTHS["sept"] = 9
+
+_DATE_PATTERNS = [
+    # 18 Sept 2026 / 18th September, 2026 / 1 May 2027
+    (re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})",
+                re.I), "dmy"),
+    # December 01, 2026 / December 1 2026
+    (re.compile(r"\b([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})",
+                re.I), "mdy"),
+    # 2026-09-18
+    (re.compile(r"\b(\d{4})-(\d{1,2})-(\d{1,2})\b"), "iso"),
+    # 18/09/2026 or 18.09.2026  (interpreted as day/month/year)
+    (re.compile(r"\b(\d{1,2})[/.](\d{1,2})[/.](\d{4})\b"), "dmnum"),
+]
+
+_DEADLINE_WORD_RX = re.compile(
+    r"dead\s*line|deadline|closing date|closes?\s+(?:on|date)|apply by|last date",
+    re.I)
+
+
+def _strip_html(html):
+    """Remove tags, decode common entities, collapse whitespace."""
+    if not html:
+        return ""
+    txt = re.sub(r"<(script|style)\b.*?</\1>", " ", html,
+                 flags=re.I | re.DOTALL)
+    txt = re.sub(r"<br\s*/?>", "\n", txt, flags=re.I)
+    txt = re.sub(r"<[^>]+>", " ", txt)
+    for ent, ch in (("&nbsp;", " "), ("&amp;", "&"), ("&lt;", "<"),
+                    ("&gt;", ">"), ("&quot;", '"'), ("&#8217;", "'"),
+                    ("&#8216;", "'"), ("&#8220;", '"'), ("&#8221;", '"'),
+                    ("&#8230;", "..."), ("&rsquo;", "'"), ("&ndash;", "-"),
+                    ("&mdash;", "-"), ("&#x27;", "'")):
+        txt = txt.replace(ent, ch)
+    txt = re.sub(r"&#\d+;", " ", txt)
+    return re.sub(r"[ \t\u00a0]+", " ", txt).strip()
+
+
+def _find_date(s):
+    """Return ISO date for the first plausible date in *s*, else ''."""
+    for rx, kind in _DATE_PATTERNS:
+        m = rx.search(s)
+        if not m:
             continue
-
-        # Extract <article> entries — Scholars4Dev uses <article> with
-        # <h2 class="entry-title"><a href="...">Title</a></h2> and a meta
-        # description. This is a best-effort regex, not a full parser.
-        articles = re.findall(
-            r'<article[^>]*>(?:(?!</article>).)*?</article>',
-            html, re.DOTALL,
-        )
-        for art in articles:
-            # title + link
-            tm = re.search(
-                r'<h2[^>]*class="[^"]*entry-title[^"]*"[^>]*>.*?<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>',
-                art, re.DOTALL,
-            )
-            if not tm:
-                tm = re.search(
-                    r'<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>',
-                    art, re.DOTALL,
-                )
-            if not tm:
+        try:
+            if kind == "dmy":
+                d, mm, y = int(m.group(1)), _MONTHS.get(
+                    m.group(2).lower().rstrip(".")), int(m.group(3))
+            elif kind == "mdy":
+                mm, d, y = _MONTHS.get(m.group(1).lower().rstrip(".")), \
+                    int(m.group(2)), int(m.group(3))
+            elif kind == "iso":
+                y, mm, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            else:  # dmnum
+                d, mm, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            if not mm or not (1 <= d <= 31) or not (2000 <= y <= 2100):
                 continue
-            url  = tm.group(1)
-            title = re.sub(r"<[^>]+>", "", tm.group(2)).strip()
-            if not title or len(title) < 5:
-                continue
+            return datetime(y, mm, d, 23, 59, tzinfo=timezone.utc).isoformat()
+        except (ValueError, TypeError):
+            continue
+    return ""
 
-            # description from meta or first paragraph
-            desc = ""
-            dm = re.search(
-                r'<meta[^>]+name="description"[^>]+content="([^"]+)"',
-                art, re.DOTALL,
-            )
-            if dm:
-                desc = dm.group(1)
-            else:
-                pm = re.search(
-                    r'<p[^>]*>(.*?)</p>',
-                    art, re.DOTALL,
-                )
-                if pm:
-                    desc = re.sub(r"<[^>]+>", "", pm.group(1)).strip()
 
-            # figure out region from title/description
-            loc = ""
-            region = _region_of(title + " " + desc)
-            if region == "EU":
-                loc = _country_of(title + " " + desc) or ""
+def _extract_deadline(text):
+    """Find a deadline date near the word 'deadline' (falls back to the
+    start of the text). Returns an ISO string, end-of-day UTC, or ''."""
+    if not text:
+        return ""
+    windows = []
+    for m in _DEADLINE_WORD_RX.finditer(text):
+        windows.append(text[max(0, m.start() - 40): m.end() + 140])
+    if not windows:
+        windows = [text[:400]]
+    for win in windows:
+        iso = _find_date(win)
+        if iso:
+            return iso
+    return ""
 
-            # funding type
-            funding = _funding_type(title, desc)
-            level   = _level(title, desc)
 
-            # deadline — Scholars4Dev usually has "Deadline: ..." or "Closing: ..."
-            dl = ""
-            dlm = re.search(
-                r'(?:deadline|closing|closes|apply by|apply until)[:\s]+([^<\n]+)',
-                art, re.IGNORECASE | re.DOTALL,
-            )
-            if dlm:
-                dl = _parse_date(dlm.group(1).strip()[:60])
+_AMT_RX = re.compile(
+    r"([£$€]\s?(\d[\d,.]{2,}))"                    # £15,000  $10,000  €1,500
+    r"|(\b(?:CHF|SEK|NOK|DKK|EUR|USD|GBP|AUD|CAD|INR|JPY))\s?(\d[\d,.]{2,})",
+    re.I)
 
-            sid = re.sub(r"[^a-z0-9]+", "-", title.lower())[:40]
-            out.append({
-                "id":         f"s4d-{sid}",
-                "title":      title,
-                "provider":   "",
-                "location":   loc or "",
-                "region":     region or "",
-                "country":    _country_of(title + " " + desc) if region == "EU" else "",
-                "remote":     "worldwide" in (title + " " + desc).lower(),
-                "funding":    funding,
-                "amount":     None,
-                "amount_str": "",
-                "deadline":   dl,
-                "deadline_remains": _deadline_remains(dl),
-                "level":      level,
-                "description": desc[:600] if desc else "",
-                "tags":       [],
-                "url":        url if url.startswith("http") else "https://www.scholars4dev.com" + url,
-                "source":     "Scholars4Dev",
-                "posted_ago": "",
-            })
-        time.sleep(0.5)
+_CURRENCY_SYMBOL = {"£": "£", "$": "$", "€": "€"}
+
+
+def _extract_amount(text):
+    """(numeric_amount, display_string) from real-world money mentions."""
+    if not text:
+        return None, ""
+    m = _AMT_RX.search(text[:4000])
+    if not m:
+        return None, ""
+    if m.group(1):
+        sym, digits = m.group(1)[0], m.group(2)
+    else:
+        cur, digits = m.group(3).upper(), m.group(4)
+        sym = {"CHF": "CHF ", "SEK": "SEK ", "NOK": "NOK ", "DKK": "DKK ",
+               "EUR": "€", "USD": "$", "GBP": "£", "AUD": "A$",
+               "CAD": "C$", "INR": "₹", "JPY": "¥"}.get(cur, cur + " ")
+    clean = digits.replace(",", "").rstrip(".")
+    try:
+        num = float(clean)
+    except ValueError:
+        return None, ""
+    if not (500 <= num <= 2_000_000):   # filter noise ($5, €20 fees…)
+        return None, ""
+    return num, f"{sym}{digits.strip()}"
+
+
+def _wp_fetch_posts(base, page=1, per_page=100, timeout=25):
+    """One page of posts from a WordPress site's public REST API."""
+    fields = "id,date,link,title,content,excerpt,slug,class_list"
+    url = (f"{base}/wp-json/wp/v2/posts"
+           f"?per_page={per_page}&page={page}&_fields={fields}")
+    try:
+        return _get(url, timeout=timeout, headers={"User-Agent": _BROWSER_UA,
+                                                   "Accept": "application/json"})
+    except Exception as e:
+        # invalid page number = past the last page → stop paging quietly
+        if getattr(e, "code", None) == 400 and page > 1:
+            return []
+        # some older WP versions reject _fields with class_list — retry plain
+        if getattr(e, "code", None) == 400:
+            url = (f"{base}/wp-json/wp/v2/posts"
+                   f"?per_page={per_page}&page={page}"
+                   f"&_fields=id,date,link,title,content,excerpt,slug")
+            return _get(url, timeout=timeout,
+                        headers={"User-Agent": _BROWSER_UA,
+                                 "Accept": "application/json"})
+        raise
+
+
+def _wp_post_to_scholarship(source_name, p):
+    """Convert a WP REST post into a scholarship snapshot row (or None)."""
+    if not isinstance(p, dict):
+        return None
+    title = _strip_html((p.get("title") or {}).get("rendered", "")).strip()
+    link  = (p.get("link") or "").strip()
+    if not title or len(title) < 8 or not link.startswith("http"):
+        return None
+
+    classes   = " ".join(p.get("class_list") or [])
+    class_txt = classes.replace("category-", " ").replace("tag-", " ")
+    class_txt = _strip_html(class_txt.replace("-", " "))
+
+    if not _FUNDING_WORDS_RX.search(title + " " + class_txt):
+        return None  # not a funding opportunity
+
+    content_html = (p.get("content") or {}).get("rendered", "") or ""
+    excerpt_html = (p.get("excerpt") or {}).get("rendered", "") or ""
+    body    = _strip_html(content_html)
+    excerpt = _strip_html(excerpt_html)
+
+    # deadline — skip posts whose parsed deadline is already past
+    deadline = _extract_deadline(title + "\n" + body[:6000])
+    if deadline:
+        dt = _parse_dt(deadline)
+        if dt and dt <= datetime.now(timezone.utc):
+            return None
+
+    # "Study in: Belgium" style lines are the cleanest location signal
+    study_in = ""
+    sim = re.search(r"study in:?\s*\|?\s*([A-Za-z][A-Za-z ,&/()']{2,50})",
+                    body[:6000], re.I)
+    if sim:
+        study_in = re.split(r"[.,;(\n]", sim.group(1))[0].strip()[:50]
+
+    blob = " ".join([title, class_txt, study_in])
+    region  = _region_of(blob) or ""
+    country = _country_of(study_in) or _country_of(blob) if region else ""
+
+    funding = _funding_type(title, body[:2500])
+    level   = _level(title, body[:2500])
+    amount, amount_str = _extract_amount(title + " " + body)
+
+    tags = []
+    for c in (p.get("class_list") or []):
+        for pref in ("category-", "tag-"):
+            if c.startswith(pref):
+                t = c[len(pref):].replace("-", " ").strip()
+                if t and t not in tags and len(t) > 3:
+                    tags.append(t)
+    tags = tags[:6]
+
+    slug = (p.get("slug") or re.sub(r"[^a-z0-9]+", "-", title.lower()))[:60]
+    prefix = {"Scholars4Dev": "s4d", "ScholarshipsCorner": "sc",
+              "OpportunitiesForYouth": "ofy"}.get(source_name, "wp")
+
+    return {
+        "id":         f"{prefix}-{slug}",
+        "title":      title,
+        "provider":   "",
+        "location":   study_in,
+        "region":     region,
+        "country":    country if region in ("EU", "AR") else "",
+        "remote":     "worldwide" in blob.lower(),
+        "funding":    funding,
+        "amount":     amount,
+        "amount_str": amount_str,
+        "deadline":   deadline,
+        "level":      level,
+        "description": (excerpt or body)[:600],
+        "tags":       tags,
+        "url":        link,
+        "source":     source_name,
+        "posted_ago": "",
+    }
+
+
+def fetch_wp_source(name, base, pages=2, per_page=100):
+    """All recent scholarship posts from one WordPress aggregator."""
+    out = []
+    for page in range(1, max(1, pages) + 1):
+        posts = _wp_fetch_posts(base, page=page, per_page=per_page)
+        if not posts:
+            break
+        for p in posts:
+            item = _wp_post_to_scholarship(name, p)
+            if item:
+                out.append(item)
+        time.sleep(0.6)  # be polite
     return out
 
 
-# ---------------------------------------------------------------------------
-# source: Scholarships.com  (via Parse API, free tier)
-# ---------------------------------------------------------------------------
 def seed_scholarships():
     """Representative seed scholarships — replaced by real API data
     as soon as keys are configured."""
@@ -1357,6 +1512,78 @@ def seed_scholarships():
 # ---------------------------------------------------------------------------
 # main
 # ---------------------------------------------------------------------------
+class AllExpiredError(Exception):
+    """Raised when a snapshot would contain only past deadlines."""
+
+
+def build_snapshot(scholarships, sources_ok=None):
+    """Merge scraped scholarships with the seed baseline, dedupe, sort and
+    validate. Pure function (no network, no file IO) so it is testable.
+    Raises AllExpiredError if every deadline would be in the past."""
+    sources_ok = dict(sources_ok or {})
+
+    def _title_key(t):
+        return re.sub(r"[^a-z0-9]+", " ", (t or "").lower()).strip()
+
+    def _sid(s):
+        return (s.get("id") or re.sub(
+            r"[^a-z0-9]+", "-", (s.get("title") or "").lower()
+        ).strip("-")[:100])
+
+    seen_ids, seen_titles, unique = set(), set(), []
+    for s in scholarships:
+        if not (s.get("title") and s.get("url")):
+            continue
+        sid, tk = _sid(s), _title_key(s["title"])
+        if sid in seen_ids or (tk and tk in seen_titles):
+            continue
+        seen_ids.add(sid)
+        seen_titles.add(tk)
+        s["id"] = sid
+        unique.append(s)
+
+    # Seed rows are always merged as a baseline so the page never runs dry;
+    # live-scraped entries win whenever titles collide.
+    seed_added = 0
+    for s in seed_scholarships():
+        sid, tk = _sid(s), _title_key(s["title"])
+        if sid in seen_ids or (tk and tk in seen_titles):
+            continue
+        seen_ids.add(sid)
+        seen_titles.add(tk)
+        s["id"] = sid
+        unique.append(s)
+        seed_added += 1
+    if seed_added:
+        sources_ok["seed"] = True
+
+    def _deadline_key(s):
+        dt = _parse_dt(s.get("deadline", ""))
+        return dt.timestamp() if dt else 9e18
+    unique.sort(key=_deadline_key)
+
+    per_source = {}
+    for s in unique:
+        src_name = s.get("source", "") or "unknown"
+        per_source[src_name] = per_source.get(src_name, 0) + 1
+
+    deadlines = [s.get("deadline") for s in unique if s.get("deadline")]
+    now_utc = datetime.now(timezone.utc)
+    if deadlines and not any(_parse_dt(d) and _parse_dt(d) > now_utc
+                             for d in deadlines):
+        raise AllExpiredError(
+            "all %d deadlines are in the past — the site would show no "
+            "scholarships" % len(deadlines))
+
+    return {
+        "generated_at": _now_iso(),
+        "count":        len(unique),
+        "per_source":   per_source,
+        "sources_ok":   sources_ok,
+        "scholarships": unique,
+    }
+
+
 def main():
     import urllib.request as _urllib_request
     global urllib_request
@@ -1365,109 +1592,53 @@ def main():
     api_key   = os.environ.get("SCHOLARSHIPAPI_KEY", "").strip()
     parse_key = os.environ.get("SCHOLARSHIPS_COM_KEY", "").strip()
 
-    scholarships = []
-    sources_ok  = {}
+    sources_ok = {}
 
-    # ── primary source ──────────────────────────────────────────
-    if api_key:
-        print("[scholarshipapi] fetching…", file=sys.stderr)
+    def _collect(label, fn, *a, **kw):
         try:
-            scholarships += fetch_scholarshipapi(api_key)
-            sources_ok["ScholarshipAPI"] = True
-            print(f"[scholarshipapi] total so far: {len(scholarships)}",
-                  file=sys.stderr)
+            items = fn(*a, **kw)
         except Exception as e:
-            print(f"[scholarshipapi] failed: {e}", file=sys.stderr)
-            sources_ok["ScholarshipAPI"] = False
+            print(f"[{label}] failed: {e}", file=sys.stderr)
+            return []
+        print(f"[{label}] {len(items)} items", file=sys.stderr)
+        return items
+
+    scholarships = []
+
+    if api_key:
+        items = _collect("scholarshipapi", fetch_scholarshipapi, api_key)
+        sources_ok["ScholarshipAPI"] = bool(items)
+        scholarships += items
     else:
         print("[scholarshipapi] no key — skipping", file=sys.stderr)
 
-    # ── secondary source ────────────────────────────────────────
     if parse_key:
-        print("[scholarships.com] fetching…", file=sys.stderr)
-        try:
-            scholarships += fetch_scholarships_com()
-            sources_ok["Scholarships.com"] = True
-            print(f"[scholarships.com] total so far: {len(scholarships)}",
-                  file=sys.stderr)
-        except Exception as e:
-            print(f"[scholarships.com] failed: {e}", file=sys.stderr)
-            sources_ok["Scholarships.com"] = False
+        items = _collect("scholarships.com", fetch_scholarships_com)
+        sources_ok["Scholarships.com"] = bool(items)
+        scholarships += items
     else:
         print("[scholarships.com] no key — skipping", file=sys.stderr)
 
-    # ── best-effort scrape source ───────────────────────────────
-    print("[scholars4dev] scraping…", file=sys.stderr)
+    # ── WordPress aggregator sources (free, no keys) ────────────
+    for src_cfg in WP_SOURCES:
+        items = _collect(src_cfg["name"], fetch_wp_source,
+                         src_cfg["name"], src_cfg["base"],
+                         src_cfg.get("pages", 2))
+        sources_ok[src_cfg["name"]] = bool(items)
+        scholarships += items
+
     try:
-        scholarships += fetch_scholars4dev()
-        sources_ok["Scholars4Dev"] = True
-        print(f"[scholars4dev] total so far: {len(scholarships)}", file=sys.stderr)
-    except Exception as e:
-        print(f"[scholars4dev] failed: {e}", file=sys.stderr)
-        sources_ok["Scholars4Dev"] = False
-
-    # ── dedupe ───────────────────────────────────────────────────
-    seen   = set()
-    unique = []
-    for s in scholarships:
-        sid = s["id"]
-        if sid not in seen and s.get("title") and s.get("url"):
-            seen.add(sid)
-            unique.append(s)
-
-    # ── sort: nearest deadline first ─────────────────────────────
-    def _deadline_key(s):
-        d = s.get("deadline","")
-        if d:
-            try:
-                return datetime.fromisoformat(d).timestamp()
-            except (ValueError, TypeError):
-                pass
-        return 9e18
-    unique.sort(key=_deadline_key)
-
-    # ── if API returned nothing, use seed ───────────────────────
-    if not unique:
-        print("[scholarships] no API data — using seed", file=sys.stderr)
-        unique = seed_scholarships()
-        sources_ok["seed"] = True
-
-    # ── build per-source counts ──────────────────────────────────
-    per_source = {}
-    for s in unique:
-        src = s.get("source","") or "unknown"
-        per_source[src] = per_source.get(src, 0) + 1
-
-    snapshot = {
-        "generated_at":  _now_iso(),
-        "count":         len(unique),
-        "per_source":    per_source,
-        "sources_ok":    sources_ok,
-        "scholarships":  unique,
-    }
-
-    # ── safety net: never ship an all-expired snapshot ────────────
-    # If every deadline ends up in the past (bad source data or a
-    # generator bug), the site's isExpired() filter would hide every
-    # scholarship. Refuse to overwrite a working snapshot in that case
-    # so the page keeps showing the last good data instead of going empty.
-    deadlines = [s.get("deadline") for s in unique if s.get("deadline")]
-    if deadlines:
-        now_utc = datetime.now(timezone.utc)
-        future = [d for d in deadlines
-                  if _parse_dt(d) and _parse_dt(d) > now_utc]
-        if not future:
-            print(
-                "[scholarships] FATAL: all %d deadlines are in the past — "
-                "site would show no scholarships; keeping existing snapshot."
-                % len(deadlines), file=sys.stderr)
-            sys.exit(1)
+        snapshot = build_snapshot(scholarships, sources_ok)
+    except AllExpiredError as e:
+        print(f"[scholarships] FATAL: {e} — keeping existing snapshot.",
+              file=sys.stderr)
+        sys.exit(1)
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(snapshot, f, ensure_ascii=False, indent=2)
 
-    print(f"[scholarships] written {len(unique)} scholarships → {OUT}",
+    print(f"[scholarships] written {snapshot['count']} scholarships → {OUT}",
           file=sys.stderr)
 
 

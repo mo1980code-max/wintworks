@@ -87,7 +87,7 @@ def run_main_with_seed(seed_rows):
     """Run fetch_scholarships.main() against a temp output file."""
     mod.fetch_scholarshipapi = lambda key: []
     mod.fetch_scholarships_com = lambda: []
-    mod.fetch_scholars4dev = lambda: []
+    mod.WP_SOURCES = []          # no network in tests
     mod.seed_scholarships = lambda: list(seed_rows)
     tmp = tempfile.NamedTemporaryFile(suffix=".json", delete=False)
     tmp.close()
