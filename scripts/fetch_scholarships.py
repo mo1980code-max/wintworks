@@ -458,7 +458,8 @@ _BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
 # posts that are clearly not funding opportunities (e.g. plain internships,
 # news, "how to apply" guides) are filtered out
 _FUNDING_WORDS_RX = re.compile(
-    r"scholarship|fellowship|grant|bursar|funding|stipend|financial aid|award",
+    r"scholarship|fellowship|grant|bursar|fund(?:ed|ing)|stipend|"
+    r"financial aid|award",
     re.I)
 
 _MONTHS = {}
@@ -675,6 +676,7 @@ def _wp_post_to_scholarship(source_name, p):
         "tags":       tags,
         "url":        link,
         "source":     source_name,
+        "date":       (p.get("date") or _now_iso()),
         "posted_ago": "",
     }
 

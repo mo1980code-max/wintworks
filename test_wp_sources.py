@@ -229,4 +229,42 @@ except mod.AllExpiredError:
 finally:
     mod.seed_scholarships = _orig_seed
 
+# ------------------------------------------------- real-world fixture files
+print("fixture files (real posts captured from the live sources):")
+import json
+
+FIXDIR = os.path.join(BASE, "tests", "fixtures")
+for fname, source, min_kept in [
+        ("scholars4dev_page1.json", "Scholars4Dev", 3),
+        ("scholarshipscorner_page1.json", "ScholarshipsCorner", 5),
+        ("ofy_page1.json", "OpportunitiesForYouth", 1)]:
+    posts = json.load(open(os.path.join(FIXDIR, fname), encoding="utf-8"))
+    kept = [i for i in (mod._wp_post_to_scholarship(source, p)
+                        for p in posts) if i]
+    ok(f"{fname}: {len(kept)}/{len(posts)} real posts convert",
+       len(kept) >= min_kept, f"(min {min_kept})")
+
+# dated real posts must parse their exact real deadlines (or be skipped
+# as past once those dates eventually pass)
+s4d = json.load(open(os.path.join(FIXDIR, "scholars4dev_page1.json"),
+                     encoding="utf-8"))
+ares = mod._wp_post_to_scholarship("Scholars4Dev", s4d[1])
+if ares:
+    ok("ARES real deadline 2026-09-18",
+       ares["deadline"].startswith("2026-09-18"), ares["deadline"])
+gates = mod._wp_post_to_scholarship("Scholars4Dev", s4d[2])
+if gates:
+    ok("Gates Cambridge multi-date header → 8 Dec 2026",
+       gates["deadline"].startswith("2026-12-08"), gates["deadline"])
+    ok("Gates Cambridge region EU / UK", gates["region"] == "EU")
+    ok("Gates Cambridge £22,000 amount", gates["amount"] == 22000,
+       f"got {gates['amount']}")
+corner = json.load(open(os.path.join(FIXDIR,
+                                     "scholarshipscorner_page1.json"),
+                        encoding="utf-8"))
+ewc = mod._wp_post_to_scholarship("ScholarshipsCorner", corner[0])
+if ewc:
+    ok("EWC real deadline 2026-12-01",
+       ewc["deadline"].startswith("2026-12-01"), ewc["deadline"])
+
 print(f"\nAll {PASS} WordPress-source checks passed.")
