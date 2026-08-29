@@ -13,7 +13,7 @@ from built-in sample data so pages render on first deploy.
 """
 
 import json, os, re, sys, time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(BASE, "data", "scholarships.json")
@@ -239,6 +239,19 @@ def _parse_date(raw):
         except (ValueError, TypeError):
             continue
     return ""
+
+
+def _parse_dt(raw):
+    """Parse an ISO deadline into an aware datetime, or None."""
+    if not raw:
+        return None
+    try:
+        dt = datetime.fromisoformat(str(raw))
+    except (ValueError, TypeError):
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
 
 
 def _deadline_remains(deadline_iso):
@@ -532,7 +545,12 @@ def seed_scholarships():
     now = datetime.now(timezone.utc)
 
     def _d(days):
-        return (now.replace(day=min(now.day+days, 28))).isoformat()
+        # Real calendar arithmetic: now + N days. The old implementation used
+        # now.replace(day=min(now.day+days, 28)), which could never cross a
+        # month boundary and clamped every deadline to day 28 of the current
+        # month — so snapshots generated on the 29th/30th/31st produced
+        # *past* deadlines and every scholarship vanished from the site.
+        return (now + timedelta(days=days)).isoformat()
 
     rows = [
         # ── GERMANY ──────────────────────────────────────────────
@@ -1427,6 +1445,23 @@ def main():
         "sources_ok":    sources_ok,
         "scholarships":  unique,
     }
+
+    # ── safety net: never ship an all-expired snapshot ────────────
+    # If every deadline ends up in the past (bad source data or a
+    # generator bug), the site's isExpired() filter would hide every
+    # scholarship. Refuse to overwrite a working snapshot in that case
+    # so the page keeps showing the last good data instead of going empty.
+    deadlines = [s.get("deadline") for s in unique if s.get("deadline")]
+    if deadlines:
+        now_utc = datetime.now(timezone.utc)
+        future = [d for d in deadlines
+                  if _parse_dt(d) and _parse_dt(d) > now_utc]
+        if not future:
+            print(
+                "[scholarships] FATAL: all %d deadlines are in the past — "
+                "site would show no scholarships; keeping existing snapshot."
+                % len(deadlines), file=sys.stderr)
+            sys.exit(1)
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
