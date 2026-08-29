@@ -1,3 +1,9 @@
+
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+window.onload = function() { window.scrollTo(0, 0); };
 /* ============================================================
    WintWorks — job board + scholarship engine
    Fetches US/Europe jobs AND scholarships automatically from
@@ -24,6 +30,20 @@ const $  = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const esc = (s) => String(s ?? "").replace(/[&<>\"']/g, (c) =>
   ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+
+function isExpired(dateStr) {
+  if (!dateStr) return false;
+  const d = new Date(dateStr);
+  if (isNaN(d)) return false;
+  return d.getTime() < Date.now();
+}
+function formatDeadline(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d)) return "";
+  return "Deadline: " + d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+}
 
 function timeAgo(iso) {
   if (!iso) return "";
@@ -670,6 +690,7 @@ function countMatches() {
   return state.jobs.filter(j => matches(j, f)).length;
 }
 function matches(j, f) {
+  if (isExpired(j.deadline)) return false;
   if (f.savedOnly && !state.bookmarks.has(j.id)) return false;
   if (f.region && f.region !== "All" && j.region !== f.region) return false;
   if (f.country && f.country !== "All") {
@@ -838,14 +859,14 @@ function schNormalize(s) {
   }
   s.region     = s.region     || regionOf(s.location || s.country || "") || "";
   s.country    = s.country    || countryOf(s.location || s.country || "") || "";
-  s.deadlineRemains = s.deadline_remains ||
-    (s.deadline ? timeAgo(s.deadline) : "");
+  s.deadlineRemains = s.deadline ? formatDeadline(s.deadline) : "";
   s.amountNum  = s.amount ? Number(s.amount) : 0;
   s.isSaved    = state$sch.schBookmarks.has(s.id);
   return s;
 }
 
 function schMatches(s, f) {
+  if (isExpired(s.deadline)) return false;
   if (f.funding !== "All" && s.funding !== f.funding) return false;
   if (f.level   !== "All" && s.level   !== f.level)   return false;
   if (f.region  !== "All") {

@@ -1,0 +1,226 @@
+.cv-builder-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 30px;
+  min-height: calc(100vh - 120px);
+}
+
+.cv-editor {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.cv-preview-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cv-preview-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cv-preview-actions select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cv-paper {
+  background: #fff;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transform-origin: top center;
+  transform: scale(0.65);
+  color: #333;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .cv-paper {
+  background: #fff;
+  color: #000;
+}
+
+.cv-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--border);
+  color: var(--text);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+}
+.form-group input:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(29,78,216,0.1);
+}
+
+.repeater-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--red-bg, #fee2e2);
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.remove-btn:hover { background: #fca5a5; color: #fff; }
+.add-btn {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+  width: 100%;
+}
+.add-btn:hover {
+  background: var(--border);
+}
+
+.download-btn {
+  background: #10b981;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.download-btn:hover { background: #059669; }
+
+/* ======== TEMPLATES ======== */
+
+/* Template 1: Classic */
+.temp-classic { font-family: 'Times New Roman', Times, serif; }
+.temp-classic .cv-header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px; }
+.temp-classic .cv-name { font-size: 28pt; font-weight: bold; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+.temp-classic .cv-job-title { font-size: 14pt; margin: 5px 0 10px 0; color: #555; }
+.temp-classic .cv-contact { font-size: 10pt; color: #444; }
+.temp-classic .cv-section { margin-bottom: 20px; }
+.temp-classic .cv-sec-title { font-size: 14pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #ccc; margin-bottom: 10px; padding-bottom: 3px; color: #222; }
+.temp-classic .cv-item { margin-bottom: 15px; }
+.temp-classic .cv-item-title { font-size: 12pt; font-weight: bold; display: flex; justify-content: space-between; }
+.temp-classic .cv-item-sub { font-size: 11pt; font-style: italic; color: #444; margin-bottom: 5px; }
+.temp-classic .cv-item-desc { font-size: 10.5pt; line-height: 1.5; white-space: pre-wrap; }
+.temp-classic .cv-skills { font-size: 10.5pt; line-height: 1.6; }
+
+/* Template 2: Modern */
+.temp-modern { font-family: Arial, Helvetica, sans-serif; display: flex; margin: -20mm; height: 297mm; width: 210mm;}
+.temp-modern .modern-left { background: #2c3e50; color: #fff; width: 35%; padding: 20mm 10mm; box-sizing: border-box; }
+.temp-modern .modern-right { width: 65%; padding: 20mm; background: #fff; box-sizing: border-box; }
+.temp-modern .cv-name { font-size: 22pt; font-weight: bold; margin: 0; line-height: 1.1; }
+.temp-modern .cv-job-title { font-size: 12pt; color: #abc; margin-top: 5px; margin-bottom: 20px; }
+.temp-modern .cv-contact-item { font-size: 9pt; margin-bottom: 10px; }
+.temp-modern .cv-sec-title-left { font-size: 12pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #567; padding-bottom: 5px; margin: 25px 0 15px; letter-spacing: 1px; color: #fff; }
+.temp-modern .cv-sec-title-right { font-size: 16pt; font-weight: bold; text-transform: uppercase; color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 5px; margin-bottom: 15px; }
+.temp-modern .cv-item { margin-bottom: 15px; }
+.temp-modern .cv-item-title { font-size: 12pt; font-weight: bold; color: #222; display: flex; justify-content: space-between;}
+.temp-modern .cv-item-sub { font-size: 10pt; color: #666; margin: 3px 0; font-weight: bold;}
+.temp-modern .cv-item-date { font-size: 9pt; color: #888; margin-bottom: 5px; }
+.temp-modern .cv-item-desc { font-size: 10pt; line-height: 1.5; color: #444; white-space: pre-wrap; }
+.temp-modern .cv-skills-list { list-style: none; padding: 0; margin: 0; font-size: 10pt; }
+.temp-modern .cv-skills-list li { margin-bottom: 5px; }
+.temp-modern .modern-desc-left { font-size: 9.5pt; line-height: 1.5; color: #ddd; white-space: pre-wrap; margin-bottom: 20px;}
+
+/* Template 3: Minimalist */
+.temp-minimal { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #333; }
+.temp-minimal .cv-header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 30px; }
+.temp-minimal .cv-name { font-size: 32pt; font-weight: 300; margin: 0; letter-spacing: -1px; }
+.temp-minimal .cv-job-title { font-size: 14pt; color: #888; font-weight: 400; margin-top: 5px;}
+.temp-minimal .cv-contact { text-align: right; font-size: 9pt; color: #666; line-height: 1.6; }
+.temp-minimal .cv-section { display: flex; margin-bottom: 30px; }
+.temp-minimal .cv-sec-left { width: 25%; font-size: 11pt; font-weight: bold; color: #222; text-transform: uppercase; padding-right: 20px; box-sizing: border-box;}
+.temp-minimal .cv-sec-right { width: 75%; }
+.temp-minimal .cv-item { margin-bottom: 20px; }
+.temp-minimal .cv-item-title { font-size: 12pt; font-weight: 600; color: #000; margin: 0 0 3px 0; display: flex; justify-content: space-between; }
+.temp-minimal .cv-item-sub { font-size: 10pt; color: #777; margin-bottom: 8px; }
+.temp-minimal .cv-item-desc { font-size: 10pt; line-height: 1.6; color: #444; white-space: pre-wrap;}
+.temp-minimal .minimal-summary { font-size: 10.5pt; line-height: 1.6; color: #444; margin-bottom: 20px; white-space: pre-wrap;}
+
+@media print {
+  body * { visibility: hidden; }
+  .cv-preview-wrapper, .cv-preview-wrapper * { visibility: visible; }
+  .cv-preview-wrapper { position: absolute; left: 0; top: 0; width: 100%; transform: none; display: block;}
+  .cv-paper { 
+    box-shadow: none !important; 
+    margin: 0 !important; 
+    padding: 20mm !important; 
+    width: 210mm !important; 
+    height: 297mm !important; 
+    transform: none !important;
+  }
+  .temp-modern { margin: 0 !important; padding: 0 !important; height: 100% !important; min-height: 297mm; }
+  @page { size: A4; margin: 0; }
+  .cv-preview-actions { display: none !important; }
+  .site-header, .site-footer { display: none !important; }
+}
+
+@media (max-width: 900px) {
+  .cv-builder-container { flex-direction: column; }
+  .cv-paper { transform: scale(0.6); transform-origin: top center; margin-bottom: -150px;}
+  .cv-editor { max-height: none; }
+}
+
+@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
