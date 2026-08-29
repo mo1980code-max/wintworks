@@ -1,3 +1,9 @@
+
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+window.onload = function() { window.scrollTo(0, 0); };
 /* ============================================================
    WintWorks — dedicated scholarships page engine
    ============================================================ */
@@ -15,6 +21,20 @@ const $  = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const esc = (s) => String(s ?? "").replace(/[&<>\"']/g, (c) =>
   ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+
+function isExpired(dateStr) {
+  if (!dateStr) return false;
+  const d = new Date(dateStr);
+  if (isNaN(d)) return false;
+  return d.getTime() < Date.now();
+}
+function formatDeadline(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d)) return "";
+  return "Deadline: " + d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+}
 
 function timeAgo(iso) {
   if (!iso) return "";
@@ -122,7 +142,7 @@ function normalize(s) {
   s.isArab     = isArabRegion(s.region, s.country);
   s.isWomen    = isWomenTag(s);
   s.isTech     = isTechTag(s);
-  s.deadlineRemains = s.deadline_remains || (s.deadline ? timeAgo(s.deadline) : "");
+  s.deadlineRemains = s.deadline ? formatDeadline(s.deadline) : "";
   return s;
 }
 
