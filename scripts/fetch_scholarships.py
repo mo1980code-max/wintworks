@@ -104,19 +104,15 @@ def _region_of(text):
         "liechtenstein","gibraltar","isle of man","bavaria","bayern",
     ]
     arab_words = [
-        "egypt","مصر","egyptian","مصري","morocco","المغرب","مغربي","moroccan",
-        "تونس","tunisia","tunisian","تونسي","الجزائر","algeria","algerian",
-        "جوردان","jordan","jordanian","الأردن","لبنان","lebanon","lebanese",
-        "الإمارات","uae","emirati","دبي","abu dhabi","السعودية","saudi",
-        "سعودية","oman","عُمان","البحرين","bahrain","بحريني","قطر","qatar",
-        "قطري","فلسطين","palestine","palestinian","فلسطيني","سوريا","syria",
-        "سوري","العراق","iraq","iraqi","السودان","sudan","sudanese",
-        "ليبيا","libya","libyan","موريتانيا","mauritania","موريتاني",
-        "جيبوتي","djibouti","أ덴","يemen","اليمن","اليمني","الصومال",
-        "somalia","somalian","كاماروس","comoros","الشام","بلاد الشام",
-        "العربية","arab","arab world","دول عربية","جامعة الدول العربية",
-        "ال League of Arab States","arab league","دول المغرب العربي",
-        "maghreb","مغرب عربي","الشرق الأوسط","middle east",
+        "egypt","egyptian","morocco","moroccan","tunisia","tunisian",
+        "algeria","algerian","jordan","jordanian","lebanon","lebanese",
+        "uae","emirati","dubai","abu dhabi","saudi","saudi arabia",
+        "oman","omani","bahrain","bahraini","qatar","qatari",
+        "palestine","palestinian","syria","syrian","iraq","iraqi",
+        "sudan","sudanese","libya","libyan","mauritania","mauritanian",
+        "djibouti","yemen","yemeni","somalia","somalian","comoros",
+        "levant","arab","arab world","arab league","league of arab states",
+        "maghreb","middle east","mena",
     ]
     us_words = [
         "united states","usa","u.s.a","us only","america","american",

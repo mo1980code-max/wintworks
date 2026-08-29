@@ -107,21 +107,21 @@
   min-height: 297mm;
   padding: 18mm 16mm;
   box-shadow: 0 10px 40px rgba(15,23,42,.18);
-  transform-origin: top right;           /* RTL: scale from top-right corner */
+  transform-origin: top left;            /* LTR: scale from top-left corner */
   transform: scale(var(--cv-scale, 1));
   color: #1f2937;
   box-sizing: border-box;
   overflow: hidden;
-  direction: rtl;
+  direction: ltr;
 }
-:root:not([dir="rtl"]) .cv-paper,
-.cv-paper[dir="ltr"] { transform-origin: top left; }
+:root[dir="rtl"] .cv-paper[dir="rtl"],
+.cv-paper[dir="rtl"] { transform-origin: top right; direction: rtl; }
 
 /* =====================================================================
    TEMPLATE 1 — EXECUTIVE / PROFESSIONAL
    Formal, clean, calm navy accents. Focus on experience & achievements.
    ===================================================================== */
-.temp-executive { font-family: 'IBM Plex Sans Arabic','Cairo',Arial,sans-serif; }
+.temp-executive { font-family: 'Source Sans 3','Inter',Arial,sans-serif; }
 .temp-executive .cv-header {
   border-bottom: 3px solid #14357f; padding-bottom: 16px; margin-bottom: 20px;
 }
@@ -147,7 +147,7 @@
 /* =====================================================================
    TEMPLATE 2 — TECH / MODERN  (sidebar layout, IT & AI friendly)
    ===================================================================== */
-.temp-tech { font-family: 'Tajawal','Cairo',Arial,sans-serif; display: flex; margin: -18mm -16mm; min-height: 297mm; width: 210mm; box-sizing: border-box; }
+.temp-tech { font-family: 'Inter','Source Sans 3',Arial,sans-serif; display: flex; margin: -18mm -16mm; min-height: 297mm; width: 210mm; box-sizing: border-box; }
 .temp-tech .tech-side { width: 34%; background: linear-gradient(160deg,#0f172a 0%,#1e293b 100%); color: #e2e8f0; padding: 18mm 9mm; box-sizing: border-box; }
 .temp-tech .tech-main { width: 66%; padding: 18mm 14mm; box-sizing: border-box; background: #fff; }
 .temp-tech .cv-name { font-size: 21pt; font-weight: 800; margin: 0; color: #fff; line-height: 1.15; }
@@ -160,10 +160,10 @@
 .temp-tech .skills-list .bar { height: 5px; background: #334155; border-radius: 3px; margin-top: 4px; overflow: hidden; }
 .temp-tech .skills-list .bar span { display: block; height: 100%; background: linear-gradient(90deg,#38bdf8,#2563eb); border-radius: 3px; }
 .temp-tech .lang-list { list-style: none; padding: 0; margin: 0; }
-.temp-tech .lang-list li { font-size: 9pt; color: #cbd5e1; margin-bottom: 7px; padding-right: 12px; position: relative; }
-.temp-tech .lang-list li::before { content: "▹"; color: #38bdf8; position: absolute; right: 0; }
-.temp-tech .main-title { font-size: 14pt; font-weight: 800; color: #0f172a; margin-bottom: 12px; position: relative; padding-right: 14px; }
-.temp-tech .main-title::before { content: ""; position: absolute; right: 0; top: 3px; bottom: 3px; width: 5px; border-radius: 3px; background: linear-gradient(180deg,#38bdf8,#2563eb); }
+.temp-tech .lang-list li { font-size: 9pt; color: #cbd5e1; margin-bottom: 7px; padding-left: 12px; position: relative; }
+.temp-tech .lang-list li::before { content: "▹"; color: #38bdf8; position: absolute; left: 0; }
+.temp-tech .main-title { font-size: 14pt; font-weight: 800; color: #0f172a; margin-bottom: 12px; position: relative; padding-left: 14px; }
+.temp-tech .main-title::before { content: ""; position: absolute; left: 0; top: 3px; bottom: 3px; width: 5px; border-radius: 3px; background: linear-gradient(180deg,#38bdf8,#2563eb); }
 .temp-tech .cv-item { margin-bottom: 14px; }
 .temp-tech .cv-item-title { font-size: 11.5pt; font-weight: 700; color: #0f172a; }
 .temp-tech .cv-item-sub { font-size: 9.5pt; color: #2563eb; font-weight: 600; margin: 3px 0 5px; }
@@ -173,7 +173,7 @@
 /* =====================================================================
    TEMPLATE 3 — CREATIVE / MINIMALIST  (airy whitespace, modern type)
    ===================================================================== */
-.temp-creative { font-family: 'Cairo','Tajawal',Arial,sans-serif; color: #27272a; }
+.temp-creative { font-family: 'Poppins','Inter',Arial,sans-serif; color: #27272a; }
 .temp-creative .cv-header { text-align: center; padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid #e4e4e7; }
 .temp-creative .cv-name { font-size: 30pt; font-weight: 300; letter-spacing: 1px; margin: 0; color: #18181b; }
 .temp-creative .cv-name b { font-weight: 800; }
