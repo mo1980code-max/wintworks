@@ -14,6 +14,8 @@ This repository was checked against the supplied 12-item audit. The recommendati
 8. Added reciprocal English, Arabic, and x-default hreflang annotations.
 9. Added real `<lastmod>` fields and generated-job URLs to the sitemap.
 10. Added Apache/LiteSpeed 410 responses for known inherited spam URL patterns.
+11. Refined the Europe work-visa pages around the Search Console query cluster: stronger titles and descriptions, an explicit Schengen/work-authorisation explanation, country comparison links, accessible FAQ content, Article/Breadcrumb/FAQ structured data, and clearer job-search calls to action.
+12. Added shared editorial-page styles so guide content, comparison tables, calls to action and FAQ panels are readable on desktop and mobile.
 
 ## Reviewed, but intentionally not applied as written
 
