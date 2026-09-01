@@ -9,9 +9,9 @@
 
   var DATA = window.getSiteData ? window.getSiteData() : window.IBADAH_DEFAULTS;
   var state = {
-    cityId: localStorage.getItem("ibadah-city") || DATA.prayerSettings.defaultCityId,
-    method: localStorage.getItem("ibadah-method") || DATA.prayerSettings.method,
-    madhab: localStorage.getItem("ibadah-madhab") || DATA.prayerSettings.asrMadhab,
+    cityId: (window.IBADAH_STORE ? window.IBADAH_STORE.get("ibadah-city") : localStorage.getItem("ibadah-city")) || DATA.prayerSettings.defaultCityId,
+    method: (window.IBADAH_STORE ? window.IBADAH_STORE.get("ibadah-method") : localStorage.getItem("ibadah-method")) || DATA.prayerSettings.method,
+    madhab: (window.IBADAH_STORE ? window.IBADAH_STORE.get("ibadah-madhab") : localStorage.getItem("ibadah-madhab")) || DATA.prayerSettings.asrMadhab,
     times: null
   };
 
@@ -231,6 +231,14 @@
   function initCounters() {
     var nums = $$(".fact-num[data-count]");
     if (!nums.length) return;
+    if (!("IntersectionObserver" in window)) {
+      nums.forEach(function (el) {
+        var target = parseInt(el.getAttribute("data-count"), 10);
+        var suffix = el.getAttribute("data-suffix") || "";
+        el.textContent = target.toLocaleString("en-US") + suffix;
+      });
+      return;
+    }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
@@ -479,9 +487,9 @@
       if (!amount || amount <= 0) { toast("Please choose a donation amount", "error"); return; }
       var donor = ($("#donorName") && $("#donorName").value) || "Anonymous Donor";
       var records = [];
-      try { records = JSON.parse(localStorage.getItem("ibadah-donations") || "[]"); } catch (err) { records = []; }
+      try { records = JSON.parse(window.IBADAH_STORE.get("ibadah-donations") || "[]"); } catch (err) { records = []; }
       records.push({ id: Date.now(), name: donor, cause: cause ? cause.title : "General", amount: amount, date: new Date().toISOString() });
-      localStorage.setItem("ibadah-donations", JSON.stringify(records));
+      window.IBADAH_STORE.set("ibadah-donations", JSON.stringify(records));
 
       toast("Jazakum Allahu khayran, " + donor + "! Your $" + amount.toLocaleString("en-US") + " donation was recorded.");
       form.reset();
@@ -759,17 +767,17 @@
     renderWeeklyTable();
     if (citySel) citySel.addEventListener("change", function () {
       state.cityId = citySel.value;
-      localStorage.setItem("ibadah-city", state.cityId);
+      window.IBADAH_STORE.set("ibadah-city", state.cityId);
       fill(); renderWeeklyTable();
     });
     if (methodSel) methodSel.addEventListener("change", function () {
       state.method = methodSel.value;
-      localStorage.setItem("ibadah-method", state.method);
+      window.IBADAH_STORE.set("ibadah-method", state.method);
       fill(); renderWeeklyTable();
     });
     if (madhabSel) madhabSel.addEventListener("change", function () {
       state.madhab = madhabSel.value;
-      localStorage.setItem("ibadah-madhab", state.madhab);
+      window.IBADAH_STORE.set("ibadah-madhab", state.madhab);
       fill(); renderWeeklyTable();
     });
   }
