@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مواقيت الصلاة — مركز العبادة الإسلامي</title>
+  <meta name="description" content="مواقيت الصلاة للمسجد بالتاريخ الهجري والميلادي، قابلة للحساب لأكثر من 17 مدينة واختيار المنهج والمذهب.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e4635'/%3E%3Cpath d='M32 12c3 5 3 9 0 13-3-4-3-8 0-13zm-12 14c8 0 15 5 18 12H14c3-7 6-12 6-12zm24 0s3 5 6 12H38c3-7 6-12 6-12zm-24 16h24c2 0 3 1 4 3H16c1-2 2-3 4-3z' fill='%23e8cf7f'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="topbar d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex gap-4">
+        <span><i class="fa-solid fa-calendar-days me-2 text-gold"></i><span data-hijri></span></span>
+        <a class="topbar-link" href="tel:+201000000000"><i class="fa-solid fa-phone me-2"></i><span data-bind="general.phone"></span></a>
+      </div>
+      <div class="social d-flex gap-2">
+        <a href="#" aria-label="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="تويتر"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="يوتيوب"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" aria-label="انستغرام"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg sticky-top main-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
+        <span class="brand-logo"><i class="fa-solid fa-mosque"></i></span>
+        <span>
+          <span class="brand-name d-block">مركز العبادة الإسلامي</span>
+          <span class="brand-sub">IBADAH ISLAMIC CENTER</span>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">من نحن</a></li>
+          <li class="nav-item"><a class="nav-link active" href="prayers.html">مواقيت الصلاة</a></li>
+          <li class="nav-item"><a class="nav-link" href="events.html">الفعاليات</a></li>
+          <li class="nav-item"><a class="nav-link" href="courses.html">الدورات</a></li>
+          <li class="nav-item"><a class="nav-link" href="donate.html">التبرعات</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">اتصل بنا</a></li>
+        </ul>
+        <a href="donate.html" class="btn nav-donate-btn"><i class="fa-solid fa-hand-holding-heart me-2"></i>تبرّع الآن</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero" style="background-image:url('assets/img/hero-1.jpg')">
+    <div class="container">
+      <h1>مواقيت الصلاة</h1>
+      <div class="breadcrumb-bar mt-3">
+        <a href="index.html" class="text-gold-light">الرئيسية</a>
+        <i class="fa-solid fa-angles-left"></i>
+        <span>مواقيت الصلاة</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== اختيارات + اليوم ===== -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label" for="prayerCity">المدينة</label>
+          <select id="prayerCity" class="city-select"></select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="prayerMethod">منهج الحساب</label>
+          <select id="prayerMethod" class="city-select"></select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="prayerMadhab">مذهب حساب العصر</label>
+          <select id="prayerMadhab" class="city-select"></select>
+        </div>
+      </div>
+
+      <div class="card-soft mt-4 p-4 p-lg-5">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-4 text-center">
+            <div class="small text-muted mb-1">وقت صلاة الظهر اليوم</div>
+            <div class="prayer-big-time" id="prayerHeroTime">--:--</div>
+            <div class="text-gold fw-bold" id="prayerHeroCity">—</div>
+          </div>
+          <div class="col-lg-8">
+            <div class="row text-center g-3 mb-3">
+              <div class="col-4">
+                <div class="p-2"><i class="fa-solid fa-calendar-days text-gold me-1"></i><span id="prayerTodayPct">—</span></div>
+              </div>
+              <div class="col-4">
+                <div class="p-2"><i class="fa-solid fa-star-and-crescent text-gold me-1"></i><span id="prayerHijri">—</span><span class="small text-muted d-inline ms-1">هـ</span></div>
+              </div>
+              <div class="col-4">
+                <div class="p-2"><i class="fa-solid fa-compass text-gold me-1"></i>المنهج: <span id="prayerMethodLabel">—</span></div>
+              </div>
+            </div>
+            <div class="alert alert-light border small mb-0">
+              <i class="fa-solid fa-circle-info text-gold me-2"></i>
+              يتم حساب المواقيت فلكياً على أساس توقيت المدينة المختارة — <span id="prayerMadhabLabel">الجمهور</span> للعصر.
+              للتأكد، يرجى اعتماد التقويم الرسمي المحلي.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== جدول اليوم ===== -->
+  <section class="section-sm bg-paper">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <h2 class="section-title mb-0" style="font-size:1.8rem">جدول صلوات المسجد اليوم</h2>
+        <button class="btn btn-outline-green no-print" onclick="window.print()">
+          <i class="fa-solid fa-print me-2"></i>طباعة الجدول
+        </button>
+      </div>
+      <div class="prayer-table-wrap">
+        <table class="prayer-table table">
+          <thead>
+            <tr>
+              <th>الصلاة</th>
+              <th>الأذان</th>
+              <th>الإقامة</th>
+              <th>الحالة</th>
+            </tr>
+          </thead>
+          <tbody id="prayerTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== جدول الأسبوع ===== -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title mb-4" style="font-size:1.8rem">مواقيت الأسبوع القادم</h2>
+      <div class="prayer-table-wrap">
+        <table class="prayer-table table">
+          <thead>
+            <tr>
+              <th>اليوم</th>
+              <th>الفجر</th>
+              <th>الشروق</th>
+              <th>الظهر</th>
+              <th>العصر</th>
+              <th>المغرب</th>
+              <th>العشاء</th>
+            </tr>
+          </thead>
+          <tbody id="weeklyTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== معلومات ===== -->
+  <section class="section bg-green-dark pattern-dark">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4" data-reveal>
+          <div class="text-white">
+            <i class="fa-solid fa-compass fs-1 text-gold mb-3"></i>
+            <h5 class="text-white fw-bold">اتجاه القبلة</h5>
+            <p class="small text-white-50">اتجاه القبلة من <span id="qiblaCity">مكة المكرمة</span> هو <strong class="text-gold" id="qiblaDeg">—</strong> من الشمال، ويُحسب تلقائياً عند تغيير المدينة.</p>
+          </div>
+        </div>
+        <div class="col-lg-4" data-reveal>
+          <div class="text-white">
+            <i class="fa-solid fa-clock fs-1 text-gold mb-3"></i>
+            <h5 class="text-white fw-bold">الإقامة</h5>
+            <p class="small text-white-50">تُقام الصلاة بعد الأذان بـ 15 دقيقة (ما عدا المغرب فوراً)، ويمكن تعديل هذه الإعدادات من لوحة الإدارة.</p>
+          </div>
+        </div>
+        <div class="col-lg-4" data-reveal>
+          <div class="text-white">
+            <i class="fa-solid fa-star-and-crescent fs-1 text-gold mb-3"></i>
+            <h5 class="text-white fw-bold">التاريخ الهجري</h5>
+            <p class="small text-white-50">تُعرض تواريخ أم القرى تلقائياً بحسب توقيت الجهاز، وتُحدّث يومياً دون أي تدخل.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer pattern-dark">
+    <div class="container pt-5">
+      <div class="row g-4 pb-4">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <span class="brand-logo"><i class="fa-solid fa-mosque"></i></span>
+            <div class="text-white">
+              <div class="brand-name">مركز العبادة الإسلامي</div>
+              <div class="brand-sub">IBADAH ISLAMIC CENTER</div>
+            </div>
+          </div>
+          <p class="small">مسجد ومركز إسلامي جامع يخدم المجتمع المحلي منذ عام 1998 بالعلم والعبادة والعمل الخيري.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>روابط سريعة</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angles-left"></i>الرئيسية</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angles-left"></i>من نحن</a></li>
+            <li><a href="prayers.html"><i class="fa-solid fa-angles-left"></i>مواقيت الصلاة</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h5>الخدمات</h5>
+          <ul class="footer-links">
+            <li><a href="donate.html"><i class="fa-solid fa-angles-left"></i>التبرعات</a></li>
+            <li><a href="courses.html"><i class="fa-solid fa-angles-left"></i>الدورات</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-angles-left"></i>اتصل بنا</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h5>تواصل معنا</h5>
+          <ul class="footer-links footer-contact">
+            <li><i class="fa-solid fa-location-dot"></i><span><span data-bind="general.address"></span></span></li>
+            <li><i class="fa-solid fa-phone"></i><span dir="ltr"><span data-bind="general.phone"></span></span></li>
+            <li><i class="fa-solid fa-envelope"></i><span><span data-bind="general.email"></span></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+        <span>© 2026 مركز العبادة الإسلامي — جميع الحقوق محفوظة</span>
+        <span>قال رسول الله ﷺ: «خيرُ الناس أنفعُهم للناس»</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="data/site-data.js"></script>
+  <script src="js/prayer-calc.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
