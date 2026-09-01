@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>التوثيق — قالب Ibadah</title>
+  <title>Documentation — Ibadah Template</title>
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
   <header class="page-hero" style="background-image:url('../assets/img/hero-1.jpg')">
     <div class="container">
-      <h1>توثيق القالب</h1>
+      <h1>Template Documentation</h1>
       <div class="breadcrumb-bar mt-3">
-        <a href="../index.html" class="text-gold-light">الموقع الرئيسي</a>
-        <i class="fa-solid fa-angles-left"></i>
-        <span>التوثيق</span>
+        <a href="../index.html" class="text-gold-light">Main site</a>
+        <i class="fa-solid fa-angle-right"></i>
+        <span>Documentation</span>
       </div>
     </div>
   </header>
@@ -24,69 +24,84 @@
   <section class="section">
     <div class="container" style="max-width:900px">
       <div class="admin-card mb-4">
-        <h4 class="fw-bold text-green mb-3">1. محتويات المجلد</h4>
+        <h4 class="fw-bold text-green mb-3">1. Folder contents</h4>
         <ul class="mb-0">
-          <li><code>index.html</code> — الصفحة الرئيسية</li>
-          <li><code>about.html</code> — من نحن</li>
-          <li><code>prayers.html</code> — مواقيت الصلاة (تاريخ هجري + اتصال بالحساب الفلكي)</li>
-          <li><code>events.html</code> و <code>event.html?id=..</code> — الفعاليات والتفاصيل</li>
-          <li><code>courses.html</code> — الدورات + خطط الأسعار</li>
-          <li><code>donate.html</code> — نموذج التبرعات</li>
-          <li><code>contact.html</code> — اتصل بنا + خريطة</li>
-          <li><code>admin.html</code> — لوحة إدارة (رمز تجريبي: <code>ibadah01</code>)</li>
-          <li><code>css/style.css</code> — كل أنماط التصميم</li>
-          <li><code>js/main.js</code> — تفاعلات الموقع</li>
-          <li><code>js/prayer-calc.js</code> — محرك المواقيت</li>
-          <li><code>js/admin.js</code> — منطق لوحة الإدارة</li>
-          <li><code>data/site-data.js</code> — ملف البيانات المركزي</li>
-          <li><code>assets/img/</code> — الصور</li>
-          <li><code>php/</code> — أمثلة خادم (اختياري)</li>
+          <li><code>index.html</code> — Homepage (slider, live prayers, causes, courses, pillars, ayat slider, Quran player, projects, media embeds, news)</li>
+          <li><code>about.html</code> — About Us</li>
+          <li><code>prayers.html</code> — Prayer times (Hijri date + astronomical calculation)</li>
+          <li><code>events.html</code> and <code>event.html?id=..</code> — Events list, schedule table and details</li>
+          <li><code>courses.html</code> — Courses + pricing plans</li>
+          <li><code>donate.html</code> — Donation form + campaigns + FAQ</li>
+          <li><code>contact.html</code> — Contact form + map</li>
+          <li><code>admin.html</code> — Admin panel (demo code: <code>ibadah01</code>)</li>
+          <li><code>css/style.css</code> — All styles (incl. media embeds, projects, schedule, speaker bio)</li>
+          <li><code>js/main.js</code> — Site interactions</li>
+          <li><code>js/prayer-calc.js</code> — Prayer engine (astronomical)</li>
+          <li><code>js/admin.js</code> — Admin logic</li>
+          <li><code>data/site-data.js</code> — Central data file</li>
+          <li><code>assets/img/</code> — Images</li>
+          <li><code>php/</code> — Optional server examples</li>
         </ul>
       </div>
 
       <div class="admin-card mb-4">
-        <h4 class="fw-bold text-green mb-3">2. التشغيل محلياً</h4>
-        <p>افتح <code>index.html</code> مباشرة، أو الأفضل تشغيل خادم بسيط:</p>
+        <h4 class="fw-bold text-green mb-3">2. Run locally</h4>
+        <p>Open <code>index.html</code> directly, or better — run a small server:</p>
         <pre class="bg-dark text-light p-3 rounded-3" dir="ltr">python3 -m http.server 8080
-# ثم افتح: http://localhost:8080/ibadah/</pre>
+# then open: http://localhost:8080</pre>
       </div>
 
       <div class="admin-card mb-4">
-        <h4 class="fw-bold text-green mb-3">3. تعديل النصوص</h4>
-        <p>الطريقة الأسهل: افتح <code>admin.html</code> (رمز <code>ibadah01</code>) وعدّل النصوص ثم اضغط «حفظ التعديلات». تخزَّن التغييرات في متصفحك (localStorage) ولا تحتاج أي خادم.</p>
-        <p>للتعديل الدائم في الملفات: عدّل <code>data/site-data.js</code> — كل نصوص الموقع والحملات والدورات والفعاليات موجودة فيه ككائنات JSON سهلة القراءة.</p>
+        <h4 class="fw-bold text-green mb-3">3. Edit texts</h4>
+        <p>The easiest way: open <code>admin.html</code> (code <code>ibadah01</code>), edit and press "Save Changes". Changes are stored in your browser (localStorage) — no server needed.</p>
+        <p>For permanent file edits: edit <code>data/site-data.js</code> — all site texts, campaigns, courses, events, projects and verses live there as readable JSON objects.</p>
       </div>
 
       <div class="admin-card mb-4">
-        <h4 class="fw-bold text-green mb-3">4. مواقيت الصلاة</h4>
+        <h4 class="fw-bold text-green mb-3">4. Prayer times</h4>
         <ul>
-          <li>الحساب فلكي (خوارزمية شمسية) لأي إحداثيات ومنطقة زمنية.</li>
-          <li>مناهج: رابطة العالم الإسلامي، ISNA، مصر، أم القرى، كراتشي، طهران، جدة.</li>
-          <li>مذهب العصر: شافعي/جمهور أو حنفي.</li>
-          <li>فارق الإقامة ووقت الجمعة من لوحة الإدارة.</li>
-          <li>التاريخ الهجري تلقائي (أم القرى) عبر <code>Intl</code>.</li>
-          <li>لاتجاه القبلة يظهر في صفحة <code>prayers.html</code>.</li>
-          <li>زر طباعة الجدول يخرج نسخة نظيفة (CSS Print).</li>
+          <li>Astronomical calculation for any coordinates/timezone.</li>
+          <li>Methods: Muslim World League, ISNA, Egypt, Umm al-Qura, Karachi, Tehran, Jeddah.</li>
+          <li>Asr madhab: Standard (Shafi) or Hanafi.</li>
+          <li>Iqamah offsets and Jumu'ah time editable from the admin panel.</li>
+          <li>Hijri dates (Umm al-Qura) automatic via <code>Intl</code>.</li>
+          <li>Qibla direction shown on <code>prayers.html</code>.</li>
+          <li>Print button outputs a clean schedule (CSS Print).</li>
         </ul>
       </div>
 
       <div class="admin-card mb-4">
-        <h4 class="fw-bold text-green mb-3">5. ربط PHP حقيقي (اختياري)</h4>
-        <p>على استضافة تدعم PHP، اربط <code>contact.html</code> بالنموذج <code>php/contact.php</code>، وغيّر عنوان <code>MAIL_TO</code>. نموذج التبرع يعمل حالياً بمحاكاة محلية؛ للدفع الحقيقي اربط خدمة مثل Stripe/PayPal وحدّث <code>js/main.js</code>.</p>
+        <h4 class="fw-bold text-green mb-3">5. Embeddable media</h4>
+        <p>Fully responsive embeds for YouTube, Vimeo and SoundCloud are included on the homepage (<code>#media</code> section) using the <code>.media-embed</code> class (16:9, <code>.tall</code> 4:3, <code>.soundcloud</code>). Replace the iframe <code>src</code> values with your own video/audio URLs.</p>
+      </div>
+
+      <div class="admin-card mb-4">
+        <h4 class="fw-bold text-green mb-3">6. RTL support inside the code</h4>
+        <p>The site is English (LTR) by default, but full RTL support is preserved:</p>
+        <ul class="mb-0">
+          <li>CSS uses logical properties (<code>inset-inline-start</code>, etc.) and includes <code>[dir="rtl"]</code> overrides.</li>
+          <li>To switch to Arabic: change <code>&lt;html lang="en" dir="ltr"&gt;</code> to <code>&lt;html lang="ar" dir="rtl"&gt;</code> and swap <code>bootstrap.min.css</code> for <code>bootstrap.rtl.min.css</code>.</li>
+          <li>JS is direction-agnostic — no layout assumptions in code.</li>
+        </ul>
+      </div>
+
+      <div class="admin-card mb-4">
+        <h4 class="fw-bold text-green mb-3">7. PHP real connection (optional)</h4>
+        <p>On a PHP host, wire <code>contact.html</code> to <code>php/contact.php</code> and change <code>MAIL_TO</code>. The donation form currently uses a local simulation; connect Stripe/PayPal for real payments.</p>
       </div>
 
       <div class="admin-card">
-        <h4 class="fw-bold text-green mb-3">6. التخصيص المتقدم</h4>
+        <h4 class="fw-bold text-green mb-3">8. Advanced customization</h4>
         <ul class="mb-0">
-          <li>الألوان: متغيرات CSS في أعلى <code>css/style.css</code> (<code>--green-*</code>, <code>--gold*</code>).</li>
-          <li>الخطوط: <code>--font-display</code> و <code>--font-body</code> (Amiri + Tajawal من Google Fonts).</li>
-          <li>الصور: استبدل الملفات داخل <code>assets/img/</code> بنفس الأسماء، أو حدّث المسارات في <code>data/site-data.js</code>.</li>
-          <li>التحقق من الصحة: كل الصفحات HTML5 صالحة ومتجاوبة مع جميع المقاسات.</li>
+          <li>Colors: CSS variables at the top of <code>css/style.css</code> (<code>--green-*</code>, <code>--gold*</code>).</li>
+          <li>Fonts: <code>--font-display</code> and <code>--font-body</code> (Marcellus + DM Sans from Google Fonts).</li>
+          <li>Images: replace files in <code>assets/img/</code> with the same names, or update paths in <code>data/site-data.js</code>.</li>
+          <li>Validation: all pages are HTML5-valid, responsive on all screen sizes.</li>
         </ul>
       </div>
 
       <div class="text-center mt-5">
-        <a href="../index.html" class="btn btn-gold btn-lg"><i class="fa-solid fa-house me-2"></i>العودة إلى الموقع</a>
+        <a href="../index.html" class="btn btn-gold btn-lg"><i class="fa-solid fa-house me-2"></i>Back to the site</a>
       </div>
     </div>
   </section>

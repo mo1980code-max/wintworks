@@ -1,70 +1,72 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!-- English (LTR) by default. Full RTL support is preserved in the code:
+     set <html lang="ar" dir="rtl"> + bootstrap.rtl.min.css to switch to Arabic. -->
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مركز العبادة الإسلامي — مسجد ومركز إسلامي | Ibadah</title>
-  <meta name="description" content="مركز العبادة الإسلامي: مسجد جامع، مواقيت الصلاة بالتاريخ الهجري، دورات قرآنية، حملات تبرع، وفعاليات مجتمعية.">
-  <meta name="keywords" content="مسجد, مركز إسلامي, مواقيت الصلاة, تبرعات, قرآن, دورات إسلامية">
+  <title>Ibadah Islamic Center — Mosque & Islamic Center Template</title>
+  <meta name="description" content="Ibadah Islamic Center: grand mosque, live prayer times with Hijri date, Quran courses, donation campaigns, events and community programs.">
+  <meta name="keywords" content="mosque, islamic center, prayer times, donations, quran, islamic courses">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 
-  <!-- ======= شريط علوي ======= -->
+  <!-- ======= Topbar ======= -->
   <div class="topbar d-none d-md-block">
     <div class="container d-flex justify-content-between align-items-center">
       <div class="d-flex gap-4">
-        <span><i class="fa-solid fa-calendar-days me-2 text-gold"></i><span data-hijri>التاريخ الهجري</span></span>
+        <span><i class="fa-solid fa-calendar-days me-2 text-gold"></i><span data-hijri>Hijri date</span></span>
         <a class="topbar-link" href="tel:+201000000000"><i class="fa-solid fa-phone me-2"></i><span data-bind="general.phone"></span></a>
         <a class="topbar-link" href="mailto:info@ibadah-center.org"><i class="fa-solid fa-envelope me-2"></i><span data-bind="general.email"></span></a>
       </div>
       <div class="d-flex align-items-center gap-3">
         <span class="d-none d-lg-inline text-gold small"><i class="fa-solid fa-location-dot me-1"></i><span data-bind="general.address"></span></span>
         <div class="social d-flex gap-2">
-          <a href="#" aria-label="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" aria-label="تويتر"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" aria-label="يوتيوب"><i class="fa-brands fa-youtube"></i></a>
-          <a href="#" aria-label="انستغرام"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ======= شريط التنقل ======= -->
+  <!-- ======= Navbar ======= -->
   <nav class="navbar navbar-expand-lg sticky-top main-navbar">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
         <span class="brand-logo"><i class="fa-solid fa-mosque"></i></span>
         <span>
-          <span class="brand-name d-block">مركز العبادة الإسلامي</span>
+          <span class="brand-name d-block">Ibadah Islamic Center</span>
           <span class="brand-sub">IBADAH ISLAMIC CENTER</span>
         </span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="فتح القائمة">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="index.html">الرئيسية</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">من نحن</a></li>
-          <li class="nav-item"><a class="nav-link" href="prayers.html">مواقيت الصلاة</a></li>
-          <li class="nav-item"><a class="nav-link" href="events.html">الفعاليات</a></li>
-          <li class="nav-item"><a class="nav-link" href="courses.html">الدورات</a></li>
-          <li class="nav-item"><a class="nav-link" href="donate.html">التبرعات</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">اتصل بنا</a></li>
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="prayers.html">Prayer Times</a></li>
+          <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="donate.html">Donate</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
         </ul>
-        <a href="donate.html" class="btn nav-donate-btn"><i class="fa-solid fa-hand-holding-heart me-2"></i>تبرّع الآن</a>
+        <a href="donate.html" class="btn nav-donate-btn"><i class="fa-solid fa-hand-holding-heart me-2"></i>Donate Now</a>
       </div>
     </div>
   </nav>
 
-  <!-- ======= البطل (Hero) ======= -->
+  <!-- ======= Hero ======= -->
   <header class="hero" id="heroSlider">
     <div class="hero-slide active" style="background-image:url('assets/img/hero-1.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/img/hero-2.jpg')"></div>
@@ -72,8 +74,8 @@
     <div class="container hero-content">
       <div class="row">
         <div class="col-lg-9">
-          <span class="hero-kicker"><i class="fa-solid fa-star-and-crescent"></i> أهلاً بكم في بيت الله</span>
-          <h1 class="hero-title">قال الله تعالى: <span class="gold-word" data-bind="general.heroTitle"></span></h1>
+          <span class="hero-kicker"><i class="fa-solid fa-star-and-crescent"></i> Welcome to the House of Allah</span>
+          <h1 class="hero-title">Allah the Almighty says: <span class="gold-word" data-bind="general.heroTitle"></span></h1>
           <p class="hero-text" data-bind="general.heroSubtitle"></p>
           <div class="d-flex gap-3 flex-wrap mt-4">
             <a href="courses.html" class="btn btn-gold btn-lg px-4"><i class="fa-solid fa-book-open me-2"></i><span data-bind="general.heroCta1"></span></a>
@@ -86,15 +88,15 @@
       </div>
     </div>
     <div class="hero-arrows">
-      <button class="prev" aria-label="السابق"><i class="fa-solid fa-arrow-right"></i></button>
-      <button class="next" aria-label="التالي"><i class="fa-solid fa-arrow-left"></i></button>
+      <button class="prev" aria-label="Previous"><i class="fa-solid fa-arrow-left"></i></button>
+      <button class="next" aria-label="Next"><i class="fa-solid fa-arrow-right"></i></button>
     </div>
     <div class="hero-dots"></div>
   </header>
 
-  <!-- ======= شريط مواقيت الصلاة ======= -->
+  <!-- ======= Live prayer strip ======= -->
   <section class="prayer-strip">
-    <h2 class="visually-hidden">مواقيت الصلاة المباشرة</h2>
+    <h2 class="visually-hidden">Live prayer times</h2>
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -107,127 +109,127 @@
     </div>
   </section>
 
-  <!-- ======= من نحن / التاريخ ======= -->
+  <!-- ======= About ======= -->
   <section class="section" id="about">
     <div class="container">
       <div class="row g-5 align-items-center">
         <div class="col-lg-6" data-reveal="right">
           <div class="about-media">
             <div class="about-media-main">
-              <img src="assets/img/about-quran.jpg" alt="قراءة القرآن في المسجد" class="img-cover" style="height:520px">
+              <img src="assets/img/about-quran.jpg" alt="Quran reading at the mosque" class="img-cover" style="height:520px">
             </div>
             <div class="about-media-float">
-              <img src="assets/img/about-manuscript.jpg" alt="مخطوطة إسلامية" class="img-cover">
+              <img src="assets/img/about-manuscript.jpg" alt="Islamic manuscript" class="img-cover">
             </div>
             <div class="exp-badge">
               <div class="num">28+</div>
-              <div class="lbl">عاماً من الخدمة</div>
+              <div class="lbl">Years of service</div>
             </div>
           </div>
         </div>
         <div class="col-lg-6" data-reveal="left">
-          <span class="eyebrow">مرحباً بكم في مركز العبادة</span>
-          <h2 class="section-title">تعرّف على قصة المركز الحقيقية</h2>
+          <span class="eyebrow">Welcome to the Center</span>
+          <h2 class="section-title">Know the Real History of Our Center</h2>
           <p class="section-lead mt-3" data-bind="general.aboutText"></p>
           <p class="text-muted" data-bind="general.aboutText2"></p>
           <ul class="feature-list mt-4">
-            <li><i class="fa-solid fa-check"></i> مرافق مذهلة ومسجد جامع مكيّف بالكامل</li>
-            <li><i class="fa-solid fa-check"></i> مساعدة المجتمع ولجان خدمة الأحياء</li>
-            <li><i class="fa-solid fa-check"></i> فعاليات خيرية وتعليم الأطفال</li>
-            <li><i class="fa-solid fa-check"></i> إطعام الجائعين وكفالة الأيتام</li>
+            <li><i class="fa-solid fa-check"></i> Astonishing facilities & fully-air-conditioned mosque</li>
+            <li><i class="fa-solid fa-check"></i> Helping communities & leading charity events</li>
+            <li><i class="fa-solid fa-check"></i> Schooling children & feeding the hungry</li>
+            <li><i class="fa-solid fa-check"></i> Orphan sponsorship & zakat distribution</li>
           </ul>
-          <a href="about.html" class="btn btn-gold mt-3">اقرأ تاريخنا <i class="fa-solid fa-arrow-left ms-2"></i></a>
+          <a href="about.html" class="btn btn-gold mt-3">Read Our History <i class="fa-solid fa-arrow-right ms-2"></i></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ======= التبرعات / الحملات ======= -->
+  <!-- ======= Donations ======= -->
   <section class="section bg-paper pattern-light" id="donations">
     <div class="container">
       <div class="text-center mb-5" data-reveal>
-        <span class="eyebrow">الحملات والأسباب الخيرية</span>
-        <h2 class="section-title mt-2">ادعمنا، نحن بحاجة لمساعدتك</h2>
+        <span class="eyebrow">Campaigns & charity causes</span>
+        <h2 class="section-title mt-2">Support Us, We Need Your Help</h2>
         <div class="ornament"><i class="fa-solid fa-star-and-crescent"></i></div>
-        <p class="section-lead mx-auto">كل تبرع تُسجَّل، وكل ريال يصل إلى مستحقّه بإذن الله. اختر سبباً وشارك في الأجر.</p>
+        <p class="section-lead mx-auto">Every donation is recorded, and every dollar reaches its eligible cause — choose a cause and share in the reward.</p>
       </div>
       <div class="row g-4" id="causeGrid"></div>
       <div class="text-center mt-5" data-reveal>
-        <a href="donate.html" class="btn btn-gold btn-lg px-5"><i class="fa-solid fa-hand-holding-heart me-2"></i>اقرأ المزيد عن التبرعات</a>
+        <a href="donate.html" class="btn btn-gold btn-lg px-5"><i class="fa-solid fa-hand-holding-heart me-2"></i>Explore All Donations</a>
       </div>
     </div>
   </section>
 
-  <!-- ======= الدورات ======= -->
+  <!-- ======= Courses ======= -->
   <section class="section" id="courses">
     <div class="container">
       <div class="text-center mb-5" data-reveal>
-        <span class="eyebrow">دروس وحلقات إسلامية</span>
-        <h2 class="section-title mt-2">دوراتنا وبرامجنا</h2>
+        <span class="eyebrow">Islamic classes & circles</span>
+        <h2 class="section-title mt-2">Our Courses</h2>
         <div class="ornament"><i class="fa-solid fa-book-quran"></i></div>
       </div>
       <div class="row g-4" id="courseGrid"></div>
       <div class="text-center mt-5" data-reveal>
-        <a href="courses.html" class="btn btn-outline-green btn-lg px-5">جميع الدورات <i class="fa-solid fa-arrow-left ms-2"></i></a>
+        <a href="courses.html" class="btn btn-outline-green btn-lg px-5">All Courses <i class="fa-solid fa-arrow-right ms-2"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- ======= أركان الإسلام ======= -->
+  <!-- ======= Pillars ======= -->
   <section class="section bg-green-dark pattern-dark" id="pillars">
     <div class="container">
       <div class="text-center mb-5" data-reveal>
-        <span class="eyebrow light">دروس ومفاهيم إسلامية</span>
-        <h2 class="section-title light mt-2">أركان الإسلام الخمسة</h2>
+        <span class="eyebrow light">Islamic concepts & lessons</span>
+        <h2 class="section-title light mt-2">Pillars of Islam</h2>
         <div class="ornament"><i class="fa-solid fa-star-and-crescent"></i></div>
       </div>
       <div class="row g-3 justify-content-center" id="pillarGrid"></div>
     </div>
   </section>
 
-  <!-- ======= أرقامنا ======= -->
+  <!-- ======= Fun facts ======= -->
   <section class="fun-facts pattern-dark">
-    <h2 class="visually-hidden">إحصائيات المركز</h2>
+    <h2 class="visually-hidden">Center statistics</h2>
     <div class="container py-5">
       <div class="row g-3">
         <div class="col-6 col-lg-3" data-reveal>
           <div class="fact-box">
             <i class="fa-solid fa-mosque"></i>
             <div class="fact-num" data-count="120" data-suffix="+">0</div>
-            <div class="fact-label">دورة تعليمية</div>
+            <div class="fact-label">Educational Courses</div>
           </div>
         </div>
         <div class="col-6 col-lg-3" data-reveal>
           <div class="fact-box">
             <i class="fa-solid fa-graduation-cap"></i>
             <div class="fact-num" data-count="2500" data-suffix="+">0</div>
-            <div class="fact-label">طالب وطالبة</div>
+            <div class="fact-label">Students</div>
           </div>
         </div>
         <div class="col-6 col-lg-3" data-reveal>
           <div class="fact-box">
             <i class="fa-solid fa-hands-holding-circle"></i>
             <div class="fact-num" data-count="850">0</div>
-            <div class="fact-label">أسرة مستفيدة</div>
+            <div class="fact-label">Families Served</div>
           </div>
         </div>
         <div class="col-6 col-lg-3" data-reveal>
           <div class="fact-box">
             <i class="fa-solid fa-user-graduate"></i>
             <div class="fact-num" data-count="40" data-suffix="+">0</div>
-            <div class="fact-label">شيخاً وعالماً</div>
+            <div class="fact-label">Scholars & Teachers</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ======= آيات قرآنية ======= -->
+  <!-- ======= Quran verses ======= -->
   <section class="section ayat-section pattern-dark">
     <div class="container">
       <div class="text-center mb-5" data-reveal>
-        <span class="eyebrow light">آيات قرآنية مع الترجمة</span>
-        <h2 class="section-title light">آيات من كتاب اللّه</h2>
+        <span class="eyebrow light">Quranic verses with translation</span>
+        <h2 class="section-title light">Verses from the Book of Allah</h2>
         <div class="ornament"><i class="fa-solid fa-book-quran"></i></div>
       </div>
       <div class="row justify-content-center" data-reveal="zoom">
@@ -236,28 +238,28 @@
         </div>
       </div>
       <div class="d-flex justify-content-center gap-3 mt-4">
-        <button class="btn btn-outline-light-gold btn-sm px-4" id="ayatPrev"><i class="fa-solid fa-arrow-right me-1"></i> التالية</button>
-        <button class="btn btn-outline-light-gold btn-sm px-4" id="ayatNext">السابقة <i class="fa-solid fa-arrow-left ms-1"></i></button>
+        <button class="btn btn-outline-light-gold btn-sm px-4" id="ayatPrev"><i class="fa-solid fa-arrow-left me-1"></i> Previous</button>
+        <button class="btn btn-outline-light-gold btn-sm px-4" id="ayatNext">Next <i class="fa-solid fa-arrow-right ms-1"></i></button>
       </div>
     </div>
   </section>
 
-  <!-- ======= الاستماع للقرآن + التبرع ======= -->
+  <!-- ======= Quran audio + donation ======= -->
   <section class="section bg-paper" id="quran">
     <div class="container">
       <div class="row g-4 align-items-stretch">
         <div class="col-lg-7" data-reveal="right">
           <div class="quran-listener h-100">
             <div class="pattern-dark"></div>
-            <span class="eyebrow light">استمع للقرآن الكريم</span>
-            <h2 class="section-title light mt-2">تلاوات ومراجعات أونلاين</h2>
-            <p class="section-lead light">استمع لسور من القرآن الكريم بتلاوة مجوّدة من أشهر القرّاء، مباشرة من موقعنا.</p>
+            <span class="eyebrow light">Listen to the Holy Quran</span>
+            <h2 class="section-title light mt-2">Recite & Listen Online</h2>
+            <p class="section-lead light">Listen to surahs recited by renowned reciters, streamed directly on our website.</p>
             <div class="row g-3 align-items-center mt-2">
               <div class="col-lg-5">
                 <div class="player-shell p-3">
                   <div class="d-flex align-items-center gap-3 mb-3">
                     <i class="fa-solid fa-quran fs-1 text-gold"></i>
-                    <div><div class="small text-muted">سورة الآن</div><div class="fw-bold text-gold" id="surahTitle">الفاتحة</div></div>
+                    <div><div class="small text-muted">Now playing</div><div class="fw-bold text-gold" id="surahTitle">Al-Fatihah</div></div>
                   </div>
                   <audio id="quranAudio" controls preload="none" class="w-100"></audio>
                 </div>
@@ -272,64 +274,139 @@
           <div class="card-soft p-4 h-100 d-flex flex-column justify-content-center">
             <div class="d-flex align-items-center gap-3 mb-3">
               <span class="icon-chip gold"><i class="fa-solid fa-hand-holding-heart"></i></span>
-              <div><h3 class="h5 fw-bold text-green mb-0">ادعمنا، نحن بحاجة لمساعدتك</h3>
-              <small class="text-muted">صندوق الزكاة والصدقات</small></div>
+              <div><h3 class="h5 fw-bold text-green mb-0">Support Us, We Need Your Help</h3>
+              <small class="text-muted">Zakat & charity fund</small></div>
             </div>
             <div class="d-flex justify-content-between align-items-end mb-2">
               <span class="fs-1 fw-bold text-gold font-display">71%</span>
-              <span class="small text-muted">من الهدف $100,000</span>
+              <span class="small text-muted">of $100,000 goal</span>
             </div>
             <div class="cause-progress mb-2"><div class="bar" style="width:71%"></div></div>
             <div class="d-flex justify-content-between small mb-3">
-              <span>تم جمع: <strong class="text-green">$71,000</strong></span>
-              <span>متبقٍ: <strong class="text-green">$29,000</strong></span>
+              <span>Raised: <strong class="text-green">$71,000</strong></span>
+              <span>Left: <strong class="text-green">$29,000</strong></span>
             </div>
-            <a href="donate.html" class="btn btn-gold w-100">تبرّع الآن <i class="fa-solid fa-arrow-left ms-2"></i></a>
+            <a href="donate.html" class="btn btn-gold w-100">Donate Now <i class="fa-solid fa-arrow-right ms-2"></i></a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ======= الفعالية المميزة ======= -->
+  <!-- ======= Latest Projects ======= -->
+  <section class="section bg-green-dark pattern-dark" id="projects">
+    <div class="container">
+      <div class="text-center mb-5" data-reveal>
+        <span class="eyebrow light">What we have built together</span>
+        <h2 class="section-title light mt-2">Latest Projects</h2>
+        <div class="ornament"><i class="fa-solid fa-building-columns"></i></div>
+      </div>
+      <div class="row g-4" id="projectGrid"></div>
+    </div>
+  </section>
+
+  <!-- ======= Featured event + countdown ======= -->
   <section class="section featured-event pattern-dark" id="events">
     <div class="container">
       <div class="row g-5 align-items-center">
         <div class="col-lg-6" data-reveal="right">
           <div class="featured-event-media">
-            <img src="assets/img/hero-2.jpg" alt="فعالية مميزة" class="img-cover" style="height:420px">
+            <img src="assets/img/hero-2.jpg" alt="Featured event" class="img-cover" style="height:420px">
           </div>
         </div>
         <div class="col-lg-6 text-white" data-reveal="left">
-          <span class="eyebrow light">فعالية قادمة</span>
-          <h2 class="section-title light mt-2">محاضرة الأسرة: تربية الأبناء على القيم</h2>
+          <span class="eyebrow light">Upcoming event</span>
+          <h2 class="section-title light mt-2">Family Lecture: Raising Children on Values</h2>
           <div class="event-meta text-white-50 my-3">
             <span><i class="fa-regular fa-calendar me-2"></i><span data-gregorian></span></span>
-            <span><i class="fa-solid fa-location-dot me-2"></i>قاعة المحاضرات الكبرى</span>
+            <span><i class="fa-solid fa-location-dot me-2"></i>Grand Lecture Hall</span>
           </div>
-          <p class="text-white-50">محاضرة تفاعلية مع جلسة أسئلة وأجوبة حول أساليب التربية الإسلامية المعاصرة والتواصل الفعال مع الأبناء، يقدمها نخبة من المربين.</p>
+          <p class="text-white-50">An interactive lecture with Q&A on contemporary Islamic parenting and effective communication with children, led by a leading researcher.</p>
           <div class="countdown my-4" id="countdown" data-target="2026-09-12T18:00:00"></div>
           <div class="d-flex gap-3 flex-wrap">
-            <a href="event.html?id=family-lecture" class="btn btn-gold">انضم الآن <i class="fa-solid fa-arrow-left ms-2"></i></a>
-            <a href="#" class="btn btn-outline-light-gold"><i class="fa-solid fa-circle-play me-2"></i>شاهد الفيديو</a>
+            <a href="event.html?id=family-lecture" class="btn btn-gold">Join Now <i class="fa-solid fa-arrow-right ms-2"></i></a>
+            <button class="btn btn-outline-light-gold" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="fa-solid fa-circle-play me-2"></i>Watch Video</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ======= انضم لمجتمعنا ======= -->
-  <section class="section bg-paper">
+  <!-- ======= Media embeds (YouTube / Vimeo / SoundCloud) ======= -->
+  <section class="section bg-paper" id="media">
+    <div class="container">
+      <div class="text-center mb-5" data-reveal>
+        <span class="eyebrow">Watch & listen</span>
+        <h2 class="section-title mt-2">Media & Lectures</h2>
+        <div class="ornament"><i class="fa-solid fa-video"></i></div>
+        <p class="section-lead mx-auto">Fully responsive embeds — YouTube, Vimeo and SoundCloud — that adapt perfectly to any screen.</p>
+      </div>
+      <ul class="nav nav-pills justify-content-center media-tabs mb-4" role="tablist">
+        <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-youtube" type="button" role="tab">YouTube</button></li>
+        <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-vimeo" type="button" role="tab">Vimeo</button></li>
+        <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-soundcloud" type="button" role="tab">SoundCloud</button></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-youtube" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-md-6 media-card" data-reveal>
+              <div class="card-soft p-2 h-100">
+                <h5 class="fw-bold text-green px-2 pt-2">Weekly Friday Khutbah</h5>
+                <div class="media-embed">
+                  <iframe title="YouTube — Friday Khutbah" src="https://www.youtube-nocookie.com/embed/1La4QzGeaaQ" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 media-card" data-reveal>
+              <div class="card-soft p-2 h-100">
+                <h5 class="fw-bold text-green px-2 pt-2">Quran Memorization Tips</h5>
+                <div class="media-embed">
+                  <iframe title="YouTube — Quran memorization" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="tab-vimeo" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-md-6 media-card" data-reveal>
+              <div class="card-soft p-2 h-100">
+                <h5 class="fw-bold text-green px-2 pt-2">Documentary: Our Community</h5>
+                <div class="media-embed">
+                  <iframe title="Vimeo — community documentary" src="https://player.vimeo.com/video/76979871" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="tab-soundcloud" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-md-8 mx-auto media-card" data-reveal>
+              <div class="card-soft p-2 h-100">
+                <h5 class="fw-bold text-green px-2 pt-2">Podcast: Stories of the Prophets</h5>
+                <div class="media-embed soundcloud">
+                  <iframe title="SoundCloud — podcast" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/forsythkid/forsythkid-mix&color=%23c9a227&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false" loading="lazy" allow="autoplay"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Join CTA ======= -->
+  <section class="section">
     <div class="container">
       <div class="join-cta" data-reveal="zoom">
         <div class="pattern-dark"></div>
         <div class="row align-items-center g-4 position-relative">
           <div class="col-lg-7">
-            <h2 class="section-title light">نخدم المجتمع، ونعمل معاً بشراكة</h2>
-            <p class="text-white-50 mt-2">نؤمن أن دورنا الأساسي هو تلبية احتياجات المجتمع المحلي، فانضم إلى عائلتنا وشارك في الأجر.</p>
+            <h2 class="section-title light">Serving the community, working in partnership</h2>
+            <p class="text-white-50 mt-2">We believe our primary role is to serve the needs of the local community — join our family and share in the reward.</p>
           </div>
           <div class="col-lg-5 d-flex align-items-center justify-content-lg-end gap-3">
-            <a href="contact.html" class="btn btn-gold btn-lg">انضم لمجتمعنا <i class="fa-solid fa-arrow-left ms-2"></i></a>
+            <a href="contact.html" class="btn btn-gold btn-lg">Join Our Community <i class="fa-solid fa-arrow-right ms-2"></i></a>
           </div>
         </div>
         <div class="join-img-stack mt-4 position-relative">
@@ -342,19 +419,19 @@
     </div>
   </section>
 
-  <!-- ======= آخر الأخبار ======= -->
-  <section class="section" id="news">
+  <!-- ======= Latest News ======= -->
+  <section class="section bg-paper" id="news">
     <div class="container">
       <div class="text-center mb-5" data-reveal>
-        <span class="eyebrow">مقالات ومستجدات</span>
-        <h2 class="section-title mt-2">أحدث الأخبار</h2>
+        <span class="eyebrow">Articles & updates</span>
+        <h2 class="section-title mt-2">Latest News</h2>
         <div class="ornament"><i class="fa-solid fa-newspaper"></i></div>
       </div>
       <div class="row g-4" id="newsGrid"></div>
     </div>
   </section>
 
-  <!-- ======= التذييل ======= -->
+  <!-- ======= Footer ======= -->
   <footer class="site-footer pattern-dark">
     <div class="container pt-5">
       <div class="row g-4 pb-4">
@@ -362,41 +439,41 @@
           <div class="d-flex align-items-center gap-3 mb-3">
             <span class="brand-logo"><i class="fa-solid fa-mosque"></i></span>
             <div class="text-white">
-              <div class="brand-name">مركز العبادة الإسلامي</div>
+              <div class="brand-name">Ibadah Islamic Center</div>
               <div class="brand-sub">IBADAH ISLAMIC CENTER</div>
             </div>
           </div>
-          <p class="small">مسجد ومركز إسلامي جامع يخدم المجتمع المحلي منذ عام 1998 بالعلم والعبادة والعمل الخيري.</p>
+          <p class="small">A mosque and Islamic center serving the local community since 1998 through knowledge, worship and charity.</p>
           <div class="footer-social d-flex gap-2 mt-3">
-            <a href="#" aria-label="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" aria-label="تويتر"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#" aria-label="يوتيوب"><i class="fa-brands fa-youtube"></i></a>
-            <a href="#" aria-label="انستغرام"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" aria-label="تيليجرام"><i class="fa-brands fa-telegram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
           </div>
         </div>
         <div class="col-6 col-lg-2">
-          <h3 class="h5">روابط سريعة</h3>
+          <h3 class="h5">Quick Links</h3>
           <ul class="footer-links">
-            <li><a href="index.html"><i class="fa-solid fa-angles-left"></i>الرئيسية</a></li>
-            <li><a href="about.html"><i class="fa-solid fa-angles-left"></i>من نحن</a></li>
-            <li><a href="prayers.html"><i class="fa-solid fa-angles-left"></i>مواقيت الصلاة</a></li>
-            <li><a href="events.html"><i class="fa-solid fa-angles-left"></i>الفعاليات</a></li>
-            <li><a href="courses.html"><i class="fa-solid fa-angles-left"></i>الدورات</a></li>
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i>About Us</a></li>
+            <li><a href="prayers.html"><i class="fa-solid fa-angle-right"></i>Prayer Times</a></li>
+            <li><a href="events.html"><i class="fa-solid fa-angle-right"></i>Events</a></li>
+            <li><a href="courses.html"><i class="fa-solid fa-angle-right"></i>Courses</a></li>
           </ul>
         </div>
         <div class="col-6 col-lg-3">
-          <h3 class="h5">الخدمات</h3>
+          <h3 class="h5">Services</h3>
           <ul class="footer-links">
-            <li><a href="donate.html"><i class="fa-solid fa-angles-left"></i>التبرعات</a></li>
-            <li><a href="prayers.html"><i class="fa-solid fa-angles-left"></i>جدول الصلاة</a></li>
-            <li><a href="courses.html"><i class="fa-solid fa-angles-left"></i>دورات القرآن</a></li>
-            <li><a href="contact.html"><i class="fa-solid fa-angles-left"></i>اتصل بنا</a></li>
-            <li><a href="admin.html"><i class="fa-solid fa-angles-left"></i>لوحة الإدارة</a></li>
+            <li><a href="donate.html"><i class="fa-solid fa-angle-right"></i>Donations</a></li>
+            <li><a href="prayers.html"><i class="fa-solid fa-angle-right"></i>Prayer Schedule</a></li>
+            <li><a href="courses.html"><i class="fa-solid fa-angle-right"></i>Quran Courses</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-angle-right"></i>Contact Us</a></li>
+            <li><a href="admin.html"><i class="fa-solid fa-angle-right"></i>Admin Panel</a></li>
           </ul>
         </div>
         <div class="col-lg-3">
-          <h3 class="h5">تواصل معنا</h3>
+          <h3 class="h5">Contact</h3>
           <ul class="footer-links footer-contact">
             <li><i class="fa-solid fa-location-dot"></i><span><span data-bind="general.address"></span></span></li>
             <li><i class="fa-solid fa-phone"></i><span dir="ltr"><span data-bind="general.phone"></span></span></li>
@@ -406,13 +483,30 @@
         </div>
       </div>
       <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
-        <span>© 2026 مركز العبادة الإسلامي — جميع الحقوق محفوظة</span>
-        <span>قال رسول الله ﷺ: «خيرُ الناس أنفعُهم للناس»</span>
+        <span>© 2026 Ibadah Islamic Center — All rights reserved</span>
+        <span>“The best of people are those most beneficial to people.”</span>
       </div>
     </div>
   </footer>
 
-  <button class="back-to-top" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
+  <!-- ======= Video modal ======= -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark border-0">
+        <div class="modal-header border-0">
+          <h3 class="h5 text-white mb-0">Watch Video</h3>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="media-embed" style="border-radius:0">
+            <iframe title="YouTube featured video" src="https://www.youtube-nocookie.com/embed/1La4QzGeaaQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="data/site-data.js"></script>

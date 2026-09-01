@@ -1,7 +1,7 @@
 <?php
 /* ============================================================
-   Ibadah — PHP endpoint: نموذج الاتصال (اختياري)
-   عيّن MAIL_TO إلى بريدك الحقيقي عند النشر على استضافة PHP.
+   Ibadah — PHP endpoint: contact form (optional)
+   Set MAIL_TO to your real address when deploying on PHP hosting.
    ============================================================ */
 
 header('Content-Type: application/json; charset=utf-8');
@@ -16,43 +16,43 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $name    = trim($_POST['name'] ?? '');
 $email   = trim($_POST['email'] ?? '');
 $phone   = trim($_POST['phone'] ?? '');
-$subject = trim($_POST['subject'] ?? 'استفسار عام');
+$subject = trim($_POST['subject'] ?? 'General inquiry');
 $message = trim($_POST['message'] ?? '');
 
-/* تحقق أساسي */
+/* Basic validation */
 if ($name === '' || $email === '' || $message === '') {
     http_response_code(422);
-    echo json_encode(['ok' => false, 'message' => 'جميع الحقول المطلوبة يجب تعبئتها']);
+    echo json_encode(['ok' => false, 'message' => 'All required fields must be filled']);
     exit;
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(422);
-    echo json_encode(['ok' => false, 'message' => 'البريد الإلكتروني غير صالح']);
+    echo json_encode(['ok' => false, 'message' => 'Invalid email address']);
     exit;
 }
 
-/* تنظيف النصوص */
+/* Sanitize text */
 $name    = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 $subject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
 $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
-define('MAIL_TO', 'info@ibadah-center.org'); // ← غيّر هذا
+define('MAIL_TO', 'info@ibadah-center.org'); // ← change this
 
-$body = "رسالة جديدة من الموقع\n"
+$body = "New message from the website\n"
       . "------------------------\n"
-      . "الاسم: $name\n"
-      . "البريد: $email\n"
-      . "الهاتف: $phone\n"
-      . "الموضوع: $subject\n"
-      . "الرسالة:\n$message\n";
+      . "Name: $name\n"
+      . "Email: $email\n"
+      . "Phone: $phone\n"
+      . "Subject: $subject\n"
+      . "Message:\n$message\n";
 
 $headers = "From: no-reply@ibadah-center.org\r\n"
          . "Reply-To: $email\r\n"
          . "Content-Type: text/plain; charset=UTF-8\r\n";
 
-if (@mail(MAIL_TO, "اتصال: $subject", $body, $headers)) {
-    echo json_encode(['ok' => true, 'message' => 'تم إرسال رسالتك بنجاح']);
+if (@mail(MAIL_TO, "Contact: $subject", $body, $headers)) {
+    echo json_encode(['ok' => true, 'message' => 'Your message was sent successfully']);
 } else {
     http_response_code(500);
-    echo json_encode(['ok' => false, 'message' => 'تعذر إرسال الرسالة، حاول لاحقاً']);
+    echo json_encode(['ok' => false, 'message' => 'Could not send the message, please try again later']);
 }

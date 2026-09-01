@@ -1,66 +1,66 @@
-# 🕌 Ibadah — قالب مركز إسلامي ومسجد (HTML / CSS / JS + Bootstrap 5)
+# 🕌 Ibadah — Islamic Center & Mosque Template (HTML / CSS / JS + Bootstrap 5)
 
-قالب واجهات أمامية عربي RTL كامل بنفس روح قالب **Ibadah** المذكور في السؤال:
-مسجد + مركز إسلامي، تصميم أخضر/ذهبي احترافي، مبني بـ **HTML5 + CSS3 +
-JavaScript خالص + Bootstrap 5**، بدون jQuery.
+A professional English (LTR) front-end template inspired by the **Ibadah** theme:
+mosque + Islamic center, elegant green/gold design, built with **HTML5 + CSS3 +
+vanilla JavaScript + Bootstrap 5** (no jQuery). Full **RTL support is preserved
+inside the code** (see docs §6).
 
-## الصفحات
+## Pages
 
-| الملف | الوصف |
+| File | Description |
 |---|---|
-| `index.html` | الرئيسية (سلايدر، مواقيت صلاة حية، حملات، دورات، أركان الإسلام، آيات، مشغّل قرآن، عدّاد، أخبار) |
-| `about.html` | من نحن (القصة، القيم، الفريق) |
-| `prayers.html` | مواقيت الصلاة + التاريخ الهجري + اتجاه القبلة + طباعة |
-| `events.html` / `event.html?id=..` | الفعاليات وتفاصيلها |
-| `courses.html` | الدورات + خطط الأسعار |
-| `donate.html` | نموذج تبرع + حملات + أسئلة شائعة |
-| `contact.html` | نموذج تواصل + خريطة |
-| `admin.html` | **لوحة إدارة** (تغيير النصوص، الأوقات، الحملات، الدورات، الفعاليات — رمز تجريبي: `ibadah01`) |
-| `docs/index.html` | التوثيق الكامل |
+| `index.html` | Homepage: slider, live prayer times, causes, courses, pillars, ayat slider, Quran player, **latest projects**, **media embeds (YouTube/Vimeo/SoundCloud)**, countdown, news |
+| `about.html` | About Us (story, values, team) |
+| `prayers.html` | Prayer times + Hijri date + qibla + print |
+| `events.html` / `event.html?id=..` | Events + **event schedule table** + details with **speaker bio** |
+| `courses.html` | Courses + pricing plans |
+| `donate.html` | Donation form + campaigns + FAQ |
+| `contact.html` | Contact form + map |
+| `admin.html` | **Admin panel** (edit texts, times, campaigns, courses, events — demo code: `ibadah01`) |
+| `docs/index.html` | Full documentation & help |
 
-## تشغيل
+## Features
+
+- ⏰ **Astronomical prayer times** for 17 cities, 7 methods, Shafi/Hanafi Asr, iqamah offsets.
+- 🌙 **Automatic Hijri date** (Umm al-Qura) via `Intl` + 🧭 **Qibla direction**.
+- 💝 Donation campaigns with progress bars, donation form, local records.
+- 🎓 Courses with teachers + membership pricing (Basic / Family / Patron).
+- 📺 **Responsive media embeds**: YouTube, Vimeo and SoundCloud tabs.
+- 🏗️ **Latest projects** section with status & progress.
+- 🗓️ **Event schedule table** with Upcoming/Completed status.
+- 👤 **Speaker/researcher bio** on every event page.
+- ⏳ **Countdown timer** for upcoming events (home & details).
+- 📱 Fully mobile-safe (responsive RTL/LTR) & 🖨️ print-friendly schedule.
+- 🎨 Color/font variables for easy theming (Marcellus + DM Sans).
+- ⚙️ Zero-server admin panel (localStorage) with reset option.
+- 📄 Optional PHP examples in `php/`.
+
+## Run
 
 ```bash
 cd ibadah
 python3 -m http.server 8080
-# افتح http://localhost:8080
+# open http://localhost:8080
 ```
 
-## المزايا الرئيسية
-
-- ⏰ **مواقيت صلاة فلكية** (خوارزمية شمسية) لأي مدينة: 17 مدينة جاهزة،
-  7 مناهج حساب (رابطة العالم، ISNA، مصر، أم القرى، كراتشي، طهران، جدة)،
-  مذهب شافعي/حنفي، فروق إقامة، وقت الجمعة.
-- 🌙 **تاريخ هجري تلقائي** (أم القرى) عبر `Intl`.
-- 🧭 **اتجاه القبلة** محسوب من أي مدينة.
-- 💝 **إدارة تبرعات**: حملات بنِسَب تقدم، نموذج تبرع، سجل محلي للتبرعات.
-- 🎓 دورات بمدرّسين وخطط أسعار (عضوية عادية/عائلية/راعي).
-- 📻 مشغّل **تلاوات قرآن** (الفواسي عبر islamic.network CDN).
-- 📱 متجاوب بالكامل (Mobile-first + RTL).
-- 🖨️ جدول صلاة قابل للطباعة.
-- 🎨 متغيرات CSS للتحكم بالألوان والخطوط (Amiri + Tajawal / DM Sans).
-- ⚙️ لوحة إدارة كاملة تعمل بدون خادم (localStorage) مع زر استعادة الافتراضي.
-- 📄 أمثلة PHP اختيارية في `php/` لربط البريد الحقيقي.
-
-## بنية الملفات
+## File structure
 
 ```
 ibadah/
-├── index.html … contact.html     # الصفحات
-├── admin.html                    # لوحة الإدارة
-├── css/style.css                 # كل التصميم
-├── js/main.js                    # تفاعلات الموقع
-├── js/prayer-calc.js             # محرك المواقيت والقبلة
-├── js/admin.js                   # منطق الإدارة
-├── data/site-data.js             # البيانات المركزية (نصوص/حملات/دورات/أحداث)
-├── assets/img/                   # الصور
-├── docs/index.html               # التوثيق
-└── php/                          # أمثلة خادم (اختياري)
+├── index.html … contact.html     # pages
+├── admin.html                    # admin panel
+├── css/style.css                 # all design
+├── js/main.js                    # site interactions
+├── js/prayer-calc.js             # prayer engine + qibla
+├── js/admin.js                   # admin logic
+├── data/site-data.js             # central data (texts/campaigns/courses/events/projects)
+├── assets/img/                   # images
+├── docs/index.html               # documentation
+└── php/                          # optional server examples
 ```
 
-## التخصيص السريع
+## Quick customization
 
-1. **نصوص وأرقام**: يفضل عبر `admin.html` (حفظ فوري)،
-   أو مباشرة في `data/site-data.js`.
-2. **ألوان/خطوط**: متغيرات `:root` أعلى `css/style.css`.
-3. **صورة**: استبدل الملف في `assets/img/` بنفس الاسم.
+1. **Texts & numbers**: via `admin.html` (instant save) or directly in `data/site-data.js`.
+2. **Colors/fonts**: `:root` variables at the top of `css/style.css`.
+3. **Images**: replace files in `assets/img/` with the same name.

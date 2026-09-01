@@ -1,6 +1,7 @@
 /* ============================================================
    Ibadah — Main site JS (vanilla JS, no jQuery)
-   Hero slider · Prayer strip · Countdowns · Reveal · Forms
+   Hero slider · Prayer strip · Countdowns · Projects
+   Event schedule · Speaker bio · Reveal · Forms
    ============================================================ */
 
 (function () {
@@ -11,8 +12,7 @@
     cityId: localStorage.getItem("ibadah-city") || DATA.prayerSettings.defaultCityId,
     method: localStorage.getItem("ibadah-method") || DATA.prayerSettings.method,
     madhab: localStorage.getItem("ibadah-madhab") || DATA.prayerSettings.asrMadhab,
-    times: null,
-    tickTimer: null
+    times: null
   };
 
   function $(sel, root) { return (root || document).querySelector(sel); }
@@ -62,16 +62,13 @@
       nav.classList.toggle("scrolled", window.scrollY > 60);
     }, { passive: true });
 
-    /* تفعيل رابط القسم الحالي */
     var links = $$(".navbar .nav-link[href^='#']");
     if (links.length) {
       var sections = links.map(function (l) { return $(l.getAttribute("href")); }).filter(Boolean);
       window.addEventListener("scroll", function () {
         var pos = window.scrollY + 140;
         var current = null;
-        sections.forEach(function (s, i) {
-          if (s.offsetTop <= pos) current = links[i];
-        });
+        sections.forEach(function (s, i) { if (s.offsetTop <= pos) current = links[i]; });
         links.forEach(function (l) { l.classList.remove("active"); });
         if (current) current.classList.add("active");
       }, { passive: true });
@@ -89,7 +86,7 @@
     slides.forEach(function (s, i) {
       var b = document.createElement("button");
       b.type = "button";
-      b.setAttribute("aria-label", "شريحة " + (i + 1));
+      b.setAttribute("aria-label", "Slide " + (i + 1));
       if (i === 0) b.classList.add("active");
       b.addEventListener("click", function () { go(i); restart(); });
       dotsWrap.appendChild(b);
@@ -114,19 +111,13 @@
 
   /* ---------------- Prayer helpers ---------------- */
   function getSettings() {
-    return {
-      method: state.method,
-      asrMadhab: state.madhab,
-      iqamaOffsets: DATA.prayerSettings.iqamaOffsets
-    };
+    return { method: state.method, asrMadhab: state.madhab, iqamaOffsets: DATA.prayerSettings.iqamaOffsets };
   }
-
   function getCity() {
     var city = null;
     DATA.cities.forEach(function (c) { if (c.id === state.cityId) city = c; });
     return city || DATA.cities[0];
   }
-
   function computeTimes() {
     var now = new Date();
     var city = getCity();
@@ -134,11 +125,6 @@
     state.city = city;
     state.now = now;
   }
-
-  function todayKey(date) {
-    return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
-  }
-
   function iqamaFor(key, time) {
     if (!time) return null;
     var off = DATA.prayerSettings.iqamaOffsets[key] || 0;
@@ -147,42 +133,39 @@
     return { hour: Math.floor((mins / 60) % 24), minute: mins % 60 };
   }
 
-  /* شريط المواقيت في الرئيسية */
+  /* Home prayer strip */
   function renderPrayerStrip() {
     var wrap = $("#prayerStrip");
-    if (!wrap || !state.times) return;
+    if (!wrap) return;
     computeTimes();
     var names = [
-      { key: "Fajr", ar: "الفجر", icon: "fa-cloud-moon" },
-      { key: "Dhuhr", ar: "الظهر", icon: "fa-sun" },
-      { key: "Asr", ar: "العصر", icon: "fa-cloud-sun" },
-      { key: "Maghrib", ar: "المغرب", icon: "fa-umbrella-beach" },
-      { key: "Isha", ar: "العشاء", icon: "fa-moon" },
-      { key: "Jumuah", ar: "الجمعة", icon: "fa-mosque", custom: true }
+      { key: "Fajr", label: "Fajr", icon: "fa-cloud-moon" },
+      { key: "Dhuhr", label: "Dhuhr", icon: "fa-sun" },
+      { key: "Asr", label: "Asr", icon: "fa-cloud-sun" },
+      { key: "Maghrib", label: "Maghrib", icon: "fa-umbrella-beach" },
+      { key: "Isha", label: "Isha", icon: "fa-moon" },
+      { key: "Jumuah", label: "Jumu'ah", icon: "fa-mosque", custom: true }
     ];
     var html = '<div class="row g-3">';
-    names.forEach(function (n, i) {
+    names.forEach(function (n) {
       var t = n.custom ? null : state.times[n.key.charAt(0).toLowerCase() + n.key.slice(1)];
       var iq = n.custom ? null : iqamaFor(n.key, t);
-      var timeStr = n.custom ? "12:30 م" : PrayerCalc.format12(t || { hour: 0, minute: 0 });
+      var timeStr = n.custom ? "12:30 PM" : PrayerCalc.format12(t || { hour: 0, minute: 0 });
       html += '<div class="col-6 col-md-4 col-lg-2">' +
         '<div class="prayer-card" id="prayerCard-' + n.key + '">' +
         '<div class="prayer-icon"><i class="fa-solid ' + n.icon + '"></i></div>' +
-        '<div class="prayer-name">' + n.ar + '</div>' +
+        '<div class="prayer-name">' + n.label + '</div>' +
         '<div class="prayer-time">' + timeStr + '</div>' +
-        '<div class="prayer-iqama">' + (n.custom ? "خطبة: 1:15 م" : "الإقامة: " + (iq ? PrayerCalc.format12(iq) : "--:--")) + '</div>' +
+        '<div class="prayer-iqama">' + (n.custom ? "Khutbah: 1:15 PM" : "Iqamah: " + (iq ? PrayerCalc.format12(iq) : "--:--")) + '</div>' +
         '</div></div>';
     });
     html += '</div>';
     wrap.innerHTML = html;
-    markCurrentPrayer();
-  }
 
-  function markCurrentPrayer() {
-    if (!state.times || !state.now) return;
-    var names = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+    /* Highlight current prayer */
+    var names2 = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
     var cur = null, nextKey = null, nextTime = null;
-    names.forEach(function (k) {
+    names2.forEach(function (k) {
       var t = state.times[k.charAt(0).toLowerCase() + k.slice(1)];
       if (t) {
         var mins = t.hour * 60 + t.minute;
@@ -191,34 +174,26 @@
         else if (!nextTime || mins < nextTime) { nextKey = k; nextTime = mins; }
       }
     });
-    /* الصلاة التالية بعد منتصف الليل */
-    if (!nextKey) nextKey = names[0];
-
+    if (!nextKey) nextKey = names2[0];
     $$(".prayer-card").forEach(function (card) {
-      var key = card.id.replace("prayerCard-", "");
-      if (key === cur) card.classList.add("current");
-      else card.classList.remove("current");
+      card.classList.toggle("current", card.id.replace("prayerCard-", "") === cur);
     });
-
     var note = $("#nextPrayerNote");
-    if (note && nextKey) {
-      var labels = { Fajr: "الفجر", Dhuhr: "الظهر", Asr: "العصر", Maghrib: "المغرب", Isha: "العشاء" };
-      note.innerHTML = '<i class="fa-solid fa-clock"></i> الصلاة القادمة: <strong>' + labels[nextKey] + '</strong>';
-    }
+    if (note && nextKey) note.innerHTML = '<i class="fa-solid fa-clock"></i> Next prayer: <strong>' + nextKey + '</strong>';
   }
 
-  /* تحديث المواقيت كل دقيقة */
   function startTicker() {
     computeTimes();
     renderPrayerStrip();
     setInterval(function () { computeTimes(); renderPrayerStrip(); }, 60000);
   }
 
-  /* ---------------- العد التنازلي للحدث ---------------- */
+  /* ---------------- Countdown ---------------- */
   function initCountdown() {
-    var box = $("#countdown");
+    var box = $("#countdown") || $("#eventCountdown");
     if (!box) return;
     var target = new Date(box.getAttribute("data-target")).getTime();
+    var timer;
     function pad(n) { return String(n).padStart(2, "0"); }
     function tick() {
       var diff = Math.max(0, target - Date.now());
@@ -227,14 +202,14 @@
       var m = Math.floor((diff % 3600000) / 60000);
       var s = Math.floor((diff % 60000) / 1000);
       box.innerHTML =
-        '<div class="cd-box"><div class="cd-num">' + pad(d) + '</div><div class="cd-label">يوم</div></div>' +
-        '<div class="cd-box"><div class="cd-num">' + pad(h) + '</div><div class="cd-label">ساعة</div></div>' +
-        '<div class="cd-box"><div class="cd-num">' + pad(m) + '</div><div class="cd-label">دقيقة</div></div>' +
-        '<div class="cd-box"><div class="cd-num">' + pad(s) + '</div><div class="cd-label">ثانية</div></div>';
+        '<div class="cd-box"><div class="cd-num">' + pad(d) + '</div><div class="cd-label">Days</div></div>' +
+        '<div class="cd-box"><div class="cd-num">' + pad(h) + '</div><div class="cd-label">Hours</div></div>' +
+        '<div class="cd-box"><div class="cd-num">' + pad(m) + '</div><div class="cd-label">Min</div></div>' +
+        '<div class="cd-box"><div class="cd-num">' + pad(s) + '</div><div class="cd-label">Sec</div></div>';
       if (diff <= 0) clearInterval(timer);
     }
     tick();
-    var timer = setInterval(tick, 1000);
+    timer = setInterval(tick, 1000);
   }
 
   /* ---------------- Reveal on scroll ---------------- */
@@ -246,16 +221,13 @@
     }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add("revealed");
-          io.unobserve(e.target);
-        }
+        if (e.isIntersecting) { e.target.classList.add("revealed"); io.unobserve(e.target); }
       });
     }, { threshold: 0.12 });
     items.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------------- عداد الأرقام ---------------- */
+  /* ---------------- Counters ---------------- */
   function initCounters() {
     var nums = $$(".fact-num[data-count]");
     if (!nums.length) return;
@@ -269,8 +241,7 @@
         function step(ts) {
           if (!start) start = ts;
           var p = Math.min(1, (ts - start) / dur);
-          var val = Math.floor(target * (1 - Math.pow(1 - p, 3)));
-          el.textContent = val.toLocaleString("ar-EG") + suffix;
+          el.textContent = Math.floor(target * (1 - Math.pow(1 - p, 3))).toLocaleString("en-US") + suffix;
           if (p < 1) requestAnimationFrame(step);
         }
         requestAnimationFrame(step);
@@ -280,27 +251,26 @@
     nums.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------------- Carousel بسيط للآيات ---------------- */
+  /* ---------------- Ayat slider (Arabic + English) ---------------- */
   function initAyat() {
     var wrap = $("#ayatSlider");
     if (!wrap) return;
-    var current = 0;
     var html = "";
     DATA.ayat.forEach(function (a, i) {
       html += '<div class="carousel-item' + (i === 0 ? " active" : "") + '">' +
         '<i class="fa-solid fa-quote-right ayat-quote"></i>' +
         '<p class="ayat-text">' + a.text + '</p>' +
-        '<p class="ayat-ref">' + a.ref + '</p></div>';
+        '<p class="ayat-ref fst-italic">“' + a.translation + '”</p>' +
+        '<p class="ayat-ref"><span class="text-gold fw-bold">' + a.ref + '</span></p></div>';
     });
     wrap.innerHTML = html;
     var carousel = new bootstrap.Carousel(wrap, { interval: 7000, ride: "carousel" });
-
     var prev = $("#ayatPrev"), next = $("#ayatNext");
     if (prev) prev.addEventListener("click", function () { carousel.prev(); });
     if (next) next.addEventListener("click", function () { carousel.next(); });
   }
 
-  /* ---------------- بطاقات الدورات ---------------- */
+  /* ---------------- Courses ---------------- */
   function renderCourses() {
     var grid = $("#courseGrid");
     if (!grid) return;
@@ -314,19 +284,19 @@
         '<span class="icon-chip" style="width:44px;height:44px;border-radius:50%;font-size:1rem;flex:none"><i class="fa-solid fa-user-tie"></i></span>' +
         '<div><div class="fw-bold text-green">' + c.teacher + '</div>' +
         '<div class="small text-muted">' + c.teacherRole + '</div></div></div>' +
-        '<div class="course-price">$' + c.price + (c.priceFree ? ' <span class="small">(مجاني)</span>' : '') + '</div>' +
+        '<div class="course-price">$' + c.price + (c.priceFree ? ' <span class="small">(Free)</span>' : '') + '</div>' +
         '<h5 class="fw-bold text-green mt-4 mb-2"><a class="stretched-link text-green" href="courses.html?c=' + c.id + '">' + c.title + '</a></h5>' +
         '<p class="text-muted small mb-3">' + c.desc + '</p>' +
         '<div class="course-meta d-flex gap-3 flex-wrap small">' +
-        '<span class="badge"><i class="fa-regular fa-calendar me-1"></i>' + c.weeks + ' أسبوعاً</span>' +
-        '<span class="badge"><i class="fa-solid fa-users me-1"></i>' + c.enroll + ' منضم</span></div>' +
+        '<span class="badge"><i class="fa-regular fa-calendar me-1"></i>' + c.weeks + ' weeks</span>' +
+        '<span class="badge"><i class="fa-solid fa-users me-1"></i>' + c.enroll + ' enrolled</span></div>' +
         '</div></div></div>';
     });
     grid.innerHTML = html;
     initReveal();
   }
 
-  /* ---------------- بطاقات التبرعات ---------------- */
+  /* ---------------- Causes ---------------- */
   function renderCauses() {
     var grid = $("#causeGrid");
     if (!grid) return;
@@ -336,8 +306,7 @@
       var left = Math.max(0, c.goal - c.raised);
       html += '<div class="col-md-6 col-lg-4" data-reveal>' +
         '<div class="card-soft cause-card h-100 p-0 overflow-hidden">' +
-        '<div class="cause-img">' +
-        '<img src="' + c.img + '" alt="' + c.title + '" class="img-cover">' +
+        '<div class="cause-img"><img src="' + c.img + '" alt="' + c.title + '" class="img-cover">' +
         '<span class="cause-cat">' + c.category + '</span></div>' +
         '<div class="p-4">' +
         '<h5 class="fw-bold text-green"><a class="stretched-link text-green" href="donate.html#cause-' + c.id + '">' + c.title + '</a></h5>' +
@@ -346,53 +315,96 @@
         '<span class="text-gold">' + pct + '%</span><span class="text-muted">' + (c.raised / c.goal * 100).toFixed(1) + '%</span></div>' +
         '<div class="cause-progress mb-3"><div class="bar" style="width:' + pct + '%"></div></div>' +
         '<div class="d-flex justify-content-between small">' +
-        '<span><i class="fa-solid fa-hand-holding-heart text-gold me-1"></i>المتبقي: <strong class="text-green">$' + left.toLocaleString("ar-EG") + '</strong></span>' +
-        '<a href="donate.html#cause-' + c.id + '" class="fw-bold text-green">تبرّع <i class="fa-solid fa-arrow-left"></i></a></div>' +
+        '<span><i class="fa-solid fa-hand-holding-heart text-gold me-1"></i>Left: <strong class="text-green">$' + left.toLocaleString("en-US") + '</strong></span>' +
+        '<a href="donate.html#cause-' + c.id + '" class="fw-bold text-green">Donate <i class="fa-solid fa-arrow-right"></i></a></div>' +
         '</div></div></div>';
     });
     grid.innerHTML = html;
     initReveal();
   }
 
-  /* ---------------- بطاقات الفعاليات ---------------- */
+  /* ---------------- Events cards ---------------- */
   function renderEvents() {
     var grid = $("#eventGrid");
     if (!grid) return;
     var html = "";
     DATA.events.forEach(function (ev) {
       var d = new Date(ev.date);
-      var monthNames = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+      var mon = d.toLocaleDateString("en-US", { month: "short" });
       html += '<div class="col-md-6 col-lg-4" data-reveal>' +
         '<div class="card-soft event-card h-100 p-0 overflow-hidden">' +
         '<div class="event-img"><img src="' + ev.image + '" alt="' + ev.title + '" class="img-cover">' +
-        '<div class="event-date-badge"><div class="d">' + d.getDate() + '</div><div class="m">' + monthNames[d.getMonth()] + '</div></div></div>' +
+        '<div class="event-date-badge"><div class="d">' + d.getDate() + '</div><div class="m">' + mon + '</div></div></div>' +
         '<div class="p-4">' +
         '<span class="badge text-bg-light border mb-2 fw-bold text-gold">' + ev.category + '</span>' +
         '<h5 class="fw-bold text-green"><a class="stretched-link text-green" href="event.html?id=' + ev.id + '">' + ev.title + '</a></h5>' +
         '<div class="event-meta my-3">' +
-        '<span><i class="fa-regular fa-clock me-1"></i>' + d.toLocaleDateString("ar", { day: "numeric", month: "long", year: "numeric" }) + '</span>' +
+        '<span><i class="fa-regular fa-clock me-1"></i>' + d.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }) + '</span>' +
         '<span><i class="fa-solid fa-location-dot me-1"></i>' + ev.location + '</span></div>' +
         '<p class="text-muted small mb-3">' + ev.desc + '</p>' +
-        '<a href="event.html?id=' + ev.id + '" class="fw-bold text-green">التفاصيل <i class="fa-solid fa-arrow-left"></i></a>' +
+        '<a href="event.html?id=' + ev.id + '" class="fw-bold text-green">Details <i class="fa-solid fa-arrow-right"></i></a>' +
         '</div></div></div>';
     });
     grid.innerHTML = html;
     initReveal();
   }
 
-  /* ---------------- مشغل القرآن ---------------- */
+  /* ---------------- Event schedule table ---------------- */
+  function renderEventSchedule() {
+    var tbody = $("#scheduleTableBody");
+    if (!tbody) return;
+    var rows = DATA.events.slice().sort(function (a, b) { return new Date(a.date) - new Date(b.date); });
+    var html = "";
+    rows.forEach(function (ev) {
+      var d = new Date(ev.date);
+      var past = d.getTime() < Date.now();
+      html += '<tr>' +
+        '<td class="date-cell">' + d.toLocaleDateString("en-US", { weekday: "short", day: "numeric", month: "short", year: "numeric" }) + '</td>' +
+        '<td class="fw-semibold">' + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) + '</td>' +
+        '<td><strong class="text-green">' + ev.title + '</strong><div class="small text-muted">' + ev.category + '</div></td>' +
+        '<td class="small text-muted">' + ev.location + '</td>' +
+        '<td><span class="badge ' + (past ? "text-bg-secondary" : "text-bg-success") + '">' + (past ? "Completed" : "Upcoming") + '</span></td>' +
+        '<td><a href="event.html?id=' + ev.id + '" class="btn btn-sm btn-outline-green">View</a></td></tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  /* ---------------- Latest projects ---------------- */
+  function renderProjects() {
+    var grid = $("#projectGrid");
+    if (!grid) return;
+    var html = "";
+    DATA.projects.forEach(function (p) {
+      var statusLabel = p.status === "completed" ? "Completed" : p.status === "in-progress" ? "In Progress" : "Planned";
+      html += '<div class="col-md-6 col-lg-3" data-reveal>' +
+        '<div class="card-soft project-card h-100 p-0 overflow-hidden">' +
+        '<div class="project-img"><img src="' + p.img + '" alt="' + p.title + '" class="img-cover">' +
+        '<span class="project-status ' + p.status + '">' + statusLabel + '</span></div>' +
+        '<div class="p-4">' +
+        '<div class="project-meta mb-2"><i class="fa-regular fa-calendar me-1"></i>' + p.year + ' · ' + p.category + '</div>' +
+        '<h5 class="fw-bold text-green">' + p.title + '</h5>' +
+        '<p class="text-muted small mb-3">' + p.desc + '</p>' +
+        '<div class="d-flex justify-content-between small fw-bold mb-1"><span class="text-gold">' + p.progress + '%</span><span class="text-muted">Progress</span></div>' +
+        '<div class="cause-progress"><div class="bar" style="width:' + p.progress + '%"></div></div>' +
+        '</div></div></div>';
+    });
+    grid.innerHTML = html;
+    initReveal();
+  }
+
+  /* ---------------- Quran player ---------------- */
   function initQuranAudio() {
     var player = $("#quranAudio");
     var list = $("#surahList");
     if (!player || !list) return;
     var surahs = [
-      { n: 1, name: "الفاتحة", reciter: "مشاري العفاسي" },
-      { n: 36, name: "يس", reciter: "مشاري العفاسي" },
-      { n: 55, name: "الرحمن", reciter: "مشاري العفاسي" },
-      { n: 67, name: "الملك", reciter: "مشاري العفاسي" },
-      { n: 112, name: "الإخلاص", reciter: "مشاري العفاسي" },
-      { n: 113, name: "الفلق", reciter: "مشاري العفاسي" },
-      { n: 114, name: "الناس", reciter: "مشاري العفاسي" }
+      { n: 1, name: "Al-Fatihah", reciter: "Mishary Alafasy" },
+      { n: 36, name: "Ya-Sin", reciter: "Mishary Alafasy" },
+      { n: 55, name: "Ar-Rahman", reciter: "Mishary Alafasy" },
+      { n: 67, name: "Al-Mulk", reciter: "Mishary Alafasy" },
+      { n: 112, name: "Al-Ikhlas", reciter: "Mishary Alafasy" },
+      { n: 113, name: "Al-Falaq", reciter: "Mishary Alafasy" },
+      { n: 114, name: "An-Nas", reciter: "Mishary Alafasy" }
     ];
     var html = "";
     surahs.forEach(function (s, i) {
@@ -404,14 +416,14 @@
     });
     list.innerHTML = html;
 
-    var audio = player; /* #quranAudio هو عنصر <audio> نفسه */
+    var audio = player;
     var title = $("#surahTitle");
     var items = $$(".surah-item", list);
 
     function load(n, name) {
       audio.src = "https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/" + n + ".mp3";
       audio.load();
-      if (title) title.textContent = "سورة " + name;
+      if (title) title.textContent = "Surah " + name;
       items.forEach(function (it) {
         it.classList.toggle("active", parseInt(it.getAttribute("data-n"), 10) === n);
       });
@@ -420,36 +432,31 @@
     items.forEach(function (it) {
       it.addEventListener("click", function () {
         load(parseInt(it.getAttribute("data-n"), 10), it.getAttribute("data-name"));
-        audio.play().catch(function () { toast("تعذر تشغيل الصوت، تحقق من اتصال الإنترنت", "error"); });
+        audio.play().catch(function () { toast("Audio could not start — check your connection", "error"); });
       });
     });
 
     audio.addEventListener("error", function () {
-      toast("تعذر تحميل التلاوة، قد يكون الاتصال بالإنترنت ضعيفاً", "error");
+      toast("Could not load recitation — check your internet connection", "error");
     });
 
-    load(1, "الفاتحة");
+    load(1, "Al-Fatihah");
   }
 
-  /* ---------------- نموذج التبرع ---------------- */
+  /* ---------------- Donate form ---------------- */
   function initDonateForm() {
     var form = $("#donateForm");
     if (!form) return;
-
-    /* ملء قائمة الأسباب */
     var select = $("#donateCause");
     if (select) {
       DATA.causes.forEach(function (c) {
         var o = document.createElement("option");
-        o.value = c.id;
-        o.textContent = c.title;
+        o.value = c.id; o.textContent = c.title;
         select.appendChild(o);
       });
       var hash = location.hash.replace("#cause-", "");
       if (hash) select.value = hash;
     }
-
-    /* أزرار المبالغ */
     var customInput = $("#donateCustom");
     $$(".donate-amount-chip").forEach(function (chip) {
       chip.addEventListener("click", function () {
@@ -458,56 +465,39 @@
         if (customInput) customInput.value = "";
       });
     });
-    if (customInput) {
-      customInput.addEventListener("input", function () {
-        if (customInput.value) {
-          $$(".donate-amount-chip").forEach(function (c) { c.classList.remove("active"); });
-        }
-      });
-    }
+    if (customInput) customInput.addEventListener("input", function () {
+      if (customInput.value) $$(".donate-amount-chip").forEach(function (c) { c.classList.remove("active"); });
+    });
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var causeId = select ? select.value : "";
       var cause = null;
       DATA.causes.forEach(function (c) { if (c.id === causeId) cause = c; });
-
       var amount = parseFloat(($("#donateCustom") && $("#donateCustom").value) ||
         ($(".donate-amount-chip.active") ? $(".donate-amount-chip.active").getAttribute("data-amount") : 0));
-      if (!amount || amount <= 0) {
-        toast("فضلاً اختر مبلغ التبرع", "error");
-        return;
-      }
-
-      var donor = ($("#donorName") && $("#donorName").value) || "متبرع كريم";
+      if (!amount || amount <= 0) { toast("Please choose a donation amount", "error"); return; }
+      var donor = ($("#donorName") && $("#donorName").value) || "Anonymous Donor";
       var records = [];
-      try { records = JSON.parse(localStorage.getItem("ibadah-donations") || "[]"); } catch (e) { records = []; }
-      records.push({
-        id: Date.now(),
-        name: donor,
-        cause: cause ? cause.title : "عام",
-        amount: amount,
-        date: new Date().toISOString()
-      });
+      try { records = JSON.parse(localStorage.getItem("ibadah-donations") || "[]"); } catch (err) { records = []; }
+      records.push({ id: Date.now(), name: donor, cause: cause ? cause.title : "General", amount: amount, date: new Date().toISOString() });
       localStorage.setItem("ibadah-donations", JSON.stringify(records));
 
-      toast("جزاك الله خيراً " + donor + "! تم تسجيل تبرعك بقيمة $" + amount.toLocaleString("en-US") + ".");
+      toast("Jazakum Allahu khayran, " + donor + "! Your $" + amount.toLocaleString("en-US") + " donation was recorded.");
       form.reset();
       $$(".donate-amount-chip").forEach(function (c) { c.classList.remove("active"); });
-
-      /* تحديث نسبة الحملة محلياً (عرض تجريبي) */
       if (cause) {
         var newRaised = cause.raised + amount;
         try {
           var saved = window.getSiteData();
           saved.causes.forEach(function (c) { if (c.id === causeId) c.raised = newRaised; });
           window.saveSiteData(saved);
-        } catch (err) { /* تجاهل */ }
+        } catch (err) { /* ignore */ }
       }
     });
   }
 
-  /* ---------------- نموذج التواصل ---------------- */
+  /* ---------------- Contact & newsletter ---------------- */
   function initContactForm() {
     var form = $("#contactForm");
     if (!form) return;
@@ -516,33 +506,25 @@
       var name = $("#contactName").value.trim();
       var email = $("#contactEmail").value.trim();
       var msg = $("#contactMessage").value.trim();
-      if (!name || !email || !msg) {
-        toast("فضلاً أكمل جميع الحقول المطلوبة", "error");
-        return;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        toast("صيغة البريد الإلكتروني غير صحيحة", "error");
-        return;
-      }
-      toast("تم إرسال رسالتك بنجاح، سيتواصل معك الفريق قريباً بإذن الله.");
+      if (!name || !email || !msg) { toast("Please complete all required fields", "error"); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast("Please enter a valid email address", "error"); return; }
+      toast("Your message was sent — our team will reply soon, in shaa Allah.");
       form.reset();
     });
   }
-
-  /* ---------------- النشرة البريدية ---------------- */
   function initNewsletter() {
     var form = $("#newsletterForm");
     if (!form) return;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var email = form.querySelector("input[type=email]").value.trim();
-      if (!email) { toast("أدخل بريدك الإلكتروني أولاً", "error"); return; }
-      toast("تم اشتراكك في النشرة البريدية، تقبّل الله منك.");
+      if (!email) { toast("Please enter your email first", "error"); return; }
+      toast("Subscribed successfully — thank you!");
       form.reset();
     });
   }
 
-  /* ---------------- زر العودة للأعلى ---------------- */
+  /* ---------------- Back to top ---------------- */
   function initBackTop() {
     var btn = $(".back-to-top");
     if (!btn) return;
@@ -552,17 +534,15 @@
     btn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
   }
 
-  /* ---------------- شارة التاريخ الهجري ---------------- */
+  /* ---------------- Dates ---------------- */
   function renderDates() {
     var now = new Date();
     var hijri = PrayerCalc.hijriDate(now);
-    var els = $$("[data-hijri]");
-    els.forEach(function (el) { el.textContent = hijri; });
-    var g = $$("[data-gregorian]");
-    g.forEach(function (el) { el.textContent = PrayerCalc.gregorianAr(now); });
+    $$("[data-hijri]").forEach(function (el) { el.textContent = hijri; });
+    $$("[data-gregorian]").forEach(function (el) { el.textContent = PrayerCalc.gregorianEn(now); });
   }
 
-  /* ---------------- أخبار ---------------- */
+  /* ---------------- News ---------------- */
   function renderNews() {
     var grid = $("#newsGrid");
     if (!grid) return;
@@ -576,21 +556,21 @@
         '<h5 class="news-title mb-3">' + n.title + '</h5>' +
         '<p class="text-muted small">' + n.excerpt + '</p>' +
         '<div class="d-flex align-items-center gap-2 mt-3 small text-muted">' +
-        '<i class="fa-solid fa-user-pen text-gold"></i> بقلم: ' + n.author + '</div>' +
+        '<i class="fa-solid fa-user-pen text-gold"></i> By: ' + n.author + '</div>' +
         '</div></div></div>';
     });
     grid.innerHTML = html;
     initReveal();
   }
 
-  /* ---------------- أركان الإسلام ---------------- */
+  /* ---------------- Pillars (Arabic name + English) ---------------- */
   function renderPillars() {
     var wrap = $("#pillarGrid");
     if (!wrap) return;
     var html = "";
     DATA.pillars.forEach(function (p) {
       html += '<div class="col-6 col-md-4 col-lg" data-reveal>' +
-        '<div class="pillar-tile"><img src="' + p.img + '" alt="' + p.ar + '">' +
+        '<div class="pillar-tile"><img src="' + p.img + '" alt="' + p.en + '">' +
         '<div class="pillar-body"><div class="pillar-ar">' + p.ar + '</div>' +
         '<div class="pillar-en">' + p.en + '</div></div></div></div>';
     });
@@ -598,7 +578,7 @@
     initReveal();
   }
 
-  /* ---------------- خطط الأسعار ---------------- */
+  /* ---------------- Pricing ---------------- */
   function renderPricing() {
     var wrap = $("#pricingGrid");
     if (!wrap) return;
@@ -606,19 +586,19 @@
     DATA.pricing.forEach(function (p) {
       html += '<div class="col-md-4" data-reveal>' +
         '<div class="card-soft price-card h-100 p-4 text-center' + (p.featured ? " featured" : "") + '">' +
-        (p.featured ? '<span class="featured-ribbon">الأكثر طلباً</span>' : '') +
+        (p.featured ? '<span class="featured-ribbon">Most Popular</span>' : '') +
         '<h5 class="fw-bold text-green">' + p.name + '</h5>' +
         '<p class="text-muted small">' + p.period + '</p>' +
         '<div class="price-tag my-3">$' + p.price + ' <small>/ ' + p.period + '</small></div>' +
         '<ul class="list-check text-start mx-auto" style="max-width:260px">';
       p.features.forEach(function (f) { html += '<li>' + f + '</li>'; });
-      html += '</ul><a href="donate.html" class="btn btn-gold mt-4 w-100">انضم الآن</a></div></div>';
+      html += '</ul><a href="donate.html" class="btn btn-gold mt-4 w-100">Join Now</a></div></div>';
     });
     wrap.innerHTML = html;
     initReveal();
   }
 
-  /* ---------------- صفحة تفاصيل حدث ---------------- */
+  /* ---------------- Event detail (with speaker bio) ---------------- */
   function renderEventDetail() {
     var wrap = $("#eventDetail");
     if (!wrap) return;
@@ -628,6 +608,8 @@
     if (!ev) ev = DATA.events[0];
     document.title = ev.title + " — " + DATA.general.siteName;
     var d = new Date(ev.date);
+    var tags = (ev.tags || []).map(function (t) { return '<span class="badge">' + t + '</span>'; }).join("");
+
     wrap.innerHTML =
       '<div class="row g-5 align-items-center">' +
       '<div class="col-lg-6" data-reveal="left"><img src="' + ev.image + '" class="img-fluid rounded-4 shadow" alt="' + ev.title + '"></div>' +
@@ -635,33 +617,46 @@
       '<span class="badge text-bg-light border fw-bold text-gold mb-3">' + ev.category + '</span>' +
       '<h1 class="fw-bold text-green mb-3">' + ev.title + '</h1>' +
       '<div class="event-meta my-3 fs-6">' +
-      '<span><i class="fa-regular fa-calendar me-1"></i>' + d.toLocaleDateString("ar", { weekday: "long", day: "numeric", month: "long", year: "numeric" }) + '</span><br>' +
-      '<span><i class="fa-regular fa-clock me-1"></i>' + d.toLocaleTimeString("ar", { hour: "2-digit", minute: "2-digit" }) + '</span>' +
+      '<span><i class="fa-regular fa-calendar me-1"></i>' + d.toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" }) + '</span><br>' +
+      '<span><i class="fa-regular fa-clock me-1"></i>' + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) + '</span>' +
       '<span><i class="fa-solid fa-location-dot me-1"></i>' + ev.location + '</span></div>' +
       '<p class="text-muted">' + ev.desc + '</p>' +
       '<div class="row g-3 my-3">' +
-      '<div class="col-sm-6"><div class="d-flex align-items-center gap-2"><i class="fa-solid fa-user-tie fs-4 text-gold"></i><div><div class="small text-muted">المتحدث</div><strong>' + ev.guests + '</strong></div></div></div>' +
-      '<div class="col-sm-6"><div class="d-flex align-items-center gap-2"><i class="fa-solid fa-users fs-4 text-gold"></i><div><div class="small text-muted">المنظم</div><strong>' + ev.organizer + '</strong></div></div></div>' +
+      '<div class="col-sm-6"><div class="d-flex align-items-center gap-2"><i class="fa-solid fa-user-tie fs-4 text-gold"></i><div><div class="small text-muted">Speaker</div><strong>' + ev.guests + '</strong></div></div></div>' +
+      '<div class="col-sm-6"><div class="d-flex align-items-center gap-2"><i class="fa-solid fa-users fs-4 text-gold"></i><div><div class="small text-muted">Organizer</div><strong>' + ev.organizer + '</strong></div></div></div>' +
       '</div>' +
       '<div class="d-flex gap-3 flex-wrap mt-4">' +
-      '<a href="donate.html" class="btn btn-gold"><i class="fa-solid fa-hand-holding-heart me-2"></i>ادعم الفعالية</a>' +
-      '<a href="contact.html" class="btn btn-outline-green"><i class="fa-solid fa-ticket me-2"></i>احجز مكاناً</a>' +
+      '<a href="donate.html" class="btn btn-gold"><i class="fa-solid fa-hand-holding-heart me-2"></i>Support This Event</a>' +
+      '<a href="contact.html" class="btn btn-outline-green"><i class="fa-solid fa-ticket me-2"></i>Reserve a Seat</a>' +
       '</div></div></div>' +
+
+      /* Speaker / researcher bio */
+      '<div class="card-soft p-4 mt-5" data-reveal>' +
+      '<div class="speaker-bio">' +
+      '<span class="speaker-avatar"><i class="fa-solid fa-user-tie"></i></span>' +
+      '<div class="w-100">' +
+      '<div class="small text-muted mb-1">About the speaker</div>' +
+      '<div class="speaker-name">' + ev.guests + '</div>' +
+      '<div class="speaker-role">' + (ev.guestRole || "Guest speaker") + '</div>' +
+      '<p class="text-muted mt-2 mb-0">' + (ev.guestBio || "") + '</p>' +
+      '<div class="speaker-tags">' + tags + '</div>' +
+      '</div></div></div>' +
+
       '<div class="row g-3 mt-4">' +
-      '<div class="col-lg-8"><div class="card-soft p-4"><h5 class="fw-bold text-green mb-3"><i class="fa-regular fa-clock me-2 text-gold"></i>جدول اليوم</h5>' +
+      '<div class="col-lg-8"><div class="card-soft p-4"><h5 class="fw-bold text-green mb-3"><i class="fa-regular fa-clock me-2 text-gold"></i>Day Schedule</h5>' +
       '<ul class="schedule-list">' +
-      '<li><span>الاستقبال والتسجيل</span><span class="time">4:00 م</span></li>' +
-      '<li><span>الافتتاح والقرآن الكريم</span><span class="time">4:30 م</span></li>' +
-      '<li><span>' + ev.title + '</span><span class="time">5:00 م</span></li>' +
-      '<li><span>جلسة أسئلة وأجوبة</span><span class="time">6:30 م</span></li>' +
-      '<li><span>الختام ودعاء</span><span class="time">7:15 م</span></li></ul></div></div>' +
-      '<div class="col-lg-4"><div class="card-soft p-4 text-center"><h6 class="fw-bold text-green mb-3">يبدأ بعد</h6><div class="countdown justify-content-center" data-target="' + new Date(ev.date).getTime() + '" id="eventCountdown"></div></div></div>' +
+      '<li><span>Registration & welcome</span><span class="time">4:00 PM</span></li>' +
+      '<li><span>Opening & Quran recitation</span><span class="time">4:30 PM</span></li>' +
+      '<li><span>' + ev.title + '</span><span class="time">5:00 PM</span></li>' +
+      '<li><span>Open Q&A session</span><span class="time">6:30 PM</span></li>' +
+      '<li><span>Closing & du\'a</span><span class="time">7:15 PM</span></li></ul></div></div>' +
+      '<div class="col-lg-4"><div class="card-soft p-4 text-center"><h6 class="fw-bold text-green mb-3">Starts in</h6><div class="countdown justify-content-center" data-target="' + new Date(ev.date).getTime() + '" id="eventCountdown"></div></div></div>' +
       '</div>';
     initCountdown();
     initReveal();
   }
 
-    /* ---------------- صفحة المواقيت ---------------- */
+  /* ---------------- Prayer page ---------------- */
   function renderWeeklyTable() {
     var tbody = $("#weeklyTableBody");
     if (!tbody) return;
@@ -673,7 +668,7 @@
       var times = PrayerCalc.getTimes(day, city, getSettings());
       var isToday = i === 0;
       html += '<tr class="' + (isToday ? "today" : "") + '">' +
-        '<td class="fw-bold">' + (isToday ? "اليوم — " : "") + PrayerCalc.weekdayAr(day) + '</td>';
+        '<td class="fw-bold">' + (isToday ? "Today — " : "") + PrayerCalc.weekdayEn(day) + '</td>';
       names.forEach(function (k) {
         html += '<td class="time-cell">' + (times[k] ? PrayerCalc.format12(times[k]) : "--:--") + '</td>';
       });
@@ -682,7 +677,6 @@
     tbody.innerHTML = html;
   }
 
-  /* ---------------- صفحة المواقيت ---------------- */
   function renderPrayerPage() {
     var table = $("#prayerTableBody");
     if (!table) return;
@@ -707,7 +701,7 @@
     }
     var madhabSel = $("#prayerMadhab");
     if (madhabSel && madhabSel.options.length === 0) {
-      [["Shafi", "الجمهور (الشافعي)"], ["Hanafi", "الحنفي"]].forEach(function (pair) {
+      [["Shafi", "Standard (Shafi)"], ["Hanafi", "Hanafi"]].forEach(function (pair) {
         var o = document.createElement("option");
         o.value = pair[0]; o.textContent = pair[1];
         if (pair[0] === state.madhab) o.selected = true;
@@ -728,15 +722,12 @@
       var methodLabel = $("#prayerMethodLabel");
       if (methodLabel) methodLabel.textContent = PrayerCalc.METHODS[state.method].name;
       var madhabLabel = $("#prayerMadhabLabel");
-      if (madhabLabel) madhabLabel.textContent = state.madhab === "Hanafi" ? "الحنفي" : "الجمهور (الشافعي)";
+      if (madhabLabel) madhabLabel.textContent = state.madhab === "Hanafi" ? "Hanafi" : "Standard (Shafi)";
 
       var names = [
-        { key: "fajr", ar: "الفجر" },
-        { key: "sunrise", ar: "الشروق" },
-        { key: "dhuhr", ar: "الظهر" },
-        { key: "asr", ar: "العصر" },
-        { key: "maghrib", ar: "المغرب" },
-        { key: "isha", ar: "العشاء" }
+        { key: "fajr", label: "Fajr" }, { key: "sunrise", label: "Sunrise" },
+        { key: "dhuhr", label: "Dhuhr" }, { key: "asr", label: "Asr" },
+        { key: "maghrib", label: "Maghrib" }, { key: "isha", label: "Isha" }
       ];
       var html = "";
       var isFriday = now.getDay() === 5;
@@ -744,21 +735,20 @@
         var t = times[n.key];
         var iq = n.key === "maghrib" ? t : iqamaFor(n.key.charAt(0).toUpperCase() + n.key.slice(1), t);
         html += '<tr class="' + (isFriday && n.key === "dhuhr" ? "today" : "") + '">' +
-          '<td class="fw-bold">' + n.ar + '</td>' +
+          '<td class="fw-bold">' + n.label + '</td>' +
           '<td class="time-cell">' + (t ? PrayerCalc.format12(t) : "--:--") + '</td>' +
           '<td class="text-muted fw-semibold">' + (iq ? PrayerCalc.format12(iq) : "--:--") + '</td>' +
-          '<td><span class="badge ' + (t ? "text-bg-success" : "text-bg-secondary") + '">' + (t ? "متاح" : "غير متاح") + '</span></td></tr>';
+          '<td><span class="badge ' + (t ? "text-bg-success" : "text-bg-secondary") + '">' + (t ? "Available" : "N/A") + '</span></td></tr>';
       });
-      html += '<tr class="' + (isFriday ? "today" : "") + '"><td class="fw-bold">الجمعة</td>' +
-        '<td class="time-cell" colspan="2">' + DATA.prayerSettings.jumuaTime + ' م</td>' +
-        '<td><span class="badge text-bg-warning">خطبة</span></td></tr>';
+      html += '<tr class="' + (isFriday ? "today" : "") + '"><td class="fw-bold">Jumu\'ah</td>' +
+        '<td class="time-cell" colspan="2">' + DATA.prayerSettings.jumuaTime + ' PM</td>' +
+        '<td><span class="badge text-bg-warning">Khutbah</span></td></tr>';
       table.innerHTML = html;
 
       var pct = $("#prayerTodayPct");
-      if (pct) pct.textContent = PrayerCalc.weekdayAr(now) + "، " + PrayerCalc.gregorianAr(now);
+      if (pct) pct.textContent = PrayerCalc.weekdayEn(now) + ", " + PrayerCalc.gregorianEn(now);
       var hij = $("#prayerHijri");
       if (hij) hij.textContent = PrayerCalc.hijriDate(now);
-
       var qc = $("#qiblaCity");
       if (qc) qc.textContent = city.name;
       var qd = $("#qiblaDeg");
@@ -770,27 +760,21 @@
     if (citySel) citySel.addEventListener("change", function () {
       state.cityId = citySel.value;
       localStorage.setItem("ibadah-city", state.cityId);
-      fill();
-      renderWeeklyTable();
+      fill(); renderWeeklyTable();
     });
     if (methodSel) methodSel.addEventListener("change", function () {
       state.method = methodSel.value;
       localStorage.setItem("ibadah-method", state.method);
-      fill();
-      renderWeeklyTable();
+      fill(); renderWeeklyTable();
     });
     if (madhabSel) madhabSel.addEventListener("change", function () {
       state.madhab = madhabSel.value;
       localStorage.setItem("ibadah-madhab", state.madhab);
-      fill();
-      renderWeeklyTable();
+      fill(); renderWeeklyTable();
     });
-
-    /* تحديث جدول الأسبوع أيضاً عند تغيير المدينة */
-    if (citySel) citySel.addEventListener("change", renderWeeklyTable);
   }
 
-  /* ---------------- تهيئة ---------------- */
+  /* ---------------- Init ---------------- */
   document.addEventListener("DOMContentLoaded", function () {
     applyTexts();
     renderDates();
@@ -807,6 +791,8 @@
     renderCourses();
     renderCauses();
     renderEvents();
+    renderEventSchedule();
+    renderProjects();
     renderNews();
     renderPillars();
     renderPricing();
@@ -821,8 +807,9 @@
       DATA = window.getSiteData();
       computeTimes();
       renderPrayerStrip();
-      renderCourses(); renderCauses(); renderEvents(); renderNews();
-      renderPillars(); renderPricing(); renderEventDetail(); renderPrayerPage();
+      renderCourses(); renderCauses(); renderEvents(); renderEventSchedule();
+      renderProjects(); renderNews(); renderPillars(); renderPricing();
+      renderEventDetail(); renderPrayerPage();
     },
     toast: toast
   };

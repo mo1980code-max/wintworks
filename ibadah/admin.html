@@ -1,253 +1,252 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة الإدارة — مركز العبادة الإسلامي</title>
+  <title>Admin Panel — Ibadah Islamic Center</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 </head>
 <body class="admin-shell">
 
-  <!-- ===== شاشة الدخول ===== -->
+  <!-- ===== Login ===== -->
   <div id="adminLogin" class="d-flex align-items-center justify-content-center" style="min-height:100vh">
     <div class="card-soft p-4 p-md-5 w-100" style="max-width:440px">
       <div class="text-center mb-4">
         <span class="brand-logo mx-auto mb-3" style="width:64px;height:64px;font-size:1.8rem"><i class="fa-solid fa-lock"></i></span>
-        <h1 class="h3 fw-bold text-green">لوحة الإدارة</h1>
-        <p class="text-muted small">أدخل رمز الدخول (تجريبي: <strong>ibadah01</strong>)</p>
+        <h1 class="h3 fw-bold text-green">Admin Panel</h1>
+        <p class="text-muted small">Enter the access code (demo: <strong>ibadah01</strong>)</p>
       </div>
       <form id="loginForm">
         <div class="mb-3">
-          <input type="password" class="form-control form-control-lg text-center" id="adminPin" placeholder="رمز الدخول" autocomplete="off">
+          <input type="password" class="form-control form-control-lg text-center" id="adminPin" placeholder="Access code" autocomplete="off">
         </div>
-        <button type="submit" class="btn btn-gold btn-lg w-100">دخول</button>
+        <button type="submit" class="btn btn-gold btn-lg w-100">Sign In</button>
       </form>
-      <a href="index.html" class="d-block text-center mt-3 small text-muted"><i class="fa-solid fa-arrow-right me-1"></i>العودة للموقع</a>
+      <a href="index.html" class="d-block text-center mt-3 small text-muted"><i class="fa-solid fa-arrow-left me-1"></i>Back to site</a>
     </div>
   </div>
 
-  <!-- ===== لوحة التحكم ===== -->
+  <!-- ===== Dashboard ===== -->
   <div id="adminPanel" class="d-none">
     <div class="container-fluid">
       <div class="row g-0">
-        <!-- الشريط الجانبي -->
+        <!-- Sidebar -->
         <div class="col-lg-3 col-xl-2 p-3 admin-sidebar d-none d-lg-block position-sticky" style="top:0;height:100vh">
           <a href="index.html" class="d-flex align-items-center gap-3 mb-4 text-white text-decoration-none">
             <span class="brand-logo"><i class="fa-solid fa-mosque"></i></span>
             <span>
-              <span class="brand-name d-block" style="font-size:1.1rem">لوحة الإدارة</span>
+              <span class="brand-name d-block" style="font-size:1.1rem">Admin Panel</span>
               <span class="brand-sub" style="font-size:.65rem">IBADAH ADMIN</span>
             </span>
           </a>
           <ul class="nav flex-column gap-1">
-            <li><a class="nav-link active" data-tab="general" href="#"><i class="fa-solid fa-sliders me-2"></i>الإعدادات العامة</a></li>
-            <li><a class="nav-link" data-tab="prayer" href="#"><i class="fa-solid fa-clock me-2"></i>مواقيت الصلاة</a></li>
-            <li><a class="nav-link" data-tab="causes" href="#"><i class="fa-solid fa-hand-holding-heart me-2"></i>حملات التبرع</a></li>
-            <li><a class="nav-link" data-tab="course" href="#"><i class="fa-solid fa-book-open me-2"></i>الدورات</a></li>
-            <li><a class="nav-link" data-tab="event" href="#"><i class="fa-solid fa-calendar-days me-2"></i>الفعاليات</a></li>
-            <li><a class="nav-link" data-tab="donations" href="#"><i class="fa-solid fa-sack-dollar me-2"></i>سجل التبرعات</a></li>
+            <li><a class="nav-link active" data-tab="general" href="#"><i class="fa-solid fa-sliders me-2"></i>General Settings</a></li>
+            <li><a class="nav-link" data-tab="prayer" href="#"><i class="fa-solid fa-clock me-2"></i>Prayer Times</a></li>
+            <li><a class="nav-link" data-tab="causes" href="#"><i class="fa-solid fa-hand-holding-heart me-2"></i>Donation Campaigns</a></li>
+            <li><a class="nav-link" data-tab="course" href="#"><i class="fa-solid fa-book-open me-2"></i>Courses</a></li>
+            <li><a class="nav-link" data-tab="event" href="#"><i class="fa-solid fa-calendar-days me-2"></i>Events</a></li>
+            <li><a class="nav-link" data-tab="donations" href="#"><i class="fa-solid fa-sack-dollar me-2"></i>Donation Records</a></li>
           </ul>
           <hr class="border-secondary my-3">
           <div class="d-grid gap-2">
-            <button class="btn btn-sm btn-outline-light" id="saveAllBtn"><i class="fa-solid fa-floppy-disk me-2"></i>حفظ التعديلات</button>
-            <button class="btn btn-sm btn-outline-danger" id="resetAllBtn"><i class="fa-solid fa-rotate-left me-2"></i>استعادة الافتراضي</button>
-            <button class="btn btn-sm btn-outline-light" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>خروج</button>
+            <button class="btn btn-sm btn-outline-light" id="saveAllBtn"><i class="fa-solid fa-floppy-disk me-2"></i>Save Changes</button>
+            <button class="btn btn-sm btn-outline-danger" id="resetAllBtn"><i class="fa-solid fa-rotate-left me-2"></i>Reset to Defaults</button>
+            <button class="btn btn-sm btn-outline-light" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout</button>
           </div>
         </div>
 
-        <!-- المحتوى -->
+        <!-- Content -->
         <div class="col-lg-9 col-xl-10 p-4">
-          <!-- شريط علوي للموبايل -->
           <div class="d-lg-none mb-3">
             <select class="form-select" id="mobileTab">
-              <option value="general">الإعدادات العامة</option>
-              <option value="prayer">مواقيت الصلاة</option>
-              <option value="causes">حملات التبرع</option>
-              <option value="course">الدورات</option>
-              <option value="event">الفعاليات</option>
-              <option value="donations">سجل التبرعات</option>
+              <option value="general">General Settings</option>
+              <option value="prayer">Prayer Times</option>
+              <option value="causes">Donation Campaigns</option>
+              <option value="course">Courses</option>
+              <option value="event">Events</option>
+              <option value="donations">Donation Records</option>
             </select>
           </div>
 
-          <!-- عام -->
+          <!-- General -->
           <section class="admin-tab" id="tab-general">
             <div class="d-flex align-items-center gap-3 mb-4">
               <span class="icon-chip"><i class="fa-solid fa-sliders"></i></span>
-              <div><h1 class="h3 fw-bold text-green mb-0">الإعدادات العامة</h1>
-              <small class="text-muted">تغيير نصوص الموقع الأساسية</small></div>
+              <div><h1 class="h3 fw-bold text-green mb-0">General Settings</h1>
+              <small class="text-muted">Edit core site texts</small></div>
             </div>
             <div class="admin-card mb-4">
-              <h6 class="fw-bold text-green mb-3">بيانات المركز</h6>
+              <h6 class="fw-bold text-green mb-3">Center Information</h6>
               <div class="row g-3">
-                <div class="col-md-6"><label class="form-label">اسم الموقع</label><input class="form-control" id="g-siteName"></div>
-                <div class="col-md-6"><label class="form-label">الشعار الإنجليزي</label><input class="form-control" id="g-siteNameEn"></div>
-                <div class="col-md-4"><label class="form-label">الهاتف</label><input class="form-control" id="g-phone"></div>
-                <div class="col-md-4"><label class="form-label">البريد</label><input class="form-control" id="g-email"></div>
-                <div class="col-md-4"><label class="form-label">العنوان</label><input class="form-control" id="g-address"></div>
-                <div class="col-12"><label class="form-label">أوقات العمل</label><input class="form-control" id="g-workingHours"></div>
+                <div class="col-md-6"><label class="form-label">Site name</label><input class="form-control" id="g-siteName"></div>
+                <div class="col-md-6"><label class="form-label">English subtitle</label><input class="form-control" id="g-siteNameEn"></div>
+                <div class="col-md-4"><label class="form-label">Phone</label><input class="form-control" id="g-phone"></div>
+                <div class="col-md-4"><label class="form-label">Email</label><input class="form-control" id="g-email"></div>
+                <div class="col-md-4"><label class="form-label">Address</label><input class="form-control" id="g-address"></div>
+                <div class="col-12"><label class="form-label">Working hours</label><input class="form-control" id="g-workingHours"></div>
               </div>
             </div>
             <div class="admin-card">
-              <h6 class="fw-bold text-green mb-3">واجهة الصفحة الرئيسية</h6>
+              <h6 class="fw-bold text-green mb-3">Homepage Content</h6>
               <div class="row g-3">
-                <div class="col-12"><label class="form-label">عنوان البطل (Hero)</label><input class="form-control" id="g-heroTitle"></div>
-                <div class="col-12"><label class="form-label">الوصف</label><textarea class="form-control" id="g-heroSubtitle" rows="2"></textarea></div>
-                <div class="col-md-6"><label class="form-label">زر أول</label><input class="form-control" id="g-heroCta1"></div>
-                <div class="col-md-6"><label class="form-label">زر ثانٍ</label><input class="form-control" id="g-heroCta2"></div>
-                <div class="col-12"><label class="form-label">نص "من نحن"</label><textarea class="form-control" id="g-aboutText" rows="3"></textarea></div>
-                <div class="col-12"><label class="form-label">نص إضافي</label><textarea class="form-control" id="g-aboutText2" rows="2"></textarea></div>
+                <div class="col-12"><label class="form-label">Hero title</label><input class="form-control" id="g-heroTitle"></div>
+                <div class="col-12"><label class="form-label">Hero subtitle</label><textarea class="form-control" id="g-heroSubtitle" rows="2"></textarea></div>
+                <div class="col-md-6"><label class="form-label">Button 1</label><input class="form-control" id="g-heroCta1"></div>
+                <div class="col-md-6"><label class="form-label">Button 2</label><input class="form-control" id="g-heroCta2"></div>
+                <div class="col-12"><label class="form-label">About text</label><textarea class="form-control" id="g-aboutText" rows="3"></textarea></div>
+                <div class="col-12"><label class="form-label">About text 2</label><textarea class="form-control" id="g-aboutText2" rows="2"></textarea></div>
               </div>
             </div>
           </section>
 
-          <!-- مواقيت -->
+          <!-- Prayer -->
           <section class="admin-tab d-none" id="tab-prayer">
             <div class="d-flex align-items-center gap-3 mb-4">
               <span class="icon-chip"><i class="fa-solid fa-clock"></i></span>
-              <div><h1 class="h3 fw-bold text-green mb-0">إعدادات مواقيت الصلاة</h1>
-              <small class="text-muted">المنهج، المذهب، الإقامة، وجمعة المركز</small></div>
+              <div><h1 class="h3 fw-bold text-green mb-0">Prayer Times Settings</h1>
+              <small class="text-muted">Method, madhab, iqamah and Jumu'ah time</small></div>
             </div>
             <div class="admin-card mb-4">
               <div class="row g-3">
                 <div class="col-md-4">
-                  <label class="form-label">المدينة الافتراضية</label>
+                  <label class="form-label">Default city</label>
                   <select class="form-select" id="p-defaultCity"></select>
                 </div>
                 <div class="col-md-4">
-                  <label class="form-label">منهج الحساب</label>
+                  <label class="form-label">Calculation method</label>
                   <select class="form-select" id="p-method"></select>
                 </div>
                 <div class="col-md-4">
-                  <label class="form-label">مذهب العصر</label>
+                  <label class="form-label">Asr madhab</label>
                   <select class="form-select" id="p-madhab">
-                    <option value="Shafi">الجمهور (الشافعي)</option>
-                    <option value="Hanafi">الحنفي</option>
+                    <option value="Shafi">Standard (Shafi)</option>
+                    <option value="Hanafi">Hanafi</option>
                   </select>
                 </div>
-                <div class="col-md-4"><label class="form-label">وقت صلاة الجمعة</label><input type="time" class="form-control" id="p-jumua"></div>
+                <div class="col-md-4"><label class="form-label">Jumu'ah time</label><input type="time" class="form-control" id="p-jumua"></div>
               </div>
             </div>
             <div class="admin-card">
-              <h6 class="fw-bold text-green mb-3">فارق الإقامة بعد الأذان (دقائق)</h6>
+              <h6 class="fw-bold text-green mb-3">Iqamah offset after adhan (minutes)</h6>
               <div class="row g-3">
-                <div class="col-6 col-md-2"><label class="form-label">الفجر</label><input type="number" class="form-control" id="p-iq-Fajr"></div>
-                <div class="col-6 col-md-2"><label class="form-label">الظهر</label><input type="number" class="form-control" id="p-iq-Dhuhr"></div>
-                <div class="col-6 col-md-2"><label class="form-label">العصر</label><input type="number" class="form-control" id="p-iq-Asr"></div>
-                <div class="col-6 col-md-2"><label class="form-label">المغرب</label><input type="number" class="form-control" id="p-iq-Maghrib"></div>
-                <div class="col-6 col-md-2"><label class="form-label">العشاء</label><input type="number" class="form-control" id="p-iq-Isha"></div>
+                <div class="col-6 col-md-2"><label class="form-label">Fajr</label><input type="number" class="form-control" id="p-iq-Fajr"></div>
+                <div class="col-6 col-md-2"><label class="form-label">Dhuhr</label><input type="number" class="form-control" id="p-iq-Dhuhr"></div>
+                <div class="col-6 col-md-2"><label class="form-label">Asr</label><input type="number" class="form-control" id="p-iq-Asr"></div>
+                <div class="col-6 col-md-2"><label class="form-label">Maghrib</label><input type="number" class="form-control" id="p-iq-Maghrib"></div>
+                <div class="col-6 col-md-2"><label class="form-label">Isha</label><input type="number" class="form-control" id="p-iq-Isha"></div>
               </div>
             </div>
           </section>
 
-          <!-- حملات -->
+          <!-- Campaigns -->
           <section class="admin-tab d-none" id="tab-causes">
             <div class="d-flex align-items-center gap-3 mb-4">
               <span class="icon-chip"><i class="fa-solid fa-hand-holding-heart"></i></span>
-              <div><h1 class="h3 fw-bold text-green mb-0">حملات التبرع</h1>
-              <small class="text-muted">إضافة أو تعديل أو حذف الحملات</small></div>
+              <div><h1 class="h3 fw-bold text-green mb-0">Donation Campaigns</h1>
+              <small class="text-muted">Add, edit or remove campaigns</small></div>
             </div>
             <div class="admin-card mb-4">
-              <h6 class="fw-bold text-green mb-3">إضافة حملة جديدة</h6>
+              <h6 class="fw-bold text-green mb-3">Add new campaign</h6>
               <div class="row g-2 align-items-end">
-                <div class="col-md-3"><label class="form-label">العنوان</label><input class="form-control" id="c-newTitle"></div>
-                <div class="col-md-2"><label class="form-label">التصنيف</label><input class="form-control" id="c-newCat"></div>
-                <div class="col-md-2"><label class="form-label">الهدف $</label><input type="number" class="form-control" id="c-newGoal"></div>
-                <div class="col-md-2"><label class="form-label">تم جمع $</label><input type="number" class="form-control" id="c-newRaised"></div>
-                <div class="col-md-3"><label class="form-label">رابط الصورة</label><input class="form-control" id="c-newImg" placeholder="assets/img/..."></div>
-                <div class="col-12"><label class="form-label">الوصف</label><input class="form-control" id="c-newDesc"></div>
-                <div class="col-12"><button class="btn btn-gold" id="c-addBtn"><i class="fa-solid fa-plus me-2"></i>إضافة الحملة</button></div>
+                <div class="col-md-3"><label class="form-label">Title</label><input class="form-control" id="c-newTitle"></div>
+                <div class="col-md-2"><label class="form-label">Category</label><input class="form-control" id="c-newCat"></div>
+                <div class="col-md-2"><label class="form-label">Goal $</label><input type="number" class="form-control" id="c-newGoal"></div>
+                <div class="col-md-2"><label class="form-label">Raised $</label><input type="number" class="form-control" id="c-newRaised"></div>
+                <div class="col-md-3"><label class="form-label">Image URL</label><input class="form-control" id="c-newImg" placeholder="assets/img/..."></div>
+                <div class="col-12"><label class="form-label">Description</label><input class="form-control" id="c-newDesc"></div>
+                <div class="col-12"><button class="btn btn-gold" id="c-addBtn"><i class="fa-solid fa-plus me-2"></i>Add Campaign</button></div>
               </div>
             </div>
             <div class="admin-card p-0 overflow-hidden">
               <div class="table-responsive">
                 <table class="admin-table table mb-0 align-middle">
-                  <thead><tr><th>العنوان</th><th>الهدف</th><th>تم الجمع</th><th>النسبة</th><th></th></tr></thead>
+                  <thead><tr><th>Title</th><th>Goal</th><th>Raised</th><th>Progress</th><th></th></tr></thead>
                   <tbody id="c-list"></tbody>
                 </table>
               </div>
             </div>
           </section>
 
-          <!-- دورات -->
+          <!-- Courses -->
           <section class="admin-tab d-none" id="tab-course">
             <div class="d-flex align-items-center gap-3 mb-4">
               <span class="icon-chip"><i class="fa-solid fa-book-open"></i></span>
-              <div><h1 class="h3 fw-bold text-green mb-0">الدورات</h1>
-              <small class="text-muted">إدارة الدورات والمدرسين</small></div>
+              <div><h1 class="h3 fw-bold text-green mb-0">Courses</h1>
+              <small class="text-muted">Manage courses & teachers</small></div>
             </div>
             <div class="admin-card mb-4">
-              <h6 class="fw-bold text-green mb-3">إضافة دورة</h6>
+              <h6 class="fw-bold text-green mb-3">Add new course</h6>
               <div class="row g-2 align-items-end">
-                <div class="col-md-4"><label class="form-label">عنوان الدورة</label><input class="form-control" id="co-newTitle"></div>
-                <div class="col-md-2"><label class="form-label">التصنيف</label><input class="form-control" id="co-newCat"></div>
-                <div class="col-md-2"><label class="form-label">السعر $</label><input type="number" class="form-control" id="co-newPrice"></div>
-                <div class="col-md-2"><label class="form-label">الأسابيع</label><input type="number" class="form-control" id="co-newWeeks"></div>
-                <div class="col-md-2"><label class="form-label">صورة</label><input class="form-control" id="co-newImg"></div>
-                <div class="col-md-8"><label class="form-label">المدرس</label><input class="form-control" id="co-newTeacher"></div>
-                <div class="col-md-4"><label class="form-label">رابط صورة المدرس</label><input class="form-control" id="co-newTImg"></div>
-                <div class="col-12"><label class="form-label">الوصف</label><input class="form-control" id="co-newDesc"></div>
-                <div class="col-12"><button class="btn btn-gold" id="co-addBtn"><i class="fa-solid fa-plus me-2"></i>إضافة الدورة</button></div>
+                <div class="col-md-4"><label class="form-label">Course title</label><input class="form-control" id="co-newTitle"></div>
+                <div class="col-md-2"><label class="form-label">Category</label><input class="form-control" id="co-newCat"></div>
+                <div class="col-md-2"><label class="form-label">Price $</label><input type="number" class="form-control" id="co-newPrice"></div>
+                <div class="col-md-2"><label class="form-label">Weeks</label><input type="number" class="form-control" id="co-newWeeks"></div>
+                <div class="col-md-2"><label class="form-label">Image</label><input class="form-control" id="co-newImg"></div>
+                <div class="col-md-8"><label class="form-label">Teacher</label><input class="form-control" id="co-newTeacher"></div>
+                <div class="col-md-4"><label class="form-label">Teacher image URL</label><input class="form-control" id="co-newTImg"></div>
+                <div class="col-12"><label class="form-label">Description</label><input class="form-control" id="co-newDesc"></div>
+                <div class="col-12"><button class="btn btn-gold" id="co-addBtn"><i class="fa-solid fa-plus me-2"></i>Add Course</button></div>
               </div>
             </div>
             <div class="admin-card p-0 overflow-hidden">
               <div class="table-responsive">
                 <table class="admin-table table mb-0 align-middle">
-                  <thead><tr><th>الدورة</th><th>المدرس</th><th>السعر</th><th>الأسابيع</th><th></th></tr></thead>
+                  <thead><tr><th>Course</th><th>Teacher</th><th>Price</th><th>Weeks</th><th></th></tr></thead>
                   <tbody id="co-list"></tbody>
                 </table>
               </div>
             </div>
           </section>
 
-          <!-- فعاليات -->
+          <!-- Events -->
           <section class="admin-tab d-none" id="tab-event">
             <div class="d-flex align-items-center gap-3 mb-4">
               <span class="icon-chip"><i class="fa-solid fa-calendar-days"></i></span>
-              <div><h1 class="h3 fw-bold text-green mb-0">الفعاليات</h1>
-              <small class="text-muted">إدارة الفعاليات القادمة</small></div>
+              <div><h1 class="h3 fw-bold text-green mb-0">Events</h1>
+              <small class="text-muted">Manage upcoming events</small></div>
             </div>
             <div class="admin-card mb-4">
-              <h6 class="fw-bold text-green mb-3">إضافة فعالية</h6>
+              <h6 class="fw-bold text-green mb-3">Add new event</h6>
               <div class="row g-2 align-items-end">
-                <div class="col-md-4"><label class="form-label">العنوان</label><input class="form-control" id="e-newTitle"></div>
-                <div class="col-md-2"><label class="form-label">التصنيف</label><input class="form-control" id="e-newCat"></div>
-                <div class="col-md-3"><label class="form-label">التاريخ والوقت</label><input type="datetime-local" class="form-control" id="e-newDate"></div>
-                <div class="col-md-3"><label class="form-label">المكان</label><input class="form-control" id="e-newLoc"></div>
-                <div class="col-md-4"><label class="form-label">المتحدث</label><input class="form-control" id="e-newGuest"></div>
-                <div class="col-md-4"><label class="form-label">المنظم</label><input class="form-control" id="e-newOrg"></div>
-                <div class="col-md-4"><label class="form-label">صورة</label><input class="form-control" id="e-newImg"></div>
-                <div class="col-12"><label class="form-label">الوصف</label><input class="form-control" id="e-newDesc"></div>
-                <div class="col-12"><button class="btn btn-gold" id="e-addBtn"><i class="fa-solid fa-plus me-2"></i>إضافة الفعالية</button></div>
+                <div class="col-md-4"><label class="form-label">Title</label><input class="form-control" id="e-newTitle"></div>
+                <div class="col-md-2"><label class="form-label">Category</label><input class="form-control" id="e-newCat"></div>
+                <div class="col-md-3"><label class="form-label">Date & time</label><input type="datetime-local" class="form-control" id="e-newDate"></div>
+                <div class="col-md-3"><label class="form-label">Location</label><input class="form-control" id="e-newLoc"></div>
+                <div class="col-md-4"><label class="form-label">Speaker</label><input class="form-control" id="e-newGuest"></div>
+                <div class="col-md-4"><label class="form-label">Organizer</label><input class="form-control" id="e-newOrg"></div>
+                <div class="col-md-4"><label class="form-label">Image</label><input class="form-control" id="e-newImg"></div>
+                <div class="col-12"><label class="form-label">Description</label><input class="form-control" id="e-newDesc"></div>
+                <div class="col-12"><button class="btn btn-gold" id="e-addBtn"><i class="fa-solid fa-plus me-2"></i>Add Event</button></div>
               </div>
             </div>
             <div class="admin-card p-0 overflow-hidden">
               <div class="table-responsive">
                 <table class="admin-table table mb-0 align-middle">
-                  <thead><tr><th>الفعالية</th><th>التاريخ</th><th>المكان</th><th></th></tr></thead>
+                  <thead><tr><th>Event</th><th>Date</th><th>Location</th><th></th></tr></thead>
                   <tbody id="e-list"></tbody>
                 </table>
               </div>
             </div>
           </section>
 
-          <!-- تبرعات -->
+          <!-- Donations -->
           <section class="admin-tab d-none" id="tab-donations">
             <div class="d-flex align-items-center gap-3 mb-4">
               <span class="icon-chip"><i class="fa-solid fa-sack-dollar"></i></span>
-              <div><h1 class="h3 fw-bold text-green mb-0">سجل التبرعات</h1>
-              <small class="text-muted">سجل التبرعات المحفوظة من نموذج الموقع</small></div>
+              <div><h1 class="h3 fw-bold text-green mb-0">Donation Records</h1>
+              <small class="text-muted">Donations saved from the site donation form</small></div>
             </div>
             <div class="admin-card p-0 overflow-hidden">
               <div class="table-responsive">
                 <table class="admin-table table mb-0 align-middle">
-                  <thead><tr><th>الاسم</th><th>السبب</th><th>المبلغ</th><th>التاريخ</th></tr></thead>
+                  <thead><tr><th>Name</th><th>Cause</th><th>Amount</th><th>Date</th></tr></thead>
                   <tbody id="d-list"></tbody>
                 </table>
               </div>
