@@ -184,9 +184,19 @@ window.IBADAH_DEFAULTS = {
   ]
 };
 
+/* Safe storage wrapper — works even when localStorage is blocked (file://) */
+window.IBADAH_STORE = (function () {
+  var mem = {};
+  return {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return mem[k] || null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { mem[k] = v; } },
+    del: function (k) { try { localStorage.removeItem(k); } catch (e) { delete mem[k]; } }
+  };
+})();
+
 /* Merge: defaults + admin edits (localStorage) */
 window.getSiteData = function () {
-  var raw = localStorage.getItem("ibadah-site-data");
+  var raw = window.IBADAH_STORE.get("ibadah-site-data");
   if (!raw) return JSON.parse(JSON.stringify(IBADAH_DEFAULTS));
   try {
     var saved = JSON.parse(raw);
@@ -205,9 +215,9 @@ window.getSiteData = function () {
 };
 
 window.saveSiteData = function (data) {
-  localStorage.setItem("ibadah-site-data", JSON.stringify(data));
+  window.IBADAH_STORE.set("ibadah-site-data", JSON.stringify(data));
 };
 
 window.resetSiteData = function () {
-  localStorage.removeItem("ibadah-site-data");
+  window.IBADAH_STORE.del("ibadah-site-data");
 };

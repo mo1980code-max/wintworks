@@ -17,7 +17,7 @@
     e.preventDefault();
     var pin = $("#adminPin").value.trim();
     if (pin === "ibadah01") {
-      sessionStorage.setItem(sessionKey, "1");
+      window.IBADAH_STORE.set("ibadah-admin-ok", "1");
       showPanel();
       loadAll();
       toast("Welcome back to the admin panel");
@@ -27,7 +27,7 @@
   });
 
   $("#logoutBtn").addEventListener("click", function () {
-    sessionStorage.removeItem(sessionKey);
+    window.IBADAH_STORE.del("ibadah-admin-ok");
     $("#adminLogin").classList.remove("d-none");
     $("#adminPanel").classList.add("d-none");
   });
@@ -36,7 +36,7 @@
     $("#adminLogin").classList.add("d-none");
     $("#adminPanel").classList.remove("d-none");
   }
-  if (sessionStorage.getItem(sessionKey) === "1") { showPanel(); loadAll(); }
+  if (window.IBADAH_STORE.get("ibadah-admin-ok") === "1") { showPanel(); loadAll(); }
 
   function toast(msg, type) {
     var zone = $("#toastZone");
@@ -200,7 +200,7 @@
     var tbody = $("#d-list");
     tbody.innerHTML = "";
     var records = [];
-    try { records = JSON.parse(localStorage.getItem("ibadah-donations") || "[]"); } catch (e) { records = []; }
+    try { records = JSON.parse(window.IBADAH_STORE.get("ibadah-donations") || "[]"); } catch (e) { records = []; }
     if (!records.length) {
       tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-4">No donations recorded yet — try the site donation form.</td></tr>';
       return;
