@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses — Al-Bayan Islamic Center</title>
+  <meta name="description" content="Quran, tajweed, Arabic and calligraphy courses plus membership pricing plans at Al-Bayan Islamic Center.">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;family=DM+Sans:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="topbar d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex gap-4">
+        <span><i class="fa-solid fa-calendar-days me-2 text-gold"></i><span data-hijri></span></span>
+        <a class="topbar-link" href="tel:+201000000000"><i class="fa-solid fa-phone me-2"></i><span data-bind="general.phone"></span></a>
+      </div>
+      <div class="social d-flex gap-2">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg sticky-top main-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
+        <span class="brand-logo"><i class="fa-solid fa-mosque"></i></span>
+        <span>
+          <span class="brand-name d-block">Al-Bayan Islamic Center</span>
+          <span class="brand-sub">AL-BAYAN ISLAMIC CENTER</span>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation" aria-controls="navMenu"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="prayers.html">Prayer Times</a></li>
+          <li class="nav-item"><a class="nav-link" href="quran.html">Quran</a></li>
+          <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+          <li class="nav-item"><a class="nav-link active" href="courses.html">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="donate.html">Donate</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <a href="donate.html" class="btn nav-donate-btn"><i class="fa-solid fa-hand-holding-heart me-2"></i>Donate Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero" style="background-image:url('assets/img/course-quran.jpg')">
+    <div class="container">
+      <h1>Courses &amp; Programs</h1>
+      <div class="breadcrumb-bar mt-3">
+        <a href="index.html" class="text-gold-light">Home</a>
+        <i class="fa-solid fa-angle-right"></i>
+        <span>Courses</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-5" data-reveal>
+        <span class="eyebrow">Islamic classes &amp; circles</span>
+        <h2 class="section-title mt-2">Course List</h2>
+        <div class="ornament"><i class="fa-solid fa-book-open"></i></div>
+        <p class="section-lead mx-auto">On-site and online courses with center certificates — free for children of families in need.</p>
+      </div>
+      <div class="row g-4" id="courseGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== Pricing ===== -->
+  <section class="section bg-paper pattern-light" id="pricing">
+    <div class="container">
+      <div class="text-center mb-5" data-reveal>
+        <span class="eyebrow">Pricing plans</span>
+        <h2 class="section-title mt-2">Monthly Membership Plans</h2>
+        <div class="ornament"><i class="fa-solid fa-star"></i></div>
+      </div>
+      <div class="row g-4" id="pricingGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section bg-green-dark pattern-dark">
+    <div class="container text-center" data-reveal="zoom">
+      <h2 class="section-title light">Subscribe to our newsletter for course dates</h2>
+      <form id="newsletterForm" class="row g-2 justify-content-center mt-3">
+        <div class="col-md-6">
+          <input type="email" class="form-control form-control-lg text-center" placeholder="Your email address" required>
+        </div>
+        <div class="col-md-auto">
+          <button type="button" class="btn btn-gold btn-lg w-100">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer pattern-dark">
+    <div class="container pt-5">
+      <div class="row g-4 pb-4">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <span class="brand-logo"><i class="fa-solid fa-mosque"></i></span>
+            <div class="text-white">
+              <div class="brand-name">Al-Bayan Islamic Center</div>
+              <div class="brand-sub">AL-BAYAN ISLAMIC CENTER</div>
+            </div>
+          </div>
+          <p class="small">A mosque and Islamic center serving the local community since 1998 through knowledge, worship and charity.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h5">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i>Home</a></li>
+            <li><a href="courses.html"><i class="fa-solid fa-angle-right"></i>Courses</a></li>
+            <li><a href="events.html"><i class="fa-solid fa-angle-right"></i>Events</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h3 class="h5">Services</h3>
+          <ul class="footer-links">
+            <li><a href="donate.html"><i class="fa-solid fa-angle-right"></i>Donations</a></li>
+            <li><a href="prayers.html"><i class="fa-solid fa-angle-right"></i>Prayer Schedule</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-angle-right"></i>Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h3 class="h5">Contact</h3>
+          <ul class="footer-links footer-contact">
+            <li><i class="fa-solid fa-location-dot"></i><span><span data-bind="general.address"></span></span></li>
+            <li><i class="fa-solid fa-phone"></i><span dir="ltr"><span data-bind="general.phone"></span></span></li>
+            <li><i class="fa-solid fa-envelope"></i><span><span data-bind="general.email"></span></span></li>
+          </ul>
+        </div>
+      </div>
+        <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+        <span>© 2026 Al-Bayan Islamic Center — All rights reserved</span>
+        <span>“The best of people are those most beneficial to people.”</span>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="data/site-data.js"></script>
+  <script src="js/prayer-calc.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
