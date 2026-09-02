@@ -46,7 +46,7 @@ Full **RTL support is preserved inside the code** — switch any page to Arabic 
 ```bash
 cd al-bayan
 python3 -m http.server 8080
-# open http://localhost:8080
+# then open the address shown by the server (localhost:8080)
 ```
 
 Or simply double-click `al-bayan-offline.html` — works offline, no server needed.
@@ -64,7 +64,8 @@ al-bayan/
 ├── data/site-data.js              # central data (texts, campaigns, courses, events, media, reciters)
 ├── data/quran-data.js             # complete Quran text (Uthmani)
 ├── assets/img/                    # original images
-├── docs/Al-Bayan-Template-Guide.pdf # full buyer guide (setup, customization, hosting)
+├── docs/Al-Bayan-Template-Guide.pdf # full buyer guide (PDF)
+├── docs/Al-Bayan-Guide.html         # full buyer guide (HTML, display-ready)
 ├── docs/CREDITS.md                # third-party licences & attribution
 ├── LICENSE.txt                    # item licence
 └── php/contact.php                # optional PHP contact endpoint

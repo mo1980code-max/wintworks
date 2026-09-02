@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al-Bayan — Islamic Center Website Template | Buyer Guide</title>
+<style>
+  :root{
+    --green:#14563F; --green-d:#0B3A2E; --green-l:#F0F6F2;
+    --gold:#C9A227; --gold-l:#F3E7C2; --dark:#1F2937; --gray:#6B7280;
+    --light:#F5F7F9; --border:#D7E5DC; --white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--dark);background:#FAFBF9;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+
+  /* Cover */
+  .cover{background:linear-gradient(135deg,var(--green-d) 0%,var(--green) 60%,#1B6B4F 100%);color:#fff;padding:64px 0 56px;position:relative;overflow:hidden}
+  .cover::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.045)}
+  .cover .wrap{position:relative}
+  .kicker{display:inline-block;background:var(--gold);color:var(--green-d);font-weight:700;font-size:12px;letter-spacing:2px;padding:6px 14px;border-radius:999px;text-transform:uppercase}
+  .cover h1{font-size:52px;letter-spacing:3px;margin:18px 0 6px;font-weight:800}
+  .cover h2{font-size:19px;font-weight:500;color:var(--gold-l);margin-bottom:22px}
+  .cover p{max-width:640px;color:#DCEBE3;font-size:15.5px}
+  .cover .meta{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px}
+  .meta span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:8px 16px;border-radius:999px;font-size:13px}
+
+  /* Sections */
+  section{padding:56px 0 8px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .sec-num{background:var(--green);color:#fff;font-weight:800;font-size:15px;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+  .sec-head h2{font-size:26px;color:var(--green-d);font-weight:800}
+  .sec-head .line{flex:1;height:2px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:2px}
+
+  .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:26px;margin-bottom:18px;box-shadow:0 2px 10px rgba(20,86,63,.05)}
+  .card h3{color:var(--green);font-size:17px;margin-bottom:12px}
+  .card p{color:#374151;font-size:15px}
+  .card p + p{margin-top:10px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:700px){.grid2{grid-template-columns:1fr}}
+
+  ul.clean{list-style:none;margin-top:4px}
+  ul.clean li{position:relative;padding:6px 0 6px 28px;color:#374151;font-size:14.5px}
+  ul.clean li::before{content:"✔";position:absolute;left:0;top:6px;color:var(--green);font-weight:800}
+  ul.clean.gold li::before{content:"✦";color:var(--gold)}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:18px;font-size:14px}
+  th{background:var(--green);color:#fff;text-align:left;padding:12px 16px;font-weight:700}
+  td{padding:11px 16px;border-top:1px solid var(--border);vertical-align:top;color:#374151}
+  tr:nth-child(even) td{background:var(--light)}
+  td b{color:var(--green-d)}
+
+  .step{display:flex;gap:14px;padding:10px 0;align-items:flex-start}
+  .step .n{background:var(--green);color:#fff;border-radius:50%;min-width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;margin-top:2px}
+  .step p{color:#374151;font-size:14.5px}
+  .step b{color:var(--green-d)}
+
+  code,pre{font-family:Consolas,Menlo,monospace}
+  pre{background:#0F2A21;color:#D9EFE3;border-radius:12px;padding:18px 20px;overflow-x:auto;font-size:12.8px;line-height:1.7;margin:12px 0}
+  pre .cm{color:#7FA791}
+  code.inline{background:var(--green-l);color:var(--green-d);padding:2px 8px;border-radius:6px;font-size:13px}
+
+  .note{background:var(--gold-l);border-left:5px solid var(--gold);border-radius:0 12px 12px 0;padding:16px 20px;margin:16px 0;font-size:14px;color:#5C4A12}
+  .note b{color:#4A3B0E}
+
+  .pkg{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0 4px}
+  .pkg span{background:var(--green-l);border:1px solid var(--border);color:var(--green-d);font-weight:600;font-size:13px;border-radius:10px;padding:9px 14px}
+
+  footer{background:var(--green-d);color:#BFDACB;padding:34px 0;margin-top:52px;font-size:13.5px;text-align:center}
+  footer b{color:#fff}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <span class="kicker">Complete Buyer Guide</span>
+    <h1>AL-BAYAN</h1>
+    <h2>Islamic Center Website Template</h2>
+    <p>Everything about this template in one document: what is included, every feature, every addition, how to upload it to your hosting, and how to edit every part of it.</p>
+    <div class="meta">
+      <span>Bootstrap 5.3.3</span><span>HTML5 · CSS3 · Vanilla JS</span><span>10 pages</span>
+      <span>No build step</span><span>Admin panel</span><span>RTL-ready</span><span>Works offline</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">1</div><h2>Overview</h2><div class="line"></div></div>
+    <div class="card">
+      <p><b>Al-Bayan</b> is a complete, professional website for mosques, Islamic centers, schools and charities. It is built with plain <b>HTML5, CSS3 and vanilla JavaScript</b> on top of Bootstrap 5.3.3 — no jQuery, no frameworks, no database, no build tools.</p>
+      <p>It ships in a single ZIP file. Extract it, and either double-click the offline file to preview instantly, or upload the folder to any hosting and the site is live in minutes.</p>
+      <div class="pkg">
+        <span>10 pages incl. admin</span><span>Complete Holy Quran (114 surahs)</span><span>Prayer times + Hijri</span>
+        <span>Event countdown</span><span>Media embeds manager</span><span>Donation campaigns</span>
+        <span>Original images (10)</span><span>Offline single-file build</span><span>PDF + HTML guide</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">2</div><h2>Pages included</h2><div class="line"></div></div>
+    <table>
+      <thead><tr><th>Page</th><th>What it contains</th></tr></thead>
+      <tbody>
+        <tr><td><b>index.html</b></td><td>Hero, live prayer strip, causes, courses, pillars, ayat slider, Quran player, latest projects, media embeds, event countdown, news</td></tr>
+        <tr><td><b>about.html</b></td><td>Story, mission, vision, values, team</td></tr>
+        <tr><td><b>prayers.html</b></td><td>Full prayer times table, Hijri date, qibla direction, print view</td></tr>
+        <tr><td><b>quran.html</b></td><td>Complete Quran text, search, dark mode, bookmark, audio with 7 reciters</td></tr>
+        <tr><td><b>courses.html</b></td><td>Course cards with teachers + membership pricing</td></tr>
+        <tr><td><b>events.html</b></td><td>Event cards, countdown, schedule tables, speaker bios</td></tr>
+        <tr><td><b>event.html</b></td><td>Full single-event detail page (schedule + researcher bio)</td></tr>
+        <tr><td><b>donate.html</b></td><td>Campaigns with progress, donation form, FAQ</td></tr>
+        <tr><td><b>contact.html</b></td><td>Validated contact form + map</td></tr>
+        <tr><td><b>admin.html</b></td><td>PIN-protected admin panel (default PIN: <code class="inline">albayan01</code>)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">3</div><h2>All features</h2><div class="line"></div></div>
+    <div class="grid2">
+      <div class="card"><h3>Prayer times &amp; Hijri</h3><ul class="clean">
+        <li>Automatic daily calculation — 17 cities, 7 methods</li>
+        <li>Shafi / Hanafi Asr + iqamah offsets</li>
+        <li>Hijri date (Umm al-Qura) in header everywhere</li>
+        <li>Qibla direction + printable schedule</li>
+      </ul></div>
+      <div class="card"><h3>Holy Quran</h3><ul class="clean">
+        <li>Complete text: 114 surahs, 6,236 verses (Uthmani)</li>
+        <li>Search inside the whole mushaf</li>
+        <li>Per-surah audio — 7 reciters</li>
+        <li>Dark reading mode + bookmark</li>
+      </ul></div>
+      <div class="card"><h3>Events &amp; community</h3><ul class="clean">
+        <li>Countdown timer to the next event</li>
+        <li>Per-event schedule tables</li>
+        <li>Speaker / researcher bio cards</li>
+        <li>Upcoming / completed status</li>
+      </ul></div>
+      <div class="card"><h3>Donations, courses &amp; projects</h3><ul class="clean">
+        <li>Campaign cards with goals and progress bars</li>
+        <li>Donation form with preset amounts + FAQ</li>
+        <li>Courses with teachers and pricing plans</li>
+        <li>Latest projects section</li>
+      </ul></div>
+      <div class="card"><h3>Media &amp; administration</h3><ul class="clean">
+        <li>YouTube / Vimeo / SoundCloud embeds</li>
+        <li>Media managed from the admin panel</li>
+        <li>Zero-server admin panel (no database)</li>
+        <li>Safe storage with memory fallback</li>
+      </ul></div>
+      <div class="card"><h3>Quality &amp; flexibility</h3><ul class="clean">
+        <li>Fully responsive (mobile / tablet / desktop)</li>
+        <li>RTL-ready — one-line Arabic switch</li>
+        <li>Print-friendly pages</li>
+        <li>Validated HTML, CSS and JS — 0 errors</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">4</div><h2>Additions built into this project</h2><div class="line"></div></div>
+    <div class="card">
+      <p>This template goes far beyond a standard mosque website. These additions are already built, configured and ready to use:</p>
+      <ul class="clean gold">
+        <li><b>Complete Holy Quran engine</b> — full mushaf in Uthmani script with global search, dark reader, verse-by-verse audio, 7 reciters and "continue reading" bookmark.</li>
+        <li><b>Prayer times engine</b> — real astronomical calculations for 17 cities with 7 methods and madhab options, not static times.</li>
+        <li><b>Live Hijri date + qibla</b> — automatic Islamic date (Umm al-Qura) and compass-style qibla.</li>
+        <li><b>Admin panel with no server</b> — edit texts, prayer settings, events, courses, projects and donations from the browser.</li>
+        <li><b>Manageable media embeds</b> — add or remove YouTube, Vimeo and SoundCloud players from the admin panel.</li>
+        <li><b>Event extensions</b> — countdown, schedule tables, statuses and speaker biography blocks.</li>
+        <li><b>Donation module</b> — campaigns with raised amounts, progress bars and donation form.</li>
+        <li><b>Offline single-file build</b> — the entire site, images and Quran text in one file; works from disk with no internet.</li>
+        <li><b>10 original images</b> — generated for this item (no stock photos, no watermarks, no EXIF source data).</li>
+        <li><b>Accessibility &amp; marketplace validation</b> — accessible labels, semantic markup, passed HTML/CSS/JS checks.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">5</div><h2>Quick start</h2><div class="line"></div></div>
+    <div class="card">
+      <h3>Option A — Preview offline (instant)</h3>
+      <div class="step"><div class="n">1</div><p>Extract the ZIP file (right-click → Extract All on Windows, double-click on macOS).</p></div>
+      <div class="step"><div class="n">2</div><p>Open the <code class="inline">al-bayan</code> folder and double-click <code class="inline">al-bayan-offline.html</code>.</p></div>
+      <div class="step"><div class="n">3</div><p>The full styled site opens in your browser — every image, style and script is inside that one file.</p></div>
+    </div>
+    <div class="card">
+      <h3>Option B — Full site with a local server</h3>
+      <div class="step"><div class="n">1</div><p>Open a terminal in the extracted <code class="inline">al-bayan</code> folder.</p></div>
+      <div class="step"><div class="n">2</div><p>Run <code class="inline">python -m http.server 8000</code> (or <code class="inline">npx serve al-bayan</code> with Node.js).</p></div>
+      <div class="step"><div class="n">3</div><p>Open <code class="inline">localhost:8000</code> in your browser and browse every page.</p></div>
+      <div class="note"><b>Why plain text appears sometimes:</b> browsers block relative resources when HTML is opened directly from disk. That is a browser security rule, not a bug — use the offline file, a local server, or upload to hosting.</div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">6</div><h2>Uploading &amp; installation</h2><div class="line"></div></div>
+    <div class="card">
+      <h3>Option 1 — Shared hosting / cPanel (most common)</h3>
+      <div class="step"><div class="n">1</div><p>Log in to cPanel → <b>File Manager</b> → open <code class="inline">public_html</code>.</p></div>
+      <div class="step"><div class="n">2</div><p>Upload the ZIP file, right-click it and choose <b>Extract</b>.</p></div>
+      <div class="step"><div class="n">3</div><p>Move the <b>contents</b> of the extracted <code class="inline">al-bayan</code> folder into <code class="inline">public_html</code> so that <code class="inline">public_html/index.html</code> exists.</p></div>
+      <div class="step"><div class="n">4</div><p>Delete the leftover ZIP and empty folder, then open your domain — the site is live.</p></div>
+      <div class="step"><div class="n">5</div><p>Optional: set PHP 8.0+ in cPanel so <code class="inline">php/contact.php</code> sends real emails.</p></div>
+    </div>
+    <div class="card">
+      <h3>Option 2 — GitHub Pages (free)</h3>
+      <div class="step"><div class="n">1</div><p>Create a free account and a new public repository.</p></div>
+      <div class="step"><div class="n">2</div><p>Upload the <b>contents</b> of the <code class="inline">al-bayan</code> folder (drag files, commit).</p></div>
+      <div class="step"><div class="n">3</div><p>Settings → Pages → Deploy from a branch → <code class="inline">main</code>, folder <code class="inline">/ (root)</code> → Save.</p></div>
+      <div class="step"><div class="n">4</div><p>Wait ~1 minute — the site is live on your pages address.</p></div>
+    </div>
+    <div class="card">
+      <h3>Option 3 — Netlify Drop (fastest)</h3>
+      <p>Create a free Netlify account, open the <b>Drop</b> page, and drag the extracted <code class="inline">al-bayan</code> folder onto it. Done — free HTTPS address instantly.</p>
+    </div>
+    <div class="card">
+      <h3>Option 4 — Vercel or Cloudflare Pages (free)</h3>
+      <div class="step"><div class="n">1</div><p>Import your repository (or upload directly).</p></div>
+      <div class="step"><div class="n">2</div><p>Framework preset: <b>Other / None</b> — leave build command and output directory <b>empty</b>.</p></div>
+      <div class="step"><div class="n">3</div><p>Deploy — live with automatic HTTPS.</p></div>
+    </div>
+    <div class="note"><b>Contact form on PHP-less hosts:</b> the form works as a demo without PHP. To send real messages, create a free form on any form service, then in <code class="inline">js/main.js</code> POST the form data with <code class="inline">fetch()</code> to the endpoint that service gives you. The included <code class="inline">php/contact.php</code> documents the exact field names.</div>
+  </section>
+
+  <!-- 7 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">7</div><h2>Editing &amp; customization</h2><div class="line"></div></div>
+    <div class="card">
+      <h3>Way 1 — Admin panel (no code, instant)</h3>
+      <div class="step"><div class="n">1</div><p>Open <code class="inline">admin.html</code> in your browser.</p></div>
+      <div class="step"><div class="n">2</div><p>Log in with PIN <code class="inline">albayan01</code> (change it in <code class="inline">js/admin.js</code> before publishing).</p></div>
+      <div class="step"><div class="n">3</div><p>Edit hero text, prayer city/method/madhab, courses, events, projects, news, donations and media embeds.</p></div>
+      <div class="step"><div class="n">4</div><p>Press <b>Save</b>. Edits are stored in that browser/domain; use <b>Reset</b> to restore defaults.</p></div>
+      <div class="note"><b>Important:</b> admin edits are per-browser and per-domain. For changes every visitor sees, apply them in <code class="inline">data/site-data.js</code> and re-upload that file.</div>
+    </div>
+    <div class="card">
+      <h3>Way 2 — Edit data/site-data.js (permanent)</h3>
+      <p>One readable file holds all content defaults: <code class="inline">window.ALBAYAN_DEFAULTS</code> with sections for general, prayer, media, courses, events, projects, news, causes, pricing and contact. Change words between quotes:</p>
+      <pre>general: {
+  siteName: "Al-Bayan Islamic Center",
+  heroTitle: "A place of learning, worship and giving",
+},
+prayer: {
+  city: "Amman",       <span class="cm">// pick from the city list</span>
+  method: "MWL",       <span class="cm">// MWL | ISNA | Egypt | Makkah | Karachi | Tehran</span>
+  madhab: "Shafi",     <span class="cm">// Shafi or Hanafi</span>
+},</pre>
+    </div>
+    <div class="card">
+      <h3>Images, colors &amp; contact email</h3>
+      <ul class="clean">
+        <li><b>Images:</b> replace files in <code class="inline">assets/img/</code> keeping the same names (hero-1.jpg, about-quran.jpg, event-iftar.jpg ...) — or change the path in <code class="inline">data/site-data.js</code>.</li>
+        <li><b>Colors:</b> edit the CSS variables at the top of <code class="inline">css/style.css</code> — one change updates the whole site.</li>
+        <li><b>Contact email:</b> open <code class="inline">php/contact.php</code> and replace the to/from addresses at the top of the file.</li>
+        <li><b>Arabic/RTL:</b> change <code class="inline">&lt;html lang="en" dir="ltr"&gt;</code> to <code class="inline">&lt;html lang="ar" dir="rtl"&gt;</code> on every page — the layout flips automatically.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">8</div><h2>Media embeds &amp; event countdown</h2><div class="line"></div></div>
+    <div class="card">
+      <h3>Adding YouTube / Vimeo / SoundCloud</h3>
+      <p>Players are rendered from embed URLs in the media section of <code class="inline">data/site-data.js</code> — or manage them from the admin panel (<b>Media</b> tab). Replace the placeholders below with the embed address of your own video or track:</p>
+      <pre>media: [
+  { title: "Friday Lecture", type: "youtube",
+    embedUrl: "YOUR_YOUTUBE_EMBED_URL" },
+  { title: "Ramadan Program", type: "vimeo",
+    embedUrl: "YOUR_VIMEO_PLAYER_URL" },
+  { title: "Quran Recitation", type: "soundcloud",
+    embedUrl: "YOUR_SOUNDCLOUD_PLAYER_URL" },
+]</pre>
+      <ul class="clean">
+        <li><b>YouTube:</b> open the video, press Share → Embed, copy the address shown in the embed code (the <code class="inline">/embed/...</code> part).</li>
+        <li><b>Vimeo:</b> open the video, press Share, and copy the player address shown there.</li>
+        <li><b>SoundCloud:</b> use Share → Embed and copy the player address (the <code class="inline">/player/?url=...</code> part).</li>
+        <li>Aspect ratios (16:9, 4:3, SoundCloud) are handled automatically by the CSS classes.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Event countdown</h3>
+      <p>Every event stores an ISO date — the countdown starts automatically on the homepage, events list and event detail page, and stops at zero when the time passes:</p>
+      <pre>events: [
+  { id: "ramadan-iftar",
+    title: "Community Iftar",
+    date: "2026-09-12T18:00:00",   <span class="cm">// 'date' drives the countdown</span>
+    location: "Main Prayer Hall",
+    speaker: { name: "Dr. Ahmad Al-Khatib", role: "Guest Lecturer", bio: "..." },
+    schedule: [
+      { time: "17:30", title: "Doors open &amp; registration" },
+      { time: "18:00", title: "Maghrib prayer &amp; iftar" },
+    ] },
+]</pre>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section>
+    <div class="sec-head"><div class="sec-num">9</div><h2>Troubleshooting</h2><div class="line"></div></div>
+    <table>
+      <thead><tr><th style="width:38%">Problem</th><th>Solution</th></tr></thead>
+      <tbody>
+        <tr><td><b>Page shows only text</b></td><td>Browsers block relative files from disk. Use <code class="inline">al-bayan-offline.html</code>, a local server, or upload to hosting.</td></tr>
+        <tr><td><b>Broken images</b></td><td>Keep the exact structure <code class="inline">assets/img/... </code> — Linux hosts are case-sensitive. Re-upload the folder.</td></tr>
+        <tr><td><b>Admin edits disappeared</b></td><td>Edits are saved per browser/domain. Use the same browser, or make the change permanent in <code class="inline">data/site-data.js</code>.</td></tr>
+        <tr><td><b>Visitors don't see my edits</b></td><td>Only <code class="inline">data/site-data.js</code> changes reach the published site — apply them there and re-upload.</td></tr>
+        <tr><td><b>Contact form doesn't send</b></td><td>It needs PHP hosting. On PHP-less hosts use a form service (see section 6).</td></tr>
+        <tr><td><b>Countdown shows zeros</b></td><td>The event date is in the past — set a future <code class="inline">date: "YYYY-MM-DDTHH:MM:SS"</code>.</td></tr>
+        <tr><td><b>Quran audio doesn't play</b></td><td>Audio streams from a free CDN and needs internet. If blocked, change the reciter base URLs in <code class="inline">data/site-data.js</code>.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 10 -->
+  <section style="padding-bottom:36px">
+    <div class="sec-head"><div class="sec-num">10</div><h2>License &amp; support</h2><div class="line"></div></div>
+    <div class="card">
+      <ul class="clean">
+        <li><b>License:</b> see <code class="inline">LICENSE.txt</code> — free to use, modify and publish for any mosque, school, charity or organization.</li>
+        <li><b>Credits:</b> <code class="inline">docs/CREDITS.md</code> lists every third-party component and licence (Bootstrap, Font Awesome, Google Fonts, Quran data, recitation CDN) — all free for commercial use.</li>
+        <li><b>Images:</b> all images are original and created for this item — included in your licence with no extra attribution.</li>
+        <li><b>Updates:</b> improvements are delivered through your marketplace account.</li>
+        <li><b>Support:</b> use the marketplace support system with your purchase code.</li>
+        <li><b>Security:</b> change the default admin PIN <code class="inline">albayan01</code> before going live.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>AL-BAYAN</b> — Islamic Center Website Template · Complete Buyer Guide v1.1 · September 2026
+  </div>
+</footer>
+
+</body>
+</html>

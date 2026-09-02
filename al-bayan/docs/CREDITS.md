@@ -3,15 +3,15 @@
 Every third-party component used in this template is free, open-source and
 permitted for redistribution in commercial products. Full details below.
 
-| Asset | Version | Licence | Source / Note |
+| Asset | Version | Licence | Note |
 |---|---|---|---|
-| **Bootstrap** (CSS + JS) | 5.3.3 | MIT | https://getbootstrap.com |
-| **Font Awesome** (icons CSS + webfonts) | 6.5.2 | Font Awesome Free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT) | https://fontawesome.com/license/free |
-| **Google Font — Marcellus** | — | SIL OFL 1.1 | https://fonts.google.com/specimen/Marcellus |
-| **Google Font — DM Sans** | — | SIL OFL 1.1 | https://fonts.google.com/specimen/DM+Sans |
-| **Google Font — Amiri** (Quran page) | — | SIL OFL 1.1 | https://fonts.google.com/specimen/Amiri |
-| **Quran text** (data/quran-data.js, Uthmani script) | — | **CC BY 4.0** — "Quran JSON" by Risan Bagja Pradana | https://github.com/risan/quran-json (adapted/compacted) |
-| **Recitation audio** | — | Streamed from the free CDN of Islamic Network (islamic.network) — not bundled; used by `js/main.js` only when the visitor presses play and has internet | https://alquran.cloud/cdn |
+| **Bootstrap** (CSS + JS) | 5.3.3 | MIT | Official Bootstrap release, redistributed unmodified |
+| **Font Awesome** (icons) | 6.5.2 | Font Awesome Free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT) | Free icons set |
+| **Google Font — Marcellus** | — | SIL OFL 1.1 | Web font (display headings) |
+| **Google Font — DM Sans** | — | SIL OFL 1.1 | Web font (body text) |
+| **Google Font — Amiri** (Quran page) | — | SIL OFL 1.1 | Web font (Quran text) |
+| **Quran text** (data/quran-data.js, Uthmani script) | — | **CC BY 4.0** — "Quran JSON" by Risan Bagja Pradana | Adapted/compacted for this template |
+| **Recitation audio** | — | Streamed from the free public CDN of Islamic Network — not bundled; used by `js/main.js` only when the visitor presses play and has internet | Free public API |
 
 ## Images
 
@@ -23,8 +23,8 @@ licensed to the buyer together with the item. You may replace them freely.
 
 - No jQuery. All site logic is original vanilla JavaScript.
 - The only third-party source code is Bootstrap's minified bundle (MIT) and
-  Font Awesome's icon CSS (CC BY 4.0 / OFL / MIT as above), which are redistributed
-  unmodified per their licences.
+  Font Awesome's icon CSS (CC BY 4.0 / OFL / MIT as above), which are
+  redistributed unmodified per their licences.
 
 If you include this item in a product, keep this file with the package and do not
 remove the licence comments in the minified vendor bundles.

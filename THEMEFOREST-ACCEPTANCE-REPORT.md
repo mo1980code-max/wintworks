@@ -73,4 +73,4 @@
 
 **Verdict:** The template now satisfies ThemeForest’s originality, code, and documentation baselines, with the two previously identified originality risks (name collision, unattributable images) fully resolved. Ship after the recommended manual responsive pass.
 
-*Links: live preview server (port 8080) · `https://rawcdn.githack.com/mo1980code-max/wintworks/831e6eb391addd1d242d59367d54440a88968475/al-bayan/index.html` · ZIP `al-bayan-demo.zip`.*
+*Guide files shipped in the package: `docs/Al-Bayan-Template-Guide.pdf` and `docs/Al-Bayan-Guide.html` — both contain no links or URLs of any kind.*
