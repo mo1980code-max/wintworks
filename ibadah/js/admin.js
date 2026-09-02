@@ -10,7 +10,6 @@
   function $$(s) { return Array.prototype.slice.call(document.querySelectorAll(s)); }
 
   var data = window.getSiteData();
-  var sessionKey = "ibadah-admin-ok";
 
   /* ---------------- Login ---------------- */
   $("#loginForm").addEventListener("submit", function (e) {

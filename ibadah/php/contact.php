@@ -31,10 +31,22 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-/* Sanitize text */
+/* Enforce sane length limits (protects against abuse) */
+if (strlen($name) > 100 || strlen($email) > 254 || strlen($phone) > 30 ||
+    strlen($subject) > 150 || strlen($message) > 5000) {
+    http_response_code(422);
+    echo json_encode(['ok' => false, 'message' => 'One or more fields are too long']);
+    exit;
+}
+
+/* Sanitize text (XSS-safe output; email is already validated) */
 $name    = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+$phone   = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
 $subject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
 $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+
+/* Strip CR/LF from fields that could be abused in headers */
+$email   = preg_replace('/[\r\n]+/', '', $email);
 
 define('MAIL_TO', 'info@ibadah-center.org'); // ← change this
 

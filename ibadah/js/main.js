@@ -44,10 +44,10 @@
       var path = el.getAttribute("data-bind").split(".");
       var value = DATA;
       for (var i = 0; i < path.length; i++) {
-        if (value == null) break;
+        if (value === null || value === undefined) break;
         value = value[path[i]];
       }
-      if (value != null) {
+      if (value !== null && value !== undefined) {
         if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") el.value = value;
         else el.textContent = value;
       }
@@ -506,13 +506,11 @@
       (buckets[m.type] || buckets.youtube).push({ m: m, src: src });
     });
     var targets = { youtube: $("#mediaEmbeds-youtube"), vimeo: $("#mediaEmbeds-vimeo"), soundcloud: $("#mediaEmbeds-soundcloud"), all: $("#mediaEmbeds") };
-    var any = false;
     Object.keys(buckets).forEach(function (type) {
       var wrap = targets[type] || targets.all;
       if (!wrap) return;
       var html = "";
       buckets[type].forEach(function (item) {
-        any = true;
         var m = item.m, src = item.src;
         var title = m.title || m.type + " embed";
         var cls = m.type === "soundcloud" ? "media-embed soundcloud" : "media-embed";
