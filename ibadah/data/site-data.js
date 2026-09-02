@@ -162,6 +162,31 @@ window.IBADAH_DEFAULTS = {
       ref: "An-Nahl (90)" }
   ],
 
+  /* Media embeds — managed from the admin panel (Media tab).
+     YouTube: paste any watch / youtu.be / embed URL, it is converted
+     automatically to an embeddable URL. */
+  media: [
+    { type: "youtube", title: "Surah Al-Fatihah — Mishary Rashid Alafasy",
+      url: "https://www.youtube.com/watch?v=5vO0mgZ2Dmk" },
+    { type: "youtube", title: "Surah Yasin — Alafasy Daily Quran",
+      url: "https://www.youtube.com/watch?v=CYcdeLGyJ-k" },
+    { type: "vimeo", title: "Community Documentary — A Year at the Center",
+      url: "https://vimeo.com/76979871" },
+    { type: "soundcloud", title: "Audio Recitations — SoundCloud",
+      url: "https://soundcloud.com/explore" }
+  ],
+
+  /* Global audio reciters for the Quran player */
+  reciters: [
+    { id: "ar.alafasy", name: "Mishary Rashid Alafasy" },
+    { id: "ar.abdulbasitmurattal", name: "Abdul Basit (Murattal)" },
+    { id: "ar.husary", name: "Mahmoud Khalil Al-Husary" },
+    { id: "ar.hudhaify", name: "Ali Al-Hudhaify" },
+    { id: "ar.mahermuaiqly", name: "Maher Al-Muaiqly" },
+    { id: "ar.minshawi", name: "Mohamed Siddiq El-Minshawi" },
+    { id: "ar.shaatree", name: "Abu Bakr Ash-Shaatree" }
+  ],
+
   /* Five pillars of Islam */
   pillars: [
     { ar: "الشهادتان", en: "Shahadah", img: "assets/img/hero-2.jpg" },

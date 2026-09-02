@@ -195,6 +195,33 @@
     });
   }
 
+  /* ---------------- Media embeds ---------------- */
+  function renderMedia() {
+    var tbody = $("#m-list");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    if (!data.media || !data.media.length) {
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-4">No embeds yet — add your first video above.</td></tr>';
+      return;
+    }
+    data.media.forEach(function (m, i) {
+      var icon = m.type === "youtube" ? "fa-brands fa-youtube" : m.type === "vimeo" ? "fa-brands fa-vimeo-v" : "fa-brands fa-soundcloud";
+      var tr = document.createElement("tr");
+      tr.innerHTML = '<td><i class="' + icon + ' text-gold me-2"></i>' + m.type + '</td>' +
+        '<td><strong>' + m.title + '</strong></td>' +
+        '<td class="small text-muted text-truncate" style="max-width:260px">' + m.url + '</td>' +
+        '<td><button class="btn-icon btn btn-danger btn-sm" data-del="' + i + '"><i class="fa-solid fa-trash"></i></button></td>';
+      tbody.appendChild(tr);
+    });
+    $$("#m-list [data-del]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        data.media.splice(parseInt(b.getAttribute("data-del"), 10), 1);
+        renderMedia(); save();
+        toast("Embed deleted");
+      });
+    });
+  }
+
   /* ---------------- Donation records ---------------- */
   function renderDonations() {
     var tbody = $("#d-list");
@@ -263,6 +290,7 @@
     renderCauses();
     renderCourses();
     renderEvents();
+    renderMedia();
     renderDonations();
   }
 
@@ -327,5 +355,29 @@
     renderEvents(); save();
     toast("Event added successfully");
     ["e-newTitle","e-newCat","e-newDate","e-newLoc","e-newGuest","e-newOrg","e-newImg","e-newDesc"].forEach(function (id) { $("#" + id).value = ""; });
+  });
+
+  $("#m-addBtn").addEventListener("click", function () {
+    var url = $("#m-newUrl").value.trim();
+    var title = $("#m-newTitle").value.trim();
+    if (!url) { toast("Please paste a video or track URL", "error"); return; }
+    var type = $("#m-newType").value;
+    if (type === "youtube" && !/(youtube\.com|youtu\.be)/.test(url)) {
+      toast("That does not look like a YouTube link (youtube.com or youtu.be)", "error");
+      return;
+    }
+    if (type === "vimeo" && !/vimeo\.com/.test(url)) {
+      toast("That does not look like a Vimeo link", "error");
+      return;
+    }
+    if (type === "soundcloud" && !/soundcloud\.com/.test(url)) {
+      toast("That does not look like a SoundCloud link", "error");
+      return;
+    }
+    if (!data.media) data.media = [];
+    data.media.push({ type: type, title: title || type + " embed", url: url });
+    renderMedia(); save();
+    toast("Embed added — see it on the homepage under Media & Lectures");
+    ["m-newTitle", "m-newUrl"].forEach(function (id) { $("#" + id).value = ""; });
   });
 })();

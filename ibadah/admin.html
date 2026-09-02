@@ -52,6 +52,7 @@
             <li><a class="nav-link" data-tab="causes" href="#"><i class="fa-solid fa-hand-holding-heart me-2"></i>Donation Campaigns</a></li>
             <li><a class="nav-link" data-tab="course" href="#"><i class="fa-solid fa-book-open me-2"></i>Courses</a></li>
             <li><a class="nav-link" data-tab="event" href="#"><i class="fa-solid fa-calendar-days me-2"></i>Events</a></li>
+            <li><a class="nav-link" data-tab="media" href="#"><i class="fa-solid fa-circle-play me-2"></i>Media Embed</a></li>
             <li><a class="nav-link" data-tab="donations" href="#"><i class="fa-solid fa-sack-dollar me-2"></i>Donation Records</a></li>
           </ul>
           <hr class="border-secondary my-3">
@@ -231,6 +232,41 @@
                 <table class="admin-table table mb-0 align-middle">
                   <thead><tr><th>Event</th><th>Date</th><th>Location</th><th></th></tr></thead>
                   <tbody id="e-list"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Media (YouTube / Vimeo / SoundCloud) -->
+          <section class="admin-tab d-none" id="tab-media">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <span class="icon-chip"><i class="fa-solid fa-circle-play"></i></span>
+              <div><h1 class="h3 fw-bold text-green mb-0">Media Embeds</h1>
+              <small class="text-muted">YouTube, Vimeo and SoundCloud players shown on the homepage</small></div>
+            </div>
+            <div class="admin-card mb-4">
+              <h6 class="fw-bold text-green mb-3">Add new embed (YouTube supported)</h6>
+              <div class="row g-2 align-items-end">
+                <div class="col-md-3"><label class="form-label">Type</label>
+                  <select class="form-select" id="m-newType">
+                    <option value="youtube">YouTube</option>
+                    <option value="vimeo">Vimeo</option>
+                    <option value="soundcloud">SoundCloud</option>
+                  </select>
+                </div>
+                <div class="col-md-4"><label class="form-label">Title</label><input class="form-control" id="m-newTitle" placeholder="Friday Khutbah"></div>
+                <div class="col-md-5"><label class="form-label">Video / track URL</label><input class="form-control" id="m-newUrl" placeholder="https://www.youtube.com/watch?v=VIDEO_ID"></div>
+                <div class="col-12">
+                  <button class="btn btn-gold" id="m-addBtn"><i class="fa-solid fa-plus me-2"></i>Add Embed</button>
+                  <span class="small text-muted ms-3"><i class="fa-brands fa-youtube me-1"></i>Paste any YouTube link (watch, youtu.be, short) — it is converted to an embed automatically.</span>
+                </div>
+              </div>
+            </div>
+            <div class="admin-card p-0 overflow-hidden">
+              <div class="table-responsive">
+                <table class="admin-table table mb-0 align-middle">
+                  <thead><tr><th>Type</th><th>Title</th><th>URL</th><th></th></tr></thead>
+                  <tbody id="m-list"></tbody>
                 </table>
               </div>
             </div>

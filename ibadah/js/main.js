@@ -400,38 +400,55 @@
     initReveal();
   }
 
-  /* ---------------- Quran player ---------------- */
+  /* ---------------- Quran player (all 114 surahs + reciter switch) ---------------- */
   function initQuranAudio() {
     var player = $("#quranAudio");
     var list = $("#surahList");
+    var select = $("#quranReciter");
+    var title = $("#surahTitle");
     if (!player || !list) return;
-    var surahs = [
-      { n: 1, name: "Al-Fatihah", reciter: "Mishary Alafasy" },
-      { n: 36, name: "Ya-Sin", reciter: "Mishary Alafasy" },
-      { n: 55, name: "Ar-Rahman", reciter: "Mishary Alafasy" },
-      { n: 67, name: "Al-Mulk", reciter: "Mishary Alafasy" },
-      { n: 112, name: "Al-Ikhlas", reciter: "Mishary Alafasy" },
-      { n: 113, name: "Al-Falaq", reciter: "Mishary Alafasy" },
-      { n: 114, name: "An-Nas", reciter: "Mishary Alafasy" }
-    ];
+
+    var Q = window.IBADAH_QURAN || [];
+    var reciters = (DATA.reciters && DATA.reciters.length) ? DATA.reciters : [{ id: "ar.alafasy", name: "Mishary Rashid Alafasy" }];
+    var reciterId = reciters[0].id;
+    if (select && !select.options.length) {
+      reciters.forEach(function (r) {
+        var o = document.createElement("option");
+        o.value = r.id; o.textContent = r.name;
+        select.appendChild(o);
+      });
+    }
+    if (select) select.addEventListener("change", function () {
+      reciterId = select.value;
+      var cur = parseInt(player.getAttribute("data-surah") || "1", 10);
+      if (cur) load(cur);
+    });
+
+    function surahName(n) {
+      var s = Q[n - 1];
+      return s ? (s.t || "Surah " + n) : ("Surah " + n);
+    }
+
+    /* Full 114 list (scrollable) */
     var html = "";
-    surahs.forEach(function (s, i) {
+    (Q.length ? Q : []).slice(0, 114).forEach(function (s, i) {
+      var n = s.id || (i + 1);
       html += '<button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center surah-item' +
-        (i === 0 ? " active" : "") + '" data-n="' + s.n + '" data-name="' + s.name + '">' +
-        '<span><i class="fa-solid fa-book-quran text-gold me-2"></i><strong>' + s.name + '</strong>' +
-        '<span class="d-block small text-muted">' + s.reciter + '</span></span>' +
+        (n === 1 ? " active" : "") + '" data-n="' + n + '" data-name="' + surahName(n) + '">' +
+        '<span><i class="fa-solid fa-book-quran text-gold me-2"></i><strong>' + surahName(n) + '</strong>' +
+        '<span class="d-block small text-muted">' + s.v.length + ' verses</span></span>' +
         '<i class="fa-solid fa-play-circle fs-4 text-gold"></i></button>';
     });
     list.innerHTML = html;
 
     var audio = player;
-    var title = $("#surahTitle");
     var items = $$(".surah-item", list);
 
-    function load(n, name) {
-      audio.src = "https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/" + n + ".mp3";
+    function load(n) {
+      audio.src = "https://cdn.islamic.network/quran/audio-surah/128/" + reciterId + "/" + n + ".mp3";
       audio.load();
-      if (title) title.textContent = "Surah " + name;
+      audio.setAttribute("data-surah", n);
+      if (title) title.textContent = "Surah " + surahName(n);
       items.forEach(function (it) {
         it.classList.toggle("active", parseInt(it.getAttribute("data-n"), 10) === n);
       });
@@ -439,17 +456,192 @@
 
     items.forEach(function (it) {
       it.addEventListener("click", function () {
-        load(parseInt(it.getAttribute("data-n"), 10), it.getAttribute("data-name"));
+        load(parseInt(it.getAttribute("data-n"), 10));
         audio.play().catch(function () { toast("Audio could not start — check your connection", "error"); });
       });
     });
 
     audio.addEventListener("error", function () {
-      toast("Could not load recitation — check your internet connection", "error");
+      if (audio.src) toast("Could not load recitation — check your internet connection", "error");
     });
 
-    load(1, "Al-Fatihah");
+    load(1);
   }
+
+  /* ---------------- Media embeds (YouTube / Vimeo / SoundCloud) ---------------- */
+  function mediaUrl(m) {
+    var u = (m.url || m.embedUrl || "").trim();
+    if (!u) return "";
+    if (m.type === "youtube") {
+      var m1 = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+      if (m1) return "https://www.youtube-nocookie.com/embed/" + m1[1];
+      if (u.indexOf("youtube") !== -1 || u.indexOf("youtu.be") !== -1) return u;
+      return "";
+    }
+    if (m.type === "vimeo") {
+      var m2 = u.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+      if (m2) return "https://player.vimeo.com/video/" + m2[1];
+      return "";
+    }
+    if (m.type === "soundcloud") {
+      if (u.indexOf("w.soundcloud.com/player") !== -1) return u;
+      if (u.indexOf("soundcloud.com") !== -1) return "https://w.soundcloud.com/player/?url=" + encodeURIComponent(u) + "&color=%23c9a227&auto_play=false&hide_related=true&show_comments=false";
+      return "";
+    }
+    return u;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function renderMedia() {
+    var items = (DATA.media && DATA.media.length) ? DATA.media : [];
+    var buckets = { youtube: [], vimeo: [], soundcloud: [] };
+    items.forEach(function (m) {
+      var src = mediaUrl(m);
+      if (!src) return;
+      (buckets[m.type] || buckets.youtube).push({ m: m, src: src });
+    });
+    var targets = { youtube: $("#mediaEmbeds-youtube"), vimeo: $("#mediaEmbeds-vimeo"), soundcloud: $("#mediaEmbeds-soundcloud"), all: $("#mediaEmbeds") };
+    var any = false;
+    Object.keys(buckets).forEach(function (type) {
+      var wrap = targets[type] || targets.all;
+      if (!wrap) return;
+      var html = "";
+      buckets[type].forEach(function (item) {
+        any = true;
+        var m = item.m, src = item.src;
+        var title = m.title || m.type + " embed";
+        var cls = m.type === "soundcloud" ? "media-embed soundcloud" : "media-embed";
+        var allow = m.type === "youtube"
+          ? "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          : "autoplay; fullscreen; picture-in-picture";
+        html += '<div class="col-md-6 media-card" data-reveal>' +
+          '<div class="card-soft p-2 h-100">' +
+            '<h3 class="h5 fw-bold text-green px-2 pt-2">' + escapeHtml(title) + '</h3>' +
+            '<div class="' + cls + '"><iframe title="' + escapeHtml(title) + '" src="' + src + '" loading="lazy" allow="' + allow + '" allowfullscreen></iframe></div>' +
+          '</div></div>';
+      });
+      wrap.innerHTML = html ? '<div class="row g-4 mt-1">' + html + '</div>'
+        : '<div class="text-center text-muted py-5"><i class="fa-regular fa-circle-play me-2"></i>No ' + type + ' items yet — add them from the admin panel (Media tab).</div>';
+    });
+  }
+
+  /* ---------------- Quran page (quran.html) ---------------- */
+  function initQuranPage() {
+    var Q = window.IBADAH_QURAN;
+    if (!Q || !$(".quran-page")) return;
+    var list = $("#surahCards");
+    var reader = $("#quranReader");
+    var textBox = $("#quranText");
+    var search = $("#quranSearch");
+    var nextBtn = $("#quranNext"), prevBtn = $("#quranPrev");
+    var verseStats = $("#verseCount");
+    var nameBox = $("#quranSurahName");
+    var metaBox = $("#quranSurahMeta");
+    var pageAudio = $("#quranAudioPage");
+    var pageReciter = $("#quranReciterPage");
+    var current = 1;
+
+    var pageReciters = (DATA.reciters && DATA.reciters.length) ? DATA.reciters : [{ id: "ar.alafasy", name: "Mishary Rashid Alafasy" }];
+    var pageReciterId = pageReciters[0].id;
+    if (pageReciter && !pageReciter.options.length) {
+      pageReciters.forEach(function (r) {
+        var o = document.createElement("option");
+        o.value = r.id; o.textContent = r.name;
+        pageReciter.appendChild(o);
+      });
+      pageReciter.addEventListener("change", function () {
+        pageReciterId = pageReciter.value;
+        loadPageAudio(current);
+      });
+    }
+
+    function loadPageAudio(n) {
+      if (!pageAudio) return;
+      pageAudio.src = "https://cdn.islamic.network/quran/audio-surah/128/" + pageReciterId + "/" + n + ".mp3";
+      pageAudio.load();
+    }
+
+    function open(n) {
+      var s = Q[n - 1];
+      if (!s) return;
+      current = n;
+      window.IBADAH_STORE.set("ibadah-last-surah", String(n));
+      textBox.innerHTML = "";
+      s.v.forEach(function (v, i) {
+        var span = document.createElement("span");
+        span.className = "ayah-wrap";
+        span.textContent = v + " ";
+        var num = document.createElement("span");
+        num.className = "ayah-num";
+        num.innerHTML = "\u06DD" + (i + 1) + "\u06DE";
+        span.appendChild(num);
+        textBox.appendChild(span);
+      });
+      if (reader && reader.scrollIntoView) reader.scrollIntoView({ behavior: "smooth", block: "start" });
+      renderList(search ? search.value : "");
+      if (verseStats) verseStats.textContent = s.v.length;
+      if (nameBox) nameBox.textContent = "Surah " + (s.t || n);
+      if (metaBox) metaBox.textContent = n + ":" + s.v.length + " — " + (s.type === "D" ? "Medinan" : "Meccan");
+      var head = $("#quranBismillah");
+      if (head) head.textContent = s.name;
+      loadPageAudio(n);
+    }
+
+    function renderList(filter) {
+      var f = (filter || "").trim().toLowerCase();
+      var html = "";
+      Q.forEach(function (s) {
+        var n = s.id;
+        var match = !f || String(n) === f ||
+          (s.t || "").toLowerCase().indexOf(f) !== -1 ||
+          (s.name || "").indexOf(filter || "") !== -1;
+        if (!match) return;
+        html +=
+          '<div class="col-6 col-md-4 col-lg-3 col-xl-2">' +
+            '<button type="button" class="surah-card w-100' + (n === current ? " active" : "") + '" data-n="' + n + '">' +
+              '<span class="surah-num">' + n + '</span>' +
+              '<span class="flex-grow-1"><span class="fw-bold d-block small">' + (s.t || "Surah " + n) + '</span>' +
+              '<span class="surah-name-ar d-none d-md-block">' + s.name + '</span></span>' +
+            '</button>' +
+          '</div>';
+      });
+      list.innerHTML = html || '<div class="col-12 text-center text-muted py-4">No surahs match your search.</div>';
+      $$(".surah-card", list).forEach(function (btn) {
+        btn.addEventListener("click", function () { open(parseInt(btn.getAttribute("data-n"), 10)); });
+      });
+    }
+
+    if (search) search.addEventListener("input", function () { renderList(search.value); });
+    if (prevBtn) prevBtn.addEventListener("click", function () { if (current > 1) open(current - 1); else open(114); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { if (current < 114) open(current + 1); else open(1); });
+
+    var lastSaved = parseInt(window.IBADAH_STORE.get("ibadah-last-surah") || "1", 10);
+    if (!(lastSaved >= 1 && lastSaved <= 114)) lastSaved = 1;
+    open(lastSaved);
+  }
+
+  /* ---------------- Dark mode (Quran page) ---------------- */
+  function initQuranDarkMode() {
+    var btn = $("#quranDarkToggle");
+    if (!btn) return;
+    function apply(on) {
+      document.body.classList.toggle("quran-dark", on);
+      var icon = btn.querySelector("i");
+      if (icon) icon.className = on ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    }
+    apply(window.IBADAH_STORE.get("ibadah-quran-dark") === "1");
+    btn.addEventListener("click", function () {
+      var on = !document.body.classList.contains("quran-dark");
+      window.IBADAH_STORE.set("ibadah-quran-dark", on ? "1" : "0");
+      apply(on);
+    });
+  }
+
 
   /* ---------------- Donate form ---------------- */
   function initDonateForm() {
@@ -792,10 +984,13 @@
     initCounters();
     initAyat();
     initQuranAudio();
+    initQuranPage();
+    initQuranDarkMode();
     initDonateForm();
     initContactForm();
     initNewsletter();
     initBackTop();
+    renderMedia();
     renderCourses();
     renderCauses();
     renderEvents();
@@ -817,7 +1012,7 @@
       renderPrayerStrip();
       renderCourses(); renderCauses(); renderEvents(); renderEventSchedule();
       renderProjects(); renderNews(); renderPillars(); renderPricing();
-      renderEventDetail(); renderPrayerPage();
+      renderEventDetail(); renderPrayerPage(); renderMedia();
     },
     toast: toast
   };
