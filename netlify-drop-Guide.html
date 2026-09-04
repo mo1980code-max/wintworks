@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al-Bayan — Publish your free live demo (Netlify Drop, no GitHub)</title>
+<style>
+  :root{--g:#0e4635;--g2:#14563f;--gold:#c9a227;--goldl:#e8cf7f;--dark:#1f2937;--soft:#d9efe3;--bg:#fafbf9;--border:#d7e5dc}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.7}
+  header{background:linear-gradient(135deg,#0b3a2e,var(--g2));color:#fff;padding:52px 20px;text-align:center}
+  header h1{font-size:30px;margin:10px 0 6px}
+  header p{color:var(--soft);max-width:760px;margin:0 auto}
+  .wrap{max-width:900px;margin:0 auto;padding:30px 20px 60px}
+  .step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin:16px 0;display:flex;gap:18px;align-items:flex-start}
+  .num{background:var(--g);color:#fff;font-weight:800;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font-size:16px}
+  .step h3{color:var(--g);margin-bottom:6px;font-size:17px}
+  .step p{font-size:15px;color:#374151}
+  code{background:#eef5f0;color:var(--g);padding:2px 8px;border-radius:6px;font-size:13.5px;word-break:break-all}
+  .box{background:#f3e7c2;border-left:5px solid var(--gold);border-radius:0 12px 12px 0;padding:16px 20px;margin:20px 0;font-size:14px}
+  .box b{color:#4a3b0e}
+  .note{background:#eef5f0;border-left:5px solid var(--g);border-radius:0 12px 12px 0;padding:16px 20px;margin:20px 0;font-size:14px}
+  footer{background:var(--g);color:var(--soft);text-align:center;padding:26px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:13px;letter-spacing:2px;color:var(--goldl);font-weight:700">AL-BAYAN · LIVE DEMO</div>
+  <h1>Publish your free live demo — in 2 minutes</h1>
+  <p>No GitHub. No account required. No credit card. Drag &amp; drop, get an HTTPS link, paste it into the Codester Demo URL field.</p>
+</header>
+<div class="wrap">
+
+  <div class="step"><div class="num">1</div><div><h3>Extract the ZIP</h3>
+    <p>Extract <code>netlify-drop.zip</code>. You will get a folder named <code>al-bayan</code> containing <code>index.html</code>. This is the whole website — it's already ready.</p></div></div>
+
+  <div class="step"><div class="num">2</div><div><h3>Open Netlify Drop</h3>
+    <p>In your browser, open <code>https://app.netlify.com/drop</code></p></div></div>
+
+  <div class="step"><div class="num">3</div><div><h3>Drag the folder onto the page</h3>
+    <p>Drag the <b>al-bayan</b> folder (not the ZIP) from your computer and drop it on the Netlify Drop area. Uploading takes about one minute.</p></div></div>
+
+  <div class="step"><div class="num">4</div><div><h3>Get your live HTTPS link</h3>
+    <p>Netlify instantly gives you a link like <code>https://something-special.netlify.app</code> — HTTPS, fast, worldwide.</p></div></div>
+
+  <div class="step"><div class="num">5</div><div><h3>Paste it into Codester</h3>
+    <p>Copy that link and paste it into the <b>Demo URL</b> field in your Codester submission form. Done.</p></div></div>
+
+  <div class="box"><b>Optional (recommended):</b> click <b>Site configuration → Change site name</b> on Netlify to set a friendly name, e.g. <code>albayan-demo</code> → <code>https://albayan-demo.netlify.app</code>. The link never changes unless you rename the site.</div>
+
+  <div class="note"><b>Note:</b> Netlify's site name is public. Anyone who has the link can view the demo. The demo site contains no personal data — it's the template's demo content only. The <code>php/contact.php</code> form will work as a demo (no email sending) on Netlify; email sending requires PHP hosting or a form service (documented in the package).</div>
+
+  <div class="note"><b>Taking it down later:</b> on Netlify, open the site → Site configuration → Danger zone → Delete site. Takes one click.</div>
+
+</div>
+<footer>AL-BAYAN · Islamic Center Website Template · Free live demo publishing guide · English</footer>
+</body>
+</html>
