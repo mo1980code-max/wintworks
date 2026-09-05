@@ -11,6 +11,7 @@ bot (`scripts/generate_static_jobs.py`) keeps working because its
 
 | File | What it is |
 |---|---|
+| `palettes.html` | **Same design, 10 colour schemes** — live switcher (also toggles design A/B and dark mode). |
 | `comparison.html` | Side-by-side comparison, fully self-contained (CSS inlined). Open it directly in a browser. |
 | `preview-a.html` | Proposal A full-page mockup (static sample content). |
 | `preview-b.html` | Proposal B full-page mockup (static sample content). |
