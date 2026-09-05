@@ -144,7 +144,7 @@ DB_LOCK = threading.Lock()
 
 def ensure_zip() -> Path:
     """The download bundle: arcade/ alone at the zip root, rebuilt from HEAD if missing."""
-    zp = ROOT.parent / "nawras-arcade.zip"
+    zp = ROOT.parent.parent / "nawras-arcade.zip"  # outside the repo, downloads dir of the sandbox
     if zp.is_file() and zp.stat().st_size > 1000:
         return zp
     import subprocess as sp
