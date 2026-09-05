@@ -15,14 +15,21 @@ bot (`scripts/generate_static_jobs.py`) keeps working because its
 | `comparison.html` | Side-by-side comparison, fully self-contained (CSS inlined). Open it directly in a browser. |
 | `preview-a.html` | Proposal A full-page mockup (static sample content). |
 | `preview-b.html` | Proposal B full-page mockup (static sample content). |
+| `preview-c.html` | Proposal C full-page mockup — **modern 2026 layout** (static sample content). |
 | `proposal-a.css` | Proposal A stylesheet — copy over `css/app.css` to apply. |
 | `proposal-b.css` | Proposal B stylesheet — copy over `css/app.css` to apply. |
+| `proposal-c.css` | Proposal C stylesheet (**modern layout**) — copy over `css/app.css` to apply. |
 
 ## The two directions
 
 **A · "Clean List"** — Google-Jobs style. White surfaces, a single blue accent
 (`#1a73e8`), hairline borders, no gradients and no shadows. The job list becomes
 one clean column instead of a card grid.
+
+**C · "Modern 2026"** — glass header, asymmetric hero, sticky filter rail on the
+left, bento stat cards, large soft cards with 18px corners, segmented pill tabs and
+gradient accents. The layout is rebuilt with CSS Grid only, so the HTML files, JS and
+all links stay untouched.
 
 **B · "Paper / Editorial"** — warm paper background, serif display headings,
 hairline rules, directory-style job list, ink-dark footer. Deep green accent
