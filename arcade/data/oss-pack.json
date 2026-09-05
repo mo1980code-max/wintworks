@@ -1,0 +1,65 @@
+{
+ "_note": "OSS pack manifest — license text captured at pinned commit; package ships provenance, never game bytes",
+ "games": [
+  {
+   "slug": "hexgl",
+   "repo": "BKcore/HexGL",
+   "url": "https://github.com/BKcore/HexGL",
+   "homepage": "http://hexgl.bkcore.com",
+   "upstream_name": "HexGL",
+   "stars": 1739,
+   "description": "Source code of HexGL, a futuristic HTML5 racing game",
+   "default_branch": "master",
+   "commit_sha": "6addc95a2fce3bf05f4d751823cc054c61a16d68",
+   "license": {
+    "spdx": "MIT",
+    "path": "data/oss-pack/hexgl/LICENSE.txt",
+    "text_len": 1085,
+    "text_bytes": 1085
+   },
+   "entry": "index.html",
+   "static_ready": true,
+   "captured_at": "2026-09-05"
+  },
+  {
+   "slug": "impact",
+   "repo": "phoboslab/Impact",
+   "url": "https://github.com/phoboslab/Impact",
+   "homepage": "",
+   "upstream_name": "Impact",
+   "stars": 2123,
+   "description": "HTML5 Game Engine",
+   "default_branch": "master",
+   "commit_sha": "7768fd29c70ca924a78673d93081baab5a72fbe6",
+   "license": {
+    "spdx": "MIT",
+    "path": "data/oss-pack/impact/LICENSE.txt",
+    "text_len": 1083,
+    "text_bytes": 1083
+   },
+   "entry": "index.html",
+   "static_ready": true,
+   "captured_at": "2026-09-05"
+  },
+  {
+   "slug": "tower-game",
+   "repo": "iamkun/tower_game",
+   "url": "https://github.com/iamkun/tower_game",
+   "homepage": "https://iamkun.github.io/tower_game/",
+   "upstream_name": "tower_game",
+   "stars": 1607,
+   "description": "💒 HTML5 Canvas Tower Building Game 🏢🏬🏦🏯🏰",
+   "default_branch": "master",
+   "commit_sha": "c6fa84afe179b661fa71cf7cc8788d0c47ca2875",
+   "license": {
+    "spdx": "MIT",
+    "path": "data/oss-pack/tower-game/LICENSE.txt",
+    "text_len": 1066,
+    "text_bytes": 1066
+   },
+   "entry": "index.html",
+   "static_ready": true,
+   "captured_at": "2026-09-05"
+  }
+ ]
+}

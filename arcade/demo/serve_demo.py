@@ -266,6 +266,26 @@ class Handler(BaseHTTPRequestHandler):
             })
             return
 
+        if u.path == "/api/pack":
+            # the sellable catalog: provenance + pins, never game bytes
+            mf = ROOT / "data" / "oss-pack.json"
+            if not mf.is_file():
+                self._json({"ok": True, "games": []})
+                return
+            doc = json.loads(mf.read_text(encoding="utf-8"))
+            rows = [{
+                "slug": r["slug"],
+                "repo": r["repo"],
+                "url": r["url"],
+                "stars": r.get("stars", 0),
+                "license": r["license"]["spdx"],
+                "pin": r["commit_sha"],
+                "cdn_embed": f"https://cdn.jsdelivr.net/gh/{r['repo']}@{r['commit_sha']}/{r['entry']}",
+            } for r in doc["games"]]
+            self._json({"ok": True, "games": rows,
+                        "note": "provenance only — the package never ships game bytes"})
+            return
+
         if u.path == "/api/games":
             # the real visibility boundary: only license-clean games cross it
             with DB_LOCK:

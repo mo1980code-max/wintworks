@@ -68,6 +68,13 @@
     <tbody></tbody>
   </table>
 
+  <h2 style="margin-top:2.5rem">حزمة OSS — كتالوج مثبّت على commit (لا بايتات ألعاب)</h2>
+  <p class="note" style="margin-top:.6rem">كل صف: مستودع upstream + بصمة 40-hex + ترخيص موثّق بالبايت. الحزمة تشحن «الإثبات» فقط، والمشتري يخدم من cdn عند نفس البصمة.</p>
+  <table id="pack">
+    <thead><tr><th>اللعبة</th><th>الترخيص</th><th>البصمة</th><th>النجوم</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
   <h2 style="margin-top:2.5rem">سجل التراخيص — حاجز «من غير انتهاك» يعمل حيّاً</h2>
   <p class="note" style="margin-top:.6rem">
     لعبة <b>مقاتل الظل</b> مزروعة عمداً بترخيص <code>GPL-3.0</code> الممنوع —
@@ -172,6 +179,21 @@ async function loadLicenses() {
     tb.appendChild(tr);
   });
 }
+async function loadPack() {
+  const res = await fetch('/api/pack');
+  const data = await res.json();
+  const tb = document.querySelector('#pack tbody');
+  tb.innerHTML = '';
+  (data.games || []).forEach(r => {
+    const tr = document.createElement('tr');
+    const pin = '<code title="' + r.pin + '">' + r.pin.slice(0, 10) + '…</code>';
+    const repo = '<a href="' + r.url + '" target="_blank" rel="noopener">' + r.repo + '</a>';
+    tr.innerHTML = '<td>' + repo + '</td><td><code>' + r.license + '</code></td>' +
+      '<td>' + pin + '</td><td class="score">★' + r.stars + '</td>';
+    tb.appendChild(tr);
+  });
+}
+loadPack();
 loadLicenses();
 </script>
 </body>
