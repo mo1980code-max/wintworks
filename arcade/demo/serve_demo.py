@@ -142,6 +142,30 @@ def md_to_html(md: str) -> str:
 DB_LOCK = threading.Lock()
 
 
+def ensure_zip() -> Path:
+    """The download bundle: arcade/ alone at the zip root, rebuilt from HEAD if missing."""
+    zp = ROOT.parent / "nawras-arcade.zip"
+    if zp.is_file() and zp.stat().st_size > 1000:
+        return zp
+    import subprocess as sp
+    import tarfile
+    import tempfile
+    import zipfile as zf
+    with tempfile.TemporaryDirectory() as td:
+        tar_p = Path(td) / "pkg.tar"
+        with open(tar_p, "wb") as fh:
+            sp.run(["git", "archive", "--format=tar", "HEAD", "arcade"],
+                   cwd=str(ROOT.parent), stdout=fh, check=True)
+        with tarfile.open(tar_p) as tf:
+            tf.extractall(td)
+        src = Path(td) / "arcade"
+        with zf.ZipFile(zp, "w", zf.ZIP_DEFLATED) as z:
+            for f in sorted(src.rglob("*")):
+                if f.is_file():
+                    z.write(f, f.relative_to(src))
+    return zp
+
+
 class Handler(BaseHTTPRequestHandler):
     conn: sqlite3.Connection = None  # type: ignore[assignment]
     gates: str = ""
@@ -206,6 +230,21 @@ class Handler(BaseHTTPRequestHandler):
 
         if u.path == "/api/gates":
             self._json({"ok": True, "output": self.gates})
+            return
+
+        if u.path == "/download":
+            try:
+                zp = ensure_zip()
+            except Exception as e:  # git absent or repo moved — say so, don't half-serve
+                self._json({"ok": False, "error": f"bundle unavailable: {e}"}, 500)
+                return
+            body = zp.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/zip")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Content-Disposition", "attachment; filename=\"nawras-arcade.zip\"")
+            self.end_headers()
+            self.wfile.write(body)
             return
 
         if u.path == "/" or u.path == "/demo":
