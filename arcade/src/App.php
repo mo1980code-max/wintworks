@@ -77,6 +77,12 @@ final class App
         return (string) ($this->config['secret'] ?? '');
     }
 
+    /** @return array<string, mixed> */
+    public function config(): array
+    {
+        return $this->config;
+    }
+
     public function router(): Routes
     {
         return Routes::register($this);

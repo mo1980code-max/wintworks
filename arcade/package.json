@@ -8,6 +8,6 @@
     "prove": "python3 tools/prove_runtime.py",
     "schema": "python3 tools/gen_schema_sql.py --verify",
     "bridge": "node --check public/assets/ca-compat.js",
-    "test": "npm run -s bridge && python3 tools/verify_php.py && python3 tools/prove_runtime.py && python3 tools/gen_schema_sql.py --verify && python3 -c \"import json;[json.load(open(f)) for f in ['db/schema.json','db/migrations.json']];print('✓ json valid')\""
+    "test": "npm run -s bridge && python3 tools/verify_php.py && python3 tools/prove_runtime.py && python3 tools/prove_audit.py && python3 tools/check_audit_parity.py && python3 tools/audit_ledger.py data/ledger.example.json && python3 tools/gen_schema_sql.py --verify && python3 -c \"import json;[json.load(open(f)) for f in ['db/schema.json','db/migrations.json','data/ledger.example.json']];print('\\u2713 json valid')\""
   }
 }

@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 
 from prove_runtime import Board, bucket_key  # noqa: E402  (same SQL as Gamify\Leaderboard)
+from prove_audit import scan_db, clean_ids   # noqa: E402  (same ledger shape as LicenseRepository)
 
 PORT = int(__import__("os").environ.get("PORT", "8090"))
 NOW = "2026-09-05 12:00:00"
@@ -71,9 +72,46 @@ def build_db() -> sqlite3.Connection:
             "INSERT INTO categories (id, slug, name_ar, name_en, created_at) "
             "VALUES (?,?,?,?,'2026-08-01 00:00:00')", (gid, slug, title, cat))
         conn.execute("UPDATE games SET category_id = ? WHERE id = ?", (gid, gid))
+    conn.execute("UPDATE games SET local_path = 'var/games/maze-runner' WHERE id = 4")  # lawful own game
     board = Board(conn)
     for gid, score, alias, at in SEED:
         board.submit(gid, score, alias, at)
+
+    # --- license ledger seed: 4 clean rows + 1 hostile game that MUST stay hidden ---
+    SHA_A = "3f9c2ab41e8d5c7b0a19f6e2d4c8b7a5f3e1d9c0"
+    SHA_B = "9d1e7c4b2a6f8e0d3c5b7a9f1e3d5c7b9a8f6e4d"
+    lic_rows = [
+        # game_id, provider, external_id, license_type, license_ref, upstream_repo, proof_url, invoice, origins, expires
+        (1, "oss-pack", SHA_A, "oss", "MIT", "upstream/neon-worm",
+         "https://github.com/upstream/neon-worm/blob/main/LICENSE", "", "https://cdn.jsdelivr.net", ""),
+        (2, "oss-pack", SHA_B, "oss", "Apache-2.0", "upstream/echo-cards",
+         "https://github.com/upstream/echo-cards/blob/main/LICENSE", "", "https://cdn.jsdelivr.net", ""),
+        (3, "gamedistribution", "gd-bubble-nova-77", "publisher-agreement", "publisher-agreement", "",
+         "https://static.gamedistribution.com/terms/publisher.html", "GD-PUB-2026-0042",
+         "https://html5.gamedistribution.com", "2027-01-31"),
+        (4, "own", None, "own", "own-licence", "", "", "", "", ""),
+    ]
+    for gid, provider, ext, ltype, ref, repo, proof, invoice, origins, exp in lic_rows:
+        commit = ext if ltype == "oss" else ""
+        conn.execute(
+            "INSERT INTO game_licenses (game_id, provider, external_id, license_type, license_ref, "
+            "upstream_repo, commit_sha, license_path, license_sha256, proof_url, invoice_ref, "
+            "allow_origins, attribution_required, attribution_html, status, expires_at, created_at, updated_at) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (gid, provider, ext, ltype, ref, repo, commit, "", "b" * 64, proof,
+             invoice, origins, 0, "", "active", exp, "2026-08-01", "2026-08-01"))
+    # hostile: published game carrying a GPL license — the auditor must hide it from /api/games
+    conn.execute(
+        "INSERT INTO games (id, slug, title_ar, title_en, status, kind, created_at, updated_at) "
+        "VALUES (5,'shadow-brawler','مقاتل الظل','Shadow Brawler','published','feed','2026-08-01','2026-08-01')")
+    conn.execute(
+        "INSERT INTO game_licenses (game_id, provider, external_id, license_type, license_ref, "
+        "upstream_repo, commit_sha, license_path, license_sha256, proof_url, invoice_ref, "
+        "allow_origins, attribution_required, attribution_html, status, expires_at, created_at, updated_at) "
+        "VALUES (5,'oss-pack','aa11bb22cc33dd44ee55','oss','GPL-3.0','upstream/shadow-brawler',"
+        "'aa11bb22cc33dd44ee55ff66778899aabbccddeeff00','','" + "a" * 64 + "',"
+        "'https://github.com/upstream/shadow-brawler','','https://cdn.jsdelivr.net',0,'','active','',"
+        "'2026-08-01','2026-08-01')")
     return conn
 
 
@@ -226,6 +264,34 @@ class Handler(BaseHTTPRequestHandler):
                     for n, r in enumerate(rows, 1)
                 ],
             })
+            return
+
+        if u.path == "/api/games":
+            # the real visibility boundary: only license-clean games cross it
+            with DB_LOCK:
+                games, report = scan_db(self.conn)
+            visible = set(clean_ids(games))
+            rows = []
+            for g in games:
+                slug = g["slug"]
+                t = self.conn.execute("SELECT title_ar FROM games WHERE slug = ?", (slug,)).fetchone()
+                viols = (
+                    [{"rule": v["rule"], "message": v["message"], "severity": "error"}
+                     for v in report["errors"] if v["slug"] == slug]
+                    + [{"rule": v["rule"], "message": v["message"], "severity": "warning"}
+                       for v in report["warnings"] if v["slug"] == slug]
+                )
+                rows.append({
+                    "slug": slug,
+                    "title": t[0] if t else slug,
+                    "visible": slug in visible,
+                    "license_types": sorted({str(l.get("license_type", "")) for l in g["licenses"]}),
+                    "license_refs": sorted({str(l.get("license_ref", "")) for l in g["licenses"]}),
+                    "violations": viols,
+                })
+            self._json({"ok": True, "games": rows,
+                        "summary": {"total": len(rows), "visible": len(visible),
+                                    "hidden": len(rows) - len(visible)}})
             return
 
         if u.path == "/api/gates":

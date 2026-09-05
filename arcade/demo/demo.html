@@ -68,6 +68,17 @@
     <tbody></tbody>
   </table>
 
+  <h2 style="margin-top:2.5rem">سجل التراخيص — حاجز «من غير انتهاك» يعمل حيّاً</h2>
+  <p class="note" style="margin-top:.6rem">
+    لعبة <b>مقاتل الظل</b> مزروعة عمداً بترخيص <code>GPL-3.0</code> الممنوع —
+    شاهد كيف يخفيها المدقق تلقائياً بينما تمر الألعاب النظيفة. نقطة النهاية
+    <code>/api/games</code> تُظهر للزوار <b>النظيف فقط</b>.
+  </p>
+  <table id="lic">
+    <thead><tr><th>اللعبة</th><th>الترخيص</th><th>الحالة</th><th>المخالفات</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
   <h2 style="margin-top:2.5rem">البوابات — مخرجات حية من هذا التشغيل</h2>
   <pre id="out">…يُشغّل npm test…</pre>
 
@@ -140,6 +151,28 @@ async function load() {
 
 fetch('/api/gates').then(r => r.json()).then(d => document.getElementById('out').textContent = d.output);
 load();
+
+async function loadLicenses() {
+  const res = await fetch('/api/games');
+  const data = await res.json();
+  const tb = document.querySelector('#lic tbody');
+  tb.innerHTML = '';
+  data.games.forEach(g => {
+    const tr = document.createElement('tr');
+    const state = g.visible
+      ? '<span style="color:#38e1b5;font-weight:700">✓ مرئية للزوار</span>'
+      : '<span style="color:#ff6b81;font-weight:700">✗ مخفية تلقائياً</span>';
+    const chips = g.violations.length
+      ? g.violations.map(v => '<code style="background:' + (v.severity === 'error' ? '#3d1526' : '#3d3415') + ';color:' + (v.severity === 'error' ? '#ff9db1' : '#ffd479') + '">' + v.rule + '</code>').join(' ')
+      : '<span style="color:#38e1b5">—</span>';
+    tr.innerHTML = '<td>' + g.title + ' <code>' + g.slug + '</code></td>' +
+      '<td>' + (g.license_refs.join('، ') || '—') + '</td>' +
+      '<td>' + state + '</td>' +
+      '<td>' + chips + '</td>';
+    tb.appendChild(tr);
+  });
+}
+loadLicenses();
 </script>
 </body>
 </html>

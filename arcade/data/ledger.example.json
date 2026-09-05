@@ -1,0 +1,105 @@
+{
+  "_note": "نموذج سجل التراخيص بالشكل الذي يقرأه المدققان (PHP وPython). لكل لعبة: بياناتها + قائمة تراخيصها. لعبة 'neon-worm' تحمل تحذيراً تعليمياً واحداً (attribution) — لا يفشل البناء إلا مع --strict.",
+  "games": [
+    {
+      "slug": "neon-worm",
+      "status": "published",
+      "kind": "feed",
+      "local_path": "",
+      "licenses": [
+        {
+          "provider": "oss-pack",
+          "external_id": "3f9c2ab41e8d5c7b0a19f6e2d4c8b7a5f3e1d9c0",
+          "license_type": "oss",
+          "license_ref": "MIT",
+          "upstream_repo": "upstream/neon-worm",
+          "commit_sha": "3f9c2ab41e8d5c7b0a19f6e2d4c8b7a5f3e1d9c0",
+          "license_path": "data/oss-pack/neon-worm/LICENSE.txt",
+          "license_sha256": "b6e4a1e77b8c9f0a1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c",
+          "proof_url": "https://github.com/upstream/neon-worm/blob/3f9c2ab4/LICENSE",
+          "invoice_ref": "",
+          "allow_origins": "https://cdn.jsdelivr.net",
+          "attribution_required": true,
+          "attribution_html": "",
+          "license_status": "active",
+          "expires_at": ""
+        }
+      ]
+    },
+    {
+      "slug": "echo-cards",
+      "status": "published",
+      "kind": "feed",
+      "local_path": "",
+      "licenses": [
+        {
+          "provider": "oss-pack",
+          "external_id": "9d1e7c4b2a6f8e0d3c5b7a9f1e3d5c7b9a8f6e4d",
+          "license_type": "oss",
+          "license_ref": "Apache-2.0",
+          "upstream_repo": "upstream/echo-cards",
+          "commit_sha": "9d1e7c4b2a6f8e0d3c5b7a9f1e3d5c7b9a8f6e4d",
+          "license_path": "data/oss-pack/echo-cards/LICENSE.txt",
+          "license_sha256": "c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8",
+          "proof_url": "https://github.com/upstream/echo-cards/blob/main/LICENSE",
+          "invoice_ref": "",
+          "allow_origins": "https://cdn.jsdelivr.net",
+          "attribution_required": false,
+          "attribution_html": "",
+          "license_status": "active",
+          "expires_at": ""
+        }
+      ]
+    },
+    {
+      "slug": "bubble-nova",
+      "status": "published",
+      "kind": "feed",
+      "local_path": "",
+      "licenses": [
+        {
+          "provider": "gamedistribution",
+          "external_id": "gd-bubble-nova-77",
+          "license_type": "publisher-agreement",
+          "license_ref": "publisher-agreement",
+          "upstream_repo": "",
+          "commit_sha": "",
+          "license_path": "",
+          "license_sha256": "",
+          "proof_url": "https://static.gamedistribution.com/terms/publisher.html",
+          "invoice_ref": "GD-PUB-2026-0042",
+          "allow_origins": "https://html5.gamedistribution.com",
+          "attribution_required": false,
+          "attribution_html": "",
+          "license_status": "active",
+          "expires_at": "2027-01-31"
+        }
+      ]
+    },
+    {
+      "slug": "maze-runner",
+      "status": "published",
+      "kind": "upload",
+      "local_path": "var/games/maze-runner",
+      "licenses": [
+        {
+          "provider": "own",
+          "external_id": "",
+          "license_type": "own",
+          "license_ref": "own-licence",
+          "upstream_repo": "",
+          "commit_sha": "",
+          "license_path": "",
+          "license_sha256": "",
+          "proof_url": "",
+          "invoice_ref": "",
+          "allow_origins": "",
+          "attribution_required": false,
+          "attribution_html": "",
+          "license_status": "active",
+          "expires_at": ""
+        }
+      ]
+    }
+  ]
+}
