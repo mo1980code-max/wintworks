@@ -6,13 +6,16 @@
   "scripts": {
     "build:min": "terser js/app.js --compress --mangle --comments false -o js/app.min.js",
     "build": "npm run build:min",
-    "test": "python3 -c \"import xml.etree.ElementTree as ET, glob; [ET.parse(f) for f in glob.glob('sitemap.xml')]; print('OK')\" && python3 test_snapshot_update.py && node tests/scroll_restore.test.js && node tests/snapshot_refresh.test.js",
-    "snapshot": "python3 scripts/build_snapshot.py"
+    "test": "python3 -c \"import xml.etree.ElementTree as ET, glob; [ET.parse(f) for f in glob.glob('sitemap.xml')]; print('OK')\" && python3 test_snapshot_update.py && python3 test_wp_sources.py && python3 test_sch_deadlines.py && python3 test_tailwind_build.py && python3 scripts/seo_audit.py && node tests/scroll_restore.test.js && node tests/snapshot_refresh.test.js",
+    "snapshot": "python3 scripts/build_snapshot.py",
+    "build:css": "tailwindcss -c tailwind.config.js -i css/tailwind.input.css -o css/tailwind.min.css --minify",
+    "seo:audit": "python3 scripts/seo_audit.py"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "tailwindcss": "^3.4.0",
     "terser": "^5.50.0"
   }
 }
