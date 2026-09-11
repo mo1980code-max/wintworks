@@ -83,6 +83,44 @@ Without them the run still succeeds; it just prints a warning and skips the Adzu
 > 5. Optional cleanup: purge the old blob from history (`git filter-repo` + force-push) if you
 >    restructure the repo — treat the leaked key as revoked regardless.
 
+## SEO, internal linking & Core Web Vitals
+
+`scripts/seo_audit.py` walks every HTML page (root pages + `jobs/*.html`), the
+sitemap, robots.txt and the asset sizes, and reports findings grouped by
+severity. It exits non-zero on ERROR, so it is a build gate:
+
+```bash
+npm run seo:audit              # grouped human report
+python3 scripts/seo_audit.py --all --json seo-report.json   # every page + machine-readable
+```
+
+What it checks: `<title>`/meta-description length, canonical correctness,
+single `<h1>`, heading order, Open Graph / Twitter cards, JSON-LD validity with
+per-@type required fields (Article, FAQPage, JobPosting, BreadcrumbList,
+CollectionPage, WebApplication …) **including `@id` cross-references**, broken
+internal links, orphan pages, click depth from the homepage, weak inbound-link
+pages, sitemap ↔ file mismatches, duplicate titles/descriptions, image
+alt/width/height/decoding, and Core-Web-Vitals smells (render-blocking
+third-party scripts, runtime CSS compilers, missing preconnects, >200 KB
+images).
+
+`.github/workflows/seo-audit.yml` runs the suite plus this audit on every pull
+request, uploads the JSON report and fails if `css/tailwind.min.css` is stale.
+
+### What the audit found and what was fixed (2026-09-11)
+
+| Finding | Fix |
+| --- | --- |
+| 15 `<title>`s over the ~60-character SERP window, 3 descriptions over 160 | titles/descriptions rewritten (the reviewed-guide generator `scripts/update_guides.py` was updated too, so a re-run cannot reintroduce them) |
+| `cv-builder.html` loaded the **Tailwind Play CDN** (~400 KB of JS, compiled in the browser after paint) | pre-built, purged `css/tailwind.min.css` (≈13 KB) via `npm run build:css`; `test_tailwind_build.py` fails if the page and the build drift apart |
+| every page declared `Organization`/`WebSite` inconsistently; 10 pages had no structured data at all; breadcrumbs had no schema | one shared vocabulary in `scripts/schema_kit.py` (stable `@id`s, publisher logo, `datePublished`), `WebPage`/`AboutPage`/`ContactPage`/`CollectionPage`/`WebApplication` nodes, `BreadcrumbList` generated from the visible breadcrumb |
+| `scholarships.html` had **1 inbound internal link**, `guides-eu-visa-routes.html` had 2 | footer link sitewide, guides-hub card, and contextual "Related guides" blocks on 9 guide pages |
+| job pages were generate-once dead ends | each job page now links to its country guide, the scam guide and the visa comparison |
+| `JobPosting` had no `validThrough`/`employmentType`; job titles ran to 65 characters | rolling `validThrough` (+45 days), inferred `employmentType`, 60-character title budget in `scripts/generate_static_jobs.py` |
+| `cv-builder.html` had no Open Graph/Twitter tags; AdSense had no preconnect; a logo `<img>` had no `decoding` | all added |
+| sitemap omitted `cv-builder.html` and `disclaimer.html` | both added |
+
+
 ## Deploy (free)
 
 The live site at [wintworks.com](https://wintworks.com) is published automatically
@@ -100,6 +138,23 @@ Then point your domain `wintworks.com` to the host.
 > GitHub Pages ignores `.htaccess` (it is only for the legacy Apache host) and does not let you set
 > `Cache-Control` for `data/jobs.json`. That is why freshness is handled with a versioned URL plus
 > `no-store` on the manual refresh instead of response headers.
+
+### WordPress sources (ScholarshipsCorner, Scholars4Dev, OpportunitiesForYouth)
+
+These sites expose `/wp-json/wp/v2/posts`, so no key or scraping is needed.
+The parser was hardened on 2026-09-11 after measuring the live
+ScholarshipsCorner feed (82 rows):
+
+| Problem | Fix |
+| --- | --- |
+| 60/82 rows had an empty `location`; a few carried prose fragments such as `"America's best institutions which they would not b"` | the host country is resolved against a country table (`COUNTRY_ALIASES`, aliases like `UK`, `U.S.A`, `Türkiye` included) and read from the `Host Country:` / `Study in:` block these sites publish — free prose can no longer become a location |
+| `"… in UK"` posts were region-less because the region word list had no short form | short forms added; every EU/Arab country name is now an automatic alias |
+| 44/82 rows had no `deadline` (the date was only searched in the first 6 000 characters, ±140 characters around a keyword) | the whole body is scanned, the window follows the keyword (a "closing date" block no longer picks up an earlier "apply from" date), candidates are scored so `deadline`/`closing date`/`last date`/`apply by` beat a passing mention, and only future dates win |
+| non-EU/US/Arab destinations (Japan, Canada, Cambodia …) vanished from the country filter | any named host country is kept in `country`, even when its region stays untagged |
+
+Regression coverage for all of the above lives in `test_wp_sources.py`
+(66 checks, fixtures mirroring real posts).
+
 
 ### Optional extra scholarship APIs
 
@@ -136,7 +191,8 @@ python3 -m http.server 8080
 
 ```bash
 python3 scripts/build_snapshot.py     # or: npm run snapshot
-npm test                              # sitemap + snapshot + front-end regression tests
+npm run build:css                     # rebuild css/tailwind.min.css after editing cv-builder.html
+npm test                              # sitemap + snapshot + scholarships + Tailwind + SEO audit + front-end tests
 ```
 
 To force the live site to re-crawl right now: **Actions → Auto-update jobs → Run workflow**

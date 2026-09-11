@@ -13,7 +13,7 @@ import json
 import os
 import re
 import shutil
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote
 from xml.etree import ElementTree as ET
@@ -34,7 +34,7 @@ def safe_slug(value: str) -> str:
 
 
 BRAND_SUFFIX = " | WintWorks"
-TITLE_LIMIT = 65          # keep <title> short enough that Google does not truncate it
+TITLE_LIMIT = 60          # keep <title> inside the ~60-char SERP window
 DESC_META_LIMIT = 158     # meta description sweet spot
 
 
@@ -68,6 +68,30 @@ def page_title(job: dict) -> str:
     return fit_escaped(title, budget) + BRAND_SUFFIX
 
 
+def infer_employment_type(job: dict) -> str:
+    """Fallback employmentType from the listing text when the source omits it."""
+    blob = f"{job.get('title', '')} {job.get('type', '')} {job.get('description', '')[:400]}".lower()
+    for needle, value in (
+        ("intern", "INTERN"), ("trainee", "INTERN"), ("apprentice", "INTERN"),
+        ("part-time", "PART_TIME"), ("part time", "PART_TIME"), ("parttime", "PART_TIME"),
+        ("temporary", "TEMPORARY"), ("seasonal", "TEMPORARY"),
+        ("contract", "CONTRACTOR"), ("freelance", "CONTRACTOR"),
+        ("working student", "PART_TIME"), ("mini-job", "PART_TIME"),
+    ):
+        if needle in blob:
+            return value
+    return "FULL_TIME"
+
+
+def expiry_date(posted_iso: str, days: int = 45) -> str:
+    """Rolling validThrough for a JobPosting (ISO date, +`days`)."""
+    try:
+        d = datetime.fromisoformat(posted_iso)
+    except (TypeError, ValueError):
+        return ""
+    return (d + timedelta(days=days)).date().isoformat()
+
+
 def iso_date(value: str) -> str:
     if not value:
         return ""
@@ -93,6 +117,42 @@ def eligible(job: dict) -> bool:
                ("id", "title", "company", "description", "date", "url"))
 
 
+# Country → the matching country guide, so every job page links into the
+# guide cluster instead of dead-ending on the job board anchor.
+def _guide_for(job: dict) -> tuple[str, str] | None:
+    """(href, label) of the most relevant country guide for this job."""
+    country = (job.get("country") or "").strip()
+    if not country and job.get("region") == "US":
+        country = "USA"
+    key = country.lower()
+    guides = {
+        "united kingdom": ("jobs-in-united-kingdom.html", "UK visa sponsorship jobs"),
+        "uk": ("jobs-in-united-kingdom.html", "UK visa sponsorship jobs"),
+        "germany": ("jobs-in-germany.html", "jobs in Germany"),
+        "france": ("jobs-in-france.html", "jobs in France"),
+        "netherlands": ("jobs-in-netherlands.html", "jobs in the Netherlands"),
+        "spain": ("jobs-in-spain.html", "jobs in Spain"),
+        "italy": ("jobs-in-italy.html", "jobs in Italy"),
+        "poland": ("jobs-in-poland.html", "jobs in Poland"),
+        "portugal": ("jobs-in-portugal.html", "jobs in Portugal"),
+        "ireland": ("jobs-in-ireland.html", "jobs in Ireland"),
+        "austria": ("jobs-in-austria.html", "jobs in Austria"),
+        "belgium": ("jobs-in-belgium.html", "jobs in Belgium"),
+        "czechia": ("jobs-in-czechia.html", "jobs in Czechia"),
+        "czech republic": ("jobs-in-czechia.html", "jobs in Czechia"),
+        "romania": ("jobs-in-romania.html", "jobs in Romania"),
+        "switzerland": ("jobs-in-switzerland.html", "jobs in Switzerland"),
+        "usa": ("usa-remote-jobs.html", "USA remote jobs"),
+        "united states": ("usa-remote-jobs.html", "USA remote jobs"),
+    }
+    hit = guides.get(key)
+    if hit:
+        return hit
+    if job.get("region") == "WW" or job.get("remote"):
+        return ("remote-jobs-no-experience.html", "remote jobs without experience")
+    return ("work-in-europe.html", "how to find work in Europe")
+
+
 def schema_for(job: dict, page_url: str) -> dict:
     schema = {
         "@context": "https://schema.org",
@@ -112,9 +172,15 @@ def schema_for(job: dict, page_url: str) -> dict:
         "url": page_url,
         "directApply": False,
     }
-    kind = employment_type(job.get("type", ""))
+    kind = employment_type(job.get("type", "")) or infer_employment_type(job)
     if kind:
         schema["employmentType"] = kind
+    posted = iso_date(job["date"])
+    if posted:
+        # Google keeps a JobPosting eligible only while validThrough is in the
+        # future; the snapshot is rebuilt every six hours, so a rolling window
+        # is refreshed long before it lapses.
+        schema["validThrough"] = expiry_date(posted, days=45)
     country = job.get("country") or ("USA" if job.get("region") == "US" else "")
     if job.get("remote"):
         schema["jobLocationType"] = "TELECOMMUTE"
@@ -147,6 +213,7 @@ def render_job(job: dict, filename: str) -> str:
     remote = " · Remote" if job.get("remote") else ""
     # SEO-safe <title>/OG/Twitter text: full JobPosting title stays in JSON-LD.
     seo_title = page_title(job)
+    guide_href, guide_label = _guide_for(job)
     schema = json.dumps(schema_for(job, page_url), ensure_ascii=False,
                         separators=(",", ":")).replace("</", "<\\/")
     desc_meta = fit_escaped(
@@ -197,6 +264,15 @@ def render_job(job: dict, filename: str) -> str:
 <div class="job-description"><p>{description}</p></div>
 <p style="margin-top:28px"><a class="btn" href="{apply_url}" target="_blank" rel="noopener noreferrer sponsored">Apply on the original site →</a></p>
 <p style="color:var(--muted);font-size:.85rem">WintWorks aggregates this listing for discovery. Verify requirements and apply only through the original publisher.</p>
+<hr>
+<div class="job-guide-links">
+<h2 style="font-size:1.05rem">Applying from abroad?</h2>
+<ul>
+<li>Read the guide: <a href="../{guide_href}">{guide_label}</a></li>
+<li>Before you send documents, check <a href="../job-scam-warning-signs.html">how to spot fake job and visa offers</a>.</li>
+<li>Not sure which permit you need? Compare <a href="../work-visa-europe.html">Europe work visa routes</a> or browse <a href="../guides.html">all WintWorks guides</a>.</li>
+</ul>
+</div>
 </article></div></div></main>
 <footer class="site-footer"><div class="container"><div class="footer-bottom"><span>© WintWorks</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></footer>
 </body></html>

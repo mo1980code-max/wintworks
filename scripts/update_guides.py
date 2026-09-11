@@ -8,7 +8,7 @@ REVIEWED = "August 23, 2026"
 
 GUIDES = {
 "jobs-in-germany.html": {
-"title": "Jobs in Germany 2026: Visas, Salaries & How to Apply | WintWorks",
+"title": "Jobs in Germany 2026: Visas & Salaries | WintWorks",
 "description": "Reviewed 2026 guide to jobs in Germany: EU Blue Card thresholds, Opportunity Card, indicative salaries and application steps.",
 "h1": "Jobs in Germany for Foreigners 2026: Visas, Salaries & How to Apply",
 "intro": "Germany recruits international professionals across technology, engineering, healthcare, scientific research and skilled trades. Your immigration route depends on your nationality, qualifications, occupation and salary—not simply on whether an employer calls a role “sponsored.”",
@@ -165,7 +165,7 @@ GUIDES = {
 ("Does the Netherlands have a general digital nomad visa?", "The Netherlands does not offer a general residence route formally called a digital nomad visa. Remote workers must qualify under an existing residence and work category."),
 ]},
 "jobs-in-spain.html": {
-"title": "Jobs in Spain for Foreigners 2026: Visas & Salaries | WintWorks",
+"title": "Jobs in Spain 2026: Visas & Salaries | WintWorks",
 "description": "Working in Spain: work permits, the digital nomad visa, hiring cities and indicative salaries — explained simply.",
 "h1": "Jobs in Spain for Foreigners 2026: Work Visas, Salaries & Hiring Cities",
 "intro": "Spain offers local employment and international-remote-work routes, but they are legally different. A Digital Nomad Visa does not generally authorise a foreign employee to take an ordinary job with a Spanish employer; applicants seeking local employment normally need the relevant work authorisation.",
@@ -277,27 +277,30 @@ GUIDES = {
 }
 
 
-def faq_schema(filename, title, description, faqs):
-    url = "https://wintworks.com/" + filename
-    graph = [
-        {
-            "@type": "Article",
-            "headline": title.split(" | ")[0],
-            "description": description,
-            "mainEntityOfPage": url,
-            "dateModified": "2026-08-23",
-            "author": {"@type": "Organization", "name": "WintWorks Editorial Team"},
-            "publisher": {"@type": "Organization", "name": "WintWorks", "url": "https://wintworks.com/"},
-        },
-        {
-            "@type": "FAQPage",
-            "mainEntity": [
-                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
-                for q, a in faqs
-            ],
-        },
+def faq_schema(filename, title, description, faqs, h1=""):
+    """Full graph for a reviewed country guide (shared vocabulary via schema_kit)."""
+    import sys
+    from pathlib import Path as _P
+    sys.path.insert(0, str(_P(__file__).resolve().parent))
+    from schema_kit import (BASE_URL, article_node, breadcrumb_node, faq_node,
+                            ld_json_block, publisher_node, webpage_node, website_node)
+
+    url = BASE_URL + "/" + filename
+    country = filename.replace("jobs-in-", "").replace(".html", "").replace("-", " ").title()
+    nodes = [
+        publisher_node(),
+        website_node(),
+        webpage_node(url, title.split(" | ")[0], description,
+                     date_modified="2026-08-23"),
+        article_node(url, h1 or title.split(" | ")[0], description,
+                     date_published="2026-08-23", date_modified="2026-08-23"),
+        faq_node(faqs),
+        breadcrumb_node([("Home", BASE_URL + "/"),
+                         ("Guides", BASE_URL + "/guides.html"),
+                         (f"Jobs in {country}", url)], page_url=url),
     ]
-    return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":"))
+    return ld_json_block(nodes).replace('<script type="application/ld+json">\n', '').replace('\n</script>', '')
+
 
 for filename, g in GUIDES.items():
     p = BASE / filename
@@ -308,7 +311,7 @@ for filename, g in GUIDES.items():
     s = re.sub(r'<meta name="description" content=".*?">', f'<meta name="description" content="{g["description"]}">', s, count=1, flags=re.S)
     s = re.sub(r'<meta property="og:title" content=".*?">', f'<meta property="og:title" content="{g["title"].split(" | ")[0]}">', s, count=1, flags=re.S)
     s = re.sub(r'<meta property="og:description" content=".*?">', f'<meta property="og:description" content="{g["description"]}">', s, count=1, flags=re.S)
-    schema = faq_schema(filename, g['title'], g['description'], g['faqs'])
+    schema = faq_schema(filename, g['title'], g['description'], g['faqs'], g['h1'])
     s = re.sub(r'<script type="application/ld\+json">.*?</script>', f'<script type="application/ld+json">\n{schema}\n</script>', s, count=1, flags=re.S)
 
     # Article card only (leave CTA outside card and shared shell/footer intact)
