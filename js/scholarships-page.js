@@ -629,16 +629,26 @@ document.addEventListener("DOMContentLoaded", () => {
   $("#savedCount").textContent = state.bookmarks.size;
   $("#year").textContent = new Date().getFullYear();
 
-  // Load scholarships, then restore the pre-reload scroll position
+  // Load scholarships, then restore the pre-reload scroll position.
+  // The URL is version-stamped so a CDN/browser copy of the previous daily snapshot
+  // cannot be mistaken for "the scholarships never update", and the retry actually
+  // changes something (cache bypass) instead of re-reading the same cached response.
+  const stamp = "t" + Math.floor(Date.now() / 300000);
+  const applyScholarships = (snap) => {
+    if (!snap || !Array.isArray(snap.scholarships) || !snap.scholarships.length) {
+      throw new Error("empty scholarship snapshot");
+    }
+    state.scholarships = snap.scholarships.map(normalize);
+    renderScholarships();
+  };
   const loadSch = (retry = true) =>
-    fetch("data/scholarships.json")
-      .then(r => r.json())
-      .then(snap => {
-        state.scholarships = snap.scholarships.map(normalize);
-        renderScholarships();
+    fetch(`data/scholarships.json?v=${stamp}`, { cache: retry ? "no-cache" : "no-store" })
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
       })
+      .then(applyScholarships)
       .catch(() => {
-        // fallback: try again
         if (retry) return loadSch(false);
       });
   loadSch().then(wwRestoreScroll);

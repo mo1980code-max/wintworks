@@ -1,29 +1,61 @@
 #!/usr/bin/env python3
 """
 WintWorks — snapshot builder (runs automatically via GitHub Actions cron OR locally).
-Fetches jobs from free public APIs, keeps ONLY United States jobs,
-deduplicates, normalizes, and writes data/jobs.json (served with the site).
+Fetches jobs from free public APIs, keeps USA + Europe + worldwide-remote listings,
+normalises every timestamp to UTC, deduplicates, trims fairly to MAX_JOBS and writes
+data/jobs.json (served with the site).
 
-No API keys, no fees, no manual work.
+No API keys needed for the 5 free sources; Adzuna uses optional free keys.
+
+Tunables (environment):
+  WW_MAX_JOBS         size of the snapshot written to data/jobs.json   (1800)
+  WW_SOURCE_MAX_SHARE   share of the snapshot one single source may own   (0.5)
+  WW_MIN_JOBS         refuse to publish below this many jobs            (250)
+  WW_SHRINK_RATIO     refuse to publish if smaller than prev*ratio      (0.6)
+  WW_ALLOW_SHRINK     set to 1 to bypass both guards (after an outage)  (0)
 """
+import hashlib
 import json
 import os
 import re
 import sys
 import time
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(BASE, "data", "jobs.json")
 
 UA = {"User-Agent": "Mozilla/5.0 (compatible; WintWorks/1.0)"}
 
+# ---------------------------------------------------------------- snapshot size + safety rails
+MAX_JOBS = int(os.environ.get("WW_MAX_JOBS", "1800"))
+SOURCE_MAX_SHARE = float(os.environ.get("WW_SOURCE_MAX_SHARE", "0.5"))
+MIN_JOBS = int(os.environ.get("WW_MIN_JOBS", "250"))
+SHRINK_RATIO = float(os.environ.get("WW_SHRINK_RATIO", "0.6"))
+ALLOW_SHRINK = os.environ.get("WW_ALLOW_SHRINK", "").strip().lower() in ("1", "true", "yes")
+# Nothing may be dated more than this far in the future (see parse_date_utc).
+FUTURE_SKEW = 20 * 60
 
-def get_json(url, timeout=25):
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.load(r)
+
+def get_json(url, timeout=25, retries=2):
+    """GET + parse JSON, retrying transient failures.
+
+    Without retries one 5xx/timeout silently zeroed a whole source for the next
+    cron cycle, which is indistinguishable from "the board stopped updating".
+    """
+    last = None
+    for attempt in range(retries + 1):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.load(r)
+        except Exception as e:  # network is the only expected failure mode
+            last = e
+            if attempt < retries:
+                time.sleep(2.0 * (attempt + 1))
+    raise last
 
 
 # ---------------------------------------------------------------- US + ALL-EUROPE detection
@@ -306,6 +338,170 @@ def dt(ts=None):
     return datetime.now(timezone.utc).isoformat()
 
 
+# ---------------------------------------------------------------- date normalisation
+EPOCH0 = datetime(1970, 1, 1, tzinfo=timezone.utc)
+
+
+def parse_date_utc(value, now=None, clamp=True):
+    """Normalise any source timestamp to an aware-UTC ISO string ('' if unknown).
+
+    The feeds do not agree on a format: The Muse/Remotive emit '...Z' or a naive
+    'YYYY-MM-DDTHH:MM:SS', Jobicy can emit RFC-2822, RemoteOK emits unix seconds,
+    Adzuna emits *local* time mislabelled as UTC. The snapshot used to be trimmed
+    with a plain lexical sort over those mixed strings, which orders 'Z'-suffixed
+    timestamps below '+00:00' ones and puts naive dates anywhere at all — so whole
+    sources fell off the list (The Muse 96→3, RemoteOK 37→1, Remotive 16→1) and the
+    visible feed looked frozen even though the cron job ran every few hours.
+
+    `clamp=False` keeps future stamps intact so align_future_dates() can measure a
+    source's own clock skew before anything is flattened.
+    """
+    now = now or datetime.now(timezone.utc)
+    if value in (None, ""):
+        return ""
+
+    parsed = None
+    if isinstance(value, (int, float)):
+        parsed = _from_epoch(value, now)
+    else:
+        s = str(value).strip()
+        if not s:
+            return ""
+        if re.fullmatch(r"\d{9,11}", s):
+            parsed = _from_epoch(float(s), now)
+        else:
+            for candidate in (s, s.replace("Z", "+00:00"), s.replace("z", "+00:00")):
+                try:
+                    parsed = datetime.fromisoformat(candidate)
+                    break
+                except ValueError:
+                    continue
+            if parsed is None:
+                try:
+                    parsed = parsedate_to_datetime(s)
+                except (TypeError, ValueError):
+                    parsed = None
+            if parsed is None:
+                m = re.match(r"^(\d{4})-(\d{2})-(\d{2})", s)
+                if m:
+                    parsed = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)),
+                                      tzinfo=timezone.utc)
+
+    if parsed is None:
+        return ""
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    else:
+        parsed = parsed.astimezone(timezone.utc)
+    if parsed > now + timedelta(seconds=FUTURE_SKEW):
+        if clamp:
+            parsed = now
+    if parsed < EPOCH0:
+        return ""
+    return parsed.isoformat()
+
+
+def align_future_dates(jobs, now=None):
+    """Shift a whole source back when its newest listing is in the future.
+
+    Adzuna returns `created` in market-local time but labels it 'Z', so every German
+    listing looked ~2 hours newer than it was — permanently on top of the feed, and
+    all with the same "32m ago" label on the site. Flattening those stamps to `now`
+    one by one would freeze that symptom (identical timestamps for 500 jobs), so the
+    source's own skew is measured once and subtracted from its whole batch: the
+    relative order and the minute-level spread survive, and nothing is dated from
+    the future any more.
+    """
+    now = now or datetime.now(timezone.utc)
+    buckets = {}
+    for j in jobs:
+        buckets.setdefault(j.get("source") or "Other", []).append(j)
+    shifted = 0
+    for name, bucket in buckets.items():
+        stamps = []
+        for j in bucket:
+            try:
+                stamps.append(datetime.fromisoformat(str(j.get("date") or "")))
+            except ValueError:
+                continue
+        if not stamps:
+            continue
+        skew = max(stamps) - now
+        if skew <= timedelta(seconds=FUTURE_SKEW):
+            continue
+        for j in bucket:
+            try:
+                d = datetime.fromisoformat(str(j.get("date") or ""))
+            except ValueError:
+                continue
+            j["date"] = (d - skew).isoformat()
+            shifted += 1
+        print(f"  {name}: dates were {skew} in the future — shifted the batch back")
+    return shifted
+
+
+def _from_epoch(seconds, now):
+    try:
+        d = datetime.fromtimestamp(float(seconds), tz=timezone.utc)
+    except (OverflowError, OSError, ValueError):
+        return now
+    return d
+
+
+def date_key(job):
+    """Seconds since the epoch for a normalised job date (0 = unusable)."""
+    raw = str(job.get("date") or "")
+    try:
+        return datetime.fromisoformat(raw).timestamp()
+    except ValueError:
+        return 0.0
+
+
+def select_jobs(jobs, max_jobs=MAX_JOBS, max_share=SOURCE_MAX_SHARE):
+    """Trim to `max_jobs` newest-first, with a fair share per source.
+
+    A bare `sorted(...)[:1800]` hands the entire snapshot to whichever feed happens
+    to be the biggest — Arbeitnow alone returns ~1400 listings — so every other
+    source was discarded run after run and the board never changed for a visitor
+    filtering USA or Worldwide/remote. Each source may therefore claim at most
+    `max_share` of the snapshot; when the capped wishes still overflow, every source
+    scales down proportionally instead of the little feeds being deleted outright.
+    Newest-first is respected *inside* each source, and any slot left over is filled
+    with the freshest remaining listings regardless of origin.
+    """
+    buckets = {}
+    for j in jobs:
+        buckets.setdefault(j.get("source") or "Other", []).append(j)
+    for bucket in buckets.values():
+        bucket.sort(key=date_key, reverse=True)
+
+    ceiling = max(1, int(max_jobs * max_share))
+    want = {name: min(len(bucket), ceiling) for name, bucket in buckets.items()}
+    total_want = sum(want.values())
+    if total_want > max_jobs and total_want > 0:
+        ratio = max_jobs / total_want
+        quota = {name: max(1, int(w * ratio)) for name, w in want.items()}
+    else:
+        quota = want
+
+    kept, overflow = [], []
+    for name, bucket in buckets.items():
+        take = min(len(bucket), quota.get(name, 0))
+        kept.extend(bucket[:take])
+        overflow.extend(bucket[take:])
+
+    room = max_jobs - len(kept)
+    if room > 0 and overflow:
+        overflow.sort(key=date_key, reverse=True)
+        kept.extend(overflow[:room])
+
+    kept.sort(key=date_key, reverse=True)
+    if len(kept) > max_jobs:  # rounding of the proportional quota
+        overflow.extend(kept[max_jobs:])
+        kept = kept[:max_jobs]
+    return kept
+
+
 
 # Multilingual keywords (DE/FR/ES/IT/NL/PL) so localized Adzuna/Arbeitnow listings
 # still map into the right category.
@@ -552,16 +748,13 @@ ADZUNA_MARKETS = [
 
 
 def _parse_date(v):
-    """Accepts ISO-8601 ('2026-08-10T20:43:36Z') or unix seconds."""
-    if not v:
-        return ""
-    if isinstance(v, (int, float)) or str(v).isdigit():
-        return datetime.fromtimestamp(float(v), tz=timezone.utc).isoformat()
-    s = str(v).strip()
-    try:
-        return datetime.fromisoformat(s.replace("Z", "+00:00")).isoformat()
-    except Exception:
-        return s[:10]
+    """Adzuna 'created' → normalised UTC ISO string, skew left intact.
+
+    Clamping happens later (see align_future_dates), because the source's own offset
+    has to be measurable before anything is flattened.
+    """
+    return parse_date_utc(v, clamp=False)
+
 
 
 def fetch_adzuna():
@@ -634,7 +827,20 @@ SOURCES = [
 ]
 
 
+def previous_count():
+    """Job count of the snapshot currently published (0 when unknown)."""
+    if not os.path.exists(OUT):
+        return 0
+    try:
+        with open(OUT, encoding="utf-8") as f:
+            prev = json.load(f)
+        return int(prev.get("count") or len(prev.get("jobs") or []))
+    except Exception:
+        return 0
+
+
 def main():
+    now = datetime.now(timezone.utc)
     all_jobs = []
     per_source = {}
     errors = []
@@ -650,6 +856,15 @@ def main():
             per_source[name] = 0
             print(f"  {name}: ERROR {e}")
 
+    # One date format everywhere: every source keeps its own convention, sources are
+    # aligned to reality, and the trim below is a real chronological sort instead of
+    # a string comparison over five different layouts.
+    for j in all_jobs:
+        j["date"] = parse_date_utc(j.get("date"), now, clamp=False)
+    align_future_dates(all_jobs, now)
+    for j in all_jobs:  # safety net: never publish a job dated from the future
+        j["date"] = parse_date_utc(j.get("date"), now)
+
     # dedupe by title+company (cross-source duplicates)
     seen = {}
     for j in all_jobs:
@@ -661,8 +876,27 @@ def main():
                 seen[key] = j
         else:
             seen[key] = j
-    jobs = sorted(seen.values(),
-                  key=lambda j: j.get("date", ""), reverse=True)[:1800]
+    jobs = select_jobs(list(seen.values()))
+
+    # ------------------------------------------------------- collapse guard
+    # If every source 5xx'd (or an API changed shape), the old code happily
+    # published an almost-empty snapshot and the live board went blank until the
+    # next cron cycle. Keep the last good file and fail the run instead.
+    prev = previous_count()
+    problems = []
+    if len(jobs) < MIN_JOBS:
+        problems.append(f"only {len(jobs)} usable jobs (floor: {MIN_JOBS})")
+    if prev and len(jobs) < prev * SHRINK_RATIO:
+        problems.append(f"snapshot shrank from {prev} to {len(jobs)} jobs "
+                        f"(below {SHRINK_RATIO:.0%} of the published one)")
+    if problems and not ALLOW_SHRINK:
+        print("\nREFUSING to publish this snapshot — the live data is left untouched:")
+        for p in problems:
+            print(f"  • {p}")
+        if errors:
+            print("  source errors:", "; ".join(errors))
+        print("  Re-run with WW_ALLOW_SHRINK=1 if this shrink is really intended.")
+        return 2
 
     for j in jobs:  # drop empty fields to shrink the payload
         if not j.get("logo"):
@@ -671,22 +905,40 @@ def main():
             j.pop("type", None)
         if not j.get("tags"):
             j.pop("tags", None)
-    payload = {
-        "generated_at": dt(),
-        "count": len(jobs),
-        "per_source": per_source,
-        "jobs": jobs,
-    }
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
+
     from collections import Counter
     regs = Counter(j.get("region", "") for j in jobs)
     ctrs = Counter(j.get("country", "Worldwide / Remote") for j in jobs)
+    kept_per_source = Counter(j.get("source", "") for j in jobs)
+    fingerprint = hashlib.sha1(
+        ("|".join(sorted(str(j.get("id")) for j in jobs)) + "|" + str(regs)).encode()
+    ).hexdigest()[:12]
+
+    payload = {
+        "generated_at": now.isoformat(),
+        "count": len(jobs),
+        "snapshot_id": fingerprint,
+        "per_source": per_source,
+        "per_source_kept": dict(kept_per_source),
+        "source_errors": errors,
+        "regions": dict(regs.most_common()),
+        "newest": jobs[0].get("date", "") if jobs else "",
+        "oldest": jobs[-1].get("date", "") if jobs else "",
+        "jobs": jobs,
+    }
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    tmp = OUT + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
+    os.replace(tmp, OUT)  # atomic: a killed run can never leave truncated JSON
+
     print("  regions:", dict(regs.most_common()))
     print("  top countries:", dict(ctrs.most_common(20)))
+    print("  kept per source:", dict(kept_per_source.most_common()))
+    fresh = sum(1 for j in jobs if date_key(j) > (now - timedelta(hours=24)).timestamp())
+    print(f"  newer than 24h: {fresh}")
     size = os.path.getsize(OUT) / 1024
-    print(f"Wrote {OUT}: {len(jobs)} jobs ({size:.0f} KB)")
+    print(f"Wrote {OUT}: {len(jobs)} jobs ({size:.0f} KB) snapshot={fingerprint}")
     if errors:
         print("Errors:", errors)
 

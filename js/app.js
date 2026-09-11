@@ -69,6 +69,12 @@ const CONFIG = {
   browserLiveRefresh: false,
   maxJobsInMemory: 1800,
   maxScholarInMemory: 600,
+  // Snapshot handling. Pages and browsers both cache a plain
+  // fetch("data/jobs.json"), so the URL carries a version that changes over time and
+  // the manual refresh bypasses the cache completely.
+  snapshotUrl: "data/jobs.json",
+  snapshotCheckMinutes: 15,  // revalidate an open tab every 15 min
+  snapshotStaleHours: 12,    // beyond this the stamp is flagged as overdue
 };
 
 /* ============================ UTILS ============================ */
@@ -95,7 +101,9 @@ function timeAgo(iso) {
   if (!iso) return "";
   const d = new Date(iso);
   if (isNaN(d)) return "";
-  const s = Math.max(1, Math.floor((Date.now() - d.getTime()) / 1000));
+  const delta = Date.now() - d.getTime();
+  if (delta < 60000) return "just now";   // also covers clock skew / future stamps
+  const s = Math.floor(delta / 1000);
   if (s < 3600)  return `${Math.max(1, Math.floor(s / 60))}m ago`;
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
   if (s < 86400 * 7) return `${Math.floor(s / 86400)}d ago`;
@@ -141,7 +149,11 @@ const store = {
     catch { return fallback; }
   },
   set(key, val) {
-    try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+    // Returns false instead of failing silently: a 1 800-job snapshot is ~2.7 MB and
+    // can exceed the per-origin quota (Safari is strict), and callers need to know so
+    // they can fall back to a trimmed offline copy.
+    try { localStorage.setItem(key, JSON.stringify(val)); return true; }
+    catch { return false; }
   },
 };
 
@@ -623,6 +635,9 @@ const state = {
   bookmarks: new Set(store.get("ww:bookmarks", [])),
   lastLive: null,
   sourceStatus: {},
+  // Metadata of the snapshot currently on screen (generated_at, id, per-source
+  // counts). Powers the "Updated 12m ago" stamp and the source pills.
+  snapshotMeta: null,
 };
 
 /* ============================ SCHOLARSHIP STATE ============================ */
@@ -675,35 +690,147 @@ function setJobs(list) {
   renderAll();
 }
 
-const SNAP_TTL = 30 * 60 * 1000;
+// How long a locally stored snapshot may serve as the first paint. The network copy
+// always wins as soon as it answers, so this only trades a flash of slightly older
+// cards for an instant page.
+const SNAP_SHOW_MS = 12 * 60 * 60 * 1000;
 
-async function load() {
-  const cached = store.get("ww:snap", null);
-  if (cached && cached.jobs && Date.now() - cached.t < SNAP_TTL) {
-    setJobs(cached.jobs.map(normalize));
-  }
-  try {
-    const res = await fetch("data/jobs.json");
-    if (res.ok) {
-      const snap = await res.json();
-      store.set("ww:snap", { t: Date.now(), jobs: snap.jobs });
-      setJobs(snap.jobs.map(normalize));
-    } else throw new Error("no snapshot");
-  } catch {
-    if (!cached) {
-      const old = store.get("ww:jobs", null);
-      if (old && Array.isArray(old)) setJobs(old);
-    }
-  }
-  if (CONFIG.browserLiveRefresh) refreshLive(true);
-  if (state.urlFiltered) {
-    const j = $("#jobs");
-    if (j && typeof j.scrollIntoView === "function")
-      setTimeout(() => j.scrollIntoView({ behavior: "smooth" }), 350);
-  }
-  // Re-route to handle any hash set before data finished loading
-  route();
+/* ---- snapshot transport -------------------------------------------------
+   data/jobs.json used to be fetched with a bare fetch("data/jobs.json"): the
+   GitHub Pages CDN, the browser and the service-worker-free cache chain could all
+   answer that URL with a copy from the previous deploy, which reads exactly like
+   "the site never updates". A versioned URL + explicit cache mode fixes it:
+   the automatic check revalidates (cheap, 304 when nothing changed) and the manual
+   Refresh button bypasses every cache. ------------------------------------ */
+function snapshotVersion() {
+  // 5-minute buckets keep the URL stable within a visit (cacheable) but fresh fast.
+  return "t" + Math.floor(Date.now() / 300000);
 }
+
+async function fetchSnapshot({ force = false, timeout = 20000 } = {}) {
+  const url = `${CONFIG.snapshotUrl}?v=${force ? "f" + Date.now() : snapshotVersion()}`;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeout);
+  let res;
+  try {
+    res = await fetch(url, { cache: force ? "no-store" : "no-cache", signal: ctrl.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const snap = await res.json();
+  if (!snap || !Array.isArray(snap.jobs) || !snap.jobs.length)
+    throw new Error("empty snapshot");
+  return snap;
+}
+
+function applySnapshot(snap) {
+  state.snapshotMeta = {
+    id: snap.snapshot_id || "",
+    generatedAt: snap.generated_at || "",
+    count: Number(snap.count) || snap.jobs.length,
+    perSource: snap.per_source || null,
+    perSourceKept: snap.per_source_kept || null,
+    errors: snap.source_errors || [],
+  };
+  storeSnapshot(snap);
+  setJobs(snap.jobs.map(normalize));
+  renderSnapshotStamp();
+  return state.snapshotMeta.id;
+}
+
+/* Persist the snapshot for the next offline load, falling back to the newest 500
+   jobs when the browser rejects the full payload (quota). */
+function storeSnapshot(snap) {
+  const meta = state.snapshotMeta;
+  if (store.set("ww:snap", { t: Date.now(), meta, jobs: snap.jobs })) return true;
+  return store.set("ww:snap", {
+    t: Date.now(), meta, partial: true, jobs: snap.jobs.slice(0, 500),
+  });
+}
+
+/* One-shot data refresh. `manual` adds the user feedback (button state + toast). */
+let snapBusy = false;
+async function refreshSnapshot(manual = false) {
+  if (snapBusy) return false;
+  snapBusy = true;
+  const btn = $("#refreshSnapshot");
+  if (btn) { btn.disabled = true; btn.classList.add("is-busy"); }
+  const before = state.snapshotMeta && state.snapshotMeta.id;
+  try {
+    const snap = await fetchSnapshot({ force: manual });
+    const id = applySnapshot(snap);
+    const changed = !!id && id !== before;
+    const total = (Number(snap.count) || (snap.jobs && snap.jobs.length) || 0).toLocaleString();
+    if (manual) {
+      toast(changed
+        ? `${total} jobs — the board just moved to a newer snapshot`
+        : "Already current — the crawler has not published anything newer yet");
+    } else if (changed) {
+      toast(`${total} jobs — updated ${timeAgo(snap.generated_at)}`,
+        "Show", () => { applyFilters(); });
+    }
+    return changed;
+  } catch (e) {
+    if (manual) toast("Could not reach the update feed — showing the last snapshot on file");
+    return false;
+  } finally {
+    snapBusy = false;
+    if (btn) { btn.disabled = false; btn.classList.remove("is-busy"); }
+  }
+}
+
+function load() {
+  const cached = store.get("ww:snap", null);
+  if (cached && cached.jobs && Date.now() - cached.t < SNAP_SHOW_MS) {
+    // Instant paint from the last snapshot we saw, then revalidate below.
+    if (cached.meta) state.snapshotMeta = cached.meta;
+    setJobs(cached.jobs.map(normalize));
+    renderSnapshotStamp();
+  }
+  return fetchSnapshot()
+    .then(snap => { applySnapshot(snap); return snap; })
+    .catch(() => {
+      if (!cached) {
+        const old = store.get("ww:jobs", null);
+        if (old && Array.isArray(old)) { setJobs(old.map(normalize)); renderSnapshotStamp(); }
+      }
+      renderSnapshotStamp();
+      return null;
+    })
+    .then(() => {
+      if (CONFIG.browserLiveRefresh) refreshLive(true);
+      if (state.urlFiltered) {
+        const j = $("#jobs");
+        if (j && typeof j.scrollIntoView === "function")
+          setTimeout(() => j.scrollIntoView({ behavior: "smooth" }), 350);
+      }
+      // Re-route to handle any hash set before data finished loading
+      route();
+    });
+}
+
+/* ---- "updated X ago" + source health, so freshness is visible, not implied ---- */
+function renderSnapshotStamp() {
+  const el = $("#snapStamp");
+  const meta = state.snapshotMeta;
+  if (!el) return;
+  if (!meta || !meta.generatedAt) {
+    el.textContent = "updated automatically several times a day";
+    el.classList.remove("is-stale");
+    return;
+  }
+  const ageH = (Date.now() - new Date(meta.generatedAt).getTime()) / 3600000;
+  const stale = isFinite(ageH) && ageH > CONFIG.snapshotStaleHours;
+  const n = meta.count || state.jobs.length;
+  el.innerHTML = `Updated <b>${esc(timeAgo(meta.generatedAt))}</b> · `
+    + `${n.toLocaleString()} jobs from ${(meta.perSourceKept
+        ? Object.keys(meta.perSourceKept).length
+        : new Set(state.jobs.map(j => j.source)).size) || 0} sources`
+    + (stale ? ' <span class="snap-warn">· the crawler is overdue, tap Refresh</span>' : "");
+  el.classList.toggle("is-stale", !!stale);
+}
+
 
 async function refreshLive(initial = false) {
   const prevIds = new Set(state.jobs.map(j => j.id));
@@ -876,17 +1003,40 @@ function renderHome() {
 function updateSyncPills() {
   const wrap = $("#syncStatus");
   if (!wrap) return;
+  const meta = state.snapshotMeta || {};
   const snapCounts = {};
   state.jobs.forEach(j => { snapCounts[j.source] = (snapCounts[j.source]||0) + 1; });
+  const fetched = meta.perSource || {};
+  const failed = new Set((meta.errors || []).map(e => String(e).split(":")[0].trim()));
   const names = SOURCES.map(s => s.name);
   Object.keys(snapCounts).forEach(n => { if (!names.includes(n)) names.push(n); });
-  wrap.innerHTML = names.map(name => {
-    const st   = state.sourceStatus[name];
-    const count = st ? st.count : snapCounts[name] || 0;
-    const cls  = st ? (st.ok ? "ok" : "err") : "ok";
-    return `<span class="src-pill ${cls}"><span class="dot"></span>${esc(name)}
-      <b>${count}</b></span>`;
+  const pills = names.map(name => {
+    const st      = state.sourceStatus[name];
+    const kept    = snapCounts[name] || 0;
+    const got     = st ? st.count : (fetched[name] !== undefined ? fetched[name] : kept);
+    const err     = st ? !st.ok : (kept === 0 && failed.has(name));
+    // A source that returned listings but kept none is trimmed away, not broken —
+    // worth showing separately, because "0 jobs" alone is indistinguishable from an
+    // outage and is exactly what made this board look dead while it was updating.
+    const cls     = err ? "err" : (kept === 0 && got > 0 ? "warn" : (kept ? "ok" : "idle"));
+    const label   = got && got !== kept ? `${kept}/${got}` : String(kept);
+    const title   = err ? `${name}: last crawl failed` :
+      `${name}: ${got} listings fetched, ${kept} kept in the snapshot`;
+    return `<span class="src-pill ${cls}" title="${esc(title)}"><span class="dot"></span>`
+      + `${esc(name)} <b>${esc(label)}</b></span>`;
   }).join("");
+  const stamp = meta.generatedAt
+    ? `<span class="src-pill ${isSnapshotStale() ? "warn" : "ok"}" `
+      + `title="Snapshot ${esc(meta.id || "")} built by the crawler">${esc(timeAgo(meta.generatedAt))}</span>`
+    : "";
+  wrap.innerHTML = stamp + pills;
+}
+
+function isSnapshotStale() {
+  const meta = state.snapshotMeta;
+  if (!meta || !meta.generatedAt) return false;
+  return (Date.now() - new Date(meta.generatedAt).getTime())
+    > CONFIG.snapshotStaleHours * 3600000;
 }
 
 /* ============================ SCHOLARSHIPS ============================ */
@@ -1067,27 +1217,33 @@ function renderScholarships() {
 }
 
 async function loadScholarships() {
-  store.set("ww:schSnap", null);  // force fresh load
+  // Same cache-busting as the job snapshot: the previous version re-fetched the
+  // identical URL on failure, which just hit the same cached copy twice.
+  const url = `data/scholarships.json?v=${snapshotVersion()}`;
+  const apply = (snap) => {
+    if (!snap || !Array.isArray(snap.scholarships) || !snap.scholarships.length) return false;
+    state.scholarships = snap.scholarships.map(schNormalize);
+    renderScholarships();
+    renderScholarStamp(snap);
+    return true;
+  };
   try {
-    const res = await fetch("data/scholarships.json");
-    if (res.ok) {
-      const snap = await res.json();
-      state.scholarships = snap.scholarships.map(schNormalize);
-      renderScholarships();
-    }
-  } catch {
-    // seed already committed in data/scholarships.json
-    try {
-      const res2 = await fetch("data/scholarships.json");
-      if (res2.ok) {
-        const snap = await res2.json();
-        state.scholarships = snap.scholarships.map(schNormalize);
-        renderScholarships();
-      }
-    } catch {}
-  }
+    const res = await fetch(url, { cache: "no-cache" });
+    if (res.ok && apply(await res.json())) return route();
+  } catch {}
+  try {  // one true bypass: a stale CDN entry is the failure this used to repeat
+    const res2 = await fetch(url.replace("?", "?retry=1&"), { cache: "no-store" });
+    if (res2.ok) apply(await res2.json());
+  } catch {}
   // Re-route to handle any hash set before data finished loading
   route();
+}
+
+/* The grants list is refreshed by its own daily workflow — show when that happened. */
+function renderScholarStamp(snap) {
+  const el = $("#schStamp");
+  if (!el || !snap || !snap.generated_at) return;
+  el.textContent = `updated ${timeAgo(snap.generated_at)} · ${state.scholarships.length} open grants`;
 }
 
 /* ============================ SCHOLARSHIP DETAIL ============================ */
@@ -1241,6 +1397,13 @@ function applyFilters() { renderHome(); }
 function applySchFilters() { renderScholarships(); }
 
 function bindEvents() {
+  // ── "Refresh" — pull the newest snapshot straight from the crawler output ──
+  const refreshBtn = $("#refreshSnapshot");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", () => refreshSnapshot(true));
+    setInterval(renderSnapshotStamp, 60000);   // keep "Updated 12m ago" honest
+  }
+
   // ── JOBS search & filters ──
   let debounce;
   $("#searchInput").addEventListener("input", e => {
@@ -1506,6 +1669,21 @@ function bindEvents() {
     });
   }
 
+  // ── KEEP AN OPEN TAB ON THE NEWEST SNAPSHOT ──
+  // Nothing used to re-fetch data/jobs.json after the first load, so a visitor who
+  // kept the board in a background tab literally never saw new jobs arrive.
+  // Revalidation is a conditional GET: when the crawler has not published a newer
+  // snapshot the CDN answers 304 and nothing is re-parsed.
+  let lastRevalidate = Date.now();
+  const revalidateSnapshot = () => {
+    if (document.hidden) return;
+    if (Date.now() - lastRevalidate < CONFIG.snapshotCheckMinutes * 60000) return;
+    lastRevalidate = Date.now();
+    refreshSnapshot(false);
+  };
+  setInterval(revalidateSnapshot, 5 * 60000);
+  document.addEventListener("visibilitychange", revalidateSnapshot);
+
   // ── JOB/SCHOLARSHIP TITLE CLICK HANDLER ──
   // Render details immediately on click, bypassing hashchange delays
   document.addEventListener('click', (e) => {
@@ -1705,6 +1883,17 @@ function applyUrlParams() {
 /* ============================ BOOT ============================ */
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
+
+  // The bundle is also loaded by long-form pages (guides-eu-visa-routes.html) that
+  // carry none of the board markup: bindEvents() threw on the first missing element
+  // and load() pulled the 2.7 MB snapshot for nothing. Boot the board only on a page
+  // that actually has one.
+  if (!$("#grid") || !$("#searchInput")) {
+    const yearEl = $("#year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    return;
+  }
+
   bindEvents();
   applyUrlParams();
   $("#savedCount").textContent = state.bookmarks.size;

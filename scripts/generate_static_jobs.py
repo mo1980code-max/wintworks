@@ -203,7 +203,25 @@ def render_job(job: dict, filename: str) -> str:
 """
 
 
-def update_home(selected: list[dict]) -> None:
+ASSET_RE = re.compile(r"(?P<file>js/app\.min\.js|css/app\.css)(?:\?v=[0-9A-Za-z._-]+)?")
+
+
+def stamp_assets(text: str, version: str) -> str:
+    """Give the home page's bundle links a version that tracks the snapshot.
+
+    GitHub Pages and browser caches keep app.min.js / app.css for a while. Without a
+    query that changes whenever the data changes, a deploy can serve a cached bundle
+    that no longer matches the shipped snapshot — the visible symptom being "the
+    site did not update". Idempotent: the same version rewrites to the same text, so
+    a run with no new jobs still produces no diff.
+    """
+    if not version:
+        return text
+    version = re.sub(r"[^0-9A-Za-z._-]", "-", str(version))
+    return ASSET_RE.sub(lambda m: f"{m.group('file')}?v={version}", text)
+
+
+def update_home(selected: list[dict], version: str = "") -> None:
     text = INDEX.read_text(encoding="utf-8")
     cards = []
     for job in selected[:12]:
@@ -220,6 +238,7 @@ def update_home(selected: list[dict]) -> None:
     text, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
     if count != 1:
         raise RuntimeError("Could not find the home-page jobs grid")
+    text = stamp_assets(text, version)
     INDEX.write_text(text, encoding="utf-8")
 
 
@@ -272,8 +291,11 @@ def main() -> int:
     if JOBS_DIR.exists():
         shutil.rmtree(JOBS_DIR)
     staging.rename(JOBS_DIR)
-    DATA.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    update_home(selected)
+    tmp = str(DATA) + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
+    os.replace(tmp, DATA)
+    update_home(selected, payload.get("snapshot_id") or (payload.get("generated_at") or "")[:10])
     update_sitemap(selected, payload.get("generated_at") or datetime.now(timezone.utc).isoformat())
     print(f"Generated {len(selected)} crawlable job pages")
     return 0
