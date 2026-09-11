@@ -55,11 +55,18 @@ def fit_escaped(text: str, limit: int, quote: bool = False) -> str:
     return html.escape(candidate, quote=quote)
 
 
-def page_title(job: dict) -> str:
-    """'<title> at <company> | WintWorks', shortened to TITLE_LIMIT chars (escaped)."""
+def page_title(job: dict, suffix: str = "") -> str:
+    """'<title> at <company> | WintWorks', shortened to TITLE_LIMIT chars (escaped).
+
+    `suffix` disambiguates pages whose title/company pair collides with another
+    live listing (two "Test Manager at Acme" rows from different markets would
+    otherwise ship identical <title>s, which Google treats as duplication).
+    """
     budget = TITLE_LIMIT - len(BRAND_SUFFIX)
     title = re.sub(r"\s+", " ", str(job.get("title", ""))).strip()
     company = re.sub(r"\s+", " ", str(job.get("company", ""))).strip()
+    if suffix:
+        budget -= len(suffix) + 3          # " · " separator
     combined = f"{title} at {company}" if company else title
     if len(html.escape(combined, quote=False)) <= budget:
         return html.escape(combined, quote=False) + BRAND_SUFFIX
@@ -200,7 +207,7 @@ def schema_for(job: dict, page_url: str) -> dict:
     return schema
 
 
-def render_job(job: dict, filename: str) -> str:
+def render_job(job: dict, filename: str, title_suffix: str = "") -> str:
     page_url = f"{BASE_URL}/jobs/{quote(filename)}"
     title = html.escape(job["title"])
     company = html.escape(job["company"])
@@ -212,7 +219,7 @@ def render_job(job: dict, filename: str) -> str:
     posted = iso_date(job.get("date", ""))
     remote = " · Remote" if job.get("remote") else ""
     # SEO-safe <title>/OG/Twitter text: full JobPosting title stays in JSON-LD.
-    seo_title = page_title(job)
+    seo_title = page_title(job, title_suffix)
     guide_href, guide_label = _guide_for(job)
     schema = json.dumps(schema_for(job, page_url), ensure_ascii=False,
                         separators=(",", ":")).replace("</", "<\\/")
@@ -360,10 +367,29 @@ def main() -> int:
     staging.mkdir()
     for job in jobs:
         job.pop("detail_path", None)
+    seen_titles: dict[str, int] = {}
     for job in selected:
         filename = safe_slug(job["id"])
         job["detail_path"] = f"jobs/{filename}"
-        (staging / filename).write_text(render_job(job, filename), encoding="utf-8")
+        # keep every <title> unique: on a collision append the location, then the
+        # source, so identical listings from different markets stay distinct
+        base = re.sub(r"\s+", " ", page_title(job)).lower()
+        suffix = ""
+        if base in seen_titles:
+            seen_titles[base] += 1
+            for candidate in (str(job.get("location") or "").strip(),
+                              str(job.get("source") or "").strip(),
+                              str(seen_titles[base])):
+                if not candidate:
+                    continue
+                trial = page_title(job, candidate)
+                if trial.lower() not in seen_titles:
+                    suffix = candidate
+                    seen_titles[trial.lower()] = 1
+                    break
+        else:
+            seen_titles[base] = 1
+        (staging / filename).write_text(render_job(job, filename, suffix), encoding="utf-8")
     if JOBS_DIR.exists():
         shutil.rmtree(JOBS_DIR)
     staging.rename(JOBS_DIR)
