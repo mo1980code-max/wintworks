@@ -187,6 +187,36 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://wintworks.com/ats-resume-guide.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wintworks.com/student-visa-work-rights.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wintworks.com/freelancing-for-expats.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wintworks.com/cv-builder.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wintworks.com/disclaimer.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://wintworks.com/jobs/adzuna-it-5880050271.html</loc>
     <lastmod>2026-09-11</lastmod>
   </url>
@@ -1185,23 +1215,5 @@
   <url>
     <loc>https://wintworks.com/jobs/adzuna-fr-5879998765.html</loc>
     <lastmod>2026-09-11</lastmod>
-  </url>
-  <url>
-    <loc>https://wintworks.com/ats-resume-guide.html</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://wintworks.com/student-visa-work-rights.html</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://wintworks.com/freelancing-for-expats.html</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
 </urlset>

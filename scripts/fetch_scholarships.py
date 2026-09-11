@@ -90,7 +90,8 @@ def _region_of(text):
     s = str(text).lower()
     eu_words = [
         "europe","european","united kingdom","britain","british","england",
-        "scotland","wales","northern ireland","ireland","france","germany",
+        "scotland","wales","northern ireland","uk","u.k.","u.s.a","usa",
+        "ireland","france","germany",
         "deutschland","allemagne","spain","españa","italy","italia",
         "portugal","netherlands","nederland","holland","belgium","belgique",
         "belgie","luxembourg","switzerland","schweiz","suisse","austria",
@@ -448,7 +449,7 @@ def fetch_scholarships_com():
 # ---------------------------------------------------------------------------
 WP_SOURCES = [
     {"name": "Scholars4Dev",         "base": "https://www.scholars4dev.com",     "pages": 2},
-    {"name": "ScholarshipsCorner",   "base": "https://scholarshipscorner.website", "pages": 2},
+    {"name": "ScholarshipsCorner",   "base": "https://scholarshipscorner.website", "pages": 3},
     {"name": "OpportunitiesForYouth","base": "https://opportunitiesforyouth.org",  "pages": 2},
 ]
 
@@ -532,20 +533,47 @@ def _find_date(s):
 
 
 def _extract_deadline(text):
-    """Find a deadline date near the word 'deadline' (falls back to the
-    start of the text). Returns an ISO string, end-of-day UTC, or ''."""
+    """Deadline found anywhere in *text*, or ''.
+
+    The old version searched only `text[:6000]` and only ±140 characters around
+    a keyword, so 44 of the 82 live ScholarshipsCorner rows had no deadline —
+    the block these sites render ("Cambridge Fellowship Deadline: The last date
+    to apply is 13 September 2026") often sits far into a long post. Candidates
+    are now scored: a "deadline"/"closing date" heading beats a passing "apply".
+    """
     if not text:
         return ""
-    windows = []
+
+    candidates = []          # (score, position, iso)
     for m in _DEADLINE_WORD_RX.finditer(text):
-        windows.append(text[max(0, m.start() - 40): m.end() + 140])
-    if not windows:
-        windows = [text[:400]]
-    for win in windows:
-        iso = _find_date(win)
-        if iso:
-            return iso
-    return ""
+        # the date normally follows the keyword ("Closing date: 12 Oct 2026") —
+        # searching backwards first used to pick up an unrelated earlier date
+        iso = (_find_date(text[m.start(): m.end() + 220])
+               or _find_date(text[max(0, m.start() - 60): m.end()]))
+        if not iso:
+            continue
+        keyword = m.group(0).lower()
+        score = 2 if re.search(r"deadline|closing date|last date|apply by|closes", keyword) else 1
+        candidates.append((score, m.start(), iso))
+
+    if not candidates:
+        # no keyword at all: only trust a date in a heading-like short line
+        for line in text.split("\n")[:40]:
+            if len(line.strip()) < 90:
+                iso = _find_date(line)
+                if iso:
+                    candidates.append((0, text.find(line), iso))
+                    break
+
+    if not candidates:
+        return ""
+
+    now = datetime.now(timezone.utc)
+    future = [c for c in candidates if (_parse_dt(c[2]) or now) > now]
+    pool = future or candidates
+    # strongest signal first, then the earliest still-open deadline
+    pool.sort(key=lambda c: (-c[0], c[1]))
+    return pool[0][2]
 
 
 _AMT_RX = re.compile(
@@ -603,6 +631,189 @@ def _wp_fetch_posts(base, page=1, per_page=100, timeout=25):
         raise
 
 
+# ---------------------------------------------------------------------------
+# host-country detection  (shared by every WP aggregator)
+#
+# These sites publish a "Host Country:" / "Study in:" block near the top of the
+# post, and mention the country in the title ("… in Canada 2027"). Both are far
+# more reliable than the 50 free-text characters the old regex grabbed, which
+# produced locations like "America's best institutions which they would not b".
+# ---------------------------------------------------------------------------
+COUNTRY_ALIASES = {
+    # Europe
+    "United Kingdom": ["united kingdom", "uk", "u.k.", "britain", "great britain",
+                       "england", "scotland", "wales", "northern ireland"],
+    "Ireland": ["ireland", "irish"], "Germany": ["germany", "german", "deutschland"],
+    "France": ["france", "french"], "Netherlands": ["netherlands", "holland", "dutch"],
+    "Belgium": ["belgium", "belgian"], "Luxembourg": ["luxembourg"],
+    "Switzerland": ["switzerland", "swiss"], "Austria": ["austria", "austrian"],
+    "Italy": ["italy", "italian"], "Spain": ["spain", "spanish"],
+    "Portugal": ["portugal", "portuguese"], "Poland": ["poland", "polish"],
+    "Czechia": ["czechia", "czech republic", "czech"], "Slovakia": ["slovakia", "slovak"],
+    "Hungary": ["hungary", "hungarian"], "Romania": ["romania", "romanian"],
+    "Bulgaria": ["bulgaria", "bulgarian"], "Greece": ["greece", "greek"],
+    "Croatia": ["croatia", "croatian"], "Slovenia": ["slovenia", "slovenian"],
+    "Serbia": ["serbia", "serbian"], "Estonia": ["estonia", "estonian"],
+    "Latvia": ["latvia", "latvian"], "Lithuania": ["lithuania", "lithuanian"],
+    "Finland": ["finland", "finnish"], "Sweden": ["sweden", "swedish"],
+    "Norway": ["norway", "norwegian"], "Denmark": ["denmark", "danish"],
+    "Iceland": ["iceland", "icelandic"], "Malta": ["malta", "maltese"],
+    "Cyprus": ["cyprus", "cypriot"], "Turkey": ["turkey", "türkiye", "turkish"],
+    "Ukraine": ["ukraine", "ukrainian"], "Russia": ["russia", "russian"],
+    # North America
+    "USA": ["usa", "u.s.a", "u.s.", "united states", "united states of america",
+            "america", "american"],
+    "Canada": ["canada", "canadian"], "Mexico": ["mexico", "mexican"],
+    # Arab world
+    "Jordan": ["jordan", "jordanian"], "Lebanon": ["lebanon", "lebanese"],
+    "Egypt": ["egypt", "egyptian"], "Morocco": ["morocco", "moroccan"],
+    "Tunisia": ["tunisia", "tunisian"], "Algeria": ["algeria", "algerian"],
+    "United Arab Emirates": ["uae", "u.a.e", "united arab emirates", "emirati",
+                             "abu dhabi", "dubai"],
+    "Saudi Arabia": ["saudi arabia", "saudi"], "Qatar": ["qatar", "qatari"],
+    "Kuwait": ["kuwait", "kuwaiti"], "Oman": ["oman", "omani"],
+    "Bahrain": ["bahrain", "bahraini"], "Palestine": ["palestine", "palestinian"],
+    "Iraq": ["iraq", "iraqi"], "Syria": ["syria", "syrian"],
+    "Sudan": ["sudan", "sudanese"], "Libya": ["libya", "libyan"],
+    # Asia / Pacific / Africa (common study destinations)
+    "Japan": ["japan", "japanese"], "China": ["china", "chinese"],
+    "South Korea": ["south korea", "korea", "korean"], "Taiwan": ["taiwan", "taiwanese"],
+    "Hong Kong": ["hong kong"], "Singapore": ["singapore", "singaporean"],
+    "Malaysia": ["malaysia", "malaysian"], "Thailand": ["thailand", "thai"],
+    "India": ["india", "indian"], "Pakistan": ["pakistan", "pakistani"],
+    "Bangladesh": ["bangladesh", "bangladeshi"], "Indonesia": ["indonesia", "indonesian"],
+    "Vietnam": ["vietnam", "vietnamese"], "Philippines": ["philippines", "filipino"],
+    "Australia": ["australia", "australian"], "New Zealand": ["new zealand"],
+    "South Africa": ["south africa", "south african"], "Kenya": ["kenya", "kenyan"],
+    "Nigeria": ["nigeria", "nigerian"], "Ghana": ["ghana", "ghanaian"],
+    "Ethiopia": ["ethiopia", "ethiopian"], "Rwanda": ["rwanda", "rwandan"],
+    "Brazil": ["brazil", "brazilian"], "Argentina": ["argentina", "argentine"],
+    "Chile": ["chile", "chilean"], "Colombia": ["colombia", "colombian"],
+    "Peru": ["peru", "peruvian"], "Israel": ["israel", "israeli"],
+    "Cambodia": ["cambodia"], "Nepal": ["nepal"], "Sri Lanka": ["sri lanka"],
+    "Tanzania": ["tanzania"], "Uganda": ["uganda"], "Kenya": ["kenya", "kenyan"],
+    "Senegal": ["senegal"], "Botswana": ["botswana"], "Namibia": ["namibia"],
+    "Zimbabwe": ["zimbabwe"], "Zambia": ["zambia"], "Malawi": ["malawi"],
+    "Mozambique": ["mozambique"], "Cameroon": ["cameroon"], "Ivory Coast": ["ivory coast"],
+    "Bolivia": ["bolivia"], "Ecuador": ["ecuador"], "Uruguay": ["uruguay"],
+    "Kazakhstan": ["kazakhstan"], "Uzbekistan": ["uzbekistan"],
+    "Kyrgyzstan": ["kyrgyzstan"], "Mongolia": ["mongolia"], "Georgia": ["georgia"],
+    "Armenia": ["armenia"], "Azerbaijan": ["azerbaijan"], "Jamaica": ["jamaica"],
+    "Brunei": ["brunei"], "Fiji": ["fiji"], "Mauritius": ["mauritius"],
+    "Saudi Arabia": ["saudi arabia", "saudi"],
+}
+
+# every EU / Arab country name is automatically an alias too, so country-table
+# maintenance only has to happen in one place
+for _c in list(EU_COUNTRIES) + list(ARAB_COUNTRIES):
+    COUNTRY_ALIASES.setdefault(_c, [])
+    if _c.lower() not in COUNTRY_ALIASES[_c]:
+        COUNTRY_ALIASES[_c].append(_c.lower())
+
+# aliases sorted longest-first so "united states" wins over "us"-style noise and
+# "czech republic" is not truncated to "czech"
+_ALIAS_INDEX = sorted(
+    ((alias, country) for country, aliases in COUNTRY_ALIASES.items() for alias in aliases),
+    key=lambda pair: -len(pair[0]),
+)
+
+
+def _canon_country(text, allow_aliases=True):
+    """Canonical country name mentioned in *text*, or '' when none is named.
+
+    Because the result must exist in the table, free prose can never leak into
+    the `location` field — the failure mode of the previous implementation.
+    """
+    if not text:
+        return ""
+    s = " " + re.sub(r"\s+", " ", str(text)).lower() + " "
+    for alias, country in _ALIAS_INDEX:
+        if not allow_aliases and alias != country.lower():
+            continue
+        if re.search(r"(?<![a-z])" + re.escape(alias) + r"(?![a-z])", s):
+            return country
+    return ""
+
+
+def _region_for_country(country):
+    if not country:
+        return ""
+    if country in ("Worldwide", "Worldwide / Remote", "Remote"):
+        return "WW"
+    if country == "USA":
+        return "US"
+    if country in EU_COUNTRIES:
+        return "EU"
+    if country in ARAB_COUNTRIES:
+        return "AR"
+    return ""          # a real country outside our three tagged regions
+
+
+_HOST_KEYS_RX = re.compile(
+    r"(?:host\s+countr(?:y|ies)|study\s+in|country|location|destination)\s*:?\s*\|?\s*"
+    r"([^\n|·•<>{}]{2,120})",
+    re.I)
+
+
+_LOCATION_BLOCK = {
+    "multiple countries", "various countries", "several countries", "any country",
+    "all countries", "different countries", "worldwide", "global", "remote",
+    "online", "various", "several", "multiple", "abroad", "international",
+    "europe", "european union", "eu", "africa", "asia", "latin america",
+    "middle east", "mena", "oecd", "developing countries", "anywhere",
+}
+_LOCATION_STOPWORDS = {
+    "the", "which", "would", "and", "or", "a", "an", "for", "of", "in", "to",
+    "study", "studies", "program", "programme", "programs", "scholarship",
+    "scholarships", "university", "universities", "college", "students",
+    "applicants", "members", "citizens", "host", "country", "level",
+}
+
+
+def _clean_location_phrase(raw):
+    """A tight "United Kingdom" / "Cambodia" phrase out of a structured field.
+
+    Free prose can never pass: the phrase must be ≤28 characters, at most three
+    words, free of stopwords and not one of the generic "multiple countries"
+    buckets. This is what keeps `location` clean when the host country is not in
+    COUNTRY_ALIASES.
+    """
+    phrase = re.split(r"[.,;(\n|·•]| - ", raw)[0]
+    phrase = re.sub(r"\b(?:19|20)\d\d\b", " ", phrase)
+    phrase = re.sub(r"\s+", " ", phrase).strip(" -–—:&/")
+    if not phrase or len(phrase) > 28:
+        return ""
+    words = phrase.split()
+    if len(words) > 3:
+        return ""
+    if phrase.lower() in _LOCATION_BLOCK:
+        return ""
+    if any(w.lower().strip("'") in _LOCATION_STOPWORDS for w in words):
+        return ""
+    # "United Kingdom" / "South Korea" / "Cambodia" all start with a capital
+    if not phrase[0].isupper():
+        return ""
+    return phrase
+
+
+def _host_country_from_body(body):
+    """Country from the "Host Country:" / "Study in:" line these sites publish."""
+    for m in _HOST_KEYS_RX.finditer(body[:4000]):
+        raw = m.group(1)
+        country = _canon_country(raw) or _clean_location_phrase(raw)
+        if country:
+            return country
+    return ""
+
+
+def _detect_host_country(title, body, class_txt):
+    """Best-effort host country: structured line → title → tags/body mentions."""
+    return (_host_country_from_body(body)
+            or _canon_country(title)
+            or _canon_country(class_txt)
+            or _canon_country(body[:400]))
+
+
 def _wp_post_to_scholarship(source_name, p):
     """Convert a WP REST post into a scholarship snapshot row (or None)."""
     if not isinstance(p, dict):
@@ -625,22 +836,21 @@ def _wp_post_to_scholarship(source_name, p):
     excerpt = _strip_html(excerpt_html)
 
     # deadline — skip posts whose parsed deadline is already past
-    deadline = _extract_deadline(title + "\n" + body[:6000])
+    deadline = _extract_deadline(title + "\n" + body)
     if deadline:
         dt = _parse_dt(deadline)
         if dt and dt <= datetime.now(timezone.utc):
             return None
 
-    # "Study in: Belgium" style lines are the cleanest location signal
-    study_in = ""
-    sim = re.search(r"study in:?\s*\|?\s*([A-Za-z][A-Za-z ,&/()']{2,50})",
-                    body[:6000], re.I)
-    if sim:
-        study_in = re.split(r"[.,;(\n]", sim.group(1))[0].strip()[:50]
-
-    blob = " ".join([title, class_txt, study_in])
-    region  = _region_of(blob) or ""
-    country = _country_of(study_in) or _country_of(blob) if region else ""
+    host_country = _detect_host_country(title, body, class_txt)
+    blob = " ".join([title, class_txt, host_country])
+    region = _region_for_country(host_country) or _region_of(blob) or ""
+    if region == "" and not host_country and _region_of(title):
+        region = _region_of(title)
+    # `country` drives the country dropdown; a named host country is useful even
+    # when it sits outside the EU/US/Arab regions (Japan, Canada, China …)
+    country = host_country or (_country_of(blob) if region else "")
+    location = host_country or ""
 
     funding = _funding_type(title, body[:2500])
     level   = _level(title, body[:2500])
@@ -663,10 +873,11 @@ def _wp_post_to_scholarship(source_name, p):
         "id":         f"{prefix}-{slug}",
         "title":      title,
         "provider":   "",
-        "location":   study_in,
+        "location":   location,
         "region":     region,
-        "country":    country if region in ("EU", "AR") else "",
-        "remote":     "worldwide" in blob.lower(),
+        "country":    country,
+        "remote":     ("worldwide" in blob.lower()
+                       or (not host_country and region == "WW")),
         "funding":    funding,
         "amount":     amount,
         "amount_str": amount_str,

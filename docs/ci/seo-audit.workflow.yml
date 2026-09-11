@@ -1,0 +1,64 @@
+# WintWorks — pull-request quality gate
+#
+# Runs the regression suite and the static SEO / internal-linking /
+# Core-Web-Vitals audit on every PR and on demand. The audit exits non-zero on
+# ERROR-level findings (missing canonical, broken internal links, invalid
+# structured data, orphan pages, runtime CSS compilers, …) and prints a grouped
+# report for WARN/INFO findings.
+
+name: SEO & tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dev dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Regression tests (snapshot, scholarships, tailwind build)
+        run: |
+          python3 test_snapshot_update.py
+          python3 test_wp_sources.py
+          python3 test_sch_deadlines.py
+          python3 test_tailwind_build.py
+          node tests/scroll_restore.test.js
+          node tests/snapshot_refresh.test.js
+
+      - name: SEO / internal-linking / Core Web Vitals audit
+        run: python3 scripts/seo_audit.py --all --json seo-report.json
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-report
+          path: seo-report.json
+          if-no-files-found: ignore
+
+      - name: Fail if the compiled CV-builder stylesheet is stale
+        run: |
+          npm run build:css
+          git diff --exit-code css/tailwind.min.css \
+            || (echo "::error::css/tailwind.min.css is out of date — run 'npm run build:css' and commit the result" && exit 1)

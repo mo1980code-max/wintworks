@@ -267,4 +267,153 @@ if ewc:
     ok("EWC real deadline 2026-12-01",
        ewc["deadline"].startswith("2026-12-01"), ewc["deadline"])
 
+
+# ------------------------------------------------- host country & deadlines
+# Regression tests for the 2026-09-11 parser upgrade. Measured on the live
+# ScholarshipsCorner feed: 60/82 rows had no location, some carried prose
+# fragments ("America's best institutions which they would not b"), 44/82 had
+# no deadline, and "…in UK" posts were region-less.
+print("host country detection (live-feed regressions):")
+
+ok("alias table: US spelling variants",
+   mod._canon_country("Open to U.S.A. citizens only") == "USA")
+ok("alias table: Türkiye",
+   mod._canon_country("Study in Türkiye 2026") == "Turkey")
+ok("alias table: no country in prose",
+   mod._canon_country("a graduate program at leading universities") == "")
+ok("region map: Belgium → EU", mod._region_for_country("Belgium") == "EU")
+ok("region map: Japan → untagged", mod._region_for_country("Japan") == "")
+
+d70 = NOW + timedelta(days=70)
+
+# 1) ScholarshipsCorner publishes a "Host Country:" block — use it verbatim
+cambridge = {
+    "id": 40452,
+    "date": NOW.strftime("%Y-%m-%dT%H:%M:%S"),
+    "link": "https://scholarshipscorner.website/cambridge-era-ai-fellowship/",
+    "slug": "cambridge-era-ai-fellowship",
+    "title": {"rendered": "Cambridge ERA AI Fellowship 2027 in UK (Fully Funded)"},
+    "content": {"rendered":
+        "<p>Applications for the Cambridge ERA AI Fellowship are open. The "
+        "fellowship lasts 10 weeks in Cambridge.</p>"
+        "<h2>Cambridge ERA AI Fellowship 2027 in UK:</h2>"
+        "<h3>Host Country:</h3><ul><li>United Kingdom</li></ul>"
+        "<h3>Benefits:</h3><ul><li>Fellows receive a stipend.</li></ul>"
+        "<h3>Cambridge Fellowship Deadline:</h3><ul>"
+        "<li>The last date to apply is " + fmt_dmy(d70) +
+        ", 11:59 PM Anywhere on Earth (AoE).</li></ul>"},
+    "excerpt": {"rendered": "<p>Fully funded AI fellowship in the UK […]</p>"},
+    "class_list": ["category-fellowships", "category-uk-scholarships",
+                   "tag-fully-funded-scholarships"],
+}
+item = mod._wp_post_to_scholarship("ScholarshipsCorner", cambridge)
+ok("Cambridge post converted", item is not None)
+ok("Cambridge location = the Host Country block, not prose",
+   item["location"] == "United Kingdom", f"got {item['location']!r}")
+ok("Cambridge region is EU despite the 'UK' short form",
+   item["region"] == "EU", f"got {item['region']!r}")
+ok("Cambridge country filterable", item["country"] == "United Kingdom")
+ok("Cambridge 'last date to apply' deadline",
+   item["deadline"].startswith(d70.strftime("%Y-%m-%d")), item["deadline"])
+
+# 2) prose mentioning "study in the United States" must never leak 50 raw chars
+prose = {
+    "id": 1, "date": NOW.strftime("%Y-%m-%dT%H:%M:%S"),
+    "link": "https://scholarshipscorner.website/gates-scholarship/",
+    "slug": "gates-scholarship",
+    "title": {"rendered": "Gates Scholarship in the United States 2027 | Fully Funded"},
+    "content": {"rendered":
+        "<p>Recipients study in America's best institutions which they would not "
+        "be able to afford otherwise. Deadline: " + fmt_mdy(d70) + ".</p>"},
+    "excerpt": {"rendered": "<p>The Gates Scholarship […]</p>"},
+    "class_list": ["category-scholarships", "category-scholarships-in-usa"],
+}
+item = mod._wp_post_to_scholarship("ScholarshipsCorner", prose)
+ok("prose never becomes a location",
+   item["location"] == "USA", f"got {item['location']!r}")
+ok("location is short and canonical", len(item["location"]) <= 25)
+
+# 3) non-EU host country is kept (Japan) instead of being dropped
+oist = {
+    "id": 2, "date": NOW.strftime("%Y-%m-%dT%H:%M:%S"),
+    "link": "https://scholarshipscorner.website/oist-tsvp/",
+    "slug": "oist-tsvp",
+    "title": {"rendered": "OIST Visiting Scholars Program (TSVP) in Japan 2027 (Fully Funded)"},
+    "content": {"rendered":
+        "<p>OIST invites visiting scholars.</p><h3>Host Country:</h3><ul>"
+        "<li>Japan</li></ul><h3>Deadline:</h3><ul><li>Apply by " + fmt_mdy(d70) +
+        "</li></ul>"},
+    "excerpt": {"rendered": "<p>Visiting scholars programme […]</p>"},
+    "class_list": ["category-fellowships", "category-scholarships-in-asia"],
+}
+item = mod._wp_post_to_scholarship("ScholarshipsCorner", oist)
+ok("Japan post converted", item is not None)
+ok("Japan location kept", item["location"] == "Japan", f"got {item['location']!r}")
+ok("Japan filterable by country", item["country"] == "Japan")
+ok("Japan region stays untagged (not forced to EU/US/AR)",
+   item["region"] == "", f"got {item['region']!r}")
+
+# 4) the deadline block often sits deep in the post — the old 6 000-char window
+#    missed it (44/82 live rows had no deadline at all)
+long_body = ("<p>" + ("Programme details and eligibility criteria. " * 220) + "</p>"
+             "<h3>Application Deadline:</h3><ul><li>The deadline is "
+             + fmt_mdy(d70) + " at 23:59 UTC.</li></ul>")
+assert len(re.sub(r"<[^>]+>", " ", long_body)) > 7000
+deep = dict(cambridge, id=3, slug="deep-deadline",
+            link="https://scholarshipscorner.website/deep-deadline/",
+            title={"rendered": "Deep Deadline Fellowship in Belgium | Fully Funded"},
+            content={"rendered": long_body})
+item = mod._wp_post_to_scholarship("ScholarshipsCorner", deep)
+ok("deadline found deep inside a long post",
+   item is not None and item["deadline"].startswith(d70.strftime("%Y-%m-%d")),
+   f"got {item['deadline']!r}" if item else "post dropped")
+
+# 5) a passing "apply" mention must not beat the real deadline block
+mixed = dict(cambridge, id=4, slug="mixed-dates",
+             link="https://scholarshipscorner.website/mixed-dates/",
+             title={"rendered": "Mixed Dates Scholarship in Ireland | Fully Funded"},
+             content={"rendered":
+                 "<p>You may apply from " + fmt_mdy(NOW + timedelta(days=5)) +
+                 " and the programme starts soon after.</p>"
+                 "<h3>Closing date:</h3><ul><li>" + fmt_mdy(d70) + "</li></ul>"})
+item = mod._wp_post_to_scholarship("ScholarshipsCorner", mixed)
+ok("closing-date block wins over an earlier 'apply' date",
+   item["deadline"].startswith(d70.strftime("%Y-%m-%d")), item["deadline"])
+
+# 6) a date-only heading with no deadline keyword is still usable
+heading_date = dict(cambridge, id=5, slug="heading-date",
+                    link="https://scholarshipscorner.website/heading-date/",
+                    title={"rendered": "Quiet Date Fellowship in Poland | Fully Funded"},
+                    content={"rendered":
+                        "<p>Short call.</p><p>" + fmt_mdy(d70) + "</p>"})
+item = mod._wp_post_to_scholarship("ScholarshipsCorner", heading_date)
+ok("bare date line picked up as a deadline",
+   item is not None and item["deadline"].startswith(d70.strftime("%Y-%m-%d")),
+   f"got {item['deadline']!r}" if item else "post dropped")
+
+
+# 7) host country outside the alias table: accept a tight structured phrase,
+#    reject the generic buckets and prose
+ok("clean phrase: Cambodia",
+   mod._clean_location_phrase("Cambodia") == "Cambodia")
+ok("generic bucket rejected: Multiple countries",
+   mod._clean_location_phrase("Multiple countries") == "")
+ok("prose rejected: long fragment",
+   mod._clean_location_phrase(
+       "America's best institutions which they would not b") == "")
+ok("prose rejected: stopwords",
+   mod._clean_location_phrase("the leading universities of Hong Kong") == "")
+ok("phrase trims a trailing year",
+   mod._clean_location_phrase("United Kingdom 2027") == "United Kingdom")
+
+cambodia = dict(cambridge, id=6, slug="harpswell-cambodia",
+                link="https://scholarshipscorner.website/harpswell-cambodia/",
+                title={"rendered": "Harpswell Leadership Residency 2027 in Cambodia | Funded"},
+                content={"rendered":
+                    "<h3>Host Country:</h3><ul><li>Cambodia</li></ul>"
+                    "<h3>Deadline:</h3><ul><li>" + fmt_mdy(d70) + "</li></ul>"})
+item = mod._wp_post_to_scholarship("ScholarshipsCorner", cambodia)
+ok("unknown-but-real host country kept",
+   item is not None and item["location"] == "Cambodia", f"got {item and item['location']!r}")
+
 print(f"\nAll {PASS} WordPress-source checks passed.")

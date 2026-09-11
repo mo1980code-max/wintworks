@@ -6,41 +6,45 @@
 <title>Free CV Builder — WintWorks</title>
 <meta name="description" content="Create a professional CV for jobs in Europe and the USA in minutes. Multiple modern templates, instant live preview, and direct PDF download — 100% free.">
 <link rel="canonical" href="https://wintworks.com/cv-builder.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wintworks.com/cv-builder.html">
+<meta property="og:title" content="Free CV Builder — ATS-Friendly Templates | WintWorks">
+<meta property="og:description" content="Create a professional CV for jobs in Europe and the USA in minutes. Multiple modern templates, instant live preview, and direct PDF download — 100% free.">
+<meta property="og:image" content="https://wintworks.com/assets/wintworks-og-banner.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://wintworks.com/cv-builder.html">
+<meta name="twitter:title" content="Free CV Builder — ATS-Friendly Templates | WintWorks">
+<meta name="twitter:description" content="Modern CV templates, live preview and one-click PDF download. Free, no sign-up.">
+<meta name="twitter:image" content="https://wintworks.com/assets/wintworks-og-banner.png">
 <meta name="theme-color" content="#14357f">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-<!-- Fonts -->
+<!-- Fonts — loaded asynchronously so they never block the first paint;
+     the CV templates below set their own families and fall back to Arial. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link media="print" onload="this.media='all';this.onload=null"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    darkMode: 'class',
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['Inter', 'system-ui', 'sans-serif'],
-        },
-        colors: {
-          brand: {
-            50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',
-            500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#14357f'
-          }
-        }
-      }
-    }
-  }
-</script>
+<!-- Tailwind utilities — pre-built and purged (≈13 KB) by `npm run build:css`.
+     The Play CDN this page used to load shipped ~400 KB of JS and compiled CSS
+     in the browser after paint, which wrecked LCP/CLS. -->
+<link rel="stylesheet" href="css/tailwind.min.css">
 <script>try{var t=JSON.parse(localStorage.getItem('ww:theme'));if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.dataset.theme='dark';}}catch(e){}</script>
 
 <!-- CV paper / template styles (kept outside Tailwind for reliable PDF output) -->
 <link rel="stylesheet" href="css/cv-builder.css">
 
-<!-- PDF export -->
+<!-- PDF export (preconnect so the download starts on a warm connection) -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://wintworks.com/#organization","name":"WintWorks","url":"https://wintworks.com/","logo":{"@type":"ImageObject","url":"https://wintworks.com/assets/wintworks-og-banner.png","width":1200,"height":630}},{"@type":"WebSite","@id":"https://wintworks.com/#website","url":"https://wintworks.com/","name":"WintWorks","description":"Job discovery platform aggregating live listings from the United States, major European markets and worldwide remote sources.","inLanguage":"en","publisher":{"@id":"https://wintworks.com/#organization"}},{"@type":"WebApplication","@id":"https://wintworks.com/cv-builder.html#app","name":"Free CV Builder","url":"https://wintworks.com/cv-builder.html","description":"Build an ATS-friendly CV with live preview, multiple templates and PDF export.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://wintworks.com/#organization"},"isPartOf":{"@id":"https://wintworks.com/#website"}},{"@type":"BreadcrumbList","@id":"https://wintworks.com/cv-builder.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://wintworks.com/"},{"@type":"ListItem","position":2,"name":"CV Builder"}]}]}
+</script>
 </head>
 
 <body class="font-sans bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased">
@@ -90,7 +94,8 @@
 
   <!-- ============ PAGE INTRO ============ -->
   <section class="text-center px-4 pt-8 pb-4">
-    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Free CV Builder</h1>
+    <div class="breadcrumb"><a href="./">Home</a> / CV Builder</div>
+<h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Free CV Builder</h1>
     <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mt-2 text-sm sm:text-base">
       Design a professional CV for the European and US job markets in minutes. Type your details, watch the preview update instantly, then download a clean PDF.
     </p>
@@ -220,9 +225,11 @@
         <h4 class="text-white font-bold mb-3">Explore</h4>
         <ul class="space-y-2">
           <li><a href="./#jobs" class="hover:text-white">Browse Jobs</a></li>
-          <li><a href="./#scholarships" class="hover:text-white">Scholarships</a></li>
+          <li><a href="scholarships.html" class="hover:text-white">Scholarships</a></li>
           <li><a href="cv-builder.html" class="hover:text-white">CV Builder</a></li>
           <li><a href="jobs-in-germany.html" class="hover:text-white">Jobs in Germany</a></li>
+          <li><a href="guides.html" class="hover:text-white">Guides</a></li>
+          <li><a href="ats-resume-guide.html" class="hover:text-white">ATS Resume Guide</a></li>
         </ul>
       </div>
       <div>
