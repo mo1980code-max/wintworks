@@ -242,6 +242,24 @@ button { font: inherit; cursor: pointer; }
 .src-pill.ok .dot { background: var(--green); }
 .src-pill.err .dot { background: var(--red); }
 .src-pill b { color: var(--text); font-weight: 700; }
+/* warn = source answered but nothing survived the trim; idle = no data this round */
+.src-pill.warn .dot { background: var(--amber); }
+.src-pill.idle .dot { background: var(--muted); opacity: .55; }
+
+/* freshness line under "Latest jobs" + its refresh control */
+#snapStamp.is-stale { color: var(--amber); }
+#snapStamp .snap-warn { color: var(--amber); }
+.btn-refresh { padding: 6px 13px; font-size: 13px; border-radius: 999px; white-space: nowrap; }
+.btn-refresh[disabled] { opacity: .6; cursor: progress; }
+.btn-refresh.is-busy { animation: ww-pulse 1.1s ease-in-out infinite; }
+@keyframes ww-pulse { 50% { opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { .btn-refresh.is-busy { animation: none; } }
+/* the head row gains two children, so let it wrap instead of squeezing the count */
+#jobs .section-head { flex-wrap: wrap; row-gap: 8px; }
+@media (max-width: 720px) {
+  #jobs .section-head .btn-refresh { order: 3; }
+  #jobs .section-head .spacer { flex: 1 1 100%; }
+}
 
 /* job grid */
 .jobs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }

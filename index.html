@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://remoteok.com">
   <link rel="preconnect" href="https://remotive.com">
   <link rel="preconnect" href="https://www.arbeitnow.com">
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/app.css?v=2026-09-11">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -156,8 +156,10 @@
 
           <div class="section-head">
             <h2>Latest jobs</h2>
-            <span class="sub">updated automatically several times a day</span>
+            <span class="sub" id="snapStamp">updated automatically several times a day</span>
             <span class="spacer"></span>
+            <button class="btn ghost btn-refresh" id="refreshSnapshot" type="button"
+                    title="Ask the server for a newer snapshot">⟳ Check for new jobs</button>
             <span class="result-count" id="resultCount"></span>
           </div>
 
@@ -198,6 +200,8 @@
             <button class="btn-reset" id="resetFilters">Reset</button>
           </div>
 
+          <div class="sync-status" id="syncStatus" aria-live="polite"></div>
+
           <div class="cat-chips" id="catChips"></div>
 
           <div class="jobs-grid" id="grid">
@@ -232,6 +236,7 @@
           <div class="section-head">
             <h2>Scholarships &amp; funding</h2>
             <span class="sub">fully-funded · partially-funded · government · fellowships</span>
+            <span class="sub" id="schStamp"></span>
             <span class="spacer"></span>
             <span class="result-count" id="scholarshipResultCount"></span>
           </div>
@@ -392,6 +397,6 @@
     </div>
   </footer>
 
-  <script src="js/app.min.js" defer></script>
+  <script src="js/app.min.js?v=2026-09-11" defer></script>
 </body>
 </html>
