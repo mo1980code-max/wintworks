@@ -19,6 +19,14 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Rebuild the minified bundle
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build:min
       - name: Build job snapshot (fetch all sources)
         env:
           # Adzuna keys are provided via repository secrets (Settings → Secrets →
@@ -32,7 +40,7 @@ jobs:
           git config user.name "wintworks-bot"
           git config user.email "bot@wintworks.com"
           # Include SEO detail pages, pre-rendered home links, and sitemap changes.
-          git add -A data/jobs.json jobs/ index.html sitemap.xml
+          git add -A data/jobs.json data/lastmod.json jobs/ index.html sitemap.xml js/app.min.js
           if git diff --cached --quiet; then
             echo "No new jobs — nothing to commit."
           else
