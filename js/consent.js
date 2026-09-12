@@ -6,6 +6,25 @@
 (function () {
   "use strict";
 
+  /* Depth-independent site root.
+
+     Generated job pages live one level down (/jobs/…), everything else at the
+     site root. A shared script cannot therefore write "privacy.html" literally —
+     on /jobs/x.html that resolves to /jobs/privacy.html, a 404. The root is
+     derived from the current path (drop the filename, then drop a trailing
+     "jobs/" segment), which also keeps working under a deployment base path
+     such as /wintworks/. */
+  var ROOT_PREFIX = (function () {
+    var dir = location.pathname
+      .replace(/\/[^/]*\.html$/i, "/")   // /jobs/x.html  -> /jobs/
+      .replace(/\/[^/.]*$/, "/");         // /jobs         -> /jobs/
+    return dir.replace(/jobs\/$/, "") || "/";
+  })();
+
+  function siteUrl(page) {
+    return ROOT_PREFIX + page;
+  }
+
   var STORAGE_KEY = "ww:consent:v1";
   var VERSION = 1;
   var state = null;
@@ -94,7 +113,10 @@
       '<section class="cookie-banner" id="cookieBanner" aria-label="Cookie notice" hidden>',
       '  <div class="cookie-banner-copy">',
       '    <h2>Privacy choices</h2>',
-      '    <p>We use necessary storage for site features. With your permission, we may also use analytics and advertising cookies. You can accept, reject or manage your choices. See our <a href="privacy.html#cookies">Privacy &amp; Cookie Policy</a>.</p>',
+      // siteUrl() on purpose: a bare "privacy.html" resolves against the *page*
+      // path, so every generated /jobs/*.html page linked to /jobs/privacy.html —
+      // a 404 that Googlebot then crawled 250 times over.
+      '    <p>We use necessary storage for site features. With your permission, we may also use analytics and advertising cookies. You can accept, reject or manage your choices. See our <a href="' + siteUrl('privacy.html') + '#cookies">Privacy &amp; Cookie Policy</a>.</p>',
       '  </div>',
       '  <div class="cookie-actions">',
       '    <button type="button" class="cookie-btn secondary" data-consent="reject">Reject non-essential</button>',

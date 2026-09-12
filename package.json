@@ -1,12 +1,12 @@
 {
   "name": "wintworks",
   "version": "1.0.0",
-  "description": "A complete, static, zero-maintenance job board for the **United States, Europe & remote markets**. Jobs are fetched **automatically** from 5 free public sources (no API keys, no fees) — **The Muse · Jobicy · RemoteOK · Remotive · Arbeitnow (20 pages)** — plus an **Adzuna** API source covering 10 European markets + the US. Every listing is auto-tagged **🇺🇸 USA / 🇪🇺 Europe / 🌍 Worldwide** with a region filter.",
+  "description": "A complete, static, zero-maintenance job board for the **United States, Europe & remote markets**. Jobs are fetched **automatically** from 5 free public sources (no API keys, no fees) \u2014 **The Muse \u00b7 Jobicy \u00b7 RemoteOK \u00b7 Remotive \u00b7 Arbeitnow (20 pages)** \u2014 plus an **Adzuna** API source covering 10 European markets + the US. Every listing is auto-tagged **\ud83c\uddfa\ud83c\uddf8 USA / \ud83c\uddea\ud83c\uddfa Europe / \ud83c\udf0d Worldwide** with a region filter.",
   "main": "js/app.js",
   "scripts": {
     "build:min": "terser js/app.js --compress --mangle --comments false -o js/app.min.js",
     "build": "npm run build:min",
-    "test": "python3 -c \"import xml.etree.ElementTree as ET, glob; [ET.parse(f) for f in glob.glob('sitemap.xml')]; print('OK')\" && python3 test_snapshot_update.py && node tests/scroll_restore.test.js && node tests/snapshot_refresh.test.js",
+    "test": "python3 -c \"import xml.etree.ElementTree as ET, glob; [ET.parse(f) for f in glob.glob('sitemap.xml')]; print('OK')\" && python3 test_snapshot_update.py && python3 test_static_pages.py && node tests/scroll_restore.test.js && node tests/snapshot_refresh.test.js",
     "snapshot": "python3 scripts/build_snapshot.py"
   },
   "keywords": [],
