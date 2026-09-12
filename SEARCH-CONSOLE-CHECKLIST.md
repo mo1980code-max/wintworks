@@ -45,3 +45,16 @@ Then, by hand in Search Console (code cannot do these):
 6. If the detail pages still refuse to index after ~4 weeks, stop fighting for
    them: add `<meta name="robots" content="noindex,follow">` to the template, drop
    `/jobs/` from the sitemap and spend the crawl budget on original guides.
+
+## Watch plan for this change (merged 2026-09-12, decide end of October)
+
+| Check | Where | Healthy | Unhealthy → do |
+| --- | --- | --- | --- |
+| Week 1 | Page indexing report | "Discovered" count starts falling; ~116 sitemap URLs read | Still climbing → the retired URLs are being re-submitted somewhere; check no old sitemap file is cached, then resubmit once |
+| Week 2 | `/jobs/` in URL inspection | "Indexed" or "Crawled - not indexed" (i.e. it is at least being fetched) | Still "Discovered" → delete the hub from the sitemap, keep it linked from the home page only, and let it earn links first |
+| Week 2 | Search performance, filter `page:contains("/jobs/")` | Any impressions at all, even 5–20 | Zero impressions while the guides gain → job pages are not the play; switch to noindex + focus on guides |
+| Week 4-6 | Search performance, guides only | Impressions and average position improving on the visa/work pages | Guides also flat → the domain is trusted for nothing yet; content, not crawl, is the constraint: pick option C (fuller descriptions, salary, employer notes) and stop touching infrastructure |
+
+Two numbers that must not move the wrong way: the `Not found (404)` bucket (should trend to
+single digits as retired URLs fall out) and the `Crawled - currently not indexed` bucket
+(a small number here is normal; hundreds means the pages are still judged thin).
