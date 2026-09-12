@@ -20,7 +20,9 @@ Every listing is auto-tagged **🇺🇸 USA / 🇪🇺 Europe / 🌍 Worldwide**
 ```
 GitHub Actions (cron 17 */3 * * *)
   └─ scripts/build_snapshot.py         fetch → normalise dates → dedupe → fair trim → data/jobs.json
-      └─ scripts/generate_static_jobs.py  jobs/*.html + pre-rendered home links + sitemap.xml
+      └─ scripts/generate_static_jobs.py  jobs/*.html + /jobs/ hub pages
+          └─ keeps URLs stable while a listing is live, records real change
+             dates in data/lastmod.json, rewrites sitemap.xml
   └─ npm run build:min                 rebuild js/app.min.js (the bundle index.html actually loads)
   └─ commit + push → GitHub Pages deploys
 ```
@@ -50,6 +52,28 @@ open, `js/app.min.js` was never rebuilt by CI (a stale bundle could ship old log
 data), and `Adzuna.created` — market-local time mislabelled as UTC — pinned that source ~2 h in
 the future (`align_future_dates` shifts the batch back by its own skew).
 
+### Indexing budget — why only ~80 listings get a page
+
+`scripts/generate_static_jobs.py` publishes a small, **stable** set of detail pages
+plus paginated hub pages at `/jobs/`:
+
+- a listing earns a URL while it is recent (`WW_STATIC_MAX_AGE_DAYS`) and keeps that
+  URL until it drops out of the snapshot — no delete-and-recreate per crawl
+- every published URL is linked from a crawlable `/jobs/` hub page and cross-linked
+  from its siblings, so nothing is reachable from the sitemap alone
+- `<lastmod>` is derived from a content hash in `data/lastmod.json`, so a page only
+  looks edited when its bytes actually changed
+- each detail page carries a **market context** block (country guide, visa guides,
+  sibling listings) so it is not a bare copy of someone else's advert with a single
+  outbound sponsored link — that shape is what Google labels a doorway page
+- `<html lang>` follows the listing's real language, detected from its text, instead
+  of declaring English on a Dutch or German posting
+
+Before this, each run published the *newest* 250 pages and deleted the rest
+(~100–180 new and ~120–196 dead URLs per run, four runs a day). Search Console's
+274 "Discovered - currently not indexed" pages were the direct result: Googlebot
+records URLs it has no reason to crawl and never returns to them.
+
 Tunables for `scripts/build_snapshot.py` (all optional, via environment):
 
 | Variable | Default | Meaning |
@@ -58,6 +82,14 @@ Tunables for `scripts/build_snapshot.py` (all optional, via environment):
 | `WW_SOURCE_MAX_SHARE` | `0.5` | largest share one source may own |
 | `WW_MIN_JOBS` | `250` | refuse to publish below this many jobs |
 | `WW_SHRINK_RATIO` | `0.6` | refuse to publish below this fraction of the live snapshot |
+
+Tunables for `scripts/generate_static_jobs.py`:
+
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `WW_STATIC_JOBS` | `80` | how many detail pages are published |
+| `WW_STATIC_MAX_AGE_DAYS` | `21` | a listing older than this gets no page |
+| `WW_HUB_PAGE_SIZE` | `40` | listings per `/jobs/` hub page |
 | `WW_ALLOW_SHRINK` | `0` | `1` bypasses both guards (only after a confirmed source outage) |
 
 ### Adzuna keys (required for the Adzuna source)

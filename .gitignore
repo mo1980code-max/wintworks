@@ -4,7 +4,6 @@ data/config.json
 
 # Build artifacts and caches
 node_modules/
-.jobs-staging/
 __pycache__/
 *.pyc
 .DS_Store
