@@ -1,405 +1,405 @@
 {
  "files": {
-  "adzuna-be-5937014666.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937014666",
-   "title": "Professeur de physique - Chapon-Seraing"
-  },
-  "adzuna-be-5937014673.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937014673",
-   "title": "Professeur de maths - Thisnes"
-  },
-  "adzuna-be-5937014726.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937014726",
-   "title": "Professeur d'informatique - Furnaux"
-  },
-  "adzuna-be-5937014734.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937014734",
-   "title": "Professeur de français - Saint-Nicolas"
-  },
-  "adzuna-be-5937018024.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937018024",
-   "title": "Développeur Java / Angular"
-  },
-  "adzuna-be-5937018026.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937018026",
-   "title": "Security Officer"
-  },
-  "adzuna-be-5937018032.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937018032",
-   "title": "Senior Consultant SAP-beveiliging"
-  },
-  "adzuna-be-5937023735.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937023735",
-   "title": "Learning & Development Manager - NL/FR/EN"
-  },
-  "adzuna-be-5937023770.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937023770",
-   "title": "Vendeur·se conseil H/F - Temps Partiel"
-  },
-  "adzuna-be-5937023775.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937023775",
-   "title": "Polyvalente Technieker"
-  },
-  "adzuna-be-5937023796.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-be-5937023796",
-   "title": "Assistant Shop Manager 26h"
-  },
-  "adzuna-ch-5937016395.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-ch-5937016395",
-   "title": "Logistiker EFZ 100%"
-  },
-  "adzuna-ch-5937016396.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-ch-5937016396",
-   "title": "Dessinateur industriel H/F/D"
-  },
-  "adzuna-ch-5937016397.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-ch-5937016397",
-   "title": "Sachbearbeiter/in HR Administration 80% (m/w/d)"
-  },
-  "adzuna-ch-5937016401.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-ch-5937016401",
-   "title": "HR Operations Specialist 100% (m/w/d)."
-  },
-  "adzuna-ch-5937016404.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-ch-5937016404",
-   "title": "Finanzbuchhalter/in 60-80%"
-  },
-  "adzuna-ch-5937016412.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-ch-5937016412",
-   "title": "Lagermitarbeiter Wareneausgang (w/m/d)"
-  },
-  "adzuna-ch-5937016417.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-ch-5937016417",
-   "title": "Reinigungsmitarbeiter:in 80%"
-  },
-  "adzuna-ch-5937016430.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-ch-5937016430",
-   "title": "Polymechaniker"
-  },
-  "adzuna-de-5937014648.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-de-5937014648",
-   "title": "Junior Barkeeper (m/w/d) für unsere Mizu Bar"
-  },
-  "adzuna-de-5937014650.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-de-5937014650",
-   "title": "Chef Patissier / Konditor (m/w/d)"
-  },
-  "adzuna-de-5937014941.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-de-5937014941",
-   "title": "Pracownik Magazynu / Kierowca Wózka HLOP (m/k/inny)"
-  },
-  "adzuna-de-5937014942.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-de-5937014942",
-   "title": "Pracownik magazynu (m/k/d)"
-  },
-  "adzuna-de-5937032774.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-de-5937032774",
-   "title": "Software Engineers - AI Code Licensing Program"
-  },
-  "adzuna-de-5937037268.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-de-5937037268",
-   "title": "Versicherungsexperte für Genossenschaftsbanken (m/w/d)"
-  },
-  "adzuna-de-5937037308.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-de-5937037308",
-   "title": "Selbstständiger Agenturpartner - §84 HGB (m/w/d)"
-  },
-  "adzuna-es-5937020409.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-es-5937020409",
-   "title": "Dependiente/a de tienda en Almacén de Pontejos-Madrid, con formación"
-  },
-  "adzuna-es-5937020418.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-es-5937020418",
-   "title": "Practicas en departamento de Logística y Producción"
-  },
-  "adzuna-es-5937028225.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-es-5937028225",
-   "title": "Holiday rental cleaning"
-  },
-  "adzuna-fr-5937015905.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015905",
-   "title": "Exploitant Expéditions H/F"
-  },
-  "adzuna-fr-5937015906.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015906",
-   "title": "MONTEUR DE PNEUS H/F"
-  },
-  "adzuna-fr-5937015920.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015920",
-   "title": "CUISINIER DE COLLECTIVITE (H/F)"
-  },
-  "adzuna-fr-5937015950.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015950",
-   "title": "Stage - Attaché Commercial H/F"
-  },
-  "adzuna-fr-5937015964.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015964",
-   "title": "Plombier (H/F)"
-  },
-  "adzuna-fr-5937015967.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015967",
-   "title": "Conducteur d'engins (H/F)"
-  },
-  "adzuna-fr-5937015973.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015973",
-   "title": "Comptable (h/f)"
-  },
-  "adzuna-fr-5937015976.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015976",
-   "title": "VENDEUR FRUITS ET LEGUMES H/F"
-  },
-  "adzuna-fr-5937015977.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015977",
-   "title": "Plombier chauffagiste (H/F)"
-  },
-  "adzuna-fr-5937015979.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015979",
-   "title": "Auxiliaire de vie H/F"
-  },
-  "adzuna-fr-5937015981.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015981",
-   "title": "Couvreur (H/F)"
-  },
-  "adzuna-fr-5937015982.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015982",
-   "title": "MERCHANDISEUR H/F - LE BOSC"
-  },
-  "adzuna-fr-5937015986.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937015986",
-   "title": "Conducteur dumper (H/F)"
-  },
-  "adzuna-fr-5937016082.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016082",
-   "title": "Business analyste informatique Leasing - Agile (IT)"
-  },
-  "adzuna-fr-5937016084.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016084",
-   "title": "Développeur Back-End Java / Spring Boot — CQRS (H/F) (IT)"
-  },
-  "adzuna-fr-5937016086.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016086",
-   "title": "Product Designer / Business analyste informatique Salesforce SalesCloud – Argenteuil (IT)"
-  },
-  "adzuna-fr-5937016087.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016087",
-   "title": "Développeur / Intégrateur ServiceNow EC Pro H/F (IT)"
-  },
-  "adzuna-fr-5937016092.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016092",
-   "title": "Développeur Python / IA – H/F (IT)"
-  },
-  "adzuna-fr-5937016093.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016093",
-   "title": "Product Owner / Business analyste informatique — PIM, Salsify, AEM (Freelance, full remote) (IT)"
-  },
-  "adzuna-fr-5937016100.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016100",
-   "title": "Senior Software Engineer PHP / Cloud (IT)"
-  },
-  "adzuna-fr-5937016101.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016101",
-   "title": "Développeur / Paramétreur ServiceNow Confirmé (Service Catalog) (IT)"
-  },
-  "adzuna-fr-5937016106.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016106",
-   "title": "DBA Oracle / SQL Server (H/F) (IT)"
-  },
-  "adzuna-fr-5937016111.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016111",
-   "title": "Business analyste informatique IT Cash Management - F/H (IT)"
-  },
-  "adzuna-fr-5937016113.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016113",
-   "title": "Business analyste informatique (Front Office & Risk) - Senior (IT)"
-  },
-  "adzuna-fr-5937016114.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016114",
-   "title": "Business analyste informatique Master Data / Third-Party Management - F/H (IT)"
-  },
-  "adzuna-fr-5937016115.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016115",
-   "title": "MISSION FREELANCE – DÉVELOPPEUR JAVA / SPRING BOOT (H/F) (IT)"
-  },
-  "adzuna-fr-5937016116.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016116",
-   "title": "Business analyste informatique Senior / AMOA Senior (IT)"
-  },
-  "adzuna-fr-5937016128.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016128",
-   "title": "Release manager informatique / Tech Lead Salesforce (IT)"
-  },
-  "adzuna-fr-5937016129.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016129",
-   "title": "DBA Performance / Expert Optimisation SQL (H/F) (IT)"
-  },
-  "adzuna-fr-5937016134.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016134",
-   "title": "Lead Tech Java à Niort (IT)"
-  },
-  "adzuna-fr-5937016135.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016135",
-   "title": "Data Scientist (H/F) – Mission freelance à Lille (IT)"
-  },
-  "adzuna-fr-5937016145.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016145",
-   "title": "Développeur Cleva (IT)"
-  },
-  "adzuna-fr-5937016154.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016154",
-   "title": "Lead Developer Java / Angular (H/F) (IT)"
-  },
-  "adzuna-fr-5937016156.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937016156",
-   "title": "développeur JAVA maîtrisant IA et Python (IT)"
-  },
-  "adzuna-fr-5937025083.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937025083",
-   "title": "Aide aux personnes âgées H/F"
-  },
-  "adzuna-fr-5937025557.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937025557",
-   "title": "Auxiliaire de Vie Sociale -AVS- H/F"
-  },
-  "adzuna-fr-5937026424.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937026424",
-   "title": "Cariste caces r485 1a (H/F)"
-  },
-  "adzuna-fr-5937026485.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937026485",
-   "title": "Aide aux personnes âgées H/F"
-  },
-  "adzuna-fr-5937026526.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937026526",
-   "title": "Aide ménager / ménagère à domicile (H/F)"
-  },
-  "adzuna-fr-5937026553.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937026553",
-   "title": "Aide à la maintenance et au bricolage (H/F)"
-  },
-  "adzuna-fr-5937028435.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937028435",
-   "title": "Auxiliaire de Vie Sociale -AVS- H/F"
-  },
-  "adzuna-fr-5937028491.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937028491",
-   "title": "Auxiliaire de vie auprès de seniors H/F"
-  },
-  "adzuna-fr-5937028815.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937028815",
-   "title": "Aide aux personnes âgées H/F"
-  },
-  "adzuna-fr-5937030249.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937030249",
-   "title": "Conducteur de Ligne F/h"
-  },
-  "adzuna-fr-5937030576.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937030576",
-   "title": "Mécanicien TP - Toulouse (Nord & Sud)(H/F)"
-  },
-  "adzuna-fr-5937030583.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937030583",
-   "title": "Conducteur de cour (H/F)"
-  },
-  "adzuna-fr-5937030609.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937030609",
-   "title": "Maçon VRD (H/F)"
-  },
-  "adzuna-fr-5937034449.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937034449",
-   "title": "Digital Activation Manager F/H"
-  },
-  "adzuna-fr-5937034460.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-fr-5937034460",
-   "title": "Stage - Assistant Chef de Projet IOP (Integrated Operations Planning) F/H"
-  },
-  "adzuna-nl-5937024828.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-nl-5937024828",
-   "title": "Direct Start: Fietskoerier (E-Bike) voor Flink Boodschappenbezorging"
-  },
-  "adzuna-nl-5937025681.html": {
-   "date": "2026-10-21",
-   "id": "adzuna-nl-5937025681",
-   "title": "Technisch Operator | 3-ploegendienst | 40 vrije dagen!"
+  "adzuna-at-5937414312.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-at-5937414312",
+   "title": "Verkäufer (m/w/d) Teilzeit - Innsbruck, DEZ-Einkaufszentren"
+  },
+  "adzuna-at-5937414314.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-at-5937414314",
+   "title": "Saisonale Aushilfe (m/w/d) - Wien, Mariahilferstrasse"
+  },
+  "adzuna-at-5937414320.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-at-5937414320",
+   "title": "Sales Assistant - Designer Outlet McArthurGlen"
+  },
+  "adzuna-at-5937414321.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-at-5937414321",
+   "title": "Sales Assistant (m/w/d)"
+  },
+  "adzuna-de-5937414921.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-de-5937414921",
+   "title": "Moderator/in"
+  },
+  "adzuna-de-5937414923.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-de-5937414923",
+   "title": "Telefoninterviewer/in (Minijob, remote)"
+  },
+  "adzuna-de-5937417353.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-de-5937417353",
+   "title": "Sozialarbeiter (m/w/d)"
+  },
+  "adzuna-de-5937417357.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-de-5937417357",
+   "title": "Anlagenmechaniker Logistik (m/w/d)"
+  },
+  "adzuna-es-5937415416.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-es-5937415416",
+   "title": "Albañil/a en Narón"
+  },
+  "adzuna-es-5937416242.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-es-5937416242",
+   "title": "Carpintero/a metálico en Guadalajara"
+  },
+  "adzuna-es-5937416639.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-es-5937416639",
+   "title": "Electricista en Tomares"
+  },
+  "adzuna-es-5937416759.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-es-5937416759",
+   "title": "Técnico/a de calderas en El Espinar"
+  },
+  "adzuna-es-5937417240.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-es-5937417240",
+   "title": "Maquillador/a en Toledo"
+  },
+  "adzuna-es-5937417261.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-es-5937417261",
+   "title": "Retirada de amianto o uralita en Gáldar"
+  },
+  "adzuna-es-5937417342.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-es-5937417342",
+   "title": "Electricista en Cabezo de Torres"
+  },
+  "adzuna-fr-5937413156.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413156",
+   "title": "Gestionnaire comptable - h/f"
+  },
+  "adzuna-fr-5937413157.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413157",
+   "title": "Assistant conduite d'activité télécom - h/f"
+  },
+  "adzuna-fr-5937413159.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413159",
+   "title": "Responsable coordination - h/f"
+  },
+  "adzuna-fr-5937413160.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413160",
+   "title": "Assistant qualité gestion des risques - h/f"
+  },
+  "adzuna-fr-5937413169.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413169",
+   "title": "Médecin gériatre - h/f"
+  },
+  "adzuna-fr-5937413171.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413171",
+   "title": "Secrétaire administratif - h/f"
+  },
+  "adzuna-fr-5937413179.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413179",
+   "title": "Infirmier - aide soignant - relayeur - h/f"
+  },
+  "adzuna-fr-5937413182.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413182",
+   "title": "Technicien mécanique automobile - marque ford et mg - châteauroux - h/f"
+  },
+  "adzuna-fr-5937413184.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413184",
+   "title": "Chargé d'accueil et archivage - h/f"
+  },
+  "adzuna-fr-5937413185.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413185",
+   "title": "Preparateur en pharmacie hospitaliere secteur dmi - h/f"
+  },
+  "adzuna-fr-5937413186.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413186",
+   "title": "Directeur/directrice des relations internationales - h/f"
+  },
+  "adzuna-fr-5937413188.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413188",
+   "title": "Laveur de vitres - 35h - les sables d'olonne - h/f"
+  },
+  "adzuna-fr-5937413195.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413195",
+   "title": "Postdoc_075_aw - h/f"
+  },
+  "adzuna-fr-5937413201.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413201",
+   "title": "Responsable d'activité maintenance irve national - h/f"
+  },
+  "adzuna-fr-5937413204.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413204",
+   "title": "Stage - ia et télédétection : Étude de l'apport des embeddings pour l'analyse et l'exploitation des données d'observation de la terre - h/f"
+  },
+  "adzuna-fr-5937413211.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413211",
+   "title": "Animateur itinérant en produits de vapotage - h/f"
+  },
+  "adzuna-fr-5937413217.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413217",
+   "title": "Femme de chambre - h/f"
+  },
+  "adzuna-fr-5937413218.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413218",
+   "title": "Menuisier.ère agenceur.se - catamaran gunboat - h/f"
+  },
+  "adzuna-fr-5937413246.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413246",
+   "title": "Infirmier(e) j/n 12h ortho-digestif - h/f"
+  },
+  "adzuna-fr-5937413365.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413365",
+   "title": "Aide soignant/e - usa - pupea - h/f"
+  },
+  "adzuna-fr-5937413594.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413594",
+   "title": "Infirmier de nuit service des urgences - h/f"
+  },
+  "adzuna-fr-5937413599.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413599",
+   "title": "Infirmier en bloc opératoire - h/f"
+  },
+  "adzuna-fr-5937413606.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413606",
+   "title": "Aide-soignant en ehpad saint-cloud - h/f"
+  },
+  "adzuna-fr-5937413608.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413608",
+   "title": "Chef.fe de groupe ajusteur.se composite - catamaran gunboat - h/f"
+  },
+  "adzuna-fr-5937413611.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413611",
+   "title": "Infirmier(e) - carreire 2 - pole univa - h/f"
+  },
+  "adzuna-fr-5937413613.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413613",
+   "title": "Chef d'équipe monteur réseaux électriques enedis - h/f"
+  },
+  "adzuna-fr-5937413615.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413615",
+   "title": "Aide-soignant au bloc opératoire - h/f"
+  },
+  "adzuna-fr-5937413623.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413623",
+   "title": "Chef.fe de groupe menuiserie - catamaran gunboat - h/f"
+  },
+  "adzuna-fr-5937413625.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413625",
+   "title": "Aide-soignant en ehpad sèvres - h/f"
+  },
+  "adzuna-fr-5937413627.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413627",
+   "title": "Technicien.ne d'essais mise en service et dépannage systèmes embarqués - catamaran gunboat - h/f"
+  },
+  "adzuna-fr-5937413634.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413634",
+   "title": "Aide-soignant en ehpad - h/f"
+  },
+  "adzuna-fr-5937413636.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413636",
+   "title": "Chef.fe de groupe accastillage - catamaran gunboat - h/f"
+  },
+  "adzuna-fr-5937413645.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413645",
+   "title": "Juriste marché publics - h/f"
+  },
+  "adzuna-fr-5937413871.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937413871",
+   "title": "Aide ménager(e) à Chilly (H/F)"
+  },
+  "adzuna-fr-5937414380.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937414380",
+   "title": "Consultant en bilan de compétences - h/f"
+  },
+  "adzuna-fr-5937414653.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937414653",
+   "title": "Aide-soignant(e) nuit 80% - ehpad - h/f"
+  },
+  "adzuna-fr-5937414706.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937414706",
+   "title": "Préparateur de commandes- equipe de nuit - h/f"
+  },
+  "adzuna-fr-5937414796.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937414796",
+   "title": "Aide soignant en consultations d'ophtalmologie - h/f"
+  },
+  "adzuna-fr-5937414845.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937414845",
+   "title": "Réceptionniste de nuit polyvalent - h/f"
+  },
+  "adzuna-fr-5937414935.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937414935",
+   "title": "Infirmier(ere) diplomee d'etat laboratoire des echographies cardiaques - h/f"
+  },
+  "adzuna-fr-5937414948.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937414948",
+   "title": "Infirmier rhumato-dermatologie - h/f"
+  },
+  "adzuna-fr-5937414985.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937414985",
+   "title": "Plongeur commis - h/f"
+  },
+  "adzuna-fr-5937415026.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937415026",
+   "title": "Infirmier(e) ou puericultrice - pedopsychiatrie - umpaja -centre jean abadie - h/f"
+  },
+  "adzuna-fr-5937415055.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937415055",
+   "title": "Technicien de laboratoire en contrôle qualité - h/f"
+  },
+  "adzuna-fr-5937415223.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937415223",
+   "title": "Infirmier - vigilan's - h/f"
+  },
+  "adzuna-fr-5937416543.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-fr-5937416543",
+   "title": "Chef d'équipe carrossier peintre (H/F)"
+  },
+  "adzuna-it-5937412657.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937412657",
+   "title": "Addetto alla reception Hotel Business"
+  },
+  "adzuna-it-5937412701.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937412701",
+   "title": "COMMIS DE RANG - DA GIACOMO"
+  },
+  "adzuna-it-5937412741.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937412741",
+   "title": "RECEPTIONIST – CATEGORIE PROTETTE L.68/99 (ID-111177)"
+  },
+  "adzuna-it-5937412747.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937412747",
+   "title": "OPERATORE PRODUZIONE CHIMICA FARMACEUTICA (ID-111147)"
+  },
+  "adzuna-it-5937412748.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937412748",
+   "title": "CONTABILE AMMINISTRATIVO/A PART-TIME (ID-111163)"
+  },
+  "adzuna-it-5937412751.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937412751",
+   "title": "MANUTENTORE IMPIANTI ANTINCENDIO-CATEGORIE PROTETTE L.68/99 (ID-110946)"
+  },
+  "adzuna-it-5937412831.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937412831",
+   "title": "Cameriere/a - Addetto/a sala part-time - Milano presso il C.C Bicocca Village"
+  },
+  "adzuna-it-5937413048.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413048",
+   "title": "TECNICO DI ASSISTENZA, AVVIAMENTO E COLLAUDO"
+  },
+  "adzuna-it-5937413226.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413226",
+   "title": "E/E Integration Engineer"
+  },
+  "adzuna-it-5937413237.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413237",
+   "title": "Vice Store Manager"
+  },
+  "adzuna-it-5937413240.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413240",
+   "title": "ADDETTI CARICO/SCARICO TURNO DIURNO"
+  },
+  "adzuna-it-5937413270.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413270",
+   "title": "IMPIEGATO/A UFFICIO ACQUISTI - GESTORE ORDINI"
+  },
+  "adzuna-it-5937413274.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413274",
+   "title": "OPERATORE SOCIO-SANITARIO - Milano Sud (Municipi 4, 5, 6)"
+  },
+  "adzuna-it-5937413356.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413356",
+   "title": "TIROCINIO TECNICO OFFICINA E GOMMISTA"
+  },
+  "adzuna-it-5937413368.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413368",
+   "title": "Addetto/a Gestione Ordini"
+  },
+  "adzuna-it-5937413419.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413419",
+   "title": "TIROCINIO DI VENDITA E CASSA - PAVIA"
+  },
+  "adzuna-it-5937413464.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413464",
+   "title": "CADDY'S SONDRIO - Addetta/o vendita"
+  },
+  "adzuna-it-5937413514.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-it-5937413514",
+   "title": "TIROCINIO FORMATIVO TECNICO OFFICINA - OLGIATE OLONA"
+  },
+  "adzuna-nl-5937416627.html": {
+   "date": "2026-10-22",
+   "id": "adzuna-nl-5937416627",
+   "title": "Commercieel Medewerker Binnendienst"
   }
  },
- "updated": "2026-10-21"
+ "updated": "2026-10-22"
 }
