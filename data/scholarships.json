@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-07T12:57:21.385861+00:00",
-  "count": 365,
+  "generated_at": "2026-11-08T13:21:09.019679+00:00",
+  "count": 367,
   "per_source": {
     "ScholarshipsCorner": 87,
-    "OpportunitiesForYouth": 122,
+    "OpportunitiesForYouth": 120,
     "Outreachy": 1,
     "GWI": 1,
     "GitHub": 1,
@@ -26,11 +26,11 @@
     "Moroccan MESRS": 1,
     "Palantir": 1,
     "Spanish Ministry": 1,
+    "Scholars4Dev": 83,
     "AAUW": 1,
     "Misr El Kheir": 1,
     "ORDIS Morocco": 1,
     "IEEE WIE": 1,
-    "Scholars4Dev": 79,
     "Tunisian MESR": 1,
     "Meta": 1,
     "Danish Ministry": 1,
@@ -87,57 +87,6 @@
     "seed": true
   },
   "scholarships": [
-    {
-      "id": "sc-kaist-visual-ai-internship-south-korea",
-      "title": "KAIST Visual AI Internship 2027 in South Korea | Paid Internship",
-      "provider": "",
-      "location": "",
-      "region": "",
-      "country": "",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": null,
-      "amount_str": "",
-      "deadline": "2026-11-07T23:59:00+00:00",
-      "level": "Internship",
-      "description": "KAIST Visual AI internship in South Korea is open to undergraduate students who are interested in developing machine learning tools for visual data. Advanced technologies for processing, interpreting, and generalizing different visual data formats are being researched at the KAIST Visual AI Group. Interns will gain hands-on research experience through various activities, including coding assignments [&hellip;]",
-      "tags": [
-        "internships",
-        "opportunities",
-        "ai internships",
-        "internships in korea",
-        "kaist internship",
-        "south korea scholarships"
-      ],
-      "url": "https://scholarshipscorner.website/kaist-visual-ai-internship-south-korea/",
-      "source": "ScholarshipsCorner",
-      "date": "2026-11-06T15:55:57",
-      "posted_ago": ""
-    },
-    {
-      "id": "ofy-ukudla-masters-scholarships-2027-in-south-africa-daad-funded",
-      "title": "UKUDLA Master’s Scholarships 2027 in South Africa: DAAD-Funded Postgraduate Study in Data Science, Agriculture and Sustainable Food Systems",
-      "provider": "",
-      "location": "",
-      "region": "",
-      "country": "",
-      "remote": false,
-      "funding": "Annual",
-      "amount": 650.0,
-      "amount_str": "€650",
-      "deadline": "2026-11-07T23:59:00+00:00",
-      "level": "Masters",
-      "description": "UKUDLA Master’s Scholarships 2027 in South The African German Centre for Sustainable and Resilient Food Systems and Applied Agricultural and Food Data Science (UKUDLA) is inviting applications for its Cohort 3 Master’s Scholarship programme for African candidates seeking to pursue full-time postgraduate studies in South Africa. The scholarship supports academically qualified graduates who want to [&hellip;]",
-      "tags": [
-        "africa",
-        "master",
-        "scholarships"
-      ],
-      "url": "https://opportunitiesforyouth.org/2026/10/24/ukudla-masters-scholarships-2027-in-south-africa-daad-funded-postgraduate-study-in-data-science-agriculture-and-sustainable-food-systems/",
-      "source": "OpportunitiesForYouth",
-      "date": "2026-10-24T15:37:58",
-      "posted_ago": ""
-    },
     {
       "id": "sc-ustc-winter-camp-china",
       "title": "USTC Winter Camp 2027 in China Fully Funded Scholarship Available",
@@ -461,7 +410,7 @@
       "funding": "Fully Funded",
       "amount": 6500,
       "amount_str": "$6,500 stipend",
-      "deadline": "2026-11-14T12:57:21.384954+00:00",
+      "deadline": "2026-11-15T13:21:09.018801+00:00",
       "level": "Internship",
       "description": "Paid remote internships in open source for underrepresented groups in tech.",
       "tags": [
@@ -474,56 +423,6 @@
       "source": "Outreachy",
       "posted_ago": "",
       "id": "outreachy-internship-paid-remote"
-    },
-    {
-      "title": "GWI Scholars Program — USA 2026",
-      "provider": "Global Women's Institute",
-      "location": "USA",
-      "region": "US",
-      "country": "USA",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 15000,
-      "amount_str": "$15,000",
-      "deadline": "2026-11-15T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarship for women pursuing graduate studies in the USA.",
-      "tags": [
-        "Engineering & IT",
-        "Healthcare",
-        "Business",
-        "Leadership",
-        "Women"
-      ],
-      "url": "https://gwi-scholars.org/",
-      "source": "GWI",
-      "posted_ago": "",
-      "id": "gwi-scholars-program-usa-2026"
-    },
-    {
-      "title": "GitHub Student Developer Pack Scholarships",
-      "provider": "GitHub",
-      "location": "Worldwide",
-      "region": "WW",
-      "country": "",
-      "remote": true,
-      "funding": "Fully Funded",
-      "amount": 2000,
-      "amount_str": "$2,000 + tool pack",
-      "deadline": "2026-11-15T12:57:21.384954+00:00",
-      "level": "Bachelor",
-      "description": "Scholarships + free developer tools for students building technology projects.",
-      "tags": [
-        "Engineering & IT",
-        "Technology",
-        "Open source",
-        "Bachelor",
-        "Tools"
-      ],
-      "url": "https://education.github.com/pack",
-      "source": "GitHub",
-      "posted_ago": "",
-      "id": "github-student-developer-pack-scholarships"
     },
     {
       "id": "sc-harvard-lead-fellowship",
@@ -603,6 +502,56 @@
       "posted_ago": ""
     },
     {
+      "title": "GWI Scholars Program — USA 2026",
+      "provider": "Global Women's Institute",
+      "location": "USA",
+      "region": "US",
+      "country": "USA",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 15000,
+      "amount_str": "$15,000",
+      "deadline": "2026-11-16T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarship for women pursuing graduate studies in the USA.",
+      "tags": [
+        "Engineering & IT",
+        "Healthcare",
+        "Business",
+        "Leadership",
+        "Women"
+      ],
+      "url": "https://gwi-scholars.org/",
+      "source": "GWI",
+      "posted_ago": "",
+      "id": "gwi-scholars-program-usa-2026"
+    },
+    {
+      "title": "GitHub Student Developer Pack Scholarships",
+      "provider": "GitHub",
+      "location": "Worldwide",
+      "region": "WW",
+      "country": "",
+      "remote": true,
+      "funding": "Fully Funded",
+      "amount": 2000,
+      "amount_str": "$2,000 + tool pack",
+      "deadline": "2026-11-16T13:21:09.018801+00:00",
+      "level": "Bachelor",
+      "description": "Scholarships + free developer tools for students building technology projects.",
+      "tags": [
+        "Engineering & IT",
+        "Technology",
+        "Open source",
+        "Bachelor",
+        "Tools"
+      ],
+      "url": "https://education.github.com/pack",
+      "source": "GitHub",
+      "posted_ago": "",
+      "id": "github-student-developer-pack-scholarships"
+    },
+    {
       "id": "ofy-ku-leuven-phd-scholarship-2026-in-human-rights-law-belgium-f",
       "title": "KU Leuven PhD Scholarship 2026 in Human Rights Law, Belgium: Fully Funded Doctoral Research Opportunity for Law Graduates",
       "provider": "",
@@ -657,56 +606,6 @@
       "posted_ago": ""
     },
     {
-      "title": "Chevening Scholarships",
-      "provider": "UK Government (FCDO)",
-      "location": "United Kingdom",
-      "region": "EU",
-      "country": "United Kingdom",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 35000,
-      "amount_str": "£35,000",
-      "deadline": "2026-11-17T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Global scholarship programme for future leaders to study in the UK.",
-      "tags": [
-        "Leadership",
-        "Engineering & IT",
-        "Business",
-        "Policy",
-        "All majors"
-      ],
-      "url": "https://www.chevening.org/scholarship/",
-      "source": "Chevening",
-      "posted_ago": "",
-      "id": "chevening-scholarships"
-    },
-    {
-      "title": "Microsoft Gaming Scholarship for Women",
-      "provider": "Microsoft",
-      "location": "Worldwide",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Partially Funded",
-      "amount": 5000,
-      "amount_str": "$5,000",
-      "deadline": "2026-11-17T12:57:21.384954+00:00",
-      "level": "Bachelor",
-      "description": "Scholarship for women pursuing bachelor's degree in gaming or computer science.",
-      "tags": [
-        "Engineering & IT",
-        "Women",
-        "Gaming",
-        "Technology",
-        "Bachelor"
-      ],
-      "url": "https://www.microsoft.com/en-us/gaming/scholarship",
-      "source": "Microsoft Gaming",
-      "posted_ago": "",
-      "id": "microsoft-gaming-scholarship-for-women"
-    },
-    {
       "id": "ofy-british-council-green-and-digital-employability-and-enterpri",
       "title": "British Council Green and Digital Employability and Enterprise Programme 2026: £150,000 Grant for UK–South Africa Education and Industry Partnerships",
       "provider": "",
@@ -732,6 +631,56 @@
       "source": "OpportunitiesForYouth",
       "date": "2026-10-27T15:56:03",
       "posted_ago": ""
+    },
+    {
+      "title": "Chevening Scholarships",
+      "provider": "UK Government (FCDO)",
+      "location": "United Kingdom",
+      "region": "EU",
+      "country": "United Kingdom",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 35000,
+      "amount_str": "£35,000",
+      "deadline": "2026-11-18T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Global scholarship programme for future leaders to study in the UK.",
+      "tags": [
+        "Leadership",
+        "Engineering & IT",
+        "Business",
+        "Policy",
+        "All majors"
+      ],
+      "url": "https://www.chevening.org/scholarship/",
+      "source": "Chevening",
+      "posted_ago": "",
+      "id": "chevening-scholarships"
+    },
+    {
+      "title": "Microsoft Gaming Scholarship for Women",
+      "provider": "Microsoft",
+      "location": "Worldwide",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Partially Funded",
+      "amount": 5000,
+      "amount_str": "$5,000",
+      "deadline": "2026-11-18T13:21:09.018801+00:00",
+      "level": "Bachelor",
+      "description": "Scholarship for women pursuing bachelor's degree in gaming or computer science.",
+      "tags": [
+        "Engineering & IT",
+        "Women",
+        "Gaming",
+        "Technology",
+        "Bachelor"
+      ],
+      "url": "https://www.microsoft.com/en-us/gaming/scholarship",
+      "source": "Microsoft Gaming",
+      "posted_ago": "",
+      "id": "microsoft-gaming-scholarship-for-women"
     },
     {
       "id": "sc-mepi-tomorrows-leaders-program",
@@ -837,55 +786,6 @@
       "posted_ago": ""
     },
     {
-      "title": "Gates Millennium Scholars Program",
-      "provider": "Bill & Melinda Gates Foundation",
-      "location": "USA",
-      "region": "US",
-      "country": "USA",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 50000,
-      "amount_str": "$50,000 / yr",
-      "deadline": "2026-11-19T12:57:21.384954+00:00",
-      "level": "Bachelor",
-      "description": "Last-dollar scholarship for minority high-achieving students in the USA.",
-      "tags": [
-        "All majors",
-        "Leadership",
-        "Community",
-        "Underrepresented"
-      ],
-      "url": "https://www.gmsp.org/",
-      "source": "Gates Foundation",
-      "posted_ago": "",
-      "id": "gates-millennium-scholars-program"
-    },
-    {
-      "title": "Google Women Techmakers Scholarships",
-      "provider": "Google (Women Techmakers)",
-      "location": "Worldwide",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 10000,
-      "amount_str": "$10,000 + retreat",
-      "deadline": "2026-11-19T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarship + mentorship + retreat for women in technology studying at university.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Women",
-        "Technology",
-        "Mentorship"
-      ],
-      "url": "https://womenintech.google/community/scholarships/",
-      "source": "Google WTM",
-      "posted_ago": "",
-      "id": "google-women-techmakers-scholarships"
-    },
-    {
       "id": "sc-creative-leadership-conference-2026-pakistan",
       "title": "Creative Leadership Conference 2026 in Pakistan (Fully Funded Passes Available)",
       "provider": "",
@@ -933,6 +833,55 @@
       "source": "OpportunitiesForYouth",
       "date": "2026-10-26T13:41:21",
       "posted_ago": ""
+    },
+    {
+      "title": "Gates Millennium Scholars Program",
+      "provider": "Bill & Melinda Gates Foundation",
+      "location": "USA",
+      "region": "US",
+      "country": "USA",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 50000,
+      "amount_str": "$50,000 / yr",
+      "deadline": "2026-11-20T13:21:09.018801+00:00",
+      "level": "Bachelor",
+      "description": "Last-dollar scholarship for minority high-achieving students in the USA.",
+      "tags": [
+        "All majors",
+        "Leadership",
+        "Community",
+        "Underrepresented"
+      ],
+      "url": "https://www.gmsp.org/",
+      "source": "Gates Foundation",
+      "posted_ago": "",
+      "id": "gates-millennium-scholars-program"
+    },
+    {
+      "title": "Google Women Techmakers Scholarships",
+      "provider": "Google (Women Techmakers)",
+      "location": "Worldwide",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 10000,
+      "amount_str": "$10,000 + retreat",
+      "deadline": "2026-11-20T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarship + mentorship + retreat for women in technology studying at university.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "Women",
+        "Technology",
+        "Mentorship"
+      ],
+      "url": "https://womenintech.google/community/scholarships/",
+      "source": "Google WTM",
+      "posted_ago": "",
+      "id": "google-women-techmakers-scholarships"
     },
     {
       "id": "sc-new-york-times-fellowship",
@@ -997,7 +946,7 @@
       "funding": "Fully Funded",
       "amount": 12000,
       "amount_str": "€12,000 / yr",
-      "deadline": "2026-11-21T12:57:21.384954+00:00",
+      "deadline": "2026-11-22T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "NAWA scholarships for foreign students and researchers in Poland.",
       "tags": [
@@ -1021,7 +970,7 @@
       "funding": "Fully Funded",
       "amount": 7000,
       "amount_str": "$7,000 / yr",
-      "deadline": "2026-11-21T12:57:21.384954+00:00",
+      "deadline": "2026-11-22T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarships for Palestinian and Arab students to pursue higher education.",
       "tags": [
@@ -1035,56 +984,6 @@
       "source": "Palestinian MOE",
       "posted_ago": "",
       "id": "palestinian-ministry-of-education-scholarships"
-    },
-    {
-      "title": "Queen Rania Foundation Scholarships",
-      "provider": "Queen Rania Foundation",
-      "location": "Jordan",
-      "region": "AR",
-      "country": "Jordan",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 10000,
-      "amount_str": "$10,000 / yr",
-      "deadline": "2026-11-22T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarships for Jordanian and Arab students pursuing masters in Jordan.",
-      "tags": [
-        "Engineering & IT",
-        "Education",
-        "Jordan",
-        "Arab world",
-        "Women"
-      ],
-      "url": "https://qrfoundation.org/",
-      "source": "Queen Rania Foundation",
-      "posted_ago": "",
-      "id": "queen-rania-foundation-scholarships"
-    },
-    {
-      "title": "Women in Tech Global Scholarship",
-      "provider": "Women in Tech Global Organization",
-      "location": "Worldwide",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 5000,
-      "amount_str": "$5,000",
-      "deadline": "2026-11-22T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Global scholarship for women pursuing studies or careers in technology fields.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Women",
-        "Technology",
-        "Global"
-      ],
-      "url": "https://www.womenintech.org/scholarships",
-      "source": "Women in Tech",
-      "posted_ago": "",
-      "id": "women-in-tech-global-scholarship"
     },
     {
       "id": "ofy-anthropic-residency-2026-paid-ai-safety-research-program-for",
@@ -1215,29 +1114,54 @@
       "posted_ago": ""
     },
     {
-      "title": " AnitaB.org Grace Hopper Celebration Scholarship",
-      "provider": "AnitaB.org",
-      "location": "Worldwide (GHC conference)",
-      "region": "WW",
-      "country": "",
-      "remote": true,
+      "title": "Queen Rania Foundation Scholarships",
+      "provider": "Queen Rania Foundation",
+      "location": "Jordan",
+      "region": "AR",
+      "country": "Jordan",
+      "remote": false,
       "funding": "Fully Funded",
-      "amount": 5000,
-      "amount_str": "$5,000 + conference pass",
-      "deadline": "2026-11-23T12:57:21.384954+00:00",
+      "amount": 10000,
+      "amount_str": "$10,000 / yr",
+      "deadline": "2026-11-23T13:21:09.018801+00:00",
       "level": "Masters",
-      "description": "Scholarship to attend the Grace Hopper Celebration for women in computing.",
+      "description": "Scholarships for Jordanian and Arab students pursuing masters in Jordan.",
       "tags": [
         "Engineering & IT",
-        "Women",
-        "Conference",
-        "Computing",
-        "Networking"
+        "Education",
+        "Jordan",
+        "Arab world",
+        "Women"
       ],
-      "url": "https://ghc.anitab.org/",
-      "source": "AnitaB.org",
+      "url": "https://qrfoundation.org/",
+      "source": "Queen Rania Foundation",
       "posted_ago": "",
-      "id": "anitab-org-grace-hopper-celebration-scholarship"
+      "id": "queen-rania-foundation-scholarships"
+    },
+    {
+      "title": "Women in Tech Global Scholarship",
+      "provider": "Women in Tech Global Organization",
+      "location": "Worldwide",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 5000,
+      "amount_str": "$5,000",
+      "deadline": "2026-11-23T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Global scholarship for women pursuing studies or careers in technology fields.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "Women",
+        "Technology",
+        "Global"
+      ],
+      "url": "https://www.womenintech.org/scholarships",
+      "source": "Women in Tech",
+      "posted_ago": "",
+      "id": "women-in-tech-global-scholarship"
     },
     {
       "id": "ofy-ai-economic-opportunity-fund-2026-funding-for-organisations-",
@@ -1263,28 +1187,29 @@
       "posted_ago": ""
     },
     {
-      "title": "Lebanese University Scholarships for Arab Students",
-      "provider": "Lebanese University",
-      "location": "Lebanon",
-      "region": "AR",
-      "country": "Lebanon",
-      "remote": false,
-      "funding": "Partially Funded",
-      "amount": 4000,
-      "amount_str": "$4,000 / yr",
-      "deadline": "2026-11-24T12:57:21.384954+00:00",
+      "title": " AnitaB.org Grace Hopper Celebration Scholarship",
+      "provider": "AnitaB.org",
+      "location": "Worldwide (GHC conference)",
+      "region": "WW",
+      "country": "",
+      "remote": true,
+      "funding": "Fully Funded",
+      "amount": 5000,
+      "amount_str": "$5,000 + conference pass",
+      "deadline": "2026-11-24T13:21:09.018801+00:00",
       "level": "Masters",
-      "description": "Partial scholarships for Arab students to study at Lebanese University.",
+      "description": "Scholarship to attend the Grace Hopper Celebration for women in computing.",
       "tags": [
         "Engineering & IT",
-        "Education",
-        "Lebanon",
-        "Arab world"
+        "Women",
+        "Conference",
+        "Computing",
+        "Networking"
       ],
-      "url": "https://www.ul.edu.lb/",
-      "source": "Lebanese University",
+      "url": "https://ghc.anitab.org/",
+      "source": "AnitaB.org",
       "posted_ago": "",
-      "id": "lebanese-university-scholarships-for-arab-students"
+      "id": "anitab-org-grace-hopper-celebration-scholarship"
     },
     {
       "id": "sc-community-solutions-program-usa",
@@ -1337,6 +1262,53 @@
       "posted_ago": ""
     },
     {
+      "title": "Lebanese University Scholarships for Arab Students",
+      "provider": "Lebanese University",
+      "location": "Lebanon",
+      "region": "AR",
+      "country": "Lebanon",
+      "remote": false,
+      "funding": "Partially Funded",
+      "amount": 4000,
+      "amount_str": "$4,000 / yr",
+      "deadline": "2026-11-25T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Partial scholarships for Arab students to study at Lebanese University.",
+      "tags": [
+        "Engineering & IT",
+        "Education",
+        "Lebanon",
+        "Arab world"
+      ],
+      "url": "https://www.ul.edu.lb/",
+      "source": "Lebanese University",
+      "posted_ago": "",
+      "id": "lebanese-university-scholarships-for-arab-students"
+    },
+    {
+      "id": "ofy-ddi-south-asia-cohort-3-micro-grants-2026",
+      "title": "DDI South Asia Cohort 3 Micro-Grants 2026 by Accountability Lab: Up to $5,750 in Funding for NGOs and Civil Society Organizations in Bangladesh and Pakistan",
+      "provider": "",
+      "location": "",
+      "region": "",
+      "country": "",
+      "remote": false,
+      "funding": "Government",
+      "amount": 5750.0,
+      "amount_str": "$5,750",
+      "deadline": "2026-11-25T23:59:00+00:00",
+      "level": "",
+      "description": "Accountability Lab has announced the DDI South Asia Cohort 3 Micro-Grant Opportunity 2026, inviting eligible non-governmental organizations (NGOs), community-based organizations (CBOs), civil society organizations (CSOs), civil society networks, and social enterprises in Bangladesh and Pakistan to apply for funding of up to US$5,750. The funding opportunity is being implemented under the Digital Democracy Initiative (DDI) [&hellip;]",
+      "tags": [
+        "asia",
+        "grants"
+      ],
+      "url": "https://opportunitiesforyouth.org/2026/11/08/ddi-south-asia-cohort-3-micro-grants-2026/",
+      "source": "OpportunitiesForYouth",
+      "date": "2026-11-08T01:00:44",
+      "posted_ago": ""
+    },
+    {
       "title": "Finland Government Scholarships for International Students",
       "provider": "Finnish Ministry of Education",
       "location": "Finland",
@@ -1346,7 +1318,7 @@
       "funding": "Partially Funded",
       "amount": 8000,
       "amount_str": "€8,000 / yr",
-      "deadline": "2026-11-25T12:57:21.384954+00:00",
+      "deadline": "2026-11-26T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Finnish government scholarships for international masters students.",
       "tags": [
@@ -1369,7 +1341,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000 / yr (tuition + stipend)",
-      "deadline": "2026-11-25T12:57:21.384954+00:00",
+      "deadline": "2026-11-26T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarships for international Muslim students to study at Al-Azhar University in Cairo.",
       "tags": [
@@ -1394,7 +1366,7 @@
       "funding": "Fully Funded",
       "amount": 15000,
       "amount_str": "$15,000 / yr",
-      "deadline": "2026-11-25T12:57:21.384954+00:00",
+      "deadline": "2026-11-26T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarship for international women to pursue graduate study in the USA or Canada.",
       "tags": [
@@ -1419,7 +1391,7 @@
       "funding": "Fully Funded",
       "amount": 22000,
       "amount_str": "$22,000 / yr",
-      "deadline": "2026-11-26T12:57:21.384954+00:00",
+      "deadline": "2026-11-27T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Fully funded masters scholarships for international students at OSU.",
       "tags": [
@@ -1442,7 +1414,7 @@
       "funding": "Fully Funded",
       "amount": 5000,
       "amount_str": "$5,000 / yr (tuition waiver)",
-      "deadline": "2026-11-26T12:57:21.384954+00:00",
+      "deadline": "2026-11-27T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarships for Arab and regional students to study at Iraqi universities.",
       "tags": [
@@ -1456,79 +1428,6 @@
       "source": "Iraqi MOE",
       "posted_ago": "",
       "id": "iraqi-ministry-of-higher-education-scholarships"
-    },
-    {
-      "title": "Croatia State Scholarships for Foreigners",
-      "provider": "Croatian Ministry of Science and Education",
-      "location": "Croatia",
-      "region": "EU",
-      "country": "Croatia",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 8000,
-      "amount_str": "€8,000 / yr",
-      "deadline": "2026-11-27T12:57:21.384954+00:00",
-      "level": "Bachelor",
-      "description": "State scholarships for foreign citizens studying in Croatia.",
-      "tags": [
-        "Engineering & IT",
-        "Healthcare",
-        "Education"
-      ],
-      "url": "https://mzo.hr/en/scholarships",
-      "source": "Croatian Ministry",
-      "posted_ago": "",
-      "id": "croatia-state-scholarships-for-foreigners"
-    },
-    {
-      "title": "Moroccan Ministry of Higher Education Scholarships",
-      "provider": "Moroccan Ministry of Higher Education",
-      "location": "Morocco",
-      "region": "AR",
-      "country": "Morocco",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 6000,
-      "amount_str": "$6,000 / yr",
-      "deadline": "2026-11-27T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarships for Moroccan and Arab students to study in Moroccan universities.",
-      "tags": [
-        "Engineering & IT",
-        "Education",
-        "Morocco",
-        "Arab world",
-        "Africa"
-      ],
-      "url": "https://www.mesrs.gov.ma/",
-      "source": "Moroccan MESRS",
-      "posted_ago": "",
-      "id": "moroccan-ministry-of-higher-education-scholarships"
-    },
-    {
-      "title": "Palantir Women in Technology Scholarship",
-      "provider": "Palantir Technologies",
-      "location": "USA / remote",
-      "region": "US",
-      "country": "USA",
-      "remote": true,
-      "funding": "Fully Funded",
-      "amount": 7000,
-      "amount_str": "$7,000 + mentorship",
-      "deadline": "2026-11-27T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarship for women studying computer science or related technical fields.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Women",
-        "Technology",
-        "Mentorship"
-      ],
-      "url": "https://www.palantir.com/college/scholarships/",
-      "source": "Palantir",
-      "posted_ago": "",
-      "id": "palantir-women-in-technology-scholarship"
     },
     {
       "id": "sc-max-planck-mpiib-summer-internship",
@@ -1554,6 +1453,79 @@
       "posted_ago": ""
     },
     {
+      "title": "Croatia State Scholarships for Foreigners",
+      "provider": "Croatian Ministry of Science and Education",
+      "location": "Croatia",
+      "region": "EU",
+      "country": "Croatia",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 8000,
+      "amount_str": "€8,000 / yr",
+      "deadline": "2026-11-28T13:21:09.018801+00:00",
+      "level": "Bachelor",
+      "description": "State scholarships for foreign citizens studying in Croatia.",
+      "tags": [
+        "Engineering & IT",
+        "Healthcare",
+        "Education"
+      ],
+      "url": "https://mzo.hr/en/scholarships",
+      "source": "Croatian Ministry",
+      "posted_ago": "",
+      "id": "croatia-state-scholarships-for-foreigners"
+    },
+    {
+      "title": "Moroccan Ministry of Higher Education Scholarships",
+      "provider": "Moroccan Ministry of Higher Education",
+      "location": "Morocco",
+      "region": "AR",
+      "country": "Morocco",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 6000,
+      "amount_str": "$6,000 / yr",
+      "deadline": "2026-11-28T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarships for Moroccan and Arab students to study in Moroccan universities.",
+      "tags": [
+        "Engineering & IT",
+        "Education",
+        "Morocco",
+        "Arab world",
+        "Africa"
+      ],
+      "url": "https://www.mesrs.gov.ma/",
+      "source": "Moroccan MESRS",
+      "posted_ago": "",
+      "id": "moroccan-ministry-of-higher-education-scholarships"
+    },
+    {
+      "title": "Palantir Women in Technology Scholarship",
+      "provider": "Palantir Technologies",
+      "location": "USA / remote",
+      "region": "US",
+      "country": "USA",
+      "remote": true,
+      "funding": "Fully Funded",
+      "amount": 7000,
+      "amount_str": "$7,000 + mentorship",
+      "deadline": "2026-11-28T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarship for women studying computer science or related technical fields.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "Women",
+        "Technology",
+        "Mentorship"
+      ],
+      "url": "https://www.palantir.com/college/scholarships/",
+      "source": "Palantir",
+      "posted_ago": "",
+      "id": "palantir-women-in-technology-scholarship"
+    },
+    {
       "title": "Spain Grant for International Masters Students",
       "provider": "Spanish Ministry of Education",
       "location": "Spain",
@@ -1563,7 +1535,7 @@
       "funding": "Partially Funded",
       "amount": 6000,
       "amount_str": "€6,000 / yr",
-      "deadline": "2026-11-28T12:57:21.384954+00:00",
+      "deadline": "2026-11-29T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Partial scholarship for international students enrolled in a masters program in Spain.",
       "tags": [
@@ -1577,103 +1549,31 @@
       "id": "spain-grant-for-international-masters-students"
     },
     {
-      "title": "AAUW International Fellowship",
-      "provider": "AAUW (American Association of University Women)",
-      "location": "USA",
-      "region": "US",
-      "country": "USA",
+      "id": "s4d-emile-boutmy-scholarships-for-non-eu-students",
+      "title": "Emile Boutmy Scholarships for Non-EU Students at Sciences Po",
+      "provider": "",
+      "location": "France",
+      "region": "EU",
+      "country": "France",
       "remote": false,
-      "funding": "Partially Funded",
-      "amount": 20000,
-      "amount_str": "$20,000",
-      "deadline": "2026-11-29T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Fellowship for women who are not US citizens to pursue graduate study in the USA.",
+      "funding": "Annual",
+      "amount": 9500.0,
+      "amount_str": "€9,500",
+      "deadline": "2026-11-29T23:59:00+00:00",
+      "level": "Bachelor",
+      "description": "2027-2028 Emile Boutmy Scholarships are open to non-EU International Students. The scholarships are towards a Bachelor's or Master's Degree in eligible fields of study offered at Science Po in Paris, France. Deadline is 29 November 2026 for Masters programmes and in 17 January 2027 for undergraduate programmes. Course starts September 2027. Read more &raquo;",
       "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Business",
-        "PhD",
-        "Women"
+        "africans scholarships",
+        "annual scholarships",
+        "any field of study scholarships",
+        "april june deadline",
+        "asians scholarships",
+        "economics and finance scholarships"
       ],
-      "url": "https://www.aauw.org/fellowships-grants/",
-      "source": "AAUW",
-      "posted_ago": "",
-      "id": "aauw-international-fellowship"
-    },
-    {
-      "title": "Misr El Kheir Foundation Scholarships (Egypt)",
-      "provider": "Misr El Kheir Foundation",
-      "location": "Egypt",
-      "region": "AR",
-      "country": "Egypt",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 8000,
-      "amount_str": "$8,000 / yr",
-      "deadline": "2026-11-29T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarships for Egyptian and Arab students pursuing higher education in Egypt.",
-      "tags": [
-        "Engineering & IT",
-        "Education",
-        "Africa",
-        "Egypt",
-        "Community"
-      ],
-      "url": "https://www.misr-el-kheir.org/",
-      "source": "Misr El Kheir",
-      "posted_ago": "",
-      "id": "misr-el-kheir-foundation-scholarships-egypt"
-    },
-    {
-      "title": "Moroccan Organization for the Development of Scientific Research (ORDIS) Scholarships",
-      "provider": "ORDIS (Morocco)",
-      "location": "Morocco / International",
-      "region": "AR",
-      "country": "Morocco",
-      "remote": false,
-      "funding": "Partially Funded",
-      "amount": 4000,
-      "amount_str": "$4,000 / yr",
-      "deadline": "2026-11-29T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Partial scholarships for Arab students in scientific and technological fields.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Science",
-        "Morocco",
-        "Arab world"
-      ],
-      "url": "https://www.ordis.ma/",
-      "source": "ORDIS Morocco",
-      "posted_ago": "",
-      "id": "moroccan-organization-for-the-development-of-scientific-research-ordis-scholarships"
-    },
-    {
-      "title": "IEEE Women in Engineering Scholarship",
-      "provider": "IEEE WIE",
-      "location": "Worldwide",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Partially Funded",
-      "amount": 3000,
-      "amount_str": "$3,000",
-      "deadline": "2026-11-29T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarship for women pursuing electrical, electronics, or computer engineering degrees.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Women",
-        "Electrical engineering"
-      ],
-      "url": "https://wie.ieee.org/scholarships",
-      "source": "IEEE WIE",
-      "posted_ago": "",
-      "id": "ieee-women-in-engineering-scholarship"
+      "url": "https://www.scholars4dev.com/emile-boutmy-scholarships-for-non-eu-students/",
+      "source": "Scholars4Dev",
+      "date": "2026-11-08T09:50:39",
+      "posted_ago": ""
     },
     {
       "id": "ofy-feminist-womens-foundation-feminist-futures-grants-2027-2031",
@@ -1753,6 +1653,105 @@
       "posted_ago": ""
     },
     {
+      "title": "AAUW International Fellowship",
+      "provider": "AAUW (American Association of University Women)",
+      "location": "USA",
+      "region": "US",
+      "country": "USA",
+      "remote": false,
+      "funding": "Partially Funded",
+      "amount": 20000,
+      "amount_str": "$20,000",
+      "deadline": "2026-11-30T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Fellowship for women who are not US citizens to pursue graduate study in the USA.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "Business",
+        "PhD",
+        "Women"
+      ],
+      "url": "https://www.aauw.org/fellowships-grants/",
+      "source": "AAUW",
+      "posted_ago": "",
+      "id": "aauw-international-fellowship"
+    },
+    {
+      "title": "Misr El Kheir Foundation Scholarships (Egypt)",
+      "provider": "Misr El Kheir Foundation",
+      "location": "Egypt",
+      "region": "AR",
+      "country": "Egypt",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 8000,
+      "amount_str": "$8,000 / yr",
+      "deadline": "2026-11-30T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarships for Egyptian and Arab students pursuing higher education in Egypt.",
+      "tags": [
+        "Engineering & IT",
+        "Education",
+        "Africa",
+        "Egypt",
+        "Community"
+      ],
+      "url": "https://www.misr-el-kheir.org/",
+      "source": "Misr El Kheir",
+      "posted_ago": "",
+      "id": "misr-el-kheir-foundation-scholarships-egypt"
+    },
+    {
+      "title": "Moroccan Organization for the Development of Scientific Research (ORDIS) Scholarships",
+      "provider": "ORDIS (Morocco)",
+      "location": "Morocco / International",
+      "region": "AR",
+      "country": "Morocco",
+      "remote": false,
+      "funding": "Partially Funded",
+      "amount": 4000,
+      "amount_str": "$4,000 / yr",
+      "deadline": "2026-11-30T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Partial scholarships for Arab students in scientific and technological fields.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "Science",
+        "Morocco",
+        "Arab world"
+      ],
+      "url": "https://www.ordis.ma/",
+      "source": "ORDIS Morocco",
+      "posted_ago": "",
+      "id": "moroccan-organization-for-the-development-of-scientific-research-ordis-scholarships"
+    },
+    {
+      "title": "IEEE Women in Engineering Scholarship",
+      "provider": "IEEE WIE",
+      "location": "Worldwide",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Partially Funded",
+      "amount": 3000,
+      "amount_str": "$3,000",
+      "deadline": "2026-11-30T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarship for women pursuing electrical, electronics, or computer engineering degrees.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "Women",
+        "Electrical engineering"
+      ],
+      "url": "https://wie.ieee.org/scholarships",
+      "source": "IEEE WIE",
+      "posted_ago": "",
+      "id": "ieee-women-in-engineering-scholarship"
+    },
+    {
       "id": "s4d-eth-zurich-excellence-masters-scholarship-program",
       "title": "ETH Zurich Excellence Masters Scholarships",
       "provider": "",
@@ -1774,7 +1773,7 @@
         "asians scholarships",
         "east europeans scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/08/24/eth-zurich-excellence-masters-scholarship-program/",
+      "url": "https://www.scholars4dev.com/eth-zurich-excellence-masters-scholarship-program/",
       "source": "Scholars4Dev",
       "date": "2026-08-24T14:45:18",
       "posted_ago": ""
@@ -2072,56 +2071,6 @@
       "posted_ago": ""
     },
     {
-      "title": "Tunisian Government Scholarships for Foreign Students",
-      "provider": "Tunisian Ministry of Higher Education",
-      "location": "Tunisia",
-      "region": "AR",
-      "country": "Tunisia",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 5000,
-      "amount_str": "$5,000 / yr (tuition waiver)",
-      "deadline": "2026-12-01T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarships for Arab and African students to study at Tunisian universities.",
-      "tags": [
-        "Engineering & IT",
-        "Education",
-        "Tunisia",
-        "Arab world",
-        "Africa"
-      ],
-      "url": "https://www.mesr.rn.tn/",
-      "source": "Tunisian MESR",
-      "posted_ago": "",
-      "id": "tunisian-government-scholarships-for-foreign-students"
-    },
-    {
-      "title": "Meta / Facebook Developer Circle Scholarship",
-      "provider": "Meta (Facebook)",
-      "location": "Worldwide",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 5000,
-      "amount_str": "$5,000 + training",
-      "deadline": "2026-12-01T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarship for students in developer circles pursuing technology degrees.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Technology",
-        "Meta",
-        "Training"
-      ],
-      "url": "https://developers.facebook.com/community/developer-circles/scholarships/",
-      "source": "Meta",
-      "posted_ago": "",
-      "id": "meta-facebook-developer-circle-scholarship"
-    },
-    {
       "id": "s4d-vu-university-amsterdam-fellowship-programme-for-internation",
       "title": "VU Amsterdam Fellowship Programme for International Students",
       "provider": "",
@@ -2143,7 +2092,7 @@
         "economics and finance scholarships",
         "environment scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/06/vu-university-amsterdam-fellowship-programme-for-international-students/",
+      "url": "https://www.scholars4dev.com/vu-university-amsterdam-fellowship-programme-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-10-06T13:55:55",
       "posted_ago": ""
@@ -2170,7 +2119,7 @@
         "asians scholarships",
         "canada scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/09/24/ilot-scholarships-at-university-of-british-columbia/",
+      "url": "https://www.scholars4dev.com/ilot-scholarships-at-university-of-british-columbia/",
       "source": "Scholars4Dev",
       "date": "2026-09-24T21:14:12",
       "posted_ago": ""
@@ -2197,7 +2146,7 @@
         "asians scholarships",
         "east europeans scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/09/07/tu-delft-excellence-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/tu-delft-excellence-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-09-07T17:56:52",
       "posted_ago": ""
@@ -2379,101 +2328,54 @@
       "posted_ago": ""
     },
     {
-      "title": "Denmark Government Scholarships for International Students",
-      "provider": "Danish Ministry of Higher Education",
-      "location": "Denmark",
-      "region": "EU",
-      "country": "Denmark",
-      "remote": false,
-      "funding": "Partially Funded",
-      "amount": 10000,
-      "amount_str": "DKK 100,000",
-      "deadline": "2026-12-02T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Danish government scholarships for international master's students.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Healthcare"
-      ],
-      "url": "https://ufm.dk/en/scholarships",
-      "source": "Danish Ministry",
-      "posted_ago": "",
-      "id": "denmark-government-scholarships-for-international-students"
-    },
-    {
-      "title": "Kuwait Government Scholarship for Foreign Students",
-      "provider": "Kuwait Ministry of Higher Education",
-      "location": "Kuwait",
-      "region": "WW",
-      "country": "Kuwait",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 20000,
-      "amount_str": "$20,000 / yr",
-      "deadline": "2026-12-02T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Government scholarship for international students to study at Kuwaiti universities.",
-      "tags": [
-        "Engineering & IT",
-        "Business",
-        "Regional",
-        "Kuwait"
-      ],
-      "url": "https://www.mohe.gov.kw/",
-      "source": "Kuwait Ministry",
-      "posted_ago": "",
-      "id": "kuwait-government-scholarship-for-foreign-students"
-    },
-    {
-      "title": "Kuwait Foundation for the Advancement of Sciences (KFAS) Scholarships",
-      "provider": "KFAS (Kuwait)",
-      "location": "Kuwait / USA / Europe",
+      "title": "Tunisian Government Scholarships for Foreign Students",
+      "provider": "Tunisian Ministry of Higher Education",
+      "location": "Tunisia",
       "region": "AR",
-      "country": "Kuwait",
+      "country": "Tunisia",
       "remote": false,
       "funding": "Fully Funded",
-      "amount": 20000,
-      "amount_str": "$20,000 / yr",
-      "deadline": "2026-12-02T12:57:21.384954+00:00",
+      "amount": 5000,
+      "amount_str": "$5,000 / yr (tuition waiver)",
+      "deadline": "2026-12-02T13:21:09.018801+00:00",
       "level": "Masters",
-      "description": "Scholarships for Arab students in science and technology fields.",
+      "description": "Scholarships for Arab and African students to study at Tunisian universities.",
+      "tags": [
+        "Engineering & IT",
+        "Education",
+        "Tunisia",
+        "Arab world",
+        "Africa"
+      ],
+      "url": "https://www.mesr.rn.tn/",
+      "source": "Tunisian MESR",
+      "posted_ago": "",
+      "id": "tunisian-government-scholarships-for-foreign-students"
+    },
+    {
+      "title": "Meta / Facebook Developer Circle Scholarship",
+      "provider": "Meta (Facebook)",
+      "location": "Worldwide",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 5000,
+      "amount_str": "$5,000 + training",
+      "deadline": "2026-12-02T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarship for students in developer circles pursuing technology degrees.",
       "tags": [
         "Engineering & IT",
         "Data & AI",
-        "Science",
-        "Kuwait",
-        "Arab world"
+        "Technology",
+        "Meta",
+        "Training"
       ],
-      "url": "https://www.kfas.org.sa/",
-      "source": "KFAS Kuwait",
+      "url": "https://developers.facebook.com/community/developer-circles/scholarships/",
+      "source": "Meta",
       "posted_ago": "",
-      "id": "kuwait-foundation-for-the-advancement-of-sciences-kfas-scholarships"
-    },
-    {
-      "title": "Forté Foundation MBA Scholarships for Women",
-      "provider": "Forté Foundation",
-      "location": "USA / Canada (partner schools)",
-      "region": "US",
-      "country": "USA",
-      "remote": false,
-      "funding": "Partially Funded",
-      "amount": 20000,
-      "amount_str": "$20,000",
-      "deadline": "2026-12-02T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "MBA scholarships for women at Forté Foundation partner business schools.",
-      "tags": [
-        "Business",
-        "Women",
-        "MBA",
-        "Leadership",
-        "USA"
-      ],
-      "url": "https://www.fortéfoundation.org/scholarships",
-      "source": "Forté Foundation",
-      "posted_ago": "",
-      "id": "fort-foundation-mba-scholarships-for-women"
+      "id": "meta-facebook-developer-circle-scholarship"
     },
     {
       "id": "sc-yale-world-fellows-program-usa",
@@ -2553,78 +2455,101 @@
       "posted_ago": ""
     },
     {
-      "title": "Microsoft Research PhD Fellowship",
-      "provider": "Microsoft Research",
-      "location": "Worldwide / Remote",
-      "region": "WW",
-      "country": "",
-      "remote": true,
-      "funding": "Fully Funded",
-      "amount": 45000,
-      "amount_str": "$45,000",
-      "deadline": "2026-12-03T12:57:21.384954+00:00",
-      "level": "PhD",
-      "description": "Fellowship for PhD students in computing and related areas worldwide.",
+      "title": "Denmark Government Scholarships for International Students",
+      "provider": "Danish Ministry of Higher Education",
+      "location": "Denmark",
+      "region": "EU",
+      "country": "Denmark",
+      "remote": false,
+      "funding": "Partially Funded",
+      "amount": 10000,
+      "amount_str": "DKK 100,000",
+      "deadline": "2026-12-03T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Danish government scholarships for international master's students.",
       "tags": [
         "Engineering & IT",
         "Data & AI",
-        "PhD",
-        "Research"
+        "Healthcare"
       ],
-      "url": "https://www.microsoft.com/en-us/research/academic-program/phd-fellowship/",
-      "source": "Microsoft Research",
+      "url": "https://ufm.dk/en/scholarships",
+      "source": "Danish Ministry",
       "posted_ago": "",
-      "id": "microsoft-research-phd-fellowship"
+      "id": "denmark-government-scholarships-for-international-students"
     },
     {
-      "title": "Algerian Government Scholarships for International Students",
-      "provider": "Algerian Ministry of Higher Education",
-      "location": "Algeria",
+      "title": "Kuwait Government Scholarship for Foreign Students",
+      "provider": "Kuwait Ministry of Higher Education",
+      "location": "Kuwait",
+      "region": "WW",
+      "country": "Kuwait",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 20000,
+      "amount_str": "$20,000 / yr",
+      "deadline": "2026-12-03T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Government scholarship for international students to study at Kuwaiti universities.",
+      "tags": [
+        "Engineering & IT",
+        "Business",
+        "Regional",
+        "Kuwait"
+      ],
+      "url": "https://www.mohe.gov.kw/",
+      "source": "Kuwait Ministry",
+      "posted_ago": "",
+      "id": "kuwait-government-scholarship-for-foreign-students"
+    },
+    {
+      "title": "Kuwait Foundation for the Advancement of Sciences (KFAS) Scholarships",
+      "provider": "KFAS (Kuwait)",
+      "location": "Kuwait / USA / Europe",
       "region": "AR",
-      "country": "Algeria",
+      "country": "Kuwait",
       "remote": false,
       "funding": "Fully Funded",
-      "amount": 6000,
-      "amount_str": "$6,000 / yr (tuition + stipend)",
-      "deadline": "2026-12-03T12:57:21.384954+00:00",
+      "amount": 20000,
+      "amount_str": "$20,000 / yr",
+      "deadline": "2026-12-03T13:21:09.018801+00:00",
       "level": "Masters",
-      "description": "Scholarships for Arab and African students to study at Algerian universities.",
+      "description": "Scholarships for Arab students in science and technology fields.",
       "tags": [
         "Engineering & IT",
-        "Education",
-        "Algeria",
-        "Arab world",
-        "Africa"
+        "Data & AI",
+        "Science",
+        "Kuwait",
+        "Arab world"
       ],
-      "url": "https://www.mesrs.dz/",
-      "source": "Algerian MESRS",
+      "url": "https://www.kfas.org.sa/",
+      "source": "KFAS Kuwait",
       "posted_ago": "",
-      "id": "algerian-government-scholarships-for-international-students"
+      "id": "kuwait-foundation-for-the-advancement-of-sciences-kfas-scholarships"
     },
     {
-      "title": "Amazon AWS Scholarship Programme",
-      "provider": "Amazon Web Services",
-      "location": "Worldwide",
-      "region": "WW",
-      "country": "",
+      "title": "Forté Foundation MBA Scholarships for Women",
+      "provider": "Forté Foundation",
+      "location": "USA / Canada (partner schools)",
+      "region": "US",
+      "country": "USA",
       "remote": false,
-      "funding": "Fully Funded",
-      "amount": 5000,
-      "amount_str": "$5,000 + AWS training",
-      "deadline": "2026-12-03T12:57:21.384954+00:00",
+      "funding": "Partially Funded",
+      "amount": 20000,
+      "amount_str": "$20,000",
+      "deadline": "2026-12-03T13:21:09.018801+00:00",
       "level": "Masters",
-      "description": "Scholarship for students studying cloud computing, AI, or related technology fields.",
+      "description": "MBA scholarships for women at Forté Foundation partner business schools.",
       "tags": [
-        "Engineering & IT",
-        "Cloud",
-        "Data & AI",
-        "AWS",
-        "Cloud computing"
+        "Business",
+        "Women",
+        "MBA",
+        "Leadership",
+        "USA"
       ],
-      "url": "https://aws.amazon.com/scholarships/",
-      "source": "AWS",
+      "url": "https://www.fortéfoundation.org/scholarships",
+      "source": "Forté Foundation",
       "posted_ago": "",
-      "id": "amazon-aws-scholarship-programme"
+      "id": "fort-foundation-mba-scholarships-for-women"
     },
     {
       "id": "ofy-mcw-global-young-fellowship",
@@ -2654,28 +2579,78 @@
       "posted_ago": ""
     },
     {
-      "title": "SIMED Scholarships for Latin American Students",
-      "provider": "SIMED (Sociedad Iberoamericana de Educación y Docencia)",
-      "location": "Spain",
-      "region": "EU",
-      "country": "Spain",
-      "remote": false,
-      "funding": "Partially Funded",
-      "amount": 8000,
-      "amount_str": "€8,000",
-      "deadline": "2026-12-04T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Partial scholarships for Latin American students to study masters in Spain.",
+      "title": "Microsoft Research PhD Fellowship",
+      "provider": "Microsoft Research",
+      "location": "Worldwide / Remote",
+      "region": "WW",
+      "country": "",
+      "remote": true,
+      "funding": "Fully Funded",
+      "amount": 45000,
+      "amount_str": "$45,000",
+      "deadline": "2026-12-04T13:21:09.018801+00:00",
+      "level": "PhD",
+      "description": "Fellowship for PhD students in computing and related areas worldwide.",
       "tags": [
         "Engineering & IT",
-        "Business",
-        "Spanish language",
-        "Latin America"
+        "Data & AI",
+        "PhD",
+        "Research"
       ],
-      "url": "https://www.simed.org/",
-      "source": "SIMED",
+      "url": "https://www.microsoft.com/en-us/research/academic-program/phd-fellowship/",
+      "source": "Microsoft Research",
       "posted_ago": "",
-      "id": "simed-scholarships-for-latin-american-students"
+      "id": "microsoft-research-phd-fellowship"
+    },
+    {
+      "title": "Algerian Government Scholarships for International Students",
+      "provider": "Algerian Ministry of Higher Education",
+      "location": "Algeria",
+      "region": "AR",
+      "country": "Algeria",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 6000,
+      "amount_str": "$6,000 / yr (tuition + stipend)",
+      "deadline": "2026-12-04T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarships for Arab and African students to study at Algerian universities.",
+      "tags": [
+        "Engineering & IT",
+        "Education",
+        "Algeria",
+        "Arab world",
+        "Africa"
+      ],
+      "url": "https://www.mesrs.dz/",
+      "source": "Algerian MESRS",
+      "posted_ago": "",
+      "id": "algerian-government-scholarships-for-international-students"
+    },
+    {
+      "title": "Amazon AWS Scholarship Programme",
+      "provider": "Amazon Web Services",
+      "location": "Worldwide",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 5000,
+      "amount_str": "$5,000 + AWS training",
+      "deadline": "2026-12-04T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarship for students studying cloud computing, AI, or related technology fields.",
+      "tags": [
+        "Engineering & IT",
+        "Cloud",
+        "Data & AI",
+        "AWS",
+        "Cloud computing"
+      ],
+      "url": "https://aws.amazon.com/scholarships/",
+      "source": "AWS",
+      "posted_ago": "",
+      "id": "amazon-aws-scholarship-programme"
     },
     {
       "id": "sc-columbia-university-fellowship-usa",
@@ -2731,6 +2706,30 @@
       "posted_ago": ""
     },
     {
+      "title": "SIMED Scholarships for Latin American Students",
+      "provider": "SIMED (Sociedad Iberoamericana de Educación y Docencia)",
+      "location": "Spain",
+      "region": "EU",
+      "country": "Spain",
+      "remote": false,
+      "funding": "Partially Funded",
+      "amount": 8000,
+      "amount_str": "€8,000",
+      "deadline": "2026-12-05T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Partial scholarships for Latin American students to study masters in Spain.",
+      "tags": [
+        "Engineering & IT",
+        "Business",
+        "Spanish language",
+        "Latin America"
+      ],
+      "url": "https://www.simed.org/",
+      "source": "SIMED",
+      "posted_ago": "",
+      "id": "simed-scholarships-for-latin-american-students"
+    },
+    {
       "title": "Fulbright Foreign Student Program",
       "provider": "US Department of State",
       "location": "USA",
@@ -2740,7 +2739,7 @@
       "funding": "Fully Funded",
       "amount": 40000,
       "amount_str": "$40,000 / yr",
-      "deadline": "2026-12-05T12:57:21.384954+00:00",
+      "deadline": "2026-12-06T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "US government scholarship for international students to pursue masters or PhD in the USA.",
       "tags": [
@@ -2765,7 +2764,7 @@
       "funding": "Partially Funded",
       "amount": 10000,
       "amount_str": "£10,000",
-      "deadline": "2026-12-05T12:57:21.384954+00:00",
+      "deadline": "2026-12-06T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Partial scholarship for students from low- and middle-income countries.",
       "tags": [
@@ -2789,7 +2788,7 @@
       "funding": "Fully Funded",
       "amount": 25000,
       "amount_str": "$25,000 / yr",
-      "deadline": "2026-12-05T12:57:21.384954+00:00",
+      "deadline": "2026-12-06T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Government scholarships for Arab students to study at UAE universities.",
       "tags": [
@@ -2814,7 +2813,7 @@
       "funding": "Fully Funded",
       "amount": 10000,
       "amount_str": "$10,000 + internship",
-      "deadline": "2026-12-05T12:57:21.384954+00:00",
+      "deadline": "2026-12-06T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarship for women pursuing computer science or related fields at university.",
       "tags": [
@@ -2839,7 +2838,7 @@
       "funding": "Fully Funded",
       "amount": 40000,
       "amount_str": "SGD 40,000 / yr",
-      "deadline": "2026-12-06T12:57:21.384954+00:00",
+      "deadline": "2026-12-07T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for international students to pursue masters at Singapore universities.",
       "tags": [
@@ -2863,7 +2862,7 @@
       "funding": "Fully Funded",
       "amount": 15000,
       "amount_str": "€15,000 / yr",
-      "deadline": "2026-12-07T12:57:21.384954+00:00",
+      "deadline": "2026-12-08T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Funding for international graduates pursuing a masters or PhD at a German university.",
       "tags": [
@@ -2887,7 +2886,7 @@
       "funding": "Fully Funded",
       "amount": 50000,
       "amount_str": "$50,000",
-      "deadline": "2026-12-07T12:57:21.384954+00:00",
+      "deadline": "2026-12-08T13:21:09.018801+00:00",
       "level": "PhD",
       "description": "Global fellowship for PhD students in computer science and related fields.",
       "tags": [
@@ -2911,7 +2910,7 @@
       "funding": "Partially Funded",
       "amount": 8000,
       "amount_str": "£8,000",
-      "deadline": "2026-12-07T12:57:21.384954+00:00",
+      "deadline": "2026-12-08T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarships for international students studying development-related masters at Sussex.",
       "tags": [
@@ -2935,7 +2934,7 @@
       "funding": "Fully Funded",
       "amount": 3000,
       "amount_str": "$3,000 + pass",
-      "deadline": "2026-12-07T12:57:21.384954+00:00",
+      "deadline": "2026-12-08T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarship for students attending Dreamforce tech conference.",
       "tags": [
@@ -2972,7 +2971,7 @@
         "asians scholarships",
         "east asians scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/08/24/gates-scholarships-for-international-students-at-university-of-cambridge/",
+      "url": "https://www.scholars4dev.com/gates-scholarships-for-international-students-at-university-of-cambridge/",
       "source": "Scholars4Dev",
       "date": "2026-08-24T21:29:06",
       "posted_ago": ""
@@ -3059,31 +3058,6 @@
       "posted_ago": ""
     },
     {
-      "title": "KAIST Scholarship for International Students",
-      "provider": "KAIST (Korea Advanced Institute of Science and Technology)",
-      "location": "South Korea",
-      "region": "WW",
-      "country": "South Korea",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 30000,
-      "amount_str": "₩30,000 / yr + stipend",
-      "deadline": "2026-12-09T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Full scholarship for international students pursuing masters or PhD at KAIST.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "PhD",
-        "Technology",
-        "Korean language"
-      ],
-      "url": "https://www.kaist.ac.kr/en/scholarship",
-      "source": "KAIST",
-      "posted_ago": "",
-      "id": "kaist-scholarship-for-international-students"
-    },
-    {
       "id": "ofy-noblereach-scholars-program-2027-apply-for-a-one-year-paid-f",
       "title": "NobleReach Scholars Program 2027: Apply for a One-Year Paid Fellowship Paying $70,000-$90,000 Plus an $18,000 Stipend",
       "provider": "",
@@ -3111,6 +3085,85 @@
       "posted_ago": ""
     },
     {
+      "title": "KAIST Scholarship for International Students",
+      "provider": "KAIST (Korea Advanced Institute of Science and Technology)",
+      "location": "South Korea",
+      "region": "WW",
+      "country": "South Korea",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 30000,
+      "amount_str": "₩30,000 / yr + stipend",
+      "deadline": "2026-12-10T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Full scholarship for international students pursuing masters or PhD at KAIST.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "PhD",
+        "Technology",
+        "Korean language"
+      ],
+      "url": "https://www.kaist.ac.kr/en/scholarship",
+      "source": "KAIST",
+      "posted_ago": "",
+      "id": "kaist-scholarship-for-international-students"
+    },
+    {
+      "id": "s4d-warwick-chancellors-international-scholarships",
+      "title": "Warwick Chancellor's International Scholarships",
+      "provider": "",
+      "location": "London",
+      "region": "EU",
+      "country": "Montenegro",
+      "remote": false,
+      "funding": "Government",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "2026-12-10T23:59:00+00:00",
+      "level": "PhD",
+      "description": "2027/2028 Warwick Chancellor's International Scholarships are open international students around the world. The scholarships are towards a PhD Degree in any field of study offered at Warwick University in United Kingdom. Deadline is 7 December 2026 for courses starting October 2027. Read more &raquo;",
+      "tags": [
+        "africans scholarships",
+        "any developing country scholarships",
+        "any field of study scholarships",
+        "asians scholarships",
+        "east europeans scholarships",
+        "europe scholarships"
+      ],
+      "url": "https://www.scholars4dev.com/warwick-chancellors-international-scholarships/",
+      "source": "Scholars4Dev",
+      "date": "2026-11-08T09:05:50",
+      "posted_ago": ""
+    },
+    {
+      "id": "s4d-scholarships-for-high-potential-international-students-at-ma",
+      "title": "Maastricht University NL-High Potential Scholarships for International Students",
+      "provider": "",
+      "location": "Netherlands",
+      "region": "EU",
+      "country": "Netherlands",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "2026-12-10T23:59:00+00:00",
+      "level": "Masters",
+      "description": "2027-2027 UM Holland High Potential Scholarships are open to international students from countries outside the EU/EEA. The scholarships are towards a participating Master's Programme offered at Maastricht University in Netherlands. Deadline is 1 February 2027. Courses start September 2027. Read more &raquo;",
+      "tags": [
+        "africans scholarships",
+        "annual scholarships",
+        "any developing country scholarships",
+        "any field of study scholarships",
+        "april june deadline",
+        "asians scholarships"
+      ],
+      "url": "https://www.scholars4dev.com/scholarships-for-high-potential-international-students-at-maastricht-university/",
+      "source": "Scholars4Dev",
+      "date": "2026-10-06T20:35:07",
+      "posted_ago": ""
+    },
+    {
       "title": "NTHU Scholarship — Taiwan",
       "provider": "National Tsing Hua University",
       "location": "Taiwan",
@@ -3120,7 +3173,7 @@
       "funding": "Fully Funded",
       "amount": 18000,
       "amount_str": "NT$18,000 / month",
-      "deadline": "2026-12-10T12:57:21.384954+00:00",
+      "deadline": "2026-12-11T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Full scholarship for international students at NTHU Taiwan.",
       "tags": [
@@ -3143,7 +3196,7 @@
       "funding": "Fully Funded",
       "amount": 50000,
       "amount_str": "$50,000 / yr",
-      "deadline": "2026-12-10T12:57:21.384954+00:00",
+      "deadline": "2026-12-11T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for international students to study in Saudi Arabia or partner countries.",
       "tags": [
@@ -3167,7 +3220,7 @@
       "funding": "Fully Funded",
       "amount": 50000,
       "amount_str": "$50,000 / yr",
-      "deadline": "2026-12-10T12:57:21.384954+00:00",
+      "deadline": "2026-12-11T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarships for Arab students to study at Saudi universities or partner institutions abroad.",
       "tags": [
@@ -3192,7 +3245,7 @@
       "funding": "Fully Funded",
       "amount": 8000,
       "amount_str": "$8,000 research grant",
-      "deadline": "2026-12-10T12:57:21.384954+00:00",
+      "deadline": "2026-12-11T13:21:09.018801+00:00",
       "level": "PhD",
       "description": "Research grant for PhD students working on machine learning with TensorFlow.",
       "tags": [
@@ -3208,55 +3261,31 @@
       "id": "tensorflow-research-scholarships"
     },
     {
-      "id": "s4d-scholarships-for-high-potential-international-students-at-ma",
-      "title": "Maastricht University NL-High Potential Scholarships for International Students",
+      "id": "ofy-2027-university-college-cork-ucc-futures-scholars-programme-",
+      "title": "2027 University College Cork (UCC) Futures Scholars Programme: Fully Funded PhD Scholarships in Ireland for International Students – €25,000 Annual Stipend",
       "provider": "",
-      "location": "Netherlands",
-      "region": "EU",
-      "country": "Netherlands",
+      "location": "",
+      "region": "WW",
+      "country": "",
       "remote": false,
       "funding": "Fully Funded",
-      "amount": null,
-      "amount_str": "",
-      "deadline": "2026-12-10T23:59:00+00:00",
-      "level": "Masters",
-      "description": "2027-2027 UM Holland High Potential Scholarships are open to international students from countries outside the EU/EEA. The scholarships are towards a participating Master's Programme offered at Maastricht University in Netherlands. Deadline is 1 February 2027. Courses start September 2027. Read more &raquo;",
-      "tags": [
-        "africans scholarships",
-        "annual scholarships",
-        "any developing country scholarships",
-        "any field of study scholarships",
-        "april june deadline",
-        "asians scholarships"
-      ],
-      "url": "https://www.scholars4dev.com/2026/10/06/scholarships-for-high-potential-international-students-at-maastricht-university/",
-      "source": "Scholars4Dev",
-      "date": "2026-10-06T20:35:07",
-      "posted_ago": ""
-    },
-    {
-      "title": "Hertz Foundation Graduate Fellowship",
-      "provider": "Hertz Foundation",
-      "location": "USA",
-      "region": "US",
-      "country": "USA",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 35000,
-      "amount_str": "$35,000 / yr",
-      "deadline": "2026-12-11T12:57:21.384954+00:00",
+      "amount": 25000.0,
+      "amount_str": "€25,000",
+      "deadline": "2026-12-11T23:59:00+00:00",
       "level": "PhD",
-      "description": "Fellowship for applied physical and biological sciences PhD students in the USA.",
+      "description": "Overview of the UCC Futures Scholars Programme 2027 The UCC Futures Scholars Programme (GoI) is the flagship institutional doctoral scholarship programme of University College Cork, Ireland. Supported through the Research Ireland Empower programme, it provides competitive funding to outstanding researchers pursuing full-time doctoral studies at the university. The programme is designed to strengthen research capacity, [&hellip;]",
       "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "PhD",
-        "Research"
+        "scholarships",
+        "africa",
+        "america",
+        "asia",
+        "australia and oceania",
+        "continent"
       ],
-      "url": "https://hertzfoundation.org/",
-      "source": "Hertz Foundation",
-      "posted_ago": "",
-      "id": "hertz-foundation-graduate-fellowship"
+      "url": "https://opportunitiesforyouth.org/2026/11/07/2027-university-college-cork-ucc-futures-scholars-programme-fully-funded-phd-scholarships-in-ireland-for-international-students-e25000-annual-stipend/",
+      "source": "OpportunitiesForYouth",
+      "date": "2026-11-07T16:40:10",
+      "posted_ago": ""
     },
     {
       "id": "ofy-bloomberg-harvard-visiting-fellows-program-2027-visiting-fel",
@@ -3286,6 +3315,30 @@
       "posted_ago": ""
     },
     {
+      "title": "Hertz Foundation Graduate Fellowship",
+      "provider": "Hertz Foundation",
+      "location": "USA",
+      "region": "US",
+      "country": "USA",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 35000,
+      "amount_str": "$35,000 / yr",
+      "deadline": "2026-12-12T13:21:09.018801+00:00",
+      "level": "PhD",
+      "description": "Fellowship for applied physical and biological sciences PhD students in the USA.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "PhD",
+        "Research"
+      ],
+      "url": "https://hertzfoundation.org/",
+      "source": "Hertz Foundation",
+      "posted_ago": "",
+      "id": "hertz-foundation-graduate-fellowship"
+    },
+    {
       "title": "Study in Italy — MAECI Scholarships",
       "provider": "Italian Ministry of Foreign Affairs",
       "location": "Italy",
@@ -3295,7 +3348,7 @@
       "funding": "Fully Funded",
       "amount": 14000,
       "amount_str": "€14,000 / yr",
-      "deadline": "2026-12-12T12:57:21.384954+00:00",
+      "deadline": "2026-12-13T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "MAECI scholarships for foreign citizens to study at masters and PhD level in Italy.",
       "tags": [
@@ -3318,7 +3371,7 @@
       "funding": "Fully Funded",
       "amount": 30000,
       "amount_str": "$30,000 / yr",
-      "deadline": "2026-12-12T12:57:21.384954+00:00",
+      "deadline": "2026-12-13T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarship for young Africans with a track record of leadership.",
       "tags": [
@@ -3343,7 +3396,7 @@
       "funding": "Fully Funded",
       "amount": 35000,
       "amount_str": "$35,000 / yr",
-      "deadline": "2026-12-12T12:57:21.384954+00:00",
+      "deadline": "2026-12-13T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Fulbright scholarship for Colombian citizens to pursue masters study in the USA.",
       "tags": [
@@ -3356,30 +3409,6 @@
       "source": "Fulbright Colombia",
       "posted_ago": "",
       "id": "fulbright-colombia-programme"
-    },
-    {
-      "title": "University of Tokyo Scholarship for International Students",
-      "provider": "University of Tokyo",
-      "location": "Japan",
-      "region": "WW",
-      "country": "Japan",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 25000,
-      "amount_str": "¥25,000 / month + tuition waiver",
-      "deadline": "2026-12-13T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Tuition waiver and monthly stipend for international students at University of Tokyo.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Japanese language",
-        "Research"
-      ],
-      "url": "https://www.u-tokyo.ac.jp/en/education/scholarships",
-      "source": "University of Tokyo",
-      "posted_ago": "",
-      "id": "university-of-tokyo-scholarship-for-international-students"
     },
     {
       "id": "ofy-applications-now-open-aspen-strategy-group-rising-leaders-pr",
@@ -3404,6 +3433,30 @@
       "source": "OpportunitiesForYouth",
       "date": "2026-10-27T13:18:16",
       "posted_ago": ""
+    },
+    {
+      "title": "University of Tokyo Scholarship for International Students",
+      "provider": "University of Tokyo",
+      "location": "Japan",
+      "region": "WW",
+      "country": "Japan",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 25000,
+      "amount_str": "¥25,000 / month + tuition waiver",
+      "deadline": "2026-12-14T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Tuition waiver and monthly stipend for international students at University of Tokyo.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "Japanese language",
+        "Research"
+      ],
+      "url": "https://www.u-tokyo.ac.jp/en/education/scholarships",
+      "source": "University of Tokyo",
+      "posted_ago": "",
+      "id": "university-of-tokyo-scholarship-for-international-students"
     },
     {
       "id": "sc-lpi-summer-internship-united-states",
@@ -3514,31 +3567,6 @@
       "posted_ago": ""
     },
     {
-      "title": "China Government Scholarship (CSC)",
-      "provider": "Chinese Scholarship Council",
-      "location": "China",
-      "region": "WW",
-      "country": "China",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 25000,
-      "amount_str": "¥25,000 / yr + accommodation",
-      "deadline": "2026-12-15T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Fully-funded scholarship for international students to study at Chinese universities.",
-      "tags": [
-        "Engineering & IT",
-        "Technology",
-        "Business",
-        "All majors",
-        "Chinese language"
-      ],
-      "url": "https://www.csc.edu.cn/",
-      "source": "CSC China",
-      "posted_ago": "",
-      "id": "china-government-scholarship-csc"
-    },
-    {
       "id": "s4d-ens-international-selection-scholarships",
       "title": "ENS International Selection Scholarships",
       "provider": "",
@@ -3560,7 +3588,7 @@
         "east europeans scholarships",
         "economics and finance scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/06/ens-international-selection-scholarships/",
+      "url": "https://www.scholars4dev.com/ens-international-selection-scholarships/",
       "source": "Scholars4Dev",
       "date": "2026-10-06T20:46:48",
       "posted_ago": ""
@@ -3618,128 +3646,29 @@
       "posted_ago": ""
     },
     {
-      "title": "Commonwealth Scholarships for UK Masters",
-      "provider": "Commonwealth Scholarship Commission",
-      "location": "United Kingdom",
-      "region": "EU",
-      "country": "United Kingdom",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 28000,
-      "amount_str": "£28,000",
-      "deadline": "2026-12-17T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Full scholarship for citizens of Commonwealth countries to study in the UK.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "PhD",
-        "Healthcare",
-        "All majors"
-      ],
-      "url": "https://comdetails.org/",
-      "source": "Commonwealth",
-      "posted_ago": "",
-      "id": "commonwealth-scholarships-for-uk-masters"
-    },
-    {
-      "title": "Qatar Foundation International Scholarship Programme",
-      "provider": "Qatar Foundation",
-      "location": "Qatar / USA / UK",
+      "title": "China Government Scholarship (CSC)",
+      "provider": "Chinese Scholarship Council",
+      "location": "China",
       "region": "WW",
-      "country": "",
+      "country": "China",
       "remote": false,
       "funding": "Fully Funded",
-      "amount": 45000,
-      "amount_str": "$45,000 / yr",
-      "deadline": "2026-12-17T12:57:21.384954+00:00",
+      "amount": 25000,
+      "amount_str": "¥25,000 / yr + accommodation",
+      "deadline": "2026-12-16T13:21:09.018801+00:00",
       "level": "Masters",
-      "description": "Fully-funded scholarship for students from developing countries to study at top universities.",
+      "description": "Fully-funded scholarship for international students to study at Chinese universities.",
       "tags": [
         "Engineering & IT",
+        "Technology",
         "Business",
-        "Energy",
-        "All majors"
+        "All majors",
+        "Chinese language"
       ],
-      "url": "https://www.qf.org.qa/scholarships",
-      "source": "Qatar Foundation",
+      "url": "https://www.csc.edu.cn/",
+      "source": "CSC China",
       "posted_ago": "",
-      "id": "qatar-foundation-international-scholarship-programme"
-    },
-    {
-      "title": "Santander Universities Scholarships",
-      "provider": "Banco Santander",
-      "location": "Multiple countries (Spain, UK, USA, etc.)",
-      "region": "EU",
-      "country": "",
-      "remote": false,
-      "funding": "Partially Funded",
-      "amount": 10000,
-      "amount_str": "€10,000",
-      "deadline": "2026-12-17T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Partial scholarships for international students at Santander-partner universities worldwide.",
-      "tags": [
-        "Engineering & IT",
-        "Business",
-        "International",
-        "Multiple countries"
-      ],
-      "url": "https://www.santander.com/scholarships",
-      "source": "Santander",
-      "posted_ago": "",
-      "id": "santander-universities-scholarships"
-    },
-    {
-      "title": "Qatar Foundation — Arab World Scholarship Track",
-      "provider": "Qatar Foundation",
-      "location": "Qatar / USA",
-      "region": "AR",
-      "country": "Qatar",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 50000,
-      "amount_str": "$50,000 / yr",
-      "deadline": "2026-12-17T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Fully-funded scholarship for Arab students to pursue masters at Qatar Foundation partner universities.",
-      "tags": [
-        "Engineering & IT",
-        "Business",
-        "Energy",
-        "Arab world",
-        "Qatar"
-      ],
-      "url": "https://www.qf.org.qa/scholarships",
-      "source": "Qatar Foundation",
-      "posted_ago": "",
-      "id": "qatar-foundation-arab-world-scholarship-track"
-    },
-    {
-      "title": "Schlumberger Foundation Faculty for the Future",
-      "provider": "Schlumberger Foundation",
-      "location": "Worldwide",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 40000,
-      "amount_str": "$40,000 / yr",
-      "deadline": "2026-12-17T12:57:21.384954+00:00",
-      "level": "PhD",
-      "description": "Fellowship for women in developing countries pursuing PhD in STEM fields.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "PhD",
-        "Women",
-        "STEM",
-        "Developing countries"
-      ],
-      "url": "https://www.facultyforthefuture.org/",
-      "source": "Schlumberger Foundation",
-      "posted_ago": "",
-      "id": "schlumberger-foundation-faculty-for-the-future"
+      "id": "china-government-scholarship-csc"
     },
     {
       "id": "ofy-mozilla-foundation-fellowship-2027-2028-apply-for-up-to-1250",
@@ -3769,6 +3698,130 @@
       "posted_ago": ""
     },
     {
+      "title": "Commonwealth Scholarships for UK Masters",
+      "provider": "Commonwealth Scholarship Commission",
+      "location": "United Kingdom",
+      "region": "EU",
+      "country": "United Kingdom",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 28000,
+      "amount_str": "£28,000",
+      "deadline": "2026-12-18T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Full scholarship for citizens of Commonwealth countries to study in the UK.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "PhD",
+        "Healthcare",
+        "All majors"
+      ],
+      "url": "https://comdetails.org/",
+      "source": "Commonwealth",
+      "posted_ago": "",
+      "id": "commonwealth-scholarships-for-uk-masters"
+    },
+    {
+      "title": "Qatar Foundation International Scholarship Programme",
+      "provider": "Qatar Foundation",
+      "location": "Qatar / USA / UK",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 45000,
+      "amount_str": "$45,000 / yr",
+      "deadline": "2026-12-18T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Fully-funded scholarship for students from developing countries to study at top universities.",
+      "tags": [
+        "Engineering & IT",
+        "Business",
+        "Energy",
+        "All majors"
+      ],
+      "url": "https://www.qf.org.qa/scholarships",
+      "source": "Qatar Foundation",
+      "posted_ago": "",
+      "id": "qatar-foundation-international-scholarship-programme"
+    },
+    {
+      "title": "Santander Universities Scholarships",
+      "provider": "Banco Santander",
+      "location": "Multiple countries (Spain, UK, USA, etc.)",
+      "region": "EU",
+      "country": "",
+      "remote": false,
+      "funding": "Partially Funded",
+      "amount": 10000,
+      "amount_str": "€10,000",
+      "deadline": "2026-12-18T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Partial scholarships for international students at Santander-partner universities worldwide.",
+      "tags": [
+        "Engineering & IT",
+        "Business",
+        "International",
+        "Multiple countries"
+      ],
+      "url": "https://www.santander.com/scholarships",
+      "source": "Santander",
+      "posted_ago": "",
+      "id": "santander-universities-scholarships"
+    },
+    {
+      "title": "Qatar Foundation — Arab World Scholarship Track",
+      "provider": "Qatar Foundation",
+      "location": "Qatar / USA",
+      "region": "AR",
+      "country": "Qatar",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 50000,
+      "amount_str": "$50,000 / yr",
+      "deadline": "2026-12-18T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Fully-funded scholarship for Arab students to pursue masters at Qatar Foundation partner universities.",
+      "tags": [
+        "Engineering & IT",
+        "Business",
+        "Energy",
+        "Arab world",
+        "Qatar"
+      ],
+      "url": "https://www.qf.org.qa/scholarships",
+      "source": "Qatar Foundation",
+      "posted_ago": "",
+      "id": "qatar-foundation-arab-world-scholarship-track"
+    },
+    {
+      "title": "Schlumberger Foundation Faculty for the Future",
+      "provider": "Schlumberger Foundation",
+      "location": "Worldwide",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 40000,
+      "amount_str": "$40,000 / yr",
+      "deadline": "2026-12-18T13:21:09.018801+00:00",
+      "level": "PhD",
+      "description": "Fellowship for women in developing countries pursuing PhD in STEM fields.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "PhD",
+        "Women",
+        "STEM",
+        "Developing countries"
+      ],
+      "url": "https://www.facultyforthefuture.org/",
+      "source": "Schlumberger Foundation",
+      "posted_ago": "",
+      "id": "schlumberger-foundation-faculty-for-the-future"
+    },
+    {
       "id": "s4d-international-scholarships-at-university-of-sydney",
       "title": "University of Sydney International Stipend Scholarship (USYDIS)",
       "provider": "",
@@ -3790,7 +3843,7 @@
         "asians scholarships",
         "australia scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/06/02/international-scholarships-at-university-of-sydney/",
+      "url": "https://www.scholars4dev.com/international-scholarships-at-university-of-sydney/",
       "source": "Scholars4Dev",
       "date": "2026-06-02T14:18:54",
       "posted_ago": ""
@@ -3805,7 +3858,7 @@
       "funding": "Fully Funded",
       "amount": 35000,
       "amount_str": "¥35,000 / month + expenses",
-      "deadline": "2026-12-19T12:57:21.384954+00:00",
+      "deadline": "2026-12-20T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Fully-funded Japanese government scholarship for international students at Japanese universities.",
       "tags": [
@@ -3818,30 +3871,6 @@
       "source": "MEXT Japan",
       "posted_ago": "",
       "id": "japanese-government-mext-scholarship"
-    },
-    {
-      "title": "Korean Government Scholarship Program (GKS)",
-      "provider": "Korean Ministry of Education",
-      "location": "South Korea",
-      "region": "WW",
-      "country": "South Korea",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 30000,
-      "amount_str": "₩30,000 / yr + stipend",
-      "deadline": "2026-12-21T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Fully-funded Korean government scholarship for international students.",
-      "tags": [
-        "Engineering & IT",
-        "Technology",
-        "Korean language",
-        "All majors"
-      ],
-      "url": "https://studyinkorea.go.kr/",
-      "source": "NIIED Korea",
-      "posted_ago": "",
-      "id": "korean-government-scholarship-program-gks"
     },
     {
       "id": "ofy-gbd-fellowship-2027-at-the-university-of-washington-applicat",
@@ -3871,6 +3900,30 @@
       "posted_ago": ""
     },
     {
+      "title": "Korean Government Scholarship Program (GKS)",
+      "provider": "Korean Ministry of Education",
+      "location": "South Korea",
+      "region": "WW",
+      "country": "South Korea",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 30000,
+      "amount_str": "₩30,000 / yr + stipend",
+      "deadline": "2026-12-22T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Fully-funded Korean government scholarship for international students.",
+      "tags": [
+        "Engineering & IT",
+        "Technology",
+        "Korean language",
+        "All majors"
+      ],
+      "url": "https://studyinkorea.go.kr/",
+      "source": "NIIED Korea",
+      "posted_ago": "",
+      "id": "korean-government-scholarship-program-gks"
+    },
+    {
       "title": "Eiffel Excellence Scholarship Programme",
       "provider": "French Ministry for Europe and Foreign Affairs",
       "location": "France",
@@ -3880,7 +3933,7 @@
       "funding": "Fully Funded",
       "amount": 18000,
       "amount_str": "€18,000 / yr",
-      "deadline": "2026-12-22T12:57:21.384954+00:00",
+      "deadline": "2026-12-23T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "French government scholarship for international master's and PhD students.",
       "tags": [
@@ -3904,7 +3957,7 @@
       "funding": "Fully Funded",
       "amount": 20000,
       "amount_str": "$20,000 / yr",
-      "deadline": "2026-12-22T12:57:21.384954+00:00",
+      "deadline": "2026-12-23T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "AfDB scholarship for African students pursuing masters at African universities.",
       "tags": [
@@ -3928,7 +3981,7 @@
       "funding": "Fully Funded",
       "amount": 18000,
       "amount_str": "R$18,000 / yr",
-      "deadline": "2026-12-22T12:57:21.384954+00:00",
+      "deadline": "2026-12-23T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Brazilian government scholarships for international students to study in Brazil.",
       "tags": [
@@ -3952,7 +4005,7 @@
       "funding": "Fully Funded",
       "amount": 30000,
       "amount_str": "$30,000 / yr",
-      "deadline": "2026-12-22T12:57:21.384954+00:00",
+      "deadline": "2026-12-23T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Fully-funded scholarships for Arab citizens to pursue masters at top international universities.",
       "tags": [
@@ -3999,7 +4052,7 @@
       "funding": "Fully Funded",
       "amount": 30000,
       "amount_str": "£30,000",
-      "deadline": "2026-12-25T12:57:21.384954+00:00",
+      "deadline": "2026-12-26T13:21:09.018801+00:00",
       "level": "PhD",
       "description": "Full PhD funding for Commonwealth citizens.",
       "tags": [
@@ -4023,7 +4076,7 @@
       "funding": "Fully Funded",
       "amount": 15000,
       "amount_str": "₹15,000 / month + tuition",
-      "deadline": "2026-12-25T12:57:21.384954+00:00",
+      "deadline": "2026-12-26T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Scholarships for international students from select countries to study in India.",
       "tags": [
@@ -4037,79 +4090,6 @@
       "source": "ICCR India",
       "posted_ago": "",
       "id": "india-council-of-cultural-relations-iccr-scholarships"
-    },
-    {
-      "title": "Sweden Institute Scholarships for Global Professionals",
-      "provider": "Sweden Institute",
-      "location": "Sweden",
-      "region": "EU",
-      "country": "Sweden",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 22000,
-      "amount_str": "SEK 220,000",
-      "deadline": "2026-12-27T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Full scholarship for global professionals to pursue a masters in Sweden.",
-      "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "Business",
-        "Leadership"
-      ],
-      "url": "https://si.se/en/scholarships/",
-      "source": "Sweden Institute",
-      "posted_ago": "",
-      "id": "sweden-institute-scholarships-for-global-professionals"
-    },
-    {
-      "title": "Joint Japan/World Bank Graduate Scholarship Program",
-      "provider": "World Bank Group",
-      "location": "Worldwide (developing countries)",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 40000,
-      "amount_str": "$40,000 / yr",
-      "deadline": "2026-12-27T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarship for students from World Bank eligible countries to study development-related masters.",
-      "tags": [
-        "Engineering & IT",
-        "Development",
-        "Economics",
-        "All majors",
-        "Developing countries"
-      ],
-      "url": "https://www.worldbank.org/en/scholarships",
-      "source": "World Bank",
-      "posted_ago": "",
-      "id": "joint-japan-world-bank-graduate-scholarship-program"
-    },
-    {
-      "title": "Islamic Development Bank (IsDB) Scholarship Programme",
-      "provider": "Islamic Development Bank",
-      "location": "Worldwide (IsDB member countries)",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 25000,
-      "amount_str": "$25,000 / yr",
-      "deadline": "2026-12-27T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Scholarship for students from IsDB member countries to pursue masters at IsDB partner universities.",
-      "tags": [
-        "Engineering & IT",
-        "Business",
-        "Regional",
-        "Islamic countries"
-      ],
-      "url": "https://www.isdb.org/scholarships",
-      "source": "IsDB",
-      "posted_ago": "",
-      "id": "islamic-development-bank-isdb-scholarship-programme"
     },
     {
       "id": "ofy-fully-funded-aa-excursion-to-cern-2027-in-switzerland-for-hi",
@@ -4139,6 +4119,79 @@
       "posted_ago": ""
     },
     {
+      "title": "Sweden Institute Scholarships for Global Professionals",
+      "provider": "Sweden Institute",
+      "location": "Sweden",
+      "region": "EU",
+      "country": "Sweden",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 22000,
+      "amount_str": "SEK 220,000",
+      "deadline": "2026-12-28T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Full scholarship for global professionals to pursue a masters in Sweden.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "Business",
+        "Leadership"
+      ],
+      "url": "https://si.se/en/scholarships/",
+      "source": "Sweden Institute",
+      "posted_ago": "",
+      "id": "sweden-institute-scholarships-for-global-professionals"
+    },
+    {
+      "title": "Joint Japan/World Bank Graduate Scholarship Program",
+      "provider": "World Bank Group",
+      "location": "Worldwide (developing countries)",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 40000,
+      "amount_str": "$40,000 / yr",
+      "deadline": "2026-12-28T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarship for students from World Bank eligible countries to study development-related masters.",
+      "tags": [
+        "Engineering & IT",
+        "Development",
+        "Economics",
+        "All majors",
+        "Developing countries"
+      ],
+      "url": "https://www.worldbank.org/en/scholarships",
+      "source": "World Bank",
+      "posted_ago": "",
+      "id": "joint-japan-world-bank-graduate-scholarship-program"
+    },
+    {
+      "title": "Islamic Development Bank (IsDB) Scholarship Programme",
+      "provider": "Islamic Development Bank",
+      "location": "Worldwide (IsDB member countries)",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 25000,
+      "amount_str": "$25,000 / yr",
+      "deadline": "2026-12-28T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Scholarship for students from IsDB member countries to pursue masters at IsDB partner universities.",
+      "tags": [
+        "Engineering & IT",
+        "Business",
+        "Regional",
+        "Islamic countries"
+      ],
+      "url": "https://www.isdb.org/scholarships",
+      "source": "IsDB",
+      "posted_ago": "",
+      "id": "islamic-development-bank-isdb-scholarship-programme"
+    },
+    {
       "title": "Courtois Fellowship Scholarship — Canada",
       "provider": "Courtois Foundation",
       "location": "Canada",
@@ -4148,7 +4201,7 @@
       "funding": "Fully Funded",
       "amount": 25000,
       "amount_str": "CAD 25,000",
-      "deadline": "2026-12-29T12:57:21.384954+00:00",
+      "deadline": "2026-12-30T13:21:09.018801+00:00",
       "level": "Masters",
       "description": "Fully funded masters scholarship for international students in Canada.",
       "tags": [
@@ -4213,55 +4266,6 @@
       "posted_ago": ""
     },
     {
-      "title": "Rhodes Scholarships",
-      "provider": "Rhodes Trust",
-      "location": "United Kingdom",
-      "region": "EU",
-      "country": "United Kingdom",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": 38000,
-      "amount_str": "£38,000",
-      "deadline": "2027-01-01T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Prestigious scholarship for outstanding students from selected countries to study at Oxford.",
-      "tags": [
-        "Leadership",
-        "Engineering & IT",
-        "Humanities",
-        "Business"
-      ],
-      "url": "https://www.rhodesscholarships.org/",
-      "source": "Rhodes Trust",
-      "posted_ago": "",
-      "id": "rhodes-scholarships"
-    },
-    {
-      "title": "Commonwealth Distance Learning Scholarships",
-      "provider": "Commonwealth Scholarship Commission",
-      "location": "United Kingdom (distance)",
-      "region": "EU",
-      "country": "United Kingdom",
-      "remote": true,
-      "funding": "Fully Funded",
-      "amount": 15000,
-      "amount_str": "£15,000",
-      "deadline": "2027-01-01T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "Distance-learning PhD and masters scholarships for Commonwealth citizens.",
-      "tags": [
-        "Engineering & IT",
-        "PhD",
-        "Masters",
-        "Distance learning",
-        "Commonwealth"
-      ],
-      "url": "https://cscuk.fcdo.org.uk/scholarships/distance-learning",
-      "source": "Commonwealth UK",
-      "posted_ago": "",
-      "id": "commonwealth-distance-learning-scholarships"
-    },
-    {
       "id": "ofy-seeding-the-future-global-food-system-challenge-2027-applica",
       "title": "Seeding The Future Global Food System Challenge 2027: Applications Open January 1 for Innovative Food System Solutions",
       "provider": "",
@@ -4287,6 +4291,55 @@
       "source": "OpportunitiesForYouth",
       "date": "2026-10-29T14:11:49",
       "posted_ago": ""
+    },
+    {
+      "title": "Rhodes Scholarships",
+      "provider": "Rhodes Trust",
+      "location": "United Kingdom",
+      "region": "EU",
+      "country": "United Kingdom",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 38000,
+      "amount_str": "£38,000",
+      "deadline": "2027-01-02T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Prestigious scholarship for outstanding students from selected countries to study at Oxford.",
+      "tags": [
+        "Leadership",
+        "Engineering & IT",
+        "Humanities",
+        "Business"
+      ],
+      "url": "https://www.rhodesscholarships.org/",
+      "source": "Rhodes Trust",
+      "posted_ago": "",
+      "id": "rhodes-scholarships"
+    },
+    {
+      "title": "Commonwealth Distance Learning Scholarships",
+      "provider": "Commonwealth Scholarship Commission",
+      "location": "United Kingdom (distance)",
+      "region": "EU",
+      "country": "United Kingdom",
+      "remote": true,
+      "funding": "Fully Funded",
+      "amount": 15000,
+      "amount_str": "£15,000",
+      "deadline": "2027-01-02T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "Distance-learning PhD and masters scholarships for Commonwealth citizens.",
+      "tags": [
+        "Engineering & IT",
+        "PhD",
+        "Masters",
+        "Distance learning",
+        "Commonwealth"
+      ],
+      "url": "https://cscuk.fcdo.org.uk/scholarships/distance-learning",
+      "source": "Commonwealth UK",
+      "posted_ago": "",
+      "id": "commonwealth-distance-learning-scholarships"
     },
     {
       "id": "sc-faspe-fellowship",
@@ -4395,53 +4448,54 @@
       "posted_ago": ""
     },
     {
-      "title": "Orange Knowledge Programme (OKP)",
-      "provider": "Nuffic (Netherlands)",
-      "location": "Netherlands",
-      "region": "EU",
-      "country": "Netherlands",
+      "id": "ofy-amazon-future-engineer-scholarship-2027",
+      "title": "Amazon Future Engineer Scholarship 2027: Apply for Up to $40,000 in College Funding, Paid Amazon Internships, Mentorship and Career Support",
+      "provider": "",
+      "location": "",
+      "region": "US",
+      "country": "",
       "remote": false,
-      "funding": "Fully Funded",
-      "amount": 20000,
-      "amount_str": "€20,000",
-      "deadline": "2027-01-06T12:57:21.384954+00:00",
-      "level": "Masters",
-      "description": "OKP scholarships for professionals from developing countries for short masters in the Netherlands.",
+      "funding": "Annual",
+      "amount": 40000.0,
+      "amount_str": "$40,000",
+      "deadline": "2027-01-05T23:59:00+00:00",
+      "level": "Internship",
+      "description": "The Amazon Future Engineer Scholarship 2027 is an educational funding opportunity designed to support high school seniors in the United States who intend to pursue university degrees and careers in engineering and technology. Offered through Amazon's Future Engineer initiative and administered by Scholarship America, the programme provides successful applicants with up to $40,000 in scholarship [&hellip;]",
       "tags": [
-        "Engineering & IT",
-        "Healthcare",
-        "Education",
-        "Short program"
+        "scholarships",
+        "america"
       ],
-      "url": "https://www.okp.nl/",
-      "source": "Nuffic",
-      "posted_ago": "",
-      "id": "orange-knowledge-programme-okp"
+      "url": "https://opportunitiesforyouth.org/2026/11/08/amazon-future-engineer-scholarship-2027/",
+      "source": "OpportunitiesForYouth",
+      "date": "2026-11-08T01:02:33",
+      "posted_ago": ""
     },
     {
-      "title": "NSF Graduate Research Fellowship",
-      "provider": "National Science Foundation",
-      "location": "USA",
-      "region": "US",
-      "country": "USA",
+      "id": "s4d-eiffel-scholarships-for-international-students",
+      "title": "Eiffel Scholarships in France for International Students",
+      "provider": "",
+      "location": "France",
+      "region": "WW",
+      "country": "",
       "remote": false,
-      "funding": "Fully Funded",
-      "amount": 34000,
-      "amount_str": "$34,000 / yr",
-      "deadline": "2027-01-06T12:57:21.384954+00:00",
-      "level": "PhD",
-      "description": "Prestigious US government fellowship for graduate students in STEM.",
+      "funding": "Government",
+      "amount": 1200.0,
+      "amount_str": "€1,200",
+      "deadline": "2027-01-06T23:59:00+00:00",
+      "level": "Masters",
+      "description": "2027-2028 Eiffel Scholarships are open to international students around the world. The scholarships are towards a Master's or PhD Degree in one of the accredited French academic institutions in France. Deadline is before 6 January 2027 . Application deadline to participating French Institutions is earlier and falls around November-December 2026. Course starts 2027. Read more &raquo;",
       "tags": [
-        "Engineering & IT",
-        "Data & AI",
-        "PhD",
-        "Research",
-        "All STEM"
+        "africans scholarships",
+        "annual scholarships",
+        "any developing country scholarships",
+        "asians scholarships",
+        "east europeans scholarships",
+        "economics and finance scholarships"
       ],
-      "url": "https://www.nsfgrfp.org/",
-      "source": "NSF",
-      "posted_ago": "",
-      "id": "nsf-graduate-research-fellowship"
+      "url": "https://www.scholars4dev.com/eiffel-scholarships-for-international-students/",
+      "source": "Scholars4Dev",
+      "date": "2026-11-08T10:07:47",
+      "posted_ago": ""
     },
     {
       "id": "sc-mccall-macbain-international-fellowships",
@@ -4495,6 +4549,55 @@
       "source": "ScholarshipsCorner",
       "date": "2026-10-10T18:00:27",
       "posted_ago": ""
+    },
+    {
+      "title": "Orange Knowledge Programme (OKP)",
+      "provider": "Nuffic (Netherlands)",
+      "location": "Netherlands",
+      "region": "EU",
+      "country": "Netherlands",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 20000,
+      "amount_str": "€20,000",
+      "deadline": "2027-01-07T13:21:09.018801+00:00",
+      "level": "Masters",
+      "description": "OKP scholarships for professionals from developing countries for short masters in the Netherlands.",
+      "tags": [
+        "Engineering & IT",
+        "Healthcare",
+        "Education",
+        "Short program"
+      ],
+      "url": "https://www.okp.nl/",
+      "source": "Nuffic",
+      "posted_ago": "",
+      "id": "orange-knowledge-programme-okp"
+    },
+    {
+      "title": "NSF Graduate Research Fellowship",
+      "provider": "National Science Foundation",
+      "location": "USA",
+      "region": "US",
+      "country": "USA",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 34000,
+      "amount_str": "$34,000 / yr",
+      "deadline": "2027-01-07T13:21:09.018801+00:00",
+      "level": "PhD",
+      "description": "Prestigious US government fellowship for graduate students in STEM.",
+      "tags": [
+        "Engineering & IT",
+        "Data & AI",
+        "PhD",
+        "Research",
+        "All STEM"
+      ],
+      "url": "https://www.nsfgrfp.org/",
+      "source": "NSF",
+      "posted_ago": "",
+      "id": "nsf-graduate-research-fellowship"
     },
     {
       "id": "ofy-learning-planet-youth-design-challenge-2026-2027-apply-for-a",
@@ -4707,7 +4810,7 @@
         "engineering scholarships",
         "environment scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/21/chalmers-ipoet-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/chalmers-ipoet-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-10-21T10:01:40",
       "posted_ago": ""
@@ -4734,7 +4837,7 @@
         "sweden",
         "us citizens"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/06/adlerbert-study-scholarships-at-chalmers-university-of-technology/",
+      "url": "https://www.scholars4dev.com/adlerbert-study-scholarships-at-chalmers-university-of-technology/",
       "source": "Scholars4Dev",
       "date": "2026-10-06T13:11:05",
       "posted_ago": ""
@@ -4761,7 +4864,7 @@
         "latin americans scholarships",
         "masters scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/09/07/kth-tuition-fee-waivers-for-non-eu-students/",
+      "url": "https://www.scholars4dev.com/kth-tuition-fee-waivers-for-non-eu-students/",
       "source": "Scholars4Dev",
       "date": "2026-09-07T16:07:40",
       "posted_ago": ""
@@ -4901,30 +5004,6 @@
       "posted_ago": ""
     },
     {
-      "id": "ofy-trinity-fellows-program-at-marquette-university",
-      "title": "Trinity Fellows Program at Marquette University",
-      "provider": "",
-      "location": "",
-      "region": "US",
-      "country": "",
-      "remote": false,
-      "funding": "Fellowship",
-      "amount": null,
-      "amount_str": "",
-      "deadline": "2027-01-15T23:59:00+00:00",
-      "level": "Masters",
-      "description": "Pursuing a graduate degree while gaining meaningful professional experience can be challenging, especially when balancing tuition costs, living expenses, and career development opportunities. The Trinity Fellows Program at Marquette University addresses these challenges by offering a comprehensive fellowship experience that integrates academic excellence, nonprofit leadership development, and substantial financial support. Designed for emerging leaders committed [&hellip;]",
-      "tags": [
-        "america",
-        "fellowship",
-        "master"
-      ],
-      "url": "https://opportunitiesforyouth.org/2026/10/22/trinity-fellows-program-at-marquette-university/",
-      "source": "OpportunitiesForYouth",
-      "date": "2026-10-22T22:55:00",
-      "posted_ago": ""
-    },
-    {
       "id": "ofy-codesria-research-grants-on-university-ecosystems-2027-fundi",
       "title": "CODESRIA Research Grants on University Ecosystems 2027: Funding of $5,000–$15,000 for African Researchers",
       "provider": "",
@@ -5048,7 +5127,7 @@
         "development scholarships",
         "east asians scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/09/24/radboud-university-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/radboud-university-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-09-24T21:34:50",
       "posted_ago": ""
@@ -5103,6 +5182,60 @@
       "url": "https://opportunitiesforyouth.org/2026/11/05/minaret-doctoral-network-2027-15-fully-funded-phd-positions-in-europe-with-msca-funding/",
       "source": "OpportunitiesForYouth",
       "date": "2026-11-05T04:46:37",
+      "posted_ago": ""
+    },
+    {
+      "id": "s4d-the-uppsala-university-ipk-scholarships-for-international-st",
+      "title": "Uppsala University Global Scholarships",
+      "provider": "",
+      "location": "Sweden",
+      "region": "EU",
+      "country": "Sweden",
+      "remote": false,
+      "funding": "Annual",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "2027-02-01T23:59:00+00:00",
+      "level": "Masters",
+      "description": "2027-2028 Uppsala University Global Scholarships will open soon to international students outside the EU/EEA and Switzerland. The scholarships are towards a Masters Degree in eligible fields of study offered at Uppsala University in Sweden. Deadline for admissions is 15 January 2027 and for the scholarships is 1 February 2027 for courses starting August 2027. Read more &raquo;",
+      "tags": [
+        "africans scholarships",
+        "annual scholarships",
+        "any developing country scholarships",
+        "asians scholarships",
+        "development scholarships",
+        "east asians scholarships"
+      ],
+      "url": "https://www.scholars4dev.com/the-uppsala-university-ipk-scholarships-for-international-students/",
+      "source": "Scholars4Dev",
+      "date": "2026-11-08T09:48:49",
+      "posted_ago": ""
+    },
+    {
+      "id": "sc-stanford-university-summer-fellowship",
+      "title": "Stanford University Summer Fellowship in USA 2027 | Fully Funded",
+      "provider": "",
+      "location": "",
+      "region": "US",
+      "country": "",
+      "remote": false,
+      "funding": "Fully Funded",
+      "amount": 6000.0,
+      "amount_str": "$6000",
+      "deadline": "2027-02-01T23:59:00+00:00",
+      "level": "Fellowship",
+      "description": "Stanford University Summer Fellowship in USA 2027 is now opne for applicaitons from potential students and connects them to Research programs of the University. This fully funded fellowship is designed to provide real world research experience to students from all over the world. It promotes a culture of respect, equality and empowerment among individuals. SURF [&hellip;]",
+      "tags": [
+        "fellowships",
+        "opportunities",
+        "summer programs",
+        "summer schools",
+        "stanford scholarship",
+        "stanford summer program"
+      ],
+      "url": "https://scholarshipscorner.website/stanford-university-summer-fellowship/",
+      "source": "ScholarshipsCorner",
+      "date": "2026-11-08T16:50:02",
       "posted_ago": ""
     },
     {
@@ -5388,36 +5521,9 @@
         "asians scholarships",
         "east europeans scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/21/masters-scholarships-for-non-eu-students-at-university-of-twente/",
+      "url": "https://www.scholars4dev.com/masters-scholarships-for-non-eu-students-at-university-of-twente/",
       "source": "Scholars4Dev",
       "date": "2026-10-21T10:03:22",
-      "posted_ago": ""
-    },
-    {
-      "id": "ofy-university-of-lincoln-global-leaders-scholarship-2027-2028-5",
-      "title": "University of Lincoln Global Leaders Scholarship 2027–2028: 50% Tuition Fee Scholarship for International Students in the UK",
-      "provider": "",
-      "location": "",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Annual",
-      "amount": null,
-      "amount_str": "",
-      "deadline": "2027-06-07T23:59:00+00:00",
-      "level": "Bachelor",
-      "description": "The University of Lincoln Global Leaders Scholarship is an opportunity for outstanding international students who wish to pursue undergraduate or postgraduate taught studies in the United Kingdom. The scholarship recognises applicants who demonstrate excellent academic achievement alongside personal development, leadership potential, and meaningful extracurricular involvement. It is designed to support talented students from around the [&hellip;]",
-      "tags": [
-        "africa",
-        "america",
-        "asia",
-        "australia and oceania",
-        "bachelor",
-        "continent"
-      ],
-      "url": "https://opportunitiesforyouth.org/2026/10/23/university-of-lincoln-global-leaders-scholarship-2027-2028-50-tuition-fee-scholarship-for-international-students-in-the-uk/",
-      "source": "OpportunitiesForYouth",
-      "date": "2026-10-23T07:57:41",
       "posted_ago": ""
     },
     {
@@ -5447,6 +5553,29 @@
       "posted_ago": ""
     },
     {
+      "id": "s4d-scholarships-france-foreign-students",
+      "title": "Top 10 Scholarships in France for Foreign Students",
+      "provider": "",
+      "location": "",
+      "region": "EU",
+      "country": "France",
+      "remote": false,
+      "funding": "Government",
+      "amount": null,
+      "amount_str": "",
+      "deadline": "",
+      "level": "Masters",
+      "description": "Do you want to study in France in 2026? Know more about the scholarships programs in France for international students like you. Read more &raquo;",
+      "tags": [
+        "scholarships list",
+        "list of scholarships"
+      ],
+      "url": "https://www.scholars4dev.com/scholarships-france-foreign-students/",
+      "source": "Scholars4Dev",
+      "date": "2026-11-08T10:13:38",
+      "posted_ago": ""
+    },
+    {
       "id": "s4d-scholarships-in-netherlandsfor-international-students",
       "title": "Top 10 Scholarships in Netherlands for International Students",
       "provider": "",
@@ -5464,7 +5593,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/21/scholarships-in-netherlandsfor-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-netherlandsfor-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-10-21T10:20:25",
       "posted_ago": ""
@@ -5491,7 +5620,7 @@
         "east europeans scholarships",
         "europe scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/21/the-university-of-gothenburg-study-scholarship/",
+      "url": "https://www.scholars4dev.com/the-university-of-gothenburg-study-scholarship/",
       "source": "Scholars4Dev",
       "date": "2026-10-21T10:10:00",
       "posted_ago": ""
@@ -5518,7 +5647,7 @@
         "asians scholarships",
         "east europeans scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/21/cambridge-international-scholarship-scheme-ciss/",
+      "url": "https://www.scholars4dev.com/cambridge-international-scholarship-scheme-ciss/",
       "source": "Scholars4Dev",
       "date": "2026-10-21T10:01:33",
       "posted_ago": ""
@@ -5541,7 +5670,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/10/06/merit-based-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/merit-based-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-10-06T21:46:57",
       "posted_ago": ""
@@ -5566,7 +5695,7 @@
         "list of scholarships",
         "scholarship guides"
       ],
-      "url": "https://www.scholars4dev.com/2026/09/24/scholarships-canada-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-canada-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-09-24T23:09:57",
       "posted_ago": ""
@@ -5593,7 +5722,7 @@
         "masters scholarships",
         "uk scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/09/24/clarendon-scholarships-at-university-of-oxford/",
+      "url": "https://www.scholars4dev.com/clarendon-scholarships-at-university-of-oxford/",
       "source": "Scholars4Dev",
       "date": "2026-09-24T22:16:49",
       "posted_ago": ""
@@ -5620,7 +5749,7 @@
         "east europeans scholarships",
         "environment scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/09/24/weidenfeld-scholarships-at-university-of-oxford/",
+      "url": "https://www.scholars4dev.com/weidenfeld-scholarships-at-university-of-oxford/",
       "source": "Scholars4Dev",
       "date": "2026-09-24T22:03:10",
       "posted_ago": ""
@@ -5643,7 +5772,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/09/07/fully-funded-scholarships-international-students/",
+      "url": "https://www.scholars4dev.com/fully-funded-scholarships-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-09-07T19:55:58",
       "posted_ago": ""
@@ -5666,7 +5795,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/08/24/scholarships-in-switzerland-for-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-switzerland-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-08-24T22:38:05",
       "posted_ago": ""
@@ -5690,7 +5819,7 @@
         "list of scholarships",
         "scholarship guides"
       ],
-      "url": "https://www.scholars4dev.com/2026/07/29/scholarships-in-usa-for-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-usa-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-07-29T16:00:55",
       "posted_ago": ""
@@ -5717,7 +5846,7 @@
         "europe scholarships",
         "jan march deadline"
       ],
-      "url": "https://www.scholars4dev.com/2026/07/29/epfl-excellence-fellowships/",
+      "url": "https://www.scholars4dev.com/epfl-excellence-fellowships/",
       "source": "Scholars4Dev",
       "date": "2026-07-29T13:33:43",
       "posted_ago": ""
@@ -5741,7 +5870,7 @@
         "list of scholarships",
         "scholarship guides"
       ],
-      "url": "https://www.scholars4dev.com/2026/07/13/list-of-european-countries-with-tuition-freelow-tuition-universities-colleges/",
+      "url": "https://www.scholars4dev.com/list-of-european-countries-with-tuition-freelow-tuition-universities-colleges/",
       "source": "Scholars4Dev",
       "date": "2026-07-13T16:52:07",
       "posted_ago": ""
@@ -5768,7 +5897,7 @@
         "asians scholarships",
         "east europeans scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/07/13/swiss-government-scholarships-for-foreign-students/",
+      "url": "https://www.scholars4dev.com/swiss-government-scholarships-for-foreign-students/",
       "source": "Scholars4Dev",
       "date": "2026-07-13T16:50:12",
       "posted_ago": ""
@@ -5795,7 +5924,7 @@
         "asians scholarships",
         "development scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/06/17/daad-scholarships-for-postgraduate-courses-with-special-relevance-to-developing-countries/",
+      "url": "https://www.scholars4dev.com/daad-scholarships-for-postgraduate-courses-with-special-relevance-to-developing-countries/",
       "source": "Scholars4Dev",
       "date": "2026-06-17T15:01:53",
       "posted_ago": ""
@@ -5819,7 +5948,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/06/02/popular-scholarships-for-developing-country-students/",
+      "url": "https://www.scholars4dev.com/popular-scholarships-for-developing-country-students/",
       "source": "Scholars4Dev",
       "date": "2026-06-02T16:24:46",
       "posted_ago": ""
@@ -5846,7 +5975,7 @@
         "europe scholarships",
         "masters scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/06/02/rhodes-international-scholarships-at-oxford-university/",
+      "url": "https://www.scholars4dev.com/rhodes-international-scholarships-at-oxford-university/",
       "source": "Scholars4Dev",
       "date": "2026-06-02T15:08:19",
       "posted_ago": ""
@@ -5873,7 +6002,7 @@
         "list of scholarships",
         "scholarship guides"
       ],
-      "url": "https://www.scholars4dev.com/2026/05/13/scholarships-in-germany-for-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-germany-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-05-13T20:05:02",
       "posted_ago": ""
@@ -5900,7 +6029,7 @@
         "april june deadline",
         "asians scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/05/13/usa-fulbright-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/usa-fulbright-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-05-13T20:00:09",
       "posted_ago": ""
@@ -5927,7 +6056,7 @@
         "masters scholarships",
         "uk scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/05/13/great-scholarships-in-uk-for-international-students/",
+      "url": "https://www.scholars4dev.com/great-scholarships-in-uk-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-05-13T16:41:07",
       "posted_ago": ""
@@ -5950,7 +6079,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/04/27/top-10-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/top-10-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-04-27T21:07:43",
       "posted_ago": ""
@@ -5973,7 +6102,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/04/14/scholarships-in-development-related-studies-for-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-development-related-studies-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-04-14T16:44:30",
       "posted_ago": ""
@@ -5995,7 +6124,7 @@
       "tags": [
         "uncategorized"
       ],
-      "url": "https://www.scholars4dev.com/2026/04/09/unicaf-scholarships-for-online-degrees/",
+      "url": "https://www.scholars4dev.com/unicaf-scholarships-for-online-degrees/",
       "source": "Scholars4Dev",
       "date": "2026-04-09T16:33:25",
       "posted_ago": ""
@@ -6020,7 +6149,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/03/31/scholarships-in-italy-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-italy-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-03-31T17:16:43",
       "posted_ago": ""
@@ -6043,7 +6172,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/03/18/tuition-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/tuition-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-03-18T17:15:05",
       "posted_ago": ""
@@ -6067,7 +6196,7 @@
         "new zealand scholarships",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/03/18/scholarships-in-new-zealand-for-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-new-zealand-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-03-18T17:10:25",
       "posted_ago": ""
@@ -6094,7 +6223,7 @@
         "asians scholarships",
         "east europeans scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/03/18/glasgow-international-leadership-scholarship/",
+      "url": "https://www.scholars4dev.com/glasgow-international-leadership-scholarship/",
       "source": "Scholars4Dev",
       "date": "2026-03-18T16:22:37",
       "posted_ago": ""
@@ -6118,7 +6247,7 @@
         "government scholarships",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/03/04/government-scholarships-for-developing-countries/",
+      "url": "https://www.scholars4dev.com/government-scholarships-for-developing-countries/",
       "source": "Scholars4Dev",
       "date": "2026-03-04T21:05:55",
       "posted_ago": ""
@@ -6145,7 +6274,7 @@
         "any field of study scholarships",
         "april june deadline"
       ],
-      "url": "https://www.scholars4dev.com/2026/03/04/rotary-international-ambassadorial-scholarships/",
+      "url": "https://www.scholars4dev.com/rotary-international-ambassadorial-scholarships/",
       "source": "Scholars4Dev",
       "date": "2026-03-04T17:31:33",
       "posted_ago": ""
@@ -6168,7 +6297,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/02/18/scholarships-study-any-country/",
+      "url": "https://www.scholars4dev.com/scholarships-study-any-country/",
       "source": "Scholars4Dev",
       "date": "2026-02-18T15:46:08",
       "posted_ago": ""
@@ -6192,7 +6321,7 @@
         "list of scholarships",
         "scholarship guides"
       ],
-      "url": "https://www.scholars4dev.com/2026/02/06/australia-scholarships/",
+      "url": "https://www.scholars4dev.com/australia-scholarships/",
       "source": "Scholars4Dev",
       "date": "2026-02-06T16:57:50",
       "posted_ago": ""
@@ -6214,7 +6343,7 @@
       "tags": [
         "scholarships list"
       ],
-      "url": "https://www.scholars4dev.com/2026/01/19/top-100-international-scholarships-international-students/",
+      "url": "https://www.scholars4dev.com/top-100-international-scholarships-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-01-19T17:01:48",
       "posted_ago": ""
@@ -6241,7 +6370,7 @@
         "april june deadline",
         "asians scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2026/01/19/macquarie-university-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/macquarie-university-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2026-01-19T15:01:49",
       "posted_ago": ""
@@ -6267,7 +6396,7 @@
         "list of scholarships",
         "scholarship guides"
       ],
-      "url": "https://www.scholars4dev.com/2025/12/30/scholarships-in-uk-for-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-uk-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2025-12-30T16:45:15",
       "posted_ago": ""
@@ -6293,32 +6422,9 @@
         "list of scholarships",
         "scholarship guides"
       ],
-      "url": "https://www.scholars4dev.com/2025/12/16/scholarships-in-sweden-for-international-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-sweden-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2025-12-16T22:12:00",
-      "posted_ago": ""
-    },
-    {
-      "id": "s4d-scholarships-france-foreign-students",
-      "title": "Top 10 Scholarships in France for Foreign Students",
-      "provider": "",
-      "location": "",
-      "region": "EU",
-      "country": "France",
-      "remote": false,
-      "funding": "Government",
-      "amount": null,
-      "amount_str": "",
-      "deadline": "",
-      "level": "Masters",
-      "description": "Do you want to study in France in 2026? Know more about the scholarships programs in France for international students like you. Read more &raquo;",
-      "tags": [
-        "scholarships list",
-        "list of scholarships"
-      ],
-      "url": "https://www.scholars4dev.com/2025/11/26/scholarships-france-foreign-students/",
-      "source": "Scholars4Dev",
-      "date": "2025-11-26T17:15:38",
       "posted_ago": ""
     },
     {
@@ -6339,7 +6445,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/11/12/scholarships-in-europe-non-eu-students/",
+      "url": "https://www.scholars4dev.com/scholarships-in-europe-non-eu-students/",
       "source": "Scholars4Dev",
       "date": "2025-11-12T23:56:39",
       "posted_ago": ""
@@ -6366,7 +6472,7 @@
         "asians scholarships",
         "closed scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/11/12/lund-university-scholarships-sweden/",
+      "url": "https://www.scholars4dev.com/lund-university-scholarships-sweden/",
       "source": "Scholars4Dev",
       "date": "2025-11-12T16:45:00",
       "posted_ago": ""
@@ -6393,7 +6499,7 @@
         "asians scholarships",
         "denmark scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/11/12/danish-international-scholarship-scheme-for-non-eu-students/",
+      "url": "https://www.scholars4dev.com/danish-international-scholarship-scheme-for-non-eu-students/",
       "source": "Scholars4Dev",
       "date": "2025-11-12T07:00:48",
       "posted_ago": ""
@@ -6417,7 +6523,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/10/30/top-33-university-wide-scholarships-in-any-course-for-international-students/",
+      "url": "https://www.scholars4dev.com/top-33-university-wide-scholarships-in-any-course-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2025-10-30T15:15:48",
       "posted_ago": ""
@@ -6439,7 +6545,7 @@
       "tags": [
         "scholarships list"
       ],
-      "url": "https://www.scholars4dev.com/2025/09/03/top-scholarships-for-usa-citizens-study-abroad/",
+      "url": "https://www.scholars4dev.com/top-scholarships-for-usa-citizens-study-abroad/",
       "source": "Scholars4Dev",
       "date": "2025-09-03T16:57:47",
       "posted_ago": ""
@@ -6466,7 +6572,7 @@
         "asians scholarships",
         "east asians scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/08/07/eric-bleumink-scholarships-for-developing-countries-at-university-of-groningen/",
+      "url": "https://www.scholars4dev.com/eric-bleumink-scholarships-for-developing-countries-at-university-of-groningen/",
       "source": "Scholars4Dev",
       "date": "2025-08-07T13:29:32",
       "posted_ago": ""
@@ -6493,7 +6599,7 @@
         "economics and finance scholarships",
         "engineering scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/03/25/the-canadian-international-development-scholarships-2030/",
+      "url": "https://www.scholars4dev.com/the-canadian-international-development-scholarships-2030/",
       "source": "Scholars4Dev",
       "date": "2025-03-25T16:48:24",
       "posted_ago": ""
@@ -6520,7 +6626,7 @@
         "jan march deadline",
         "july sep deadline"
       ],
-      "url": "https://www.scholars4dev.com/2025/03/25/sydney-undergraduate-scholarships/",
+      "url": "https://www.scholars4dev.com/sydney-undergraduate-scholarships/",
       "source": "Scholars4Dev",
       "date": "2025-03-25T15:23:49",
       "posted_ago": ""
@@ -6547,7 +6653,7 @@
         "phd scholarships",
         "undergraduate scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/03/25/friedrich-ebert-stiftung-scholarships/",
+      "url": "https://www.scholars4dev.com/friedrich-ebert-stiftung-scholarships/",
       "source": "Scholars4Dev",
       "date": "2025-03-25T15:16:12",
       "posted_ago": ""
@@ -6572,7 +6678,7 @@
         "women scholarships",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/03/12/international-scholarships-for-women/",
+      "url": "https://www.scholars4dev.com/international-scholarships-for-women/",
       "source": "Scholars4Dev",
       "date": "2025-03-12T23:46:59",
       "posted_ago": ""
@@ -6599,7 +6705,7 @@
         "asians scholarships",
         "australia scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/02/24/university-of-melbourne-research-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/university-of-melbourne-research-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2025-02-24T16:52:35",
       "posted_ago": ""
@@ -6626,7 +6732,7 @@
         "us citizens",
         "usa scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2025/01/15/illinois-wesleyan-university-international-students-scholarships/",
+      "url": "https://www.scholars4dev.com/illinois-wesleyan-university-international-students-scholarships/",
       "source": "Scholars4Dev",
       "date": "2025-01-15T16:02:29",
       "posted_ago": ""
@@ -6650,7 +6756,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/12/04/top-10-scholarships-in-belgium-for-international-students/",
+      "url": "https://www.scholars4dev.com/top-10-scholarships-in-belgium-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2024-12-04T17:07:39",
       "posted_ago": ""
@@ -6676,7 +6782,7 @@
         "undergraduate scholarships",
         "usa scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/12/04/fairleigh-dickinson-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/fairleigh-dickinson-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2024-12-04T14:07:16",
       "posted_ago": ""
@@ -6699,7 +6805,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/11/05/europe-scholarships-international-students/",
+      "url": "https://www.scholars4dev.com/europe-scholarships-international-students/",
       "source": "Scholars4Dev",
       "date": "2024-11-05T18:07:31",
       "posted_ago": ""
@@ -6726,7 +6832,7 @@
         "april june deadline",
         "asians scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/09/24/leiden-university-excellence-scholarship-for-non-eu-students/",
+      "url": "https://www.scholars4dev.com/leiden-university-excellence-scholarship-for-non-eu-students/",
       "source": "Scholars4Dev",
       "date": "2024-09-24T19:58:45",
       "posted_ago": ""
@@ -6753,7 +6859,7 @@
         "april june deadline",
         "asians scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/08/13/hubert-humphrey-fellowships-for-international-students/",
+      "url": "https://www.scholars4dev.com/hubert-humphrey-fellowships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2024-08-13T20:28:12",
       "posted_ago": ""
@@ -6779,7 +6885,7 @@
         "undergraduate scholarships",
         "usa scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/07/30/emory-university-scholar-programs/",
+      "url": "https://www.scholars4dev.com/emory-university-scholar-programs/",
       "source": "Scholars4Dev",
       "date": "2024-07-30T19:02:25",
       "posted_ago": ""
@@ -6806,7 +6912,7 @@
         "east europeans scholarships",
         "europe scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/07/08/nestle-mba-scholarships-for-women-from-developing-countries/",
+      "url": "https://www.scholars4dev.com/nestle-mba-scholarships-for-women-from-developing-countries/",
       "source": "Scholars4Dev",
       "date": "2024-07-08T17:02:47",
       "posted_ago": ""
@@ -6829,7 +6935,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/05/21/distance-learning-scholarships-for-developing-country-students/",
+      "url": "https://www.scholars4dev.com/distance-learning-scholarships-for-developing-country-students/",
       "source": "Scholars4Dev",
       "date": "2024-05-21T15:15:43",
       "posted_ago": ""
@@ -6853,7 +6959,7 @@
         "masters scholarships",
         "new zealand scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/01/10/180-credit-taught-masters-merit-scholarship-at-lincoln-university/",
+      "url": "https://www.scholars4dev.com/180-credit-taught-masters-merit-scholarship-at-lincoln-university/",
       "source": "Scholars4Dev",
       "date": "2024-01-10T00:08:07",
       "posted_ago": ""
@@ -6880,7 +6986,7 @@
         "health scholarships",
         "latin americans scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/01/09/university-of-otago-international-research-masters-scholarship/",
+      "url": "https://www.scholars4dev.com/university-of-otago-international-research-masters-scholarship/",
       "source": "Scholars4Dev",
       "date": "2024-01-09T20:28:25",
       "posted_ago": ""
@@ -6907,7 +7013,7 @@
         "phd scholarships",
         "undergraduate scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/01/09/university-of-waikato-international-excellence-scholarship/",
+      "url": "https://www.scholars4dev.com/university-of-waikato-international-excellence-scholarship/",
       "source": "Scholars4Dev",
       "date": "2024-01-09T20:26:45",
       "posted_ago": ""
@@ -6934,7 +7040,7 @@
         "development scholarships",
         "east europeans scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/01/09/heinrich-boll-scholarships-for-international-students/",
+      "url": "https://www.scholars4dev.com/heinrich-boll-scholarships-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2024-01-09T18:12:21",
       "posted_ago": ""
@@ -6961,7 +7067,7 @@
         "australia scholarships",
         "development scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/01/09/adb-jsp-scholarships-for-asians-and-pacific-islanders/",
+      "url": "https://www.scholars4dev.com/adb-jsp-scholarships-for-asians-and-pacific-islanders/",
       "source": "Scholars4Dev",
       "date": "2024-01-09T16:22:54",
       "posted_ago": ""
@@ -6988,7 +7094,7 @@
         "any field of study scholarships",
         "asians scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2024/01/01/masters-phd-scholarships-for-international-students-at-canada-manitoba-university/",
+      "url": "https://www.scholars4dev.com/masters-phd-scholarships-for-international-students-at-canada-manitoba-university/",
       "source": "Scholars4Dev",
       "date": "2024-01-01T16:02:16",
       "posted_ago": ""
@@ -7015,7 +7121,7 @@
         "australia scholarships",
         "canada scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2023/08/31/fulbright-us-student-program-for-study-abroad/",
+      "url": "https://www.scholars4dev.com/fulbright-us-student-program-for-study-abroad/",
       "source": "Scholars4Dev",
       "date": "2023-08-31T15:48:13",
       "posted_ago": ""
@@ -7041,7 +7147,7 @@
         "masters scholarships",
         "undergraduate scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2023/06/21/the-deutschlandstipendium-at-german-universities/",
+      "url": "https://www.scholars4dev.com/the-deutschlandstipendium-at-german-universities/",
       "source": "Scholars4Dev",
       "date": "2023-06-21T20:21:40",
       "posted_ago": ""
@@ -7068,7 +7174,7 @@
         "any field of study scholarships",
         "april june deadline"
       ],
-      "url": "https://www.scholars4dev.com/2023/03/28/kaad-scholarships-for-developing-countries/",
+      "url": "https://www.scholars4dev.com/kaad-scholarships-for-developing-countries/",
       "source": "Scholars4Dev",
       "date": "2023-03-28T18:11:12",
       "posted_ago": ""
@@ -7095,7 +7201,7 @@
         "phd scholarships",
         "switzerland scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2023/01/09/friedrich-naumann-foundation-scholarship-for-international-students/",
+      "url": "https://www.scholars4dev.com/friedrich-naumann-foundation-scholarship-for-international-students/",
       "source": "Scholars4Dev",
       "date": "2023-01-09T17:22:03",
       "posted_ago": ""
@@ -7119,7 +7225,7 @@
         "scholarships list",
         "list of scholarships"
       ],
-      "url": "https://www.scholars4dev.com/2022/10/05/international-scholarships-top-universities-world/",
+      "url": "https://www.scholars4dev.com/international-scholarships-top-universities-world/",
       "source": "Scholars4Dev",
       "date": "2022-10-05T18:30:22",
       "posted_ago": ""
@@ -8075,6 +8181,33 @@
       "url": "https://scholarshipscorner.website/daad-epos-scholarship-germany/",
       "source": "ScholarshipsCorner",
       "date": "2026-07-02T13:05:24",
+      "posted_ago": ""
+    },
+    {
+      "id": "ofy-university-of-waterloo-scholarships-for-international-studen",
+      "title": "University of Waterloo Scholarships for International Students 2026–2027: $10,000 Entrance Scholarship and Awards Worth Up to $80,000 in Canada",
+      "provider": "",
+      "location": "",
+      "region": "WW",
+      "country": "",
+      "remote": false,
+      "funding": "Annual",
+      "amount": 10000.0,
+      "amount_str": "$10,000",
+      "deadline": "",
+      "level": "Bachelor",
+      "description": "International students planning to pursue undergraduate studies in Canada can access a range of scholarship opportunities at the University of Waterloo in Ontario. The university offers several financial awards designed to support international students entering their first year of full-time undergraduate degree programmes, including a newly announced $10,000 International Student Entrance Scholarship. In addition to [&hellip;]",
+      "tags": [
+        "continent",
+        "africa",
+        "america",
+        "asia",
+        "australia and oceania",
+        "bachelor"
+      ],
+      "url": "https://opportunitiesforyouth.org/2026/11/07/university-of-waterloo-scholarships-for-international-students-2026-2027-10000-entrance-scholarship-and-awards-worth-up-to-80000-in-canada/",
+      "source": "OpportunitiesForYouth",
+      "date": "2026-11-07T13:55:24",
       "posted_ago": ""
     },
     {
@@ -9357,87 +9490,6 @@
       "url": "https://opportunitiesforyouth.org/2026/10/23/intra-africa-academic-mobility-scheme-2022-2027-eu-funded-scholarships-and-international-study-opportunities-for-african-students-trainees-and-university-staff/",
       "source": "OpportunitiesForYouth",
       "date": "2026-10-23T18:16:02",
-      "posted_ago": ""
-    },
-    {
-      "id": "ofy-columbia-university-italian-academy-fellowship-program-2027-",
-      "title": "Columbia University Italian Academy Fellowship Program 2027–2028: Fully Funded Research Fellowship in the United States",
-      "provider": "",
-      "location": "",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Fully Funded",
-      "amount": null,
-      "amount_str": "",
-      "deadline": "",
-      "level": "Fellowship",
-      "description": "Scholars, researchers, and academics from around the world are invited to apply for the prestigious Italian Academy Fellowship Program 2027–2028 at Columbia University in New York City, United States. Hosted by the renowned Italian Academy for Advanced Studies, this highly competitive fellowship provides an exceptional opportunity for postdoctoral researchers, mid-career academics, and senior scholars to [&hellip;]",
-      "tags": [
-        "continent",
-        "africa",
-        "america",
-        "asia",
-        "australia and oceania",
-        "europe"
-      ],
-      "url": "https://opportunitiesforyouth.org/2026/10/23/columbia-university-italian-academy-fellowship-program-2027-2028-fully-funded-research-fellowship-in-the-united-states/",
-      "source": "OpportunitiesForYouth",
-      "date": "2026-10-23T00:03:28",
-      "posted_ago": ""
-    },
-    {
-      "id": "ofy-bodleian-visiting-fellowships-2027-2028-at-the-university-of",
-      "title": "Bodleian Visiting Fellowships 2027–2028 at the University of Oxford: Funding of Up to £2,200 per Month for International Researchers",
-      "provider": "",
-      "location": "",
-      "region": "EU",
-      "country": "",
-      "remote": false,
-      "funding": "Fellowship",
-      "amount": 2200.0,
-      "amount_str": "£2,200",
-      "deadline": "",
-      "level": "Fellowship",
-      "description": "The Bodleian Libraries are part of the University of Oxford and hold extensive collections of historical documents, manuscripts, printed books and other research materials. Their special collections support scholarship across numerous disciplines, including history, literature, music, the history of science, cultural studies, African studies, religious studies and the study of books and communication. The Bodleian [&hellip;]",
-      "tags": [
-        "continent",
-        "africa",
-        "asia",
-        "australia and oceania",
-        "europe",
-        "fellowship"
-      ],
-      "url": "https://opportunitiesforyouth.org/2026/10/22/bodleian-visiting-fellowships-2027-2028-at-the-university-of-oxford-funding-of-up-to-2200-per-month-for-international-researchers/",
-      "source": "OpportunitiesForYouth",
-      "date": "2026-10-22T22:55:29",
-      "posted_ago": ""
-    },
-    {
-      "id": "ofy-path-global-health-strategy-intern-2026-paid-remote-internsh",
-      "title": "PATH Global Health Strategy Intern 2026: Paid Remote Internship Supporting International Health Development and Funding Strategy",
-      "provider": "",
-      "location": "",
-      "region": "WW",
-      "country": "",
-      "remote": false,
-      "funding": "Government",
-      "amount": null,
-      "amount_str": "",
-      "deadline": "",
-      "level": "Internship",
-      "description": "The global health sector depends on strong partnerships, innovative research, and strategic investments to address some of the world's most pressing healthcare challenges. For students and emerging professionals seeking practical experience in global health, international development, research, and strategic planning, the PATH Global Health Strategy Internship presents a valuable opportunity to engage with real-world global [&hellip;]",
-      "tags": [
-        "continent",
-        "africa",
-        "america",
-        "asia",
-        "australia and oceania",
-        "europe"
-      ],
-      "url": "https://opportunitiesforyouth.org/2026/10/22/path-global-health-strategy-intern-2026-paid-remote-internship-supporting-international-health-development-and-funding-strategy/",
-      "source": "OpportunitiesForYouth",
-      "date": "2026-10-22T20:28:19",
       "posted_ago": ""
     }
   ]
