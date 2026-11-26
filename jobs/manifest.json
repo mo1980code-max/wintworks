@@ -1,405 +1,405 @@
 {
  "files": {
-  "adzuna-be-5978114640.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-be-5978114640",
-   "title": "Senior Node.js Developer (Belgium)"
-  },
-  "adzuna-be-5978115136.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-be-5978115136",
-   "title": "Technisch verkoper | Fnac | Meir"
-  },
-  "adzuna-be-5978115138.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-be-5978115138",
-   "title": "Ouvrier en zone sale – travail physique"
-  },
-  "adzuna-be-5978115142.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-be-5978115142",
-   "title": "Chauffeur VIP | Rijbewijs D| 38u | Regio Antwerpen"
-  },
-  "adzuna-be-5978115143.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-be-5978115143",
-   "title": "Boucher/ère | flexi job | Désossage de têtes expérimenté"
-  },
-  "adzuna-be-5978115144.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-be-5978115144",
-   "title": "Réceptionniste Automobile (H/F)"
-  },
-  "adzuna-de-5978116019.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116019",
-   "title": "Ausbildung Industriekaufmann (m/w/d)"
-  },
-  "adzuna-de-5978116050.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116050",
-   "title": "Kraftfahrer (m/w/d) C/CE für Tagestouren im Nahverkehr"
-  },
-  "adzuna-de-5978116052.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116052",
-   "title": "Fuhrparkdisponent (m/w/d)"
-  },
-  "adzuna-de-5978116053.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116053",
-   "title": "Business Improvement Manager/ Manager (m/w/d) Prozessoptimierung"
-  },
-  "adzuna-de-5978116056.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116056",
-   "title": "Leitende Psychologische Psychotherapeutin (m/w/d)"
-  },
-  "adzuna-de-5978116057.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116057",
-   "title": "Mitarbeiter Außendienst Ost-Mitteldeutschland (w/m/d)"
-  },
-  "adzuna-de-5978116067.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116067",
-   "title": "Fachberater für die Bäderausstellung SHK (m/w/d)"
-  },
-  "adzuna-de-5978116100.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116100",
-   "title": "Feinoptiker (gn) für die konventionelle Fertigung optischer Komponenten"
-  },
-  "adzuna-de-5978116106.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116106",
-   "title": "Haustechniker/ Elektriker (m/w/d)"
-  },
-  "adzuna-de-5978116112.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116112",
-   "title": "Payroll Expert (m/w/d)"
-  },
-  "adzuna-de-5978116117.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116117",
-   "title": "Software-Entwickler C++ (m/w/d) für Simulations-Software und -Systeme"
-  },
-  "adzuna-de-5978116130.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116130",
-   "title": "Verkäufer / Kundenberater (m/w/d) im Sanitätshaus"
-  },
-  "adzuna-de-5978116135.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116135",
-   "title": "Buchhalter Anlagen HWS (m/w/d)"
-  },
-  "adzuna-de-5978116141.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116141",
-   "title": "Referent HR-Systeme & Digitalisierung (m/w/d)"
-  },
-  "adzuna-de-5978116144.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116144",
-   "title": "Landschaftsgärtnerin oder Landschaftsgärtner (w/m/d)"
-  },
-  "adzuna-de-5978116145.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116145",
-   "title": "Strategischer Einkäufer Instandhaltung & Ersatzteile (m/w/d)"
-  },
-  "adzuna-de-5978116146.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116146",
-   "title": "Standortleiter Service und Logistik (w/m/d) Bekleidungsmanagement der Bundeswehr"
-  },
-  "adzuna-de-5978116151.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116151",
-   "title": "Maschinenbediener (m/w/d) im Schichtbetrieb"
-  },
-  "adzuna-de-5978116152.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116152",
-   "title": "Servicetechniker im Außendienst (m/w/d)"
-  },
-  "adzuna-de-5978116178.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116178",
-   "title": "Sachbearbeiter Logistik / Lagerbüro (m/w/d) Teilzeit | Mo.-Do. 16-20 Uhr"
-  },
-  "adzuna-de-5978116179.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116179",
-   "title": "ERP Sales Manager (m/w/d)"
-  },
-  "adzuna-de-5978116186.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116186",
-   "title": "TPM-Koordinator (m/w/d)"
-  },
-  "adzuna-de-5978116187.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116187",
-   "title": "Teamleiter*in Betriebspersonal an Schulen"
-  },
-  "adzuna-de-5978116188.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116188",
-   "title": "Elektriker / Mechatroniker / Elektroniker (m/w/d) Instandhaltung"
-  },
-  "adzuna-de-5978116189.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116189",
-   "title": "Spezialist Transportlogistik & Import - International (m/w/d)"
-  },
-  "adzuna-de-5978116194.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116194",
-   "title": "Pflegefachkraft (m/w/d) im Nachtdienst"
-  },
-  "adzuna-de-5978116197.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116197",
-   "title": "Elektrotechniker (m/w/d) für SPS-Programmierung / Visualisierung"
-  },
-  "adzuna-de-5978116199.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116199",
-   "title": "Servicetechniker / Mechatroniker (m/w/d) für Inbetriebnahme & Service weltweit"
-  },
-  "adzuna-de-5978116219.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116219",
-   "title": "Mitarbeiter Instandhaltung Gleisbau (m/w/d)"
-  },
-  "adzuna-de-5978116252.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116252",
-   "title": "Kreditanalyst Individual für Spezialfinanzierungen (m/w/d)"
-  },
-  "adzuna-de-5978116261.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116261",
-   "title": "Trainee für das Schelling-Forum (m/w/d) Teilzeit"
-  },
-  "adzuna-de-5978116269.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116269",
-   "title": "Sicherheitsingenieur:in / Fachkraft für Arbeitssicherheit (m/w/d)"
-  },
-  "adzuna-de-5978116272.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116272",
-   "title": "Mitarbeiter Kundenservice (w/m/d)"
-  },
-  "adzuna-de-5978116284.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116284",
-   "title": "Haustechniker/ Objekttechniker/ Techniker (m/w/d) in der Gebäudetechnik"
-  },
-  "adzuna-de-5978116301.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116301",
-   "title": "Operativer Einkäufer / Procurement Specialist (m/w/d)"
-  },
-  "adzuna-de-5978116311.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116311",
-   "title": "Arbeitsvorbereiter (m/w/d)"
-  },
-  "adzuna-de-5978116328.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116328",
-   "title": "Sachbearbeitung Kreditorenbuchhaltung"
-  },
-  "adzuna-de-5978116348.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116348",
-   "title": "Service Lead (Team Lead) Real Estate / Teamleitung Immobilienverwaltung (m/w/d)"
-  },
-  "adzuna-de-5978116361.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116361",
-   "title": "Versicherungs- und Finanzexperte im angestellten Außendienst im Raum Ravensburg - Friedrichshafen - Überlingen (w/m/d)"
-  },
-  "adzuna-de-5978116418.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116418",
-   "title": "Fachkraft für berufliche Bildung und Integration (m/w/d)"
-  },
-  "adzuna-de-5978116437.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116437",
-   "title": "Disponent (w/m/d)"
-  },
-  "adzuna-de-5978116442.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116442",
-   "title": "Erzieher (m/w/d)"
-  },
-  "adzuna-de-5978116446.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116446",
-   "title": "Außendienstmitarbeiter / Vertriebsmitarbeiter (m/w/d) Raumausstattung Ober-/Niederbayern"
-  },
-  "adzuna-de-5978116450.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116450",
-   "title": "Mitarbeiter (m/w/d) Energiewirtschaft und kaufmännische Koordination"
-  },
-  "adzuna-de-5978116499.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116499",
-   "title": "Nachtragsmanager Bahninfrastruktur (m/w/d) Bochum"
-  },
-  "adzuna-de-5978116752.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-de-5978116752",
-   "title": "Shiftleader (m/w/d) Hamburg/Hannover"
-  },
-  "adzuna-es-5978120496.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-es-5978120496",
-   "title": "Modelador BIM (Estructures)"
-  },
-  "adzuna-es-5978120503.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-es-5978120503",
-   "title": "Jefe de Obra"
-  },
-  "adzuna-fr-5978106596.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106596",
-   "title": "INFIRMIER ADDICTOLOGIE TCLA H/F - LES EUMENIDES (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106597.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106597",
-   "title": "Futur(e)s Gestionnaires Conseil Allocataires H/F - Mantes la Jolie (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106598.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106598",
-   "title": "CDD - Consultant Interne RH F/H (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106599.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106599",
-   "title": "Masseur Kinésitherapeute (H/F) Bar-le-Duc (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106600.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106600",
-   "title": "Conseiller service à l'usager (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106601.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106601",
-   "title": "Chirurgien·ne dentiste (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106602.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106602",
-   "title": "Assistant / Assistante Technique RH GAP (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106603.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106603",
-   "title": "Éducateur spécialisé H/F (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106604.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106604",
-   "title": "Aide soignant (H/F) (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106607.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106607",
-   "title": "MEDECIN (H/F) CDI (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106611.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106611",
-   "title": "INFIRMIER poste NUIT H/F - CDD temps partiel - SMR La Tourmaline (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106613.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106613",
-   "title": "Un(e) technicien(ne) du traitement de l'information (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106615.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106615",
-   "title": "Masseur Kinésithérapeute (H/F) (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106616.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106616",
-   "title": "CDD Conseiller service à l'usager F/H (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106617.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106617",
-   "title": "CHARGE D'INSERTION PROFESSIONNELLE H/F - CDI (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106618.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106618",
-   "title": "Infirmier du service médical (H/F) - Service du contrôle médical - Poissy. (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106619.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106619",
-   "title": "DIRECTEUR REGIONAL ADJOINT (F/H) (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106622.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106622",
-   "title": "ASSISTANT-E DE DIRECTION (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106623.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106623",
-   "title": "MEDECIN CONSEIL (H/F) (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106624.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106624",
-   "title": "Enseignant(e) en Activités Physiques Adaptées (H/F) (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106625.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106625",
-   "title": "INFIRMIER H/F (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106626.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106626",
-   "title": "Médecin de Prévention - CES (F/H) (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106627.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106627",
-   "title": "Conseiller Qualité (H/F) - Préparation de la certification HAS (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106628.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106628",
-   "title": "Ingénieur Études Contrôle Commande - RadioProtection F/H (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-fr-5978106632.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-fr-5978106632",
-   "title": "AIDE SOIGNANT H/F POSTE DE JOUR - SMR LA TOURMALINE (Entreprise handi-accueillante - RQTH)"
-  },
-  "adzuna-nl-5978121677.html": {
-   "date": "2026-11-25",
-   "id": "adzuna-nl-5978121677",
-   "title": "Monteur Technische Dienst"
+  "adzuna-de-5979332795.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332795",
+   "title": "Assistenzarzt / Assistenzärztin in Weiterbildung Psychiatrie Psychotherapie (m/w/d)"
+  },
+  "adzuna-de-5979332799.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332799",
+   "title": "Leitende/r MTL (m/w/d) Routinelabor Pathologie"
+  },
+  "adzuna-de-5979332810.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332810",
+   "title": "Assistenzarzt (m/w/d) Neurologie"
+  },
+  "adzuna-de-5979332813.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332813",
+   "title": "Pflegefachkraft (m/w/d) Kinderkrankenpflege, mit Spezialisierung"
+  },
+  "adzuna-de-5979332830.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332830",
+   "title": "Pflegefachkraft (m/w/d) Viszeral, Thorax- und Gefäßchirurgie"
+  },
+  "adzuna-de-5979332846.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332846",
+   "title": "Pflegefachperson (w/m/d) Neonatologie / pädiatrische Intensivpflege (Level 1)"
+  },
+  "adzuna-de-5979332847.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332847",
+   "title": "Pflegefachkräfte & Pflegeassistenten (m/w/d)"
+  },
+  "adzuna-de-5979332849.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332849",
+   "title": "IT-Mitarbeiter (m/w/d) Betreuung MVZ Heidenheim"
+  },
+  "adzuna-de-5979332852.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332852",
+   "title": "Logopäde (w/m/d) in den Diakonie Kliniken in Bad Kreuznach"
+  },
+  "adzuna-de-5979332853.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332853",
+   "title": "Fachärztin/Facharzt (w/m/d) für Psychiatrie und Psychotherapie oder Assistenzärztin/-arzt (w/m/d) in fortgeschrittener Weiterbildung"
+  },
+  "adzuna-de-5979332854.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332854",
+   "title": "Pflegefachassistenz (m/w/d) im ambulanten Dienst Dinslaken"
+  },
+  "adzuna-de-5979332855.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332855",
+   "title": "IT-Systemadministrator (w/m/d) mit Schwerpunkt Digitalisierung Kliniksysteme in Vollzeit"
+  },
+  "adzuna-de-5979332861.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332861",
+   "title": "Heilerziehungspfleger (m/w/d)"
+  },
+  "adzuna-de-5979332865.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332865",
+   "title": "Gesundheits- und Krankenpfleger (m/w/d) für die Abteilung Intensivmedizin"
+  },
+  "adzuna-de-5979332866.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332866",
+   "title": "Physiotherapeut (m/w/d) für das Rehazentrum ambulant"
+  },
+  "adzuna-de-5979332867.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332867",
+   "title": "Gesundheits- und Krankenpfleger (m/w/d) für die Abteilung Rückenmarkverletzte"
+  },
+  "adzuna-de-5979332870.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332870",
+   "title": "Kodierfachkraft (m/w/d)"
+  },
+  "adzuna-de-5979332871.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332871",
+   "title": "Pflegefachkraft (m/w/d) / Gesundheits- und Krankenpfleger (m/w/d) für unsere Palliativstation"
+  },
+  "adzuna-de-5979332872.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332872",
+   "title": "Ergotherapeut (m/w/d) für unsere Therapiesparte \"Hand- und Arbeitstherapie\""
+  },
+  "adzuna-de-5979332873.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332873",
+   "title": "Heilerziehungspfleger / Gesundheits- und Krankenpfleger (m/w/d)"
+  },
+  "adzuna-de-5979332874.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332874",
+   "title": "Helfer in der Betreuung (m/w/d) als Nachtbereitschaft"
+  },
+  "adzuna-de-5979332875.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332875",
+   "title": "Facharzt für Urologie/ Funktionsoberarzt (m/w/d) im Zentrum für Rückenmarkverletzte"
+  },
+  "adzuna-de-5979332876.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332876",
+   "title": "Facharzt für Allgemeinchirurgie/ Funktionsoberarzt (m/w/d) im Zentrum für Rückenmarkverletzte"
+  },
+  "adzuna-de-5979332879.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332879",
+   "title": "Pflegekraft (m/w/d) in Teilzeit"
+  },
+  "adzuna-de-5979332880.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332880",
+   "title": "Pflegefachkraft (w/m/d) für die Akutstationen in unserer Klinik für Allgemeinpsychiatrie und Psychotherapie"
+  },
+  "adzuna-de-5979332881.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332881",
+   "title": "Pflegefachkraft (w/m/d) für unsere Klinik für Allgemeinpsychiatrie und Psychotherapie"
+  },
+  "adzuna-de-5979332882.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332882",
+   "title": "Hygienefachkraft (w/m/d) in Teilzeit (50%)"
+  },
+  "adzuna-de-5979332885.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332885",
+   "title": "Pflegefachkraft (m/w/d) als Praxisanleitung - Wiedereinsteigende und Rückkehrende"
+  },
+  "adzuna-de-5979332887.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332887",
+   "title": "Elektroniker Betriebstechnik / Mechatroniker (m/w/d) Förder- & Gebäudetechnik"
+  },
+  "adzuna-de-5979332900.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332900",
+   "title": "Fly the E190 with Morocco's Flag| E190 Pilots & First Officers Carrier"
+  },
+  "adzuna-de-5979332903.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332903",
+   "title": "MFA/Pflegefachkraft (m/w/d) Dialyse - MVZ Nephrologie - Teilzeit 85%"
+  },
+  "adzuna-de-5979332904.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332904",
+   "title": "Pflegefachkraft / Altenpfleger (m/w/d)"
+  },
+  "adzuna-de-5979332905.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332905",
+   "title": "Medizinischer Technologe für Radiologie (m/w/d)"
+  },
+  "adzuna-de-5979332907.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332907",
+   "title": "Pflegepädagogin (m/w/d) 80 -100 %"
+  },
+  "adzuna-de-5979332913.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332913",
+   "title": "Projektassistenz Gesundheitswesen (m/w/d) im Home-Office"
+  },
+  "adzuna-de-5979332914.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332914",
+   "title": "Heilerziehungspfleger / Erzieher (m/w/d)"
+  },
+  "adzuna-de-5979332951.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332951",
+   "title": "Pflegefachkraft im Nachtdienst (m/w/d)"
+  },
+  "adzuna-de-5979332955.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332955",
+   "title": "MFA (m/w/d)"
+  },
+  "adzuna-de-5979332957.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332957",
+   "title": "Heilerziehungspfleger (m/w/d) Ausfallmanagement"
+  },
+  "adzuna-de-5979332958.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332958",
+   "title": "Pflegefachkraft (m/w/d) - Psychosomatik"
+  },
+  "adzuna-de-5979332959.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332959",
+   "title": "Arzt in Weiterbildung Arbeitsmedizin (m/w/d) flexible Arbeitszeiten"
+  },
+  "adzuna-de-5979332962.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332962",
+   "title": "Erzieher/ Pädagogische Fachkraft in Voll- und Teilzeit (m/w/d)"
+  },
+  "adzuna-de-5979332964.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332964",
+   "title": "Peach Aviation - NTR Captains"
+  },
+  "adzuna-de-5979332965.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332965",
+   "title": "A320 Pilots - Vietnam Airlines"
+  },
+  "adzuna-de-5979332967.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332967",
+   "title": "Elektriker als Haustechniker (m/w/d) für Gebäudetechnik"
+  },
+  "adzuna-de-5979332968.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332968",
+   "title": "Haustechniker / Elektroniker (m/w/d) für Gebäudetechnik & Fördertechnik"
+  },
+  "adzuna-de-5979332970.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979332970",
+   "title": "Fahrer im Menüservice (m/w/d) Weingarten"
+  },
+  "adzuna-de-5979340181.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979340181",
+   "title": "Pflegefachkraft (m/w/d)"
+  },
+  "adzuna-de-5979340552.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-de-5979340552",
+   "title": "Head of Business Analysis - Insurance (Fully Remote)"
+  },
+  "adzuna-fr-5979300523.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979300523",
+   "title": "Soudeur monteur H/F"
+  },
+  "adzuna-fr-5979300532.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979300532",
+   "title": "Opérateur Thermoformage (h/f)"
+  },
+  "adzuna-fr-5979300543.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979300543",
+   "title": "Electricien Industriel (h/f)"
+  },
+  "adzuna-fr-5979300546.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979300546",
+   "title": "Topographe en détection de réseaux (h/f)"
+  },
+  "adzuna-fr-5979300606.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979300606",
+   "title": "Assistant(e) de Vie aux familles en alternance H/F"
+  },
+  "adzuna-fr-5979300610.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979300610",
+   "title": "Aide ménagère H/F"
+  },
+  "adzuna-fr-5979300704.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979300704",
+   "title": "Télévendeur H/F"
+  },
+  "adzuna-fr-5979338575.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338575",
+   "title": "CONDUCTEUR SUPER POIDS LOURDS (F/H)"
+  },
+  "adzuna-fr-5979338582.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338582",
+   "title": "ASSISTANT ADMINISTRATIF (F/H)"
+  },
+  "adzuna-fr-5979338597.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338597",
+   "title": "MAGASINIER-GESTIONNAIRE DE STOCKS (F/H)"
+  },
+  "adzuna-fr-5979338602.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338602",
+   "title": "MAGASINIER-GESTIONNAIRE DE STOCKS (F/H)"
+  },
+  "adzuna-fr-5979338637.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338637",
+   "title": "PRÉPARATEUR DE COMMANDES (F/H)"
+  },
+  "adzuna-fr-5979338638.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338638",
+   "title": "PRÉPARATEUR KITS OUTILS (H/F)"
+  },
+  "adzuna-fr-5979338639.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338639",
+   "title": "CARISTE (F/H)"
+  },
+  "adzuna-fr-5979338641.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338641",
+   "title": "CARISTE (F/H)"
+  },
+  "adzuna-fr-5979338678.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338678",
+   "title": "TECHNICIEN DE MAINTENANCE ITINÉRANT (F/H)"
+  },
+  "adzuna-fr-5979338683.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338683",
+   "title": "ÉLECTROMÉCANICIEN INDUSTRIEL (H/F)"
+  },
+  "adzuna-fr-5979338686.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338686",
+   "title": "TECHNICIEN DE MAINTENANCE (F/H)"
+  },
+  "adzuna-fr-5979338687.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338687",
+   "title": "MONTEUR HABILLEUR – FORMATION – RANDSTAD INHOUSE – ALSTOM F/H"
+  },
+  "adzuna-fr-5979338707.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338707",
+   "title": "SOUDEUR (F/H)"
+  },
+  "adzuna-fr-5979338709.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338709",
+   "title": "TOURNEUR (F/H)"
+  },
+  "adzuna-fr-5979338712.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338712",
+   "title": "SOUDEUR (F/H)"
+  },
+  "adzuna-fr-5979338717.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338717",
+   "title": "CÂBLEUR D'ARMOIRE (F/H)"
+  },
+  "adzuna-fr-5979338739.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338739",
+   "title": "AGENT DE FABRICATION (F/H)"
+  },
+  "adzuna-fr-5979338740.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338740",
+   "title": "OPÉRATEUR DE PRODUCTION (F/H)"
+  },
+  "adzuna-fr-5979338760.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338760",
+   "title": "AGENT DE CONFECTION (F/H)"
+  },
+  "adzuna-fr-5979338795.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338795",
+   "title": "AGENT DE PRODUCTION AGROALIMENTAIRE (F/H)"
+  },
+  "adzuna-fr-5979338798.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338798",
+   "title": "GOUVERNANT (F/H)"
+  },
+  "adzuna-fr-5979338801.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-fr-5979338801",
+   "title": "CONSEILLER FUNÉRÈRE H/F (F/H)"
+  },
+  "adzuna-nl-5979305142.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-nl-5979305142",
+   "title": "Assetinformatiemanager"
+  },
+  "adzuna-nl-5979305145.html": {
+   "date": "2026-11-26",
+   "id": "adzuna-nl-5979305145",
+   "title": "Recruiter"
   }
  },
- "updated": "2026-11-25"
+ "updated": "2026-11-26"
 }
